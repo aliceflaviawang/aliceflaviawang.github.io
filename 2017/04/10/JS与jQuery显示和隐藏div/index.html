@@ -4,26 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>git bash命令上传下载代代码 | Alice notes</title>
+    <title>JS与jQuery显示和隐藏div | Alice notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote 上传到git1、安装完成后，在命令行输入下面的代码进行配置12$ git config --global user.name &amp;quot;your real name&amp;quot;$ git config --global user">
+    <meta name="description" content="关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。1&amp;lt;div id=&amp;quot;div&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; JS方式123document.getElementById(&amp;quot;div&amp;quot;).style.display=&amp;quot;block&amp;quot;;document.getElementById(&amp;quot;div&amp;quot;">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git bash命令上传下载代代码">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/08/git bash命令上传下载代代码/index.html">
+<meta property="og:title" content="JS与jQuery显示和隐藏div">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/10/JS与jQuery显示和隐藏div/index.html">
 <meta property="og:site_name" content="Alice notes">
-<meta property="og:description" content="git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote 上传到git1、安装完成后，在命令行输入下面的代码进行配置12$ git config --global user.name &amp;quot;your real name&amp;quot;$ git config --global user">
-<meta property="og:image" content="http://i.imgur.com/ZKONJeq.png">
-<meta property="og:updated_time" content="2017-04-08T12:38:13.134Z">
+<meta property="og:description" content="关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。1&amp;lt;div id=&amp;quot;div&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; JS方式123document.getElementById(&amp;quot;div&amp;quot;).style.display=&amp;quot;block&amp;quot;;document.getElementById(&amp;quot;div&amp;quot;">
+<meta property="og:updated_time" content="2017-04-10T12:39:10.062Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git bash命令上传下载代代码">
-<meta name="twitter:description" content="git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote 上传到git1、安装完成后，在命令行输入下面的代码进行配置12$ git config --global user.name &amp;quot;your real name&amp;quot;$ git config --global user">
-<meta name="twitter:image" content="http://i.imgur.com/ZKONJeq.png">
+<meta name="twitter:title" content="JS与jQuery显示和隐藏div">
+<meta name="twitter:description" content="关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。1&amp;lt;div id=&amp;quot;div&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; JS方式123document.getElementById(&amp;quot;div&amp;quot;).style.display=&amp;quot;block&amp;quot;;document.getElementById(&amp;quot;div&amp;quot;">
 
     
     <link rel="alternative" href="/atom.xml" title="Alice notes" type="application/atom+xml">
@@ -83,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/08/git bash命令上传下载代代码/" title="git bash命令上传下载代代码" itemprop="url">git bash命令上传下载代代码</a>
+      <a href="/2017/04/10/JS与jQuery显示和隐藏div/" title="JS与jQuery显示和隐藏div" itemprop="url">JS与jQuery显示和隐藏div</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-08T12:37:28.000Z" itemprop="datePublished"> 发表于 2017-04-08</time>
+    <time datetime="2017-04-10T12:25:07.000Z" itemprop="datePublished"> 发表于 2017-04-10</time>
     
   </p>
 </header>
@@ -99,20 +97,14 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#上传到git"><span class="toc-number">1.</span> <span class="toc-text">上传到git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从git上下载"><span class="toc-number">2.</span> <span class="toc-text">从git上下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-number">3.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#经常遇到的问题"><span class="toc-number">4.</span> <span class="toc-text">经常遇到的问题</span></a></li></ol>
+			
 		
 		</div>
 		
-		<p>git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote</p>
-<h3 id="上传到git"><a href="#上传到git" class="headerlink" title="上传到git"></a>上传到git</h3><p>1、安装完成后，在命令行输入下面的代码进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;your real name&quot;</div><div class="line">$ git config --global user.email &quot;your eamil address&quot;</div></pre></td></tr></table></figure></p>
-<p>注：”your real name“是你的真实姓名，”your eamil address”是你的注册github的邮箱<br>2、在主用户目录下，输入下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C &quot;your eamil address</div></pre></td></tr></table></figure></p>
-<p> 然后在自己电脑的C盘下找到.ssh文件夹，用记事本打开里面的id_rsa.pub,复制里面的内容。登陆Github，在账户设置里找到SSH keys页面，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容。<br>3、利用”cd”命令将路径切换到你要上传的代码所在的文件夹下面（或者打开你要上传的代码的文件夹，右键git bash here）,输入一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$git init  //把目录变成git可以管理的仓库</div><div class="line">$git add .  //add后面加&quot;.&quot;表示上传所以的代码，如果想上传指定的，只需要把&quot;.&quot;改成文件名即可</div><div class="line">$git commit -m &quot;你对文件的描述&quot;  //提交你对文件的描述</div></pre></td></tr></table></figure></p>
-<p>4、在本地仓库目录下输入下面命令将本地仓库和远程仓库关联（如果已经上传过代码了，可以直接跳到第6步）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$git remote add orgin git@github.com:yonghuming/kuming.git</div></pre></td></tr></table></figure></p>
-<p>origin可是换成你想要的任何名字，但是要记住这个源名字（与第6步的origin对应，我每次都是新起一个名字因为经常提示origin已经存在了）<br>5、输入如下代码，将自己的文件上传<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$git push -u origin master</div></pre></td></tr></table></figure></p>
-<p>其实github上每次创建一个新的仓库的时候，都有命令提示<br><img src="http://i.imgur.com/ZKONJeq.png" alt=""></p>
-<h3 id="从git上下载"><a href="#从git上下载" class="headerlink" title="从git上下载"></a>从git上下载</h3><p>$git clone git@github.com:yonghuming/kuming.git</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>$git pull origin master</p>
-<h3 id="经常遇到的问题"><a href="#经常遇到的问题" class="headerlink" title="经常遇到的问题"></a>经常遇到的问题</h3><p>error:src refspec master does not match any<br>原因：本地版本库为空，空目录不能提交</p>
+		<p>关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;div&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;block&quot;;</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;none&quot;;//不占用空间</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;hidden&quot;;//仍然占用空间</div></pre></td></tr></table></figure></p>
+<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//通过css方法设置属性</div><div class="line">$(&quot;#div&quot;).css(&quot;diaplay&quot;,&quot;block&quot;);</div><div class="line">//给元素换class，提前将换的class样式定义好display属性</div><div class="line">$(&quot;#div&quot;).attr(&quot;class&quot;,&quot;blockclass&quot;);</div><div class="line">//通过attr方法</div><div class="line">$(&quot;#div&quot;).attr(&quot;display&quot;,&quot;block&quot;);</div></pre></td></tr></table></figure></p>
+<p>注：jQuery的css方法和attr方法的区别,css顾名思义就是标签自带的css属性，atrr只能取自己定义的属性，例如，如果div中没有diaplay这个属性的话，不能用过attr给其赋值，但是可以用css方法。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -125,7 +117,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/08/git bash命令上传下载代代码/" data-title="git bash命令上传下载代代码 | Alice notes" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/04/10/JS与jQuery显示和隐藏div/" data-title="JS与jQuery显示和隐藏div | Alice notes" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -139,21 +131,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/04/Github-Pages-Hexo搭建教程/" title="Github Pages+Hexo搭建教程">
+ <a href="/2017/04/10/JS与jQuery清空输入框/" title="JS与jQuery清空输入框">
   <strong>上一篇：</strong><br/>
   <span>
-  Github Pages+Hexo搭建教程</span>
+  JS与jQuery清空输入框</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/09/基于easyui项目学习的总结（一）/"  title="基于easyui项目学习的总结（一）">
- <strong>下一篇：</strong><br/> 
- <span>基于easyui项目学习的总结（一）
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -165,7 +149,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#上传到git"><span class="toc-number">1.</span> <span class="toc-text">上传到git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从git上下载"><span class="toc-number">2.</span> <span class="toc-text">从git上下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-number">3.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#经常遇到的问题"><span class="toc-number">4.</span> <span class="toc-text">经常遇到的问题</span></a></li></ol>
+ 
  
   </div>
 

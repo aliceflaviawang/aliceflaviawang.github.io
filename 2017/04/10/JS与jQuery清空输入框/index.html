@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>我的第一篇博客 | Alice notes</title>
+    <title>JS与jQuery清空输入框 | Alice notes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="感想清明节放假的最后一天，终于搭建了这个博客，心情还是比较激动的，希望以后能够通过博客这种方式记录下每天的进步！">
+    <meta name="description" content="input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。1&amp;lt;input id=&amp;quot;input&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;input&amp;quot;&amp;gt; JS方式1document.getElementById(&amp;quot;input&amp;quot;).value=&amp;quot;&amp;quo">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇博客">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/04/我的第一篇博客/index.html">
+<meta property="og:title" content="JS与jQuery清空输入框">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/10/JS与jQuery清空输入框/index.html">
 <meta property="og:site_name" content="Alice notes">
-<meta property="og:description" content="感想清明节放假的最后一天，终于搭建了这个博客，心情还是比较激动的，希望以后能够通过博客这种方式记录下每天的进步！">
-<meta property="og:updated_time" content="2017-04-04T13:42:27.261Z">
+<meta property="og:description" content="input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。1&amp;lt;input id=&amp;quot;input&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;input&amp;quot;&amp;gt; JS方式1document.getElementById(&amp;quot;input&amp;quot;).value=&amp;quot;&amp;quo">
+<meta property="og:updated_time" content="2017-04-10T12:16:41.820Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一篇博客">
-<meta name="twitter:description" content="感想清明节放假的最后一天，终于搭建了这个博客，心情还是比较激动的，希望以后能够通过博客这种方式记录下每天的进步！">
+<meta name="twitter:title" content="JS与jQuery清空输入框">
+<meta name="twitter:description" content="input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。1&amp;lt;input id=&amp;quot;input&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;input&amp;quot;&amp;gt; JS方式1document.getElementById(&amp;quot;input&amp;quot;).value=&amp;quot;&amp;quo">
 
     
     <link rel="alternative" href="/atom.xml" title="Alice notes" type="application/atom+xml">
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/04/我的第一篇博客/" title="我的第一篇博客" itemprop="url">我的第一篇博客</a>
+      <a href="/2017/04/10/JS与jQuery清空输入框/" title="JS与jQuery清空输入框" itemprop="url">JS与jQuery清空输入框</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-04T13:28:41.000Z" itemprop="datePublished"> Published 2017-04-04</time>
+    <time datetime="2017-04-10T12:12:09.000Z" itemprop="datePublished"> Published 2017-04-10</time>
     
   </p>
 </header>
@@ -97,11 +97,13 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#感想"><span class="toc-number">1.</span> <span class="toc-text">感想</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>清明节放假的最后一天，终于搭建了这个博客，心情还是比较激动的，希望以后能够通过博客这种方式记录下每天的进步！</p>
+		<p>input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;input&quot;).value=&quot;&quot;;</div></pre></td></tr></table></figure></p>
+<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#input&quot;).val(&quot;&quot;);</div></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -114,7 +116,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/04/我的第一篇博客/" data-title="我的第一篇博客 | Alice notes" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/04/10/JS与jQuery清空输入框/" data-title="JS与jQuery清空输入框 | Alice notes" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,14 +129,14 @@
 	
 <nav class="article-nav clearfix">
  
-
-<div class="next">
-<a href="/2017/04/04/Github-Pages-Hexo搭建教程/"  title="Github Pages+Hexo搭建教程">
- <strong>下一篇：</strong><br/> 
- <span>Github Pages+Hexo搭建教程
-</span>
+ <div class="prev" >
+ <a href="/2017/04/09/java二维排序数组查找元素/" title="java二维排序数组查找元素">
+  <strong>上一篇：</strong><br/>
+  <span>
+  java二维排序数组查找元素</span>
 </a>
 </div>
+
 
 </nav>
 
@@ -146,7 +148,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#感想"><span class="toc-number">1.</span> <span class="toc-text">感想</span></a></li></ol>
+ 
  
   </div>
 

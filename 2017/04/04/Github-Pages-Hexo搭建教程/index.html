@@ -1,4 +1,126 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="You Never Know Who You Can Be"><meta name="keywords" content="Web前端, 前端学习, 技术分享"><title>Github Pages+Hexo搭建教程 | 笑呵呵</title><link rel="stylesheet" type="text/css" href="//fonts.css.network/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.3.0"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=1.3.0"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Github Pages+Hexo搭建教程</h1><a id="logo" href="/.">笑呵呵</a><p class="description">Live beautifully, dream passionately, love completely</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Start</i></a><a href="/archives/"><i class="fa fa-archive"> Archiv</i></a><a href="/about/"><i class="fa fa-user"> Über</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Github Pages+Hexo搭建教程</h1><div class="post-meta">Apr 4, 2017<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>越来越感觉世界真是太大了，每天学习很多东西，希望能够记录下来自己学习的点点滴滴，也能分享给更多的人，因此搭建了这个博客。<br>关于为什么选择github pages而不是wordpress，因为github pages有300M免费空间，资料自己管理，保存可靠，而且现在的项目开发，团队协作都需要用到github，通过搭建博客也更好的学习了如何使用github。</p>
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Github Pages+Hexo搭建教程 | 笑呵呵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Alice">
+    
+
+    
+    <meta name="description" content="前言越来越感觉世界真是太大了，每天学习很多东西，希望能够记录下来自己学习的点点滴滴，也能分享给更多的人，因此搭建了这个博客。关于为什么选择github pages而不是wordpress，因为github pages有300M免费空间，资料自己管理，保存可靠，而且现在的项目开发，团队协作都需要用到github，通过搭建博客也更好的学习了如何使用github。 github安装在官网https://">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Pages+Hexo搭建教程">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/04/Github-Pages-Hexo搭建教程/index.html">
+<meta property="og:site_name" content="笑呵呵">
+<meta property="og:description" content="前言越来越感觉世界真是太大了，每天学习很多东西，希望能够记录下来自己学习的点点滴滴，也能分享给更多的人，因此搭建了这个博客。关于为什么选择github pages而不是wordpress，因为github pages有300M免费空间，资料自己管理，保存可靠，而且现在的项目开发，团队协作都需要用到github，通过搭建博客也更好的学习了如何使用github。 github安装在官网https://">
+<meta property="og:image" content="http://i.imgur.com/v8Lk46D.png">
+<meta property="og:image" content="http://i.imgur.com/Y0wL28v.png">
+<meta property="og:image" content="http://i.imgur.com/dHRoRry.png">
+<meta property="og:image" content="http://i.imgur.com/ijwYMdZ.png">
+<meta property="og:image" content="http://i.imgur.com/uYDBON6.png">
+<meta property="og:image" content="http://i.imgur.com/0aql1aJ.png">
+<meta property="og:image" content="http://i.imgur.com/3Q0whFE.png">
+<meta property="og:image" content="http://i.imgur.com/0ixZIoS.png">
+<meta property="og:image" content="http://i.imgur.com/LypOezH.png">
+<meta property="og:image" content="http://i.imgur.com/Iht64kt.png">
+<meta property="og:image" content="http://i.imgur.com/gO8zvjJ.png">
+<meta property="og:image" content="http://i.imgur.com/Bx059qg.png">
+<meta property="og:image" content="http://i.imgur.com/4YHTq94.png">
+<meta property="og:image" content="http://i.imgur.com/l6fA31h.png">
+<meta property="og:image" content="http://i.imgur.com/oz5FlsU.png">
+<meta property="og:image" content="http://i.imgur.com/QStY3zn.png">
+<meta property="og:image" content="http://i.imgur.com/c8zrjMc.png">
+<meta property="og:image" content="http://i.imgur.com/DoXEiYI.png">
+<meta property="og:updated_time" content="2017-04-07T03:11:41.888Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Github Pages+Hexo搭建教程">
+<meta name="twitter:description" content="前言越来越感觉世界真是太大了，每天学习很多东西，希望能够记录下来自己学习的点点滴滴，也能分享给更多的人，因此搭建了这个博客。关于为什么选择github pages而不是wordpress，因为github pages有300M免费空间，资料自己管理，保存可靠，而且现在的项目开发，团队协作都需要用到github，通过搭建博客也更好的学习了如何使用github。 github安装在官网https://">
+<meta name="twitter:image" content="http://i.imgur.com/v8Lk46D.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="笑呵呵" title="笑呵呵"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
+				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/04/Github-Pages-Hexo搭建教程/" title="Github Pages+Hexo搭建教程" itemprop="url">Github Pages+Hexo搭建教程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-04T13:44:17.000Z" itemprop="datePublished"> Published 2017-04-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#github安装"><span class="toc-number">2.</span> <span class="toc-text">github安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用GitHub-Pages建立博客"><span class="toc-number">3.</span> <span class="toc-text">使用GitHub Pages建立博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github建立仓库"><span class="toc-number">3.1.</span> <span class="toc-text">github建立仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装node-js"><span class="toc-number">4.</span> <span class="toc-text">安装node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用Hexo克隆主题"><span class="toc-number">5.</span> <span class="toc-text">用Hexo克隆主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo介绍"><span class="toc-number">5.1.</span> <span class="toc-text">Hexo介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Hexo"><span class="toc-number">5.2.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署Hexo"><span class="toc-number">5.3.</span> <span class="toc-text">部署Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复制主题"><span class="toc-number">5.4.</span> <span class="toc-text">复制主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启用主题"><span class="toc-number">5.5.</span> <span class="toc-text">启用主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新主题"><span class="toc-number">5.6.</span> <span class="toc-text">更新主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地查看调试"><span class="toc-number">5.7.</span> <span class="toc-text">本地查看调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看搭建效果"><span class="toc-number">5.8.</span> <span class="toc-text">查看搭建效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo设置"><span class="toc-number">6.</span> <span class="toc-text">Hexo设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发表新文章"><span class="toc-number">6.1.</span> <span class="toc-text">发表新文章</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域名"><span class="toc-number">7.</span> <span class="toc-text">域名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将域名与Github-Pages空间绑定"><span class="toc-number">7.1.</span> <span class="toc-text">将域名与Github Pages空间绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub-pages设置"><span class="toc-number">7.1.1.</span> <span class="toc-text">GitHub pages设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS设置"><span class="toc-number">7.1.2.</span> <span class="toc-text">DNS设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#godaddy修改DNS"><span class="toc-number">7.1.3.</span> <span class="toc-text">godaddy修改DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问博客"><span class="toc-number">7.1.4.</span> <span class="toc-text">访问博客</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">8.</span> <span class="toc-text">后记</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>越来越感觉世界真是太大了，每天学习很多东西，希望能够记录下来自己学习的点点滴滴，也能分享给更多的人，因此搭建了这个博客。<br>关于为什么选择github pages而不是wordpress，因为github pages有300M免费空间，资料自己管理，保存可靠，而且现在的项目开发，团队协作都需要用到github，通过搭建博客也更好的学习了如何使用github。</p>
 <h2 id="github安装"><a href="#github安装" class="headerlink" title="github安装"></a>github安装</h2><p>在官网<a href="https://git-for-windows.github.io/上下载git，安装比较简单。" target="_blank" rel="external">https://git-for-windows.github.io/上下载git，安装比较简单。</a><br>访问<a href="http://www.github.com/，注册username和邮箱，注册过程也比较简单。" target="_blank" rel="external">http://www.github.com/，注册username和邮箱，注册过程也比较简单。</a></p>
 <h2 id="使用GitHub-Pages建立博客"><a href="#使用GitHub-Pages建立博客" class="headerlink" title="使用GitHub Pages建立博客"></a>使用GitHub Pages建立博客</h2><h3 id="github建立仓库"><a href="#github建立仓库" class="headerlink" title="github建立仓库"></a>github建立仓库</h3><p>登陆系统后，在github首页，点击页面右下角New Repository<br><img src="http://i.imgur.com/v8Lk46D.png" alt=""><br>填写项目信息：<br>project name:aliceflaviawang.github.io<br>注：GitHub Pages的Repository名字是特定的，比如我的Github账号是aliceflaviawang,那么我的GitHub Pages Repository名字就是aliceflaviawang.github.io。<br>点击Create Reposity完成创建。<br>进入创建的仓库，打开Settings<br><img src="http://i.imgur.com/Y0wL28v.png" alt=""><br>选择一个主题<br><img src="http://i.imgur.com/dHRoRry.png" alt=""><br>选择完毕，回到仓库页面，发现多了两个文件，_config.yml是配置文件。<br><img src="http://i.imgur.com/ijwYMdZ.png" alt=""><br>此时打开aliceflaviawang.github.io，可以看到index.md显示的内容。</p>
 <h2 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h2><p>参考教程<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html，非常简单。" target="_blank" rel="external">http://www.runoob.com/nodejs/nodejs-install-setup.html，非常简单。</a></p>
@@ -27,10 +149,342 @@
 <h4 id="godaddy修改DNS"><a href="#godaddy修改DNS" class="headerlink" title="godaddy修改DNS"></a>godaddy修改DNS</h4><p>点击我的账户里–&gt;点击域名–&gt;将godaddy的NameServer更改成f1g1ns1.dnspod.net和f1g1ns2.dnspod.net （域名解析后提示）。</p>
 <h4 id="访问博客"><a href="#访问博客" class="headerlink" title="访问博客"></a>访问博客</h4><p>现在就不需要访问aliceflaviawang.github.io了，可以直接访问aliceflaviawang.com<br>注：如果访问的时候发现页面是github首页，说明需要清除一下缓存了。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>本博客主要参考的是<a href="http://blog.sina.com.cn/s/blog_617ccc0c0101h84p.html。" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_617ccc0c0101h84p.html。</a></p>
-</div><div class="tags"></div><div class="post-nav"><a href="/2017/04/04/我的第一篇博客/" class="pre">我的第一篇博客</a><a href="/2017/04/08/git bash命令上传下载代代码/" class="next">git bash命令上传下载代代码</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="widget"><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="请输入关键字..."/></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-fei"> Archiv</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/腾讯实习前端总结/">腾讯实习前端总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/19/腾讯暑期实习面试前端面试总结/">腾讯暑期实习面试前端面试总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/11/easyui两个datagrid的问题/">easyui两个datagrid的问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/easyui表格查询/">easyui表格查询</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/easyui的dialog中插入下拉框/">easyui的dialog中插入下拉框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/win10永久激活方方法/">win10永久激活方方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/JS与jQuery显示和隐藏div/">JS与jQuery显示和隐藏div</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/JS与jQuery清空输入框/">JS与jQuery清空输入框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/java二维排序数组查找元素/">java二维排序数组查找元素</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/基于easyui项目学习的总结（一）/">基于easyui项目学习的总结（一）</a></li></ul></div></div></div></div><a id="totop" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.3.0" async></script><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |<a href="/atom.xml">订阅本站</a> |<span>联系博主：<a href="mailto:820447516@qq.com" target="_blank" class="fa fa-email"> </a><a href="null" target="_blank" class="fa fa-weibo"></a><a href="https://github.com/aliceflaviawang/" target="_blank" class="fa fa-github"> </a></span></p><p><span> Copyright &copy;<a href="/." rel="nofollow">Alice</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span><span><a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> Theme </a>by<a rel="nofollow" target="_blank" href="https://github.com/chaooo"> Charles.</a></span></p></div></div></div><script type="text/javascript" src="/js/search.json.js?v=1.3.0"></script><script>var _hmt = _hmt || [];
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://aliceflaviawang.github.io/2017/04/04/Github-Pages-Hexo搭建教程/" data-title="Github Pages+Hexo搭建教程 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/04/04/我的第一篇博客/" title="我的第一篇博客">
+  <strong>上一篇：</strong><br/>
+  <span>
+  我的第一篇博客</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/04/08/git bash命令上传下载代代码/"  title="git bash命令上传下载代代码">
+ <strong>下一篇：</strong><br/> 
+ <span>git bash命令上传下载代代码
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#github安装"><span class="toc-number">2.</span> <span class="toc-text">github安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用GitHub-Pages建立博客"><span class="toc-number">3.</span> <span class="toc-text">使用GitHub Pages建立博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github建立仓库"><span class="toc-number">3.1.</span> <span class="toc-text">github建立仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装node-js"><span class="toc-number">4.</span> <span class="toc-text">安装node.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用Hexo克隆主题"><span class="toc-number">5.</span> <span class="toc-text">用Hexo克隆主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo介绍"><span class="toc-number">5.1.</span> <span class="toc-text">Hexo介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Hexo"><span class="toc-number">5.2.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署Hexo"><span class="toc-number">5.3.</span> <span class="toc-text">部署Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复制主题"><span class="toc-number">5.4.</span> <span class="toc-text">复制主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启用主题"><span class="toc-number">5.5.</span> <span class="toc-text">启用主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新主题"><span class="toc-number">5.6.</span> <span class="toc-text">更新主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地查看调试"><span class="toc-number">5.7.</span> <span class="toc-text">本地查看调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看搭建效果"><span class="toc-number">5.8.</span> <span class="toc-text">查看搭建效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo设置"><span class="toc-number">6.</span> <span class="toc-text">Hexo设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#发表新文章"><span class="toc-number">6.1.</span> <span class="toc-text">发表新文章</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域名"><span class="toc-number">7.</span> <span class="toc-text">域名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#将域名与Github-Pages空间绑定"><span class="toc-number">7.1.</span> <span class="toc-text">将域名与Github Pages空间绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitHub-pages设置"><span class="toc-number">7.1.1.</span> <span class="toc-text">GitHub pages设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DNS设置"><span class="toc-number">7.1.2.</span> <span class="toc-text">DNS设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#godaddy修改DNS"><span class="toc-number">7.1.3.</span> <span class="toc-text">godaddy修改DNS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问博客"><span class="toc-number">7.1.4.</span> <span class="toc-text">访问博客</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">8.</span> <span class="toc-text">后记</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Alice">Alice</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?4f76195ad8ae315a3b1f7decb2f1c69b";
-  var s = document.getElementsByTagName("script")[0];
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
-  })();</script></body></html>
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-04-24T06:38:18.222Z</updated>
+  <updated>2017-04-24T14:00:43.434Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>transform-origin,rotate实现绕中心旋转</title>
+    <link href="https://aliceflaviawang.github.io/2017/04/24/transform-origin-rotate%E5%AE%9E%E7%8E%B0%E7%BB%95%E4%B8%AD%E5%BF%83%E6%97%8B%E8%BD%AC/"/>
+    <id>https://aliceflaviawang.github.io/2017/04/24/transform-origin-rotate实现绕中心旋转/</id>
+    <published>2017-04-24T13:40:49.000Z</published>
+    <updated>2017-04-24T14:00:43.434Z</updated>
+    
+    <content type="html"><![CDATA[<p>一般实现环形旋转可以通过animation动画的方式<br>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;images/min-iconfont-rocket-active.png&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>通过animation，对应的css代码为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@keyframes spin&#123;</div><div class="line">	to&#123;</div><div class="line">		transform: rotate(1turn);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">img&#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50px;</div><div class="line">	left:50px;</div><div class="line">	width:50px;</div><div class="line">	height:50px;</div><div class="line">	animation:spin 10s infinite linear;</div><div class="line">	transform-origin:150px 150px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也可以通过transform-origin+rotate的js实现，transform-origin对应旋转中心的位置，rotate可以设置旋转的角度。<br>设置一个图片进行旋转，对于的css代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">img&#123;</div><div class="line">    position: absolute;</div><div class="line"> 	top:50px;</div><div class="line"> 	left:50px;</div><div class="line"> 	width:50px;</div><div class="line"> 	height:50px;</div><div class="line"> 	transform-origin: 150px 150px;  //设置旋转的中心位置</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>对应的js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var deg=0;</div><div class="line">var timer=setInterval(function()&#123;</div><div class="line">	deg+=10;</div><div class="line">	rotate(deg);</div><div class="line">&#125;,20)</div><div class="line">function rotate(deg)&#123;</div><div class="line">	var my=&quot;rotate(&quot;+deg+&quot;deg)&quot;</div><div class="line">	$(&quot;img&quot;).css(&quot;transform&quot;,my)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于transform-orgin其默认的位置是元素的中心位置，可以通过设置重新确定中心。<br>注：想了解更多transform实现环形路径平移动画，可以参看 <a href="http://www.open-open.com/lib/view/open1478661385568.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1478661385568.html</a>.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一般实现环形旋转可以通过animation动画的方式&lt;br&gt;举个例子：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>apply()和call()用法</title>

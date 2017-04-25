@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-04-24T14:17:54.922Z</updated>
+  <updated>2017-04-25T13:56:07.132Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>slice(), substring(), substr()总结</title>
+    <link href="https://aliceflaviawang.github.io/2017/04/25/slice-substring-substr-%E6%80%BB%E7%BB%93/"/>
+    <id>https://aliceflaviawang.github.io/2017/04/25/slice-substring-substr-总结/</id>
+    <published>2017-04-25T13:47:05.000Z</published>
+    <updated>2017-04-25T13:56:07.132Z</updated>
+    
+    <content type="html"><![CDATA[<p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。&lt;br&gt;区别：&lt;br&gt;1、参数不同&lt;br&gt;slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>append和prepend</title>

@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>阿里暑期前端面试总结 | 笑呵呵</title>
+    <title>slice(), substring(), substr()总结 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="You Never Know Who You Can Be">
+    <meta name="description" content="slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。区别：1、参数不同slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置substring: substring(start, end) //同slicesubstr: substr(start, num) //num">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿里暑期前端面试总结">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/19/阿里暑期前端面试总结/index.html">
+<meta property="og:title" content="slice(), substring(), substr()总结">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/25/slice-substring-substr-总结/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="You Never Know Who You Can Be">
-<meta property="og:updated_time" content="2017-04-19T10:40:53.645Z">
+<meta property="og:description" content="slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。区别：1、参数不同slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置substring: substring(start, end) //同slicesubstr: substr(start, num) //num">
+<meta property="og:updated_time" content="2017-04-25T13:56:07.132Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿里暑期前端面试总结">
-<meta name="twitter:description" content="You Never Know Who You Can Be">
+<meta name="twitter:title" content="slice(), substring(), substr()总结">
+<meta name="twitter:description" content="slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。区别：1、参数不同slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置substring: substring(start, end) //同slicesubstr: substr(start, num) //num">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/19/阿里暑期前端面试总结/" title="阿里暑期前端面试总结" itemprop="url">阿里暑期前端面试总结</a>
+      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
+    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 发表于 2017-04-25</time>
     
   </p>
 </header>
@@ -101,7 +101,8 @@
 		
 		</div>
 		
-		  
+		<p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -113,7 +114,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/19/阿里暑期前端面试总结/" data-title="阿里暑期前端面试总结 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/04/25/slice-substring-substr-总结/" data-title="slice(), substring(), substr()总结 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,21 +128,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/19/腾讯暑期实习面试前端面试总结/" title="腾讯暑期实习面试前端面试总结">
+ <a href="/2017/04/24/append和prepend/" title="append和prepend">
   <strong>上一篇：</strong><br/>
   <span>
-  腾讯暑期实习面试前端面试总结</span>
+  append和prepend</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/22/translate-50-50-的作用/"  title="translate(-50%,-50%)的作用">
- <strong>下一篇：</strong><br/> 
- <span>translate(-50%,-50%)的作用
-</span>
-</a>
-</div>
 
 </nav>
 

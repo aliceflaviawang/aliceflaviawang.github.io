@@ -81,6 +81,56 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/19/腾讯暑期实习面试前端面试总结/" title="腾讯暑期实习面试前端面试总结" itemprop="url">腾讯暑期实习面试前端面试总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-19T07:36:12.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：<br>1、http状态码有哪些，代表的什么意思<br>2、用过缓存没有，local storage和session storage有什么区别<br>3、你说你学过node js，讲一下<br>于是我在门外默默的准备了一下，进去之后面试官看了我的简历上写本科是信息安全，于是问我公钥加密和私钥加密有什么区别。。。我大概记得，但是说反了，然后开始问我一串安全相关的问题，安全掌握的不怎么好，面试官大概没有很多兴趣，就简单问了下css和一个逻辑题就完了：<br>1、Web安全<br>2、url是怎么加密的<br>3、css的优先级<br>4、逻辑题：给一个不规则的5L和6L的桶，装一个3升的水<br>然后很显然就没有然后了，通过此次面试，觉得自己还是要多注意Web安全方面的知识，另外简历上处处都有可能问到，主要看面试官比较擅长哪方面，所以只要写上去都要有所准备。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/11/easyui两个datagrid的问题/" title="easyui两个datagrid的问题" itemprop="url">easyui两个datagrid的问题</a>
   </h1>
   <p class="article-author">By
@@ -409,58 +459,6 @@
 <h3 id="题目的本质"><a href="#题目的本质" class="headerlink" title="题目的本质"></a>题目的本质</h3><p>因为数组是排序的，所以考虑用二分查找，而查找不能盲目的查找，比如从第一个元素开始查找，如果比目标元素小，是往下找还是往右找呢，同里也不能从最后一个元素开始查找，可以从第一行最右边开始查找，如果比目标元素大就往左查找，反之往下查找，同理也可以从第一列最下边开始查找。举例从第一行最右边开始查找，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     int row=0;</div><div class="line">       int col=array[0].length-1;</div><div class="line">       while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">           if(array[row][col]==target) &#123;</div><div class="line">               return true;</div><div class="line">           &#125;</div><div class="line">           else if(array[row][col]&lt;target)&#123;</div><div class="line">               row++;</div><div class="line">           &#125;</div><div class="line">           else&#123;</div><div class="line">               col--;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
 <h4 id="运行效果-1"><a href="#运行效果-1" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/k5vNfmD.png" alt=""></p>
 <h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package com.company;</div><div class="line">import java.util.Scanner;</div><div class="line">public class Solution &#123;</div><div class="line">    public boolean Find(int target, int [][] array) &#123;</div><div class="line">      int row=0;</div><div class="line">        int col=array[0].length-1;</div><div class="line">        while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">            if(array[row][col]==target) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">            else if(array[row][col]&lt;target)&#123;</div><div class="line">                row++;</div><div class="line">            &#125;</div><div class="line">            else&#123;</div><div class="line">                col--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">    public static void main(String srgs[])&#123;</div><div class="line">        Scanner s=new Scanner(System.in);</div><div class="line">        System.out.println(&quot;请输入数组的行和列&quot;);</div><div class="line">        int x=s.nextInt();</div><div class="line">        int y=s.nextInt();</div><div class="line">        int [][]arr=new int[x][y];</div><div class="line">        System.out.println(&quot;请输入数组元素&quot;);</div><div class="line">        for(int i=0;i&lt;x;i++)&#123;</div><div class="line">            for(int j=0;j&lt;y;j++)&#123;</div><div class="line"></div><div class="line">               arr[i][j]=s.nextInt();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(&quot;请输入你想查找的数：&quot;);</div><div class="line">        int t=s.nextInt();</div><div class="line">      Solution a=new Solution();</div><div class="line"></div><div class="line">        if(a.Find(t,arr))&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">else&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中没有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/09/基于easyui项目学习的总结（一）/" title="基于easyui项目学习的总结（一）" itemprop="url">基于easyui项目学习的总结（一）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-09T12:59:26.000Z" itemprop="datePublished"> 发表于 2017-04-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>最近在做的项目，是基于easyui框架，项目进度非常紧张，并没有太多时间来总结，就用零碎时间一点点总结吧，主要是从网上及大神同学身上学到了很多。</p>
-<h3 id="easyui-placeholder解决方案"><a href="#easyui-placeholder解决方案" class="headerlink" title="easyui placeholder解决方案"></a>easyui placeholder解决方案</h3><p>因为easyui经常用到table、textbox，因此会遇到需要用placeholder来提示输入内容的时候，但是easyui不支持h5的placeholder,因此，为了实现这个效果，在网上找到了解决方案。<br>1、给input标签添加placeholder<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;fm_jobTime&quot;&quot; name=&quot;jobTime&quot; class=&quot;easyui-textbox&quot; required=&quot;true&quot; label=&quot;岗位时间:&quot; style=&quot;width:100%&quot; placeholder=&quot;xxxx年x月-xxxx年x月&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>2、页面加载完毕的时候，将easyui生成的input标签的placeholder重置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$(function()&#123;</div><div class="line">window.onload = inputPlaceholder();</div><div class="line">&#125;);</div><div class="line">/**</div><div class="line">easyui number placeholder</div><div class="line">*/</div><div class="line">function numberinputPlaceholder()&#123;</div><div class="line">$(&quot;.easyui-textbox&quot;).each(function(i)&#123;</div><div class="line">var span = $(this).siblings(&quot;span&quot;)[0];</div><div class="line">var targetInput = $(span).find(&quot;input:first&quot;);</div><div class="line">if(targetInput)&#123;</div><div class="line">$(targetInput).attr(&quot;placeholder&quot;, $(this).attr(&quot;placeholder&quot;));</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
         
         
         <p class="article-more-link">

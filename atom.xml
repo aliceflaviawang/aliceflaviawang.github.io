@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-05-26T08:51:27.848Z</updated>
+  <updated>2017-05-27T07:15:26.824Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从输入URL到浏览器显示页面发生了什么</title>
+    <link href="https://aliceflaviawang.github.io/2017/05/27/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"/>
+    <id>https://aliceflaviawang.github.io/2017/05/27/从输入URL到浏览器显示页面发生了什么/</id>
+    <published>2017-05-27T02:06:07.000Z</published>
+    <updated>2017-05-27T07:15:26.824Z</updated>
+    
+    <content type="html"><![CDATA[<p>从输入URL到浏览器显示页面，这个过程分为两个部分：网络通信和页面渲染。</p>
+<h3 id="一、网络通信"><a href="#一、网络通信" class="headerlink" title="一、网络通信"></a>一、网络通信</h3><p>互联网内各网络设备间的通信都遵循TCP/IP协议，利用TCP/IP协议族进行网络通信时，会通过分层顺序与对方进行通信。分层由高到低分别为：应用层、传输层、网络层、数据链路层。发送端从应用层往下走，接收端从数据链路层往上走。如下图所示：<br><img src="http://i.imgur.com/7oFnzfS.png" alt=""></p>
+<h4 id="1-在浏览器中输入URL"><a href="#1-在浏览器中输入URL" class="headerlink" title="1.在浏览器中输入URL"></a>1.在浏览器中输入URL</h4><p>用户输入URL，例如<a href="http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。" target="_blank" rel="external">http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。</a></p>
+<h4 id="2-应用层DNS解析域名"><a href="#2-应用层DNS解析域名" class="headerlink" title="2.应用层DNS解析域名"></a>2.应用层DNS解析域名</h4><p>客户端先检查本地是否有对应的IP地址，若找到则返回响应的IP地址。若没找到则请求上级DNS服务器，直至找到根节点。</p>
+<h4 id="3-应用层客户端发送HTTP请求"><a href="#3-应用层客户端发送HTTP请求" class="headerlink" title="3.应用层客户端发送HTTP请求"></a>3.应用层客户端发送HTTP请求</h4><p>HTTP请求包括请求报头和请求主体两个部分，其中请求报头包含了至关重要的信息，包括请求的方法（GET/POST)、目标URL、遵循的协议（HTTP/HTTPS/FTP…),返回的信息是否需要缓存，以及客户端是否发送cookie等。</p>
+<h4 id="4-传输层TCP传输报文"><a href="#4-传输层TCP传输报文" class="headerlink" title="4.传输层TCP传输报文"></a>4.传输层TCP传输报文</h4><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。它为了方便传输，将大块的数据分割成以报文段位单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN/ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACL标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br><img src="http://i.imgur.com/DgQcVRu.png" alt=""></p>
+<h4 id="5-网络层IP协议查询MAC地址"><a href="#5-网络层IP协议查询MAC地址" class="headerlink" title="5.网络层IP协议查询MAC地址"></a>5.网络层IP协议查询MAC地址</h4><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。</p>
+<h4 id="6-数据到达数据链路层"><a href="#6-数据到达数据链路层" class="headerlink" title="6.数据到达数据链路层"></a>6.数据到达数据链路层</h4><p>在找到对方的MAC地址后，就将数据发送到数据链路层传输。这时客户端发送请求的阶段结束。</p>
+<h4 id="7-服务器接收数据"><a href="#7-服务器接收数据" class="headerlink" title="7.服务器接收数据"></a>7.服务器接收数据</h4><p>接收端的服务器在链路层接收到数据包，再层层向上直到应用层。这过程中包括在运输层通过TCP协议将分段的数据包重新组成原来得HTTP请求报文。</p>
+<h4 id="8-服务器响应请求"><a href="#8-服务器响应请求" class="headerlink" title="8.服务器响应请求"></a>8.服务器响应请求</h4><p>服务接收到客户端发送的HTTP请求后，查找客户端请求的资源，并返回响应报文，响应报文中包括一个重要的信息————状态码。状态码由三位数字组成，其中比较常见的是200 OK表示请求成功。301表示永久重定向，即请求的资源已经永久转移到新的位置。在返回301状态码的同时，响应报文也会附带重定向的URL，客户端接收后将HTTP请求的URL做相应的改变再重新发送。404 not found表示客户端请求的资源找不到。</p>
+<h4 id="9-服务器返回相应文件"><a href="#9-服务器返回相应文件" class="headerlink" title="9.服务器返回相应文件"></a>9.服务器返回相应文件</h4><p>请求成功后，服务器会返回相应的HTML文件。接下来就到了页面渲染阶段了。</p>
+<h3 id="二、页面渲染"><a href="#二、页面渲染" class="headerlink" title="二、页面渲染"></a>二、页面渲染</h3><p>现代浏览器渲染页面的过程是这样的：解析HTML以构建DOM树——&gt;构建渲染树——&gt;布局渲染树——&gt;绘制渲染树。<br>DOM树是由HTML文件中的标签排列组成，渲染树是在DOM树种加入CSS或HTML中的style样式而形成。渲染树只包含显示在页面中的DOM元素，像<head>元素或display属性值为none的元素都不在渲染树中。<br>在浏览器还没接收到完整的HTML文件时，它就开始渲染页面了，在遇到外部链入的脚本标签或样式标签或图片时，会再次发送HTTP请求重复上述的步骤。在收到CSS文件后会对已经渲染的页面重新渲染，加入它们应有的样式，图片文件加载完立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</head></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;从输入URL到浏览器显示页面，这个过程分为两个部分：网络通信和页面渲染。&lt;/p&gt;
+&lt;h3 id=&quot;一、网络通信&quot;&gt;&lt;a href=&quot;#一、网络通信&quot; class=&quot;headerlink&quot; title=&quot;一、网络通信&quot;&gt;&lt;/a&gt;一、网络通信&lt;/h3&gt;&lt;p&gt;互联网内各网络设备间
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>DOM性能提升</title>
@@ -422,35 +453,6 @@
     
       &lt;p&gt;最近在做的项目，是基于easyui框架，项目进度非常紧张，并没有太多时间来总结，就用零碎时间一点点总结吧，主要是从网上及大神同学身上学到了很多。&lt;/p&gt;
 &lt;h3 id=&quot;easyui-placeholder解决方案&quot;&gt;&lt;a href=&quot;#easyui-placeholder
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>git bash命令上传下载代代码</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/08/git%20bash%E5%91%BD%E4%BB%A4%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E4%BB%A3%E4%BB%A3%E7%A0%81/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/08/git bash命令上传下载代代码/</id>
-    <published>2017-04-08T12:37:28.000Z</published>
-    <updated>2017-04-08T12:38:13.134Z</updated>
-    
-    <content type="html"><![CDATA[<p>git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote</p>
-<h3 id="上传到git"><a href="#上传到git" class="headerlink" title="上传到git"></a>上传到git</h3><p>1、安装完成后，在命令行输入下面的代码进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;your real name&quot;</div><div class="line">$ git config --global user.email &quot;your eamil address&quot;</div></pre></td></tr></table></figure></p>
-<p>注：”your real name“是你的真实姓名，”your eamil address”是你的注册github的邮箱<br>2、在主用户目录下，输入下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C &quot;your eamil address</div></pre></td></tr></table></figure></p>
-<p> 然后在自己电脑的C盘下找到.ssh文件夹，用记事本打开里面的id_rsa.pub,复制里面的内容。登陆Github，在账户设置里找到SSH keys页面，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容。<br>3、利用”cd”命令将路径切换到你要上传的代码所在的文件夹下面（或者打开你要上传的代码的文件夹，右键git bash here）,输入一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$git init  //把目录变成git可以管理的仓库</div><div class="line">$git add .  //add后面加&quot;.&quot;表示上传所以的代码，如果想上传指定的，只需要把&quot;.&quot;改成文件名即可</div><div class="line">$git commit -m &quot;你对文件的描述&quot;  //提交你对文件的描述</div></pre></td></tr></table></figure></p>
-<p>4、在本地仓库目录下输入下面命令将本地仓库和远程仓库关联（如果已经上传过代码了，可以直接跳到第6步）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$git remote add orgin git@github.com:yonghuming/kuming.git</div></pre></td></tr></table></figure></p>
-<p>origin可是换成你想要的任何名字，但是要记住这个源名字（与第6步的origin对应，我每次都是新起一个名字因为经常提示origin已经存在了）<br>5、输入如下代码，将自己的文件上传<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$git push -u origin master</div></pre></td></tr></table></figure></p>
-<p>其实github上每次创建一个新的仓库的时候，都有命令提示<br><img src="http://i.imgur.com/ZKONJeq.png" alt=""></p>
-<h3 id="从git上下载"><a href="#从git上下载" class="headerlink" title="从git上下载"></a>从git上下载</h3><p>$git clone git@github.com:yonghuming/kuming.git</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>$git pull origin master</p>
-<h3 id="经常遇到的问题"><a href="#经常遇到的问题" class="headerlink" title="经常遇到的问题"></a>经常遇到的问题</h3><p>error:src refspec master does not match any<br>原因：本地版本库为空，空目录不能提交</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote&lt;/p&gt;
-&lt;h3 id=&quot;上传到git&quot;&gt;&lt;a href=&quot;#上传到git&quot; class=&quot;headerl
     
     </summary>
     

@@ -81,6 +81,67 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/05/27/从输入URL到浏览器显示页面发生了什么/" title="从输入URL到浏览器显示页面发生了什么" itemprop="url">从输入URL到浏览器显示页面发生了什么</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>从输入URL到浏览器显示页面，这个过程分为两个部分：网络通信和页面渲染。</p>
+<h3 id="一、网络通信"><a href="#一、网络通信" class="headerlink" title="一、网络通信"></a>一、网络通信</h3><p>互联网内各网络设备间的通信都遵循TCP/IP协议，利用TCP/IP协议族进行网络通信时，会通过分层顺序与对方进行通信。分层由高到低分别为：应用层、传输层、网络层、数据链路层。发送端从应用层往下走，接收端从数据链路层往上走。如下图所示：<br><img src="http://i.imgur.com/7oFnzfS.png" alt=""></p>
+<h4 id="1-在浏览器中输入URL"><a href="#1-在浏览器中输入URL" class="headerlink" title="1.在浏览器中输入URL"></a>1.在浏览器中输入URL</h4><p>用户输入URL，例如<a href="http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。" target="_blank" rel="external">http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。</a></p>
+<h4 id="2-应用层DNS解析域名"><a href="#2-应用层DNS解析域名" class="headerlink" title="2.应用层DNS解析域名"></a>2.应用层DNS解析域名</h4><p>客户端先检查本地是否有对应的IP地址，若找到则返回响应的IP地址。若没找到则请求上级DNS服务器，直至找到根节点。</p>
+<h4 id="3-应用层客户端发送HTTP请求"><a href="#3-应用层客户端发送HTTP请求" class="headerlink" title="3.应用层客户端发送HTTP请求"></a>3.应用层客户端发送HTTP请求</h4><p>HTTP请求包括请求报头和请求主体两个部分，其中请求报头包含了至关重要的信息，包括请求的方法（GET/POST)、目标URL、遵循的协议（HTTP/HTTPS/FTP…),返回的信息是否需要缓存，以及客户端是否发送cookie等。</p>
+<h4 id="4-传输层TCP传输报文"><a href="#4-传输层TCP传输报文" class="headerlink" title="4.传输层TCP传输报文"></a>4.传输层TCP传输报文</h4><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。它为了方便传输，将大块的数据分割成以报文段位单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN/ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACL标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br><img src="http://i.imgur.com/DgQcVRu.png" alt=""></p>
+<h4 id="5-网络层IP协议查询MAC地址"><a href="#5-网络层IP协议查询MAC地址" class="headerlink" title="5.网络层IP协议查询MAC地址"></a>5.网络层IP协议查询MAC地址</h4><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。</p>
+<h4 id="6-数据到达数据链路层"><a href="#6-数据到达数据链路层" class="headerlink" title="6.数据到达数据链路层"></a>6.数据到达数据链路层</h4><p>在找到对方的MAC地址后，就将数据发送到数据链路层传输。这时客户端发送请求的阶段结束。</p>
+<h4 id="7-服务器接收数据"><a href="#7-服务器接收数据" class="headerlink" title="7.服务器接收数据"></a>7.服务器接收数据</h4><p>接收端的服务器在链路层接收到数据包，再层层向上直到应用层。这过程中包括在运输层通过TCP协议将分段的数据包重新组成原来得HTTP请求报文。</p>
+<h4 id="8-服务器响应请求"><a href="#8-服务器响应请求" class="headerlink" title="8.服务器响应请求"></a>8.服务器响应请求</h4><p>服务接收到客户端发送的HTTP请求后，查找客户端请求的资源，并返回响应报文，响应报文中包括一个重要的信息————状态码。状态码由三位数字组成，其中比较常见的是200 OK表示请求成功。301表示永久重定向，即请求的资源已经永久转移到新的位置。在返回301状态码的同时，响应报文也会附带重定向的URL，客户端接收后将HTTP请求的URL做相应的改变再重新发送。404 not found表示客户端请求的资源找不到。</p>
+<h4 id="9-服务器返回相应文件"><a href="#9-服务器返回相应文件" class="headerlink" title="9.服务器返回相应文件"></a>9.服务器返回相应文件</h4><p>请求成功后，服务器会返回相应的HTML文件。接下来就到了页面渲染阶段了。</p>
+<h3 id="二、页面渲染"><a href="#二、页面渲染" class="headerlink" title="二、页面渲染"></a>二、页面渲染</h3><p>现代浏览器渲染页面的过程是这样的：解析HTML以构建DOM树——&gt;构建渲染树——&gt;布局渲染树——&gt;绘制渲染树。<br>DOM树是由HTML文件中的标签排列组成，渲染树是在DOM树种加入CSS或HTML中的style样式而形成。渲染树只包含显示在页面中的DOM元素，像<head>元素或display属性值为none的元素都不在渲染树中。<br>在浏览器还没接收到完整的HTML文件时，它就开始渲染页面了，在遇到外部链入的脚本标签或样式标签或图片时，会再次发送HTTP请求重复上述的步骤。在收到CSS文件后会对已经渲染的页面重新渲染，加入它们应有的样式，图片文件加载完立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</head></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/05/26/DOM性能提升/" title="DOM性能提升" itemprop="url">DOM性能提升</a>
   </h1>
   <p class="article-author">By
@@ -423,65 +484,6 @@
 <p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
 <h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
 <h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/理解arguments/" title="理解arguments" itemprop="url">理解arguments</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T02:02:40.000Z" itemprop="datePublished"> Published 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>ECMAScript中的参数是用一个数组表示的。无论传递给函数的参数是什么（有或者没有），函数接收到的始终都是这个数组。在函数体内通过arguments对象来访问这个参数数组，从而获取传递给函数的每个参数。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi(name,message)&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+name+&quot;,&quot;+message);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以用arguments重写不显示的使用命名参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+arguments[0]+&quot;,&quot;+arguments[1]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="arguments特性"><a href="#arguments特性" class="headerlink" title="arguments特性"></a>arguments特性</h3><h4 id="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"><a href="#1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的" class="headerlink" title="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"></a>1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function howManyArgs(&#123;</div><div class="line">alert(arguments.length);</div><div class="line">&#125;</div><div class="line">howManyArgs(&quot;string&quot;,45); //2</div><div class="line">howManyArgs();            //0</div><div class="line">howManyArgs(12)           //1</div></pre></td></tr></table></figure>
-<h4 id="2、arguments的值永远与对应命名参数的值保持同步"><a href="#2、arguments的值永远与对应命名参数的值保持同步" class="headerlink" title="2、arguments的值永远与对应命名参数的值保持同步"></a>2、arguments的值永远与对应命名参数的值保持同步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function doAdd(num1,num2)&#123;</div><div class="line">arguments[1]=10;</div><div class="line">alert(arguments[0]+num2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>每次执行doAdd函数都会重写第二个参数（将其修改为10），因为arguments[1]的对象的值会自动反映到对应的命名参数，所以修改了arguments[1]也就修改了num2，他们的值会同步（但内存空间是独立的）。如果只传入了一个参数，arguments[1]的值不会反映到命名参数中（因为特性1）。</p>
-<h4 id="3、arguments对象有个callee属性"><a href="#3、arguments对象有个callee属性" class="headerlink" title="3、arguments对象有个callee属性"></a>3、arguments对象有个callee属性</h4><p>callee属性是一个指针，指向拥有这个arguments对象的函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fucntion factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数的执行与函数名紧紧耦合在一起，为了消除这种紧密耦合现象，可以用arguments.callee。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样，无论引用函数是时使用的什么名字，都可以保证正常递归调用。看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //120</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
-<p>而使用函数名，则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //0</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
-<h4 id="后记——函数对象的caller属性"><a href="#后记——函数对象的caller属性" class="headerlink" title="后记——函数对象的caller属性"></a>后记——函数对象的caller属性</h4><p>当一个函数调用另一个函数时，被调用的函数会自动生成一个caller属性，指向调用它的函数对象。若该函数未被调用或没有被其他函数调用，caller为null。<br>而arguments.callee是函数被调用时，arguments.callee对象指向自身，是对自己的引用。<br>注：arguments在函数调用时才有效，因为arguments.callee在函数未调用时是不存在的（即null.callee)。</p>
 
         
         

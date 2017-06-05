@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,58 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/05/JS定义变量的三种方式/" title="JS定义变量的三种方式" itemprop="url">JS定义变量的三种方式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 发表于 2017-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、最常见的var定义变量，可以修改，如果不初始化会输出undefined,但不会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=1;</div><div class="line">console.log(&apos;函数外定义a:&apos;+a); //输出a=1</div><div class="line">function change()&#123;</div><div class="line">  a=4;</div><div class="line">  console.log(&apos;函数内定义a:&apos;+a); //可以输出a=4;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后var定义a为函数内部修改值:&apos;+a); //输出a=4</div></pre></td></tr></table></figure></p>
+<p>2、const定义的变量不可以修改，而且必须初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const b=2;</div><div class="line">// const b; //错误，必须初始化</div><div class="line">console.log(b); //有输出值</div><div class="line">// b=5;</div><div class="line">console.log(b); //报错，不能给常量赋值</div></pre></td></tr></table></figure></p>
+<p>3、let是块级作用域，函数内部使用let定义后，对函数外部无影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let c=3;</div><div class="line">console.log(&apos;函数外定义c:&apos;+c); //输出c=3;</div><div class="line">function change()&#123;</div><div class="line">  let c=6;</div><div class="line">  console.log(&apos;函数内定义c:&apos;+c); //输出c=6;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后let定义c不受函数内部定义的影响：&apos;+c); //输出c=3;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/05/27/从输入URL到浏览器显示页面发生了什么/" title="从输入URL到浏览器显示页面发生了什么" itemprop="url">从输入URL到浏览器显示页面发生了什么</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +140,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> 发表于 2017-05-27</time>
     
   </p>
 </header>
@@ -149,7 +201,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> 发表于 2017-05-26</time>
     
   </p>
 </header>
@@ -206,7 +258,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> 发表于 2017-05-24</time>
     
   </p>
 </header>
@@ -257,7 +309,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> Published 2017-05-01</time>
+    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> 发表于 2017-05-01</time>
     
   </p>
 </header>
@@ -315,7 +367,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> Published 2017-04-25</time>
+    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 发表于 2017-04-25</time>
     
   </p>
 </header>
@@ -365,7 +417,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
     
   </p>
 </header>
@@ -417,7 +469,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
     
   </p>
 </header>
@@ -458,72 +510,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> Published 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
-<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
-<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
-<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -534,7 +530,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -556,11 +552,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -710,7 +706,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

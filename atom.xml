@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-05T03:18:28.496Z</updated>
+  <updated>2017-06-06T06:45:04.789Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>apply,call,bind用法</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/06/apply-call-bind%E7%94%A8%E6%B3%95/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/06/apply-call-bind用法/</id>
+    <published>2017-06-06T03:10:43.000Z</published>
+    <updated>2017-06-06T06:45:04.789Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
+<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
+<h3 id="apply-call"><a href="#apply-call" class="headerlink" title="apply, call"></a>apply, call</h3><h4 id="共同之处"><a href="#共同之处" class="headerlink" title="共同之处"></a>共同之处</h4><p>都可以用来代替另一个对象调用一个方法，将一个函数的对象上下文从初始上下文改变为由thisObj指定的新对象。</p>
+<h4 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h4><p>apply最多只能有两个参数——新this对象和一个数组argArray，如果argArray不是一个有效的数组或者不是arguments对象，那么将导致一个TypeError，如果没有提供argArray和thisObj任何一个参数，那么Global对象将被用作thisObj，并且无法被传递任何参数<br>call传递的是参数列表，。如果没有提供thisObj参数，那么Global对象被用作thisObj。<br>apply和call功能一样，只是传入参数列表形式不同，如果某个参数数量是不固定的，当参数明确时用call，不明确时用apply，然后把参数push进数组传递，函数内部也可以通过arguments数组来遍历所有参数。</p>
+<h3 id="3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><a href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN" class="headerlink" title="3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply和call不同的是，bind会返回一个改变this指向的新函数，新函数与之前的使用的不是同一块内存地址，所以需要重复使用这个函数的时候，必须将其保存到一个变量，方便下次调用。而apply和call都是调用即执行。另外，bind函数中的首个参数，会自动成为返回新函数中参数的默认值，那么正式调用的时候，只需给出除首个参数外，剩余参数即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f(x,y)&#123;</div><div class="line">	console.log(x+y);</div><div class="line">&#125;</div><div class="line">f.call(null,1,1)  //return 2</div><div class="line">var new_f=f.bind(null,1,1);</div><div class="line">new_f(2); //return 2</div></pre></td></tr></table></figure>
+<p>上面实例中thisArg参数均用null代替了，在未给出指定thisArg对象情况下，null与undefined下this指向的是全局对象，即js代码执行环境。</p>
+<h4 id="apply-call-bind比较"><a href="#apply-call-bind比较" class="headerlink" title="apply, call, bind比较"></a>apply, call, bind比较</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;bar:&apos;hello&apos;&#125;</div><div class="line">var foo=&#123;</div><div class="line">  get:function()&#123;</div><div class="line">     return this.bar;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">var bind=foo.get.bind(obj), call=foo.get.call(obj), apply=foo.get.apply(obj);</div><div class="line"></div><div class="line">console.log(bind(),call,apply); //hello hello hello</div><div class="line">console.log(bind,call,apply); //function()&#123;return this.bar;&#125; &quot;hello&quot; &quot;hello&quot;</div><div class="line">console.log(typeof bind,typeof call,typeof apply); function string string</div><div class="line">console.log(typeof bind(),typeof call,typeof apply); //string string string</div></pre></td></tr></table></figure>
+<p>三者的区别是：当你希望改变上下文环境之后并非立即执行，而是回调执行的时候，使用bind()方法，而apply/call则会立即执行函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apply, call, bind三者都是用来改变函数的this对象的指向</div><div class="line">apply, call, bind三者第一个参数都是this要指向的对象，也就是想指定的上下文</div><div class="line">apply, call, bind三者都可以利用后续参数传参</div><div class="line">bind是返回对应的函数，便于稍后调用；apply, call则立即调用</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、apply-方法——apply-thisObj-argArray&quot;&gt;&lt;a href=&quot;#1、apply-方法——apply-thisObj-argArray&quot; class=&quot;headerlink&quot; title=&quot;1、apply()方法——apply([this
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JS定义变量的三种方式</title>
@@ -429,29 +456,6 @@
     <summary type="html">
     
       &lt;p&gt;input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>java二维排序数组查找元素</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/09/java%E4%BA%8C%E7%BB%B4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/09/java二维排序数组查找元素/</id>
-    <published>2017-04-09T13:09:30.000Z</published>
-    <updated>2017-04-09T13:14:14.944Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
-<h3 id="简单做法"><a href="#简单做法" class="headerlink" title="简单做法"></a>简单做法</h3><p>看到这个题目，如果不考虑数组元素的排序，只考虑能不能找到的话，非常简单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     for(int i=0;i&lt;array.length;i++)&#123;</div><div class="line">           for(int j=0;j&lt;array[0].length;j++)&#123;</div><div class="line">               if(array[i][j]==target)&#123;</div><div class="line">                   return true;</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/R1O8tor.png" alt=""></p>
-<h3 id="题目的本质"><a href="#题目的本质" class="headerlink" title="题目的本质"></a>题目的本质</h3><p>因为数组是排序的，所以考虑用二分查找，而查找不能盲目的查找，比如从第一个元素开始查找，如果比目标元素小，是往下找还是往右找呢，同里也不能从最后一个元素开始查找，可以从第一行最右边开始查找，如果比目标元素大就往左查找，反之往下查找，同理也可以从第一列最下边开始查找。举例从第一行最右边开始查找，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     int row=0;</div><div class="line">       int col=array[0].length-1;</div><div class="line">       while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">           if(array[row][col]==target) &#123;</div><div class="line">               return true;</div><div class="line">           &#125;</div><div class="line">           else if(array[row][col]&lt;target)&#123;</div><div class="line">               row++;</div><div class="line">           &#125;</div><div class="line">           else&#123;</div><div class="line">               col--;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-<h4 id="运行效果-1"><a href="#运行效果-1" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/k5vNfmD.png" alt=""></p>
-<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package com.company;</div><div class="line">import java.util.Scanner;</div><div class="line">public class Solution &#123;</div><div class="line">    public boolean Find(int target, int [][] array) &#123;</div><div class="line">      int row=0;</div><div class="line">        int col=array[0].length-1;</div><div class="line">        while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">            if(array[row][col]==target) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">            else if(array[row][col]&lt;target)&#123;</div><div class="line">                row++;</div><div class="line">            &#125;</div><div class="line">            else&#123;</div><div class="line">                col--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">    public static void main(String srgs[])&#123;</div><div class="line">        Scanner s=new Scanner(System.in);</div><div class="line">        System.out.println(&quot;请输入数组的行和列&quot;);</div><div class="line">        int x=s.nextInt();</div><div class="line">        int y=s.nextInt();</div><div class="line">        int [][]arr=new int[x][y];</div><div class="line">        System.out.println(&quot;请输入数组元素&quot;);</div><div class="line">        for(int i=0;i&lt;x;i++)&#123;</div><div class="line">            for(int j=0;j&lt;y;j++)&#123;</div><div class="line"></div><div class="line">               arr[i][j]=s.nextInt();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(&quot;请输入你想查找的数：&quot;);</div><div class="line">        int t=s.nextInt();</div><div class="line">      Solution a=new Solution();</div><div class="line"></div><div class="line">        if(a.Find(t,arr))&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">else&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中没有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h3&gt;&lt;p&gt;在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维
     
     </summary>
     

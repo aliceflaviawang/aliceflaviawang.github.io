@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>apply()和call()用法 | 笑呵呵</title>
+    <title>apply,call,bind用法 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。 方法定义1、apply()方法——apply([thisObj[,argArray]])apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。 2、call()方法——cal">
+    <meta name="description" content="1、apply()方法——apply([thisObj[,argArray]])apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。 2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])与apply作用相同，区别在于接收参数方式不同。第一个参数this的值">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="apply()和call()用法">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/24/apply-和call-用法/index.html">
+<meta property="og:title" content="apply,call,bind用法">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/06/06/apply-call-bind用法/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。 方法定义1、apply()方法——apply([thisObj[,argArray]])apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。 2、call()方法——cal">
-<meta property="og:updated_time" content="2017-04-24T06:38:18.222Z">
+<meta property="og:description" content="1、apply()方法——apply([thisObj[,argArray]])apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。 2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])与apply作用相同，区别在于接收参数方式不同。第一个参数this的值">
+<meta property="og:updated_time" content="2017-06-06T06:45:04.789Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="apply()和call()用法">
-<meta name="twitter:description" content="每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。 方法定义1、apply()方法——apply([thisObj[,argArray]])apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。 2、call()方法——cal">
+<meta name="twitter:title" content="apply,call,bind用法">
+<meta name="twitter:description" content="1、apply()方法——apply([thisObj[,argArray]])apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。 2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])与apply作用相同，区别在于接收参数方式不同。第一个参数this的值">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
+      <a href="/2017/06/06/apply-call-bind用法/" title="apply,call,bind用法" itemprop="url">apply,call,bind用法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> Published 2017-06-06</time>
     
   </p>
 </header>
@@ -97,17 +97,19 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法定义"><span class="toc-number">1.</span> <span class="toc-text">方法定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、apply-方法——apply-thisObj-argArray"><span class="toc-number">1.1.</span> <span class="toc-text">1、apply()方法——apply([thisObj[,argArray]])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、call-方法——call-thisObj-arg1-arg2-argN"><span class="toc-number">1.2.</span> <span class="toc-text">2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用"><span class="toc-number">2.</span> <span class="toc-text">作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、扩充函数赖以运行的作用域"><span class="toc-number">2.1.</span> <span class="toc-text">1、扩充函数赖以运行的作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、实现继承"><span class="toc-number">2.2.</span> <span class="toc-text">2、实现继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、实现多重继承"><span class="toc-number">2.3.</span> <span class="toc-text">3、实现多重继承</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、apply-方法——apply-thisObj-argArray"><span class="toc-number">1.</span> <span class="toc-text">1、apply()方法——apply([thisObj[,argArray]])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、call-方法——call-thisObj-arg1-arg2-argN"><span class="toc-number">2.</span> <span class="toc-text">2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#apply-call"><span class="toc-number">3.</span> <span class="toc-text">apply, call</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#共同之处"><span class="toc-number">3.1.</span> <span class="toc-text">共同之处</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不同之处"><span class="toc-number">3.2.</span> <span class="toc-text">不同之处</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><span class="toc-number">4.</span> <span class="toc-text">3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#apply-call-bind比较"><span class="toc-number">4.1.</span> <span class="toc-text">apply, call, bind比较</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
+		<h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
 <h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
-<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
-<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
-<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
+<h3 id="apply-call"><a href="#apply-call" class="headerlink" title="apply, call"></a>apply, call</h3><h4 id="共同之处"><a href="#共同之处" class="headerlink" title="共同之处"></a>共同之处</h4><p>都可以用来代替另一个对象调用一个方法，将一个函数的对象上下文从初始上下文改变为由thisObj指定的新对象。</p>
+<h4 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h4><p>apply最多只能有两个参数——新this对象和一个数组argArray，如果argArray不是一个有效的数组或者不是arguments对象，那么将导致一个TypeError，如果没有提供argArray和thisObj任何一个参数，那么Global对象将被用作thisObj，并且无法被传递任何参数<br>call传递的是参数列表，。如果没有提供thisObj参数，那么Global对象被用作thisObj。<br>apply和call功能一样，只是传入参数列表形式不同，如果某个参数数量是不固定的，当参数明确时用call，不明确时用apply，然后把参数push进数组传递，函数内部也可以通过arguments数组来遍历所有参数。</p>
+<h3 id="3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><a href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN" class="headerlink" title="3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply和call不同的是，bind会返回一个改变this指向的新函数，新函数与之前的使用的不是同一块内存地址，所以需要重复使用这个函数的时候，必须将其保存到一个变量，方便下次调用。而apply和call都是调用即执行。另外，bind函数中的首个参数，会自动成为返回新函数中参数的默认值，那么正式调用的时候，只需给出除首个参数外，剩余参数即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f(x,y)&#123;</div><div class="line">	console.log(x+y);</div><div class="line">&#125;</div><div class="line">f.call(null,1,1)  //return 2</div><div class="line">var new_f=f.bind(null,1,1);</div><div class="line">new_f(2); //return 2</div></pre></td></tr></table></figure>
+<p>上面实例中thisArg参数均用null代替了，在未给出指定thisArg对象情况下，null与undefined下this指向的是全局对象，即js代码执行环境。</p>
+<h4 id="apply-call-bind比较"><a href="#apply-call-bind比较" class="headerlink" title="apply, call, bind比较"></a>apply, call, bind比较</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;bar:&apos;hello&apos;&#125;</div><div class="line">var foo=&#123;</div><div class="line">  get:function()&#123;</div><div class="line">     return this.bar;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">var bind=foo.get.bind(obj), call=foo.get.call(obj), apply=foo.get.apply(obj);</div><div class="line"></div><div class="line">console.log(bind(),call,apply); //hello hello hello</div><div class="line">console.log(bind,call,apply); //function()&#123;return this.bar;&#125; &quot;hello&quot; &quot;hello&quot;</div><div class="line">console.log(typeof bind,typeof call,typeof apply); function string string</div><div class="line">console.log(typeof bind(),typeof call,typeof apply); //string string string</div></pre></td></tr></table></figure>
+<p>三者的区别是：当你希望改变上下文环境之后并非立即执行，而是回调执行的时候，使用bind()方法，而apply/call则会立即执行函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apply, call, bind三者都是用来改变函数的this对象的指向</div><div class="line">apply, call, bind三者第一个参数都是this要指向的对象，也就是想指定的上下文</div><div class="line">apply, call, bind三者都可以利用后续参数传参</div><div class="line">bind是返回对应的函数，便于稍后调用；apply, call则立即调用</div></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -120,7 +122,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/24/apply-和call-用法/" data-title="apply()和call()用法 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/06/06/apply-call-bind用法/" data-title="apply,call,bind用法 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -134,21 +136,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/24/理解arguments/" title="理解arguments">
+ <a href="/2017/06/05/JS定义变量的三种方式/" title="JS定义变量的三种方式">
   <strong>上一篇：</strong><br/>
   <span>
-  理解arguments</span>
+  JS定义变量的三种方式</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/24/transform-origin-rotate实现绕中心旋转/"  title="transform-origin,rotate实现绕中心旋转">
- <strong>下一篇：</strong><br/> 
- <span>transform-origin,rotate实现绕中心旋转
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -160,7 +154,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法定义"><span class="toc-number">1.</span> <span class="toc-text">方法定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、apply-方法——apply-thisObj-argArray"><span class="toc-number">1.1.</span> <span class="toc-text">1、apply()方法——apply([thisObj[,argArray]])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、call-方法——call-thisObj-arg1-arg2-argN"><span class="toc-number">1.2.</span> <span class="toc-text">2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用"><span class="toc-number">2.</span> <span class="toc-text">作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、扩充函数赖以运行的作用域"><span class="toc-number">2.1.</span> <span class="toc-text">1、扩充函数赖以运行的作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、实现继承"><span class="toc-number">2.2.</span> <span class="toc-text">2、实现继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、实现多重继承"><span class="toc-number">2.3.</span> <span class="toc-text">3、实现多重继承</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、apply-方法——apply-thisObj-argArray"><span class="toc-number">1.</span> <span class="toc-text">1、apply()方法——apply([thisObj[,argArray]])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、call-方法——call-thisObj-arg1-arg2-argN"><span class="toc-number">2.</span> <span class="toc-text">2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#apply-call"><span class="toc-number">3.</span> <span class="toc-text">apply, call</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#共同之处"><span class="toc-number">3.1.</span> <span class="toc-text">共同之处</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不同之处"><span class="toc-number">3.2.</span> <span class="toc-text">不同之处</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><span class="toc-number">4.</span> <span class="toc-text">3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#apply-call-bind比较"><span class="toc-number">4.1.</span> <span class="toc-text">apply, call, bind比较</span></a></li></ol></li></ol>
  
   </div>
 

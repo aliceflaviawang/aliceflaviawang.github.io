@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://aliceflaviawang.github.io/2017/06/12/return-false%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%97%B6%E5%AF%B9%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E5%81%9C%E6%AD%A2%E5%86%92%E6%B3%A1%E5%92%8C%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BA/</loc>
-    <lastmod>2017-06-12T08:50:59.058Z</lastmod>
+    <lastmod>2017-06-12T09:17:10.934Z</lastmod>
     <data>
         <display>
         <title>return false实现同时对事件对象停止冒泡和默认行为</title>

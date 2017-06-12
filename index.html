@@ -81,6 +81,113 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/" title="return false实现同时对事件对象停止冒泡和默认行为" itemprop="url">return false实现同时对事件对象停止冒泡和默认行为</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> Published 2017-06-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;content&quot;&gt;</div><div class="line">  外层div元素</div><div class="line">   &lt;span&gt;内层div元素&lt;/span&gt;</div><div class="line">   外层div元素</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;msg&apos;&gt;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;span&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">	&#125;)</div><div class="line">	$(&apos;#content&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;外层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line">	$(&apos;body&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;body元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>效果如图：<br><img src="http://i.imgur.com/Xgm5FoE.png" alt=""><br>点击span元素<br><img src="http://i.imgur.com/VCfPqq8.png" alt=""><br>点击外层div元素<br><img src="http://i.imgur.com/zWRQWSe.png" alt=""><br>点击内层元素，会冒泡到外层的点击事件。</p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>stopPropagation()方法可以停止事件冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&apos;span&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">        event.stopPropagation();</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<p>点击span元素<br><img src="http://i.imgur.com/TYzNfYd.png" alt=""></p>
+<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><p>网页中的元素有自己的默认行为，例如，单击“提交”按钮后表单会提交，有时需要阻止元素的默认行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;test.html&quot;&gt;</div><div class="line">用户名：&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;sub&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;#sub&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不阻止默认行为，用户名为空的时候，也能提交表单。阻止默认行为使用preventDefault()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(&apos;#sub&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;); </div><div class="line">            event.preventDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="同时对事件对象停止冒泡和默认行为——return-false"><a href="#同时对事件对象停止冒泡和默认行为——return-false" class="headerlink" title="同时对事件对象停止冒泡和默认行为——return false"></a>同时对事件对象停止冒泡和默认行为——return false</h3><p>将event.stopPropagation()和event.preventDefault()替换为return false就可以实现同样的效果。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/08/ajax-dataType/" title="ajax dataType" itemprop="url">ajax dataType</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> Published 2017-06-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>遇到一个很奇怪的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">           type:&quot;POST&quot;,</div><div class="line">           async:false,</div><div class="line">           contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">           // dataType: &apos;json&apos;,</div><div class="line">           url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">           success:function(data)&#123;</div><div class="line">               console.log(data)  //&#123;&quot;body&quot;:&quot;2017年3月-2017年7月&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;status&quot;:0&#125;</div><div class="line">               console.log(data.body) // undefined  </div><div class="line">           &#125;</div></pre></td></tr></table></figure></p>
+<p>如果没有dataType:’json’,返回的data是json对象，访问data.body是undefined。加上dataType:’json’，返回的是普通对象，访问data.body可以获取到。疑问是，dataType:’json’是指定返回数据的格式是’json’，为什么会返回数据的格式是普通对象，不指定反而返回的是’json’对象，另外返回数据无论是普通对象还是json对象，按理都应该能通过对象.属性访问到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">            type:&quot;POST&quot;,</div><div class="line">            async:false,</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">            success:function(data)&#123;</div><div class="line">                console.log(data)  //&#123;body: &quot;2017年3月-2017年7月&quot;, message: &quot;成功&quot;, status: 0&#125;</div><div class="line">                console.log(data.body) // 2017年3月-2017年7月</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/06/apply-call-bind用法/" title="apply,call,bind用法" itemprop="url">apply,call,bind用法</a>
   </h1>
   <p class="article-author">By
@@ -382,108 +489,6 @@
 </li>
 </ol>
 <p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> Published 2017-04-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
-<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
 
         
         

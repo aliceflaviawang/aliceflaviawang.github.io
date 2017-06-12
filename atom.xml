@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-06T06:45:04.789Z</updated>
+  <updated>2017-06-12T08:50:59.058Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>return false实现同时对事件对象停止冒泡和默认行为</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/12/return-false%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%97%B6%E5%AF%B9%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E5%81%9C%E6%AD%A2%E5%86%92%E6%B3%A1%E5%92%8C%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BA/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/</id>
+    <published>2017-06-12T08:06:54.000Z</published>
+    <updated>2017-06-12T08:50:59.058Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;content&quot;&gt;</div><div class="line">  外层div元素</div><div class="line">   &lt;span&gt;内层div元素&lt;/span&gt;</div><div class="line">   外层div元素</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;msg&apos;&gt;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;span&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">	&#125;)</div><div class="line">	$(&apos;#content&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;外层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line">	$(&apos;body&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;body元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>效果如图：<br><img src="http://i.imgur.com/Xgm5FoE.png" alt=""><br>点击span元素<br><img src="http://i.imgur.com/VCfPqq8.png" alt=""><br>点击外层div元素<br><img src="http://i.imgur.com/zWRQWSe.png" alt=""><br>点击内层元素，会冒泡到外层的点击事件。</p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>stopPropagation()方法可以停止事件冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&apos;span&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">        event.stopPropagation();</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<p>点击span元素<br><img src="http://i.imgur.com/TYzNfYd.png" alt=""></p>
+<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><p>网页中的元素有自己的默认行为，例如，单击“提交”按钮后表单会提交，有时需要阻止元素的默认行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;test.html&quot;&gt;</div><div class="line">用户名：&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;sub&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;#sub&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不阻止默认行为，用户名为空的时候，也能提交表单。阻止默认行为使用preventDefault()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(&apos;#sub&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;); </div><div class="line">            event.preventDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="同时对事件对象停止冒泡和默认行为——return-false"><a href="#同时对事件对象停止冒泡和默认行为——return-false" class="headerlink" title="同时对事件对象停止冒泡和默认行为——return false"></a>同时对事件对象停止冒泡和默认行为——return false</h3><p>将event.stopPropagation()和event.preventDefault()替换为return false就可以实现同样的效果。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;冒泡&quot;&gt;&lt;a href=&quot;#冒泡&quot; class=&quot;headerlink&quot; title=&quot;冒泡&quot;&gt;&lt;/a&gt;冒泡&lt;/h3&gt;&lt;p&gt;网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。&lt;br&gt;&lt;figur
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ajax dataType</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/08/ajax-dataType/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/08/ajax-dataType/</id>
+    <published>2017-06-08T02:42:09.000Z</published>
+    <updated>2017-06-09T06:30:48.124Z</updated>
+    
+    <content type="html"><![CDATA[<p>遇到一个很奇怪的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">           type:&quot;POST&quot;,</div><div class="line">           async:false,</div><div class="line">           contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">           // dataType: &apos;json&apos;,</div><div class="line">           url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">           success:function(data)&#123;</div><div class="line">               console.log(data)  //&#123;&quot;body&quot;:&quot;2017年3月-2017年7月&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;status&quot;:0&#125;</div><div class="line">               console.log(data.body) // undefined  </div><div class="line">           &#125;</div></pre></td></tr></table></figure></p>
+<p>如果没有dataType:’json’,返回的data是json对象，访问data.body是undefined。加上dataType:’json’，返回的是普通对象，访问data.body可以获取到。疑问是，dataType:’json’是指定返回数据的格式是’json’，为什么会返回数据的格式是普通对象，不指定反而返回的是’json’对象，另外返回数据无论是普通对象还是json对象，按理都应该能通过对象.属性访问到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">            type:&quot;POST&quot;,</div><div class="line">            async:false,</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">            success:function(data)&#123;</div><div class="line">                console.log(data)  //&#123;body: &quot;2017年3月-2017年7月&quot;, message: &quot;成功&quot;, status: 0&#125;</div><div class="line">                console.log(data.body) // 2017年3月-2017年7月</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;遇到一个很奇怪的问题&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div c
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>apply,call,bind用法</title>
@@ -413,49 +458,6 @@
     <summary type="html">
     
       &lt;p&gt;今天提示win10许可证要过期了，于是尝试了各种工具，Microsoft Toolkit、HEU_KMS_Activator、KMS10_Crack2都不行，最后在网上找到了这个方法，一分钟不到就搞定了，分享一下网址&lt;a href=&quot;https://jingyan.baid
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>JS与jQuery显示和隐藏div</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/10/JS%E4%B8%8EjQuery%E6%98%BE%E7%A4%BA%E5%92%8C%E9%9A%90%E8%97%8Fdiv/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/10/JS与jQuery显示和隐藏div/</id>
-    <published>2017-04-10T12:25:07.000Z</published>
-    <updated>2017-04-10T12:39:10.062Z</updated>
-    
-    <content type="html"><![CDATA[<p>关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;div&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;block&quot;;</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;none&quot;;//不占用空间</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;hidden&quot;;//仍然占用空间</div></pre></td></tr></table></figure></p>
-<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//通过css方法设置属性</div><div class="line">$(&quot;#div&quot;).css(&quot;diaplay&quot;,&quot;block&quot;);</div><div class="line">//给元素换class，提前将换的class样式定义好display属性</div><div class="line">$(&quot;#div&quot;).attr(&quot;class&quot;,&quot;blockclass&quot;);</div><div class="line">//通过attr方法</div><div class="line">$(&quot;#div&quot;).attr(&quot;display&quot;,&quot;block&quot;);</div></pre></td></tr></table></figure></p>
-<p>注：jQuery的css方法和attr方法的区别,css顾名思义就是标签自带的css属性，atrr只能取自己定义的属性，例如，如果div中没有diaplay这个属性的话，不能用过attr给其赋值，但是可以用css方法。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pr
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>JS与jQuery清空输入框</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/10/JS%E4%B8%8EjQuery%E6%B8%85%E7%A9%BA%E8%BE%93%E5%85%A5%E6%A1%86/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/10/JS与jQuery清空输入框/</id>
-    <published>2017-04-10T12:12:09.000Z</published>
-    <updated>2017-04-10T12:16:41.820Z</updated>
-    
-    <content type="html"><![CDATA[<p>input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;input&quot;).value=&quot;&quot;;</div></pre></td></tr></table></figure></p>
-<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#input&quot;).val(&quot;&quot;);</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=
     
     </summary>
     

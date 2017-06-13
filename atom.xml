@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-12T09:17:10.934Z</updated>
+  <updated>2017-06-13T07:19:28.470Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>a标签中href=&#39;&#39;的几种用法</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/13/a%E6%A0%87%E7%AD%BE%E4%B8%ADhref-%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/13/a标签中href-的几种用法/</id>
+    <published>2017-06-13T06:54:22.000Z</published>
+    <updated>2017-06-13T07:19:28.470Z</updated>
+    
+    <content type="html"><![CDATA[<p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
+<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
+<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
+<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
+<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。</p>
+<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。&lt;/p&gt;
+&lt;h3 id=&quot;一、href的几种调用方法&quot;&gt;&lt;a href=&quot;#一、href的几种调用方法&quot; class=&quot;headerlink&quot; title=&quot;一、href的几种调用方法&quot;&gt;&lt;/a&gt;一、h
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>return false实现同时对事件对象停止冒泡和默认行为</title>
@@ -442,25 +467,6 @@
     <summary type="html">
     
       &lt;p&gt;easyui是一个集成了各种用户界面的插件的框架，特别使用各种表格的开发，能大大节省时间。在项目中遇到的问题时，下dialog中无法使用combobox生成下拉框，于是只能通过打开dialog时插入一个下拉框。&lt;br&gt;&lt;figure class=&quot;highlight pla
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>win10永久激活方方法</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/10/win10%E6%B0%B8%E4%B9%85%E6%BF%80%E6%B4%BB%E6%96%B9%E6%96%B9%E6%B3%95/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/10/win10永久激活方方法/</id>
-    <published>2017-04-10T12:44:58.000Z</published>
-    <updated>2017-04-10T12:48:18.180Z</updated>
-    
-    <content type="html"><![CDATA[<p>今天提示win10许可证要过期了，于是尝试了各种工具，Microsoft Toolkit、HEU_KMS_Activator、KMS10_Crack2都不行，最后在网上找到了这个方法，一分钟不到就搞定了，分享一下网址<a href="https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。" target="_blank" rel="external">https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天提示win10许可证要过期了，于是尝试了各种工具，Microsoft Toolkit、HEU_KMS_Activator、KMS10_Crack2都不行，最后在网上找到了这个方法，一分钟不到就搞定了，分享一下网址&lt;a href=&quot;https://jingyan.baid
     
     </summary>
     

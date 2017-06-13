@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>append和prepend | 笑呵呵</title>
+    <title>a标签中href=&#39;&#39;的几种用法 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：1234&amp;lt;div id=&amp;quot;console&amp;quot;&amp;gt;   &amp;lt;h2&amp;gt;Console Log&amp;lt;/h2&amp;gt;   &amp;lt;ul&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/div&amp;gt; 添加">
+    <meta name="description" content="a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。 一、href的几种调用方法1、a href=”javascript:js_method();”这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="append和prepend">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/24/append和prepend/index.html">
+<meta property="og:title" content="a标签中href=''的几种用法">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/06/13/a标签中href-的几种用法/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：1234&amp;lt;div id=&amp;quot;console&amp;quot;&amp;gt;   &amp;lt;h2&amp;gt;Console Log&amp;lt;/h2&amp;gt;   &amp;lt;ul&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/div&amp;gt; 添加">
-<meta property="og:updated_time" content="2017-04-24T14:17:54.922Z">
+<meta property="og:description" content="a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。 一、href的几种调用方法1、a href=”javascript:js_method();”这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放">
+<meta property="og:updated_time" content="2017-06-13T07:19:28.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="append和prepend">
-<meta name="twitter:description" content="append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：1234&amp;lt;div id=&amp;quot;console&amp;quot;&amp;gt;   &amp;lt;h2&amp;gt;Console Log&amp;lt;/h2&amp;gt;   &amp;lt;ul&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/div&amp;gt; 添加">
+<meta name="twitter:title" content="a标签中href=''的几种用法">
+<meta name="twitter:description" content="a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。 一、href的几种调用方法1、a href=”javascript:js_method();”这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
+      <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法" itemprop="url">a标签中href=&#39;&#39;的几种用法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> Published 2017-06-13</time>
     
   </p>
 </header>
@@ -97,13 +97,16 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、href的几种调用方法"><span class="toc-number">1.</span> <span class="toc-text">一、href的几种调用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、a-href-”javascript-js-method-”"><span class="toc-number">1.1.</span> <span class="toc-text">1、a href=”javascript:js_method();”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”"><span class="toc-number">1.2.</span> <span class="toc-text">2、a href=”javascript:void(0);” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、a-href-”javascript-”-onclick-”js-method-”"><span class="toc-number">1.3.</span> <span class="toc-text">3、a href=”javascript:;” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、a-href-”-”-onclick-”js-method-”"><span class="toc-number">1.4.</span> <span class="toc-text">4、a href=”#” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、a-href-”-”-onclick-”js-method-return-false-”"><span class="toc-number">1.5.</span> <span class="toc-text">5、a href=”#” onclick=”js_method();return false;”</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
-<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
+		<p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
+<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
+<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
+<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
+<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。</p>
+<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +119,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/24/append和prepend/" data-title="append和prepend | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/06/13/a标签中href-的几种用法/" data-title="a标签中href=&#39;&#39;的几种用法 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,21 +133,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/24/transform-origin-rotate实现绕中心旋转/" title="transform-origin,rotate实现绕中心旋转">
+ <a href="/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/" title="return false实现同时对事件对象停止冒泡和默认行为">
   <strong>上一篇：</strong><br/>
   <span>
-  transform-origin,rotate实现绕中心旋转</span>
+  return false实现同时对事件对象停止冒泡和默认行为</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/25/slice-substring-substr-总结/"  title="slice(), substring(), substr()总结">
- <strong>下一篇：</strong><br/> 
- <span>slice(), substring(), substr()总结
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -156,7 +151,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、href的几种调用方法"><span class="toc-number">1.</span> <span class="toc-text">一、href的几种调用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、a-href-”javascript-js-method-”"><span class="toc-number">1.1.</span> <span class="toc-text">1、a href=”javascript:js_method();”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”"><span class="toc-number">1.2.</span> <span class="toc-text">2、a href=”javascript:void(0);” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、a-href-”javascript-”-onclick-”js-method-”"><span class="toc-number">1.3.</span> <span class="toc-text">3、a href=”javascript:;” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、a-href-”-”-onclick-”js-method-”"><span class="toc-number">1.4.</span> <span class="toc-text">4、a href=”#” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、a-href-”-”-onclick-”js-method-return-false-”"><span class="toc-number">1.5.</span> <span class="toc-text">5、a href=”#” onclick=”js_method();return false;”</span></a></li></ol></li></ol>
  
   </div>
 

@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>阿里暑期前端面试总结 | 笑呵呵</title>
+    <title>EasyUI更改弹出框位置 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="You Never Know Who You Can Be">
+    <meta name="description" content="EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。如：1$(&amp;apos;#dlg&amp;apos;).dialog(&amp;apos;open&amp;apos;).dialog(&amp;apos;center&amp;apos;).dialog(&amp;apos;setT">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿里暑期前端面试总结">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/19/阿里暑期前端面试总结/index.html">
+<meta property="og:title" content="EasyUI更改弹出框位置">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/06/15/EasyUI更改弹出框位置/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="You Never Know Who You Can Be">
-<meta property="og:updated_time" content="2017-04-19T10:40:53.645Z">
+<meta property="og:description" content="EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。如：1$(&amp;apos;#dlg&amp;apos;).dialog(&amp;apos;open&amp;apos;).dialog(&amp;apos;center&amp;apos;).dialog(&amp;apos;setT">
+<meta property="og:updated_time" content="2017-06-15T02:21:15.667Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿里暑期前端面试总结">
-<meta name="twitter:description" content="You Never Know Who You Can Be">
+<meta name="twitter:title" content="EasyUI更改弹出框位置">
+<meta name="twitter:description" content="EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。如：1$(&amp;apos;#dlg&amp;apos;).dialog(&amp;apos;open&amp;apos;).dialog(&amp;apos;center&amp;apos;).dialog(&amp;apos;setT">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/19/阿里暑期前端面试总结/" title="阿里暑期前端面试总结" itemprop="url">阿里暑期前端面试总结</a>
+      <a href="/2017/06/15/EasyUI更改弹出框位置/" title="EasyUI更改弹出框位置" itemprop="url">EasyUI更改弹出框位置</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 发表于 2017-06-15</time>
     
   </p>
 </header>
@@ -101,7 +101,9 @@
 		
 		</div>
 		
-		  
+		<p>EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).dialog(&apos;open&apos;).dialog(&apos;center&apos;).dialog(&apos;setTitle&apos;, &apos;添加题目&apos;);</div></pre></td></tr></table></figure></p>
+<p>可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).window(&apos;open&apos;).window(&apos;setTitle&apos;,&apos;添加题目&apos;).window(&apos;resize&apos;,&#123;width:&apos;500px&apos;,height:&apos;800px&apos;,top:&apos;30px&apos;&#125;</div></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -113,7 +115,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/19/阿里暑期前端面试总结/" data-title="阿里暑期前端面试总结 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/06/15/EasyUI更改弹出框位置/" data-title="EasyUI更改弹出框位置 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -127,21 +129,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/19/腾讯暑期实习面试前端面试总结/" title="腾讯暑期实习面试前端面试总结">
+ <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法">
   <strong>上一篇：</strong><br/>
   <span>
-  腾讯暑期实习面试前端面试总结</span>
+  a标签中href=&#39;&#39;的几种用法</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/22/translate-50-50-的作用/"  title="translate(-50%,-50%)的作用">
- <strong>下一篇：</strong><br/> 
- <span>translate(-50%,-50%)的作用
-</span>
-</a>
-</div>
 
 </nav>
 

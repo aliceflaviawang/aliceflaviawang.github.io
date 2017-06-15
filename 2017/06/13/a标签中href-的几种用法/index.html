@@ -18,7 +18,7 @@
 <meta property="og:url" content="https://aliceflaviawang.github.io/2017/06/13/a标签中href-的几种用法/index.html">
 <meta property="og:site_name" content="笑呵呵">
 <meta property="og:description" content="a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。 一、href的几种调用方法1、a href=”javascript:js_method();”这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放">
-<meta property="og:updated_time" content="2017-06-13T07:19:28.470Z">
+<meta property="og:updated_time" content="2017-06-13T12:29:08.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="a标签中href=''的几种用法">
 <meta name="twitter:description" content="a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。 一、href的几种调用方法1、a href=”javascript:js_method();”这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放">
@@ -49,7 +49,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -65,7 +65,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -88,14 +88,14 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> Published 2017-06-13</time>
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 发表于 2017-06-13</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">Contents</strong>
+			<strong class="toc-title">文章目录</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、href的几种调用方法"><span class="toc-number">1.</span> <span class="toc-text">一、href的几种调用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、a-href-”javascript-js-method-”"><span class="toc-number">1.1.</span> <span class="toc-text">1、a href=”javascript:js_method();”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”"><span class="toc-number">1.2.</span> <span class="toc-text">2、a href=”javascript:void(0);” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、a-href-”javascript-”-onclick-”js-method-”"><span class="toc-number">1.3.</span> <span class="toc-text">3、a href=”javascript:;” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、a-href-”-”-onclick-”js-method-”"><span class="toc-number">1.4.</span> <span class="toc-text">4、a href=”#” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、a-href-”-”-onclick-”js-method-return-false-”"><span class="toc-number">1.5.</span> <span class="toc-text">5、a href=”#” onclick=”js_method();return false;”</span></a></li></ol></li></ol>
 		
@@ -105,7 +105,7 @@
 <h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
 <h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
 <h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
-<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。</p>
+<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。（如果希望不返回页面顶端，可以在#后面加任意无效的位置信息，如###）</p>
 <h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
   
 	</div>
@@ -141,22 +141,30 @@
 </div>
 
 
+<div class="next">
+<a href="/2017/06/15/EasyUI更改弹出框位置/"  title="EasyUI更改弹出框位置">
+ <strong>下一篇：</strong><br/> 
+ <span>EasyUI更改弹出框位置
+</span>
+</a>
+</div>
+
 </nav>
 
 	
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
   <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
+  <strong class="toc-title">文章目录</strong>
  
  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、href的几种调用方法"><span class="toc-number">1.</span> <span class="toc-text">一、href的几种调用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、a-href-”javascript-js-method-”"><span class="toc-number">1.1.</span> <span class="toc-text">1、a href=”javascript:js_method();”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”"><span class="toc-number">1.2.</span> <span class="toc-text">2、a href=”javascript:void(0);” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、a-href-”javascript-”-onclick-”js-method-”"><span class="toc-number">1.3.</span> <span class="toc-text">3、a href=”javascript:;” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、a-href-”-”-onclick-”js-method-”"><span class="toc-number">1.4.</span> <span class="toc-text">4、a href=”#” onclick=”js_method()”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、a-href-”-”-onclick-”js-method-return-false-”"><span class="toc-number">1.5.</span> <span class="toc-text">5、a href=”#” onclick=”js_method();return false;”</span></a></li></ol></li></ol>
  
   </div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -167,7 +175,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -189,11 +197,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -420,7 +428,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

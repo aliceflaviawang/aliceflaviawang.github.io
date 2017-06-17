@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -88,14 +88,18 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> 發表於 2017-06-17</time>
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> Published 2017-06-17</time>
     
   </p>
 </header>
     <div class="article-content">
         
         <h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><p>jQuery有方法$.fn.serialize()，可以将表单序列化成字符串。提交表单的时候，将表单的每个元素表达成如：username:$(“#username”).val(),content:$(“#content”).val()…无疑随着表单元素越来越复杂，这种方式在增大工作量的同时也使表单元素缺乏弹性。采用serialize（）方法可以将需要提交的字段内容序列化为字符串，username:$(“#username”).val(),content:$(“#content”).val()…可以用一个语句代替:$(“#form”).serialize(),其中#form是表单的id。</p>
-<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为JSON格式的数据，而serializeObject()是基于serializeArray（）编写的。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //&quot;username=&amp;content=&quot;</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为JSON格式的数据，输出的是对象数组。而serializeObject()是基于serializeArray（）编写的。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //username=&amp;content=</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;&#125;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>1、serializeObject()直接使用的话，会提示serializeObject()is not a funtion.因为serializeObject()本身并不是一个jQuery自带的功能，而是基于serializeArray（）的添加功能，需要对其进行定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$.fn.serializeObject()&#123;</div><div class="line">  var o=&#123;&#125;; //保存对象</div><div class="line">  var a=this.serializeArray(); //先将元素序列化为对象数组</div><div class="line">  $.each(a,function()&#123;</div><div class="line">    if(o[this.name])&#123;//表单中可能有多个相同的label，在插入第一个label后，还有继续插入，这个时候o[label]已经存在了，所以要把o[label]做嵌套处理</div><div class="line">       if（！o[this.name].push)&#123; //如果o[label]不是嵌套在数组里面，实际上就是看o[this.name]是不是一个数组，数组有push方法，对象没有</div><div class="line">          o[thos.name]=[o[this.name]];将o[label]初始为嵌套数组</div><div class="line">        &#125;</div><div class="line">        o[this.name].push(this.value||&apos;&apos;); //将值插入o[label]数组里</div><div class="line">     &#125;</div><div class="line">    else&#123;</div><div class="line">       o[this.name]=this.value||&apos;&apos;;//第一次在o中插入o[label]</div><div class="line">     &#125;</div><div class="line">   &#125;)</div><div class="line">  return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>举个例子,对于下面的表单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;form id=&quot;form&quot;&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt; </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;content&quot; /&gt; </div><div class="line">    &lt;input type=&quot;button&quot; id=&quot;send&quot; onclick=&quot;sen();&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>执行三个函数，分别结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=$(&quot;#form&quot;).serialize(); //username=alice&amp;username=bob&amp;content=123</div><div class="line"> </div><div class="line">var b=$(&quot;#form&quot;).serializeArray();  //[&#123;name:&quot;username&quot;,value=&quot;alice&quot;&#125;,&#123;name:&quot;username&quot;,value=&quot;bob&quot;&#125;,&#123;name:&quot;content&quot;,value=&quot;123&quot;&#125;]</div><div class="line"></div><div class="line">var c=$(&quot;#form&quot;).serializeObject();  //&#123;username:[&quot;alice&quot;,&quot;bob&quot;],content:&quot;123&quot;&#125;</div></pre></td></tr></table></figure></p>
+<p>2、表单元素要序列化必须要使用name属性，form里的name不能用js、jquery的关键字，否则获取不到值。<br>3、不光表单能用到serialize()方法，其他选择器元素也可以。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;:checkbox,:radio&quot;).serialize()</div></pre></td></tr></table></figure></p>
 
         
         
@@ -139,7 +143,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 發表於 2017-06-15</time>
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> Published 2017-06-15</time>
     
   </p>
 </header>
@@ -190,7 +194,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 發表於 2017-06-13</time>
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> Published 2017-06-13</time>
     
   </p>
 </header>
@@ -245,7 +249,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 發表於 2017-06-12</time>
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> Published 2017-06-12</time>
     
   </p>
 </header>
@@ -304,7 +308,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 發表於 2017-06-08</time>
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> Published 2017-06-08</time>
     
   </p>
 </header>
@@ -355,7 +359,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 發表於 2017-06-06</time>
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> Published 2017-06-06</time>
     
   </p>
 </header>
@@ -413,7 +417,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 發表於 2017-06-05</time>
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
     
   </p>
 </header>
@@ -465,7 +469,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> 發表於 2017-05-27</time>
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
     
   </p>
 </header>
@@ -519,10 +523,10 @@
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -533,7 +537,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -555,11 +559,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
+  <p class="asidetitle">Weibo</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -709,7 +713,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

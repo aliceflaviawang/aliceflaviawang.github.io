@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-15T02:21:15.667Z</updated>
+  <updated>2017-06-17T11:35:10.737Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>serialize()系列方法</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/17/serialize-%E7%B3%BB%E5%88%97%E6%96%B9%E6%B3%95/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/17/serialize-系列方法/</id>
+    <published>2017-06-17T11:22:16.000Z</published>
+    <updated>2017-06-17T11:35:10.737Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><p>jQuery有方法$.fn.serialize()，可以将表单序列化成字符串。提交表单的时候，将表单的每个元素表达成如：username:$(“#username”).val(),content:$(“#content”).val()…无疑随着表单元素越来越复杂，这种方式在增大工作量的同时也使表单元素缺乏弹性。采用serialize（）方法可以将需要提交的字段内容序列化为字符串，username:$(“#username”).val(),content:$(“#content”).val()…可以用一个语句代替:$(“#form”).serialize(),其中#form是表单的id。</p>
+<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为数组，而serializeObject()将表单序列化为对象。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //&quot;username=&amp;content=&quot;</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;serialize&quot;&gt;&lt;a href=&quot;#serialize&quot; class=&quot;headerlink&quot; title=&quot;serialize()&quot;&gt;&lt;/a&gt;serialize()&lt;/h3&gt;&lt;p&gt;jQuery有方法$.fn.serialize()，可以将表单序列化成字符串
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>EasyUI更改弹出框位置</title>
@@ -446,27 +466,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;p&gt;easyui框架下，当一个页面出现两个datagrid，或者说出现两个table的时候，datagrid的某些属性会失效，比如说pagina
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>easyui表格查询</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/10/easyui%E8%A1%A8%E6%A0%BC%E6%9F%A5%E8%AF%A2/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/10/easyui表格查询/</id>
-    <published>2017-04-10T13:09:22.000Z</published>
-    <updated>2017-04-10T13:24:40.892Z</updated>
-    
-    <content type="html"><![CDATA[<p>easyui表格查询非常简单，比如说对于一个datagrid如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;toolbar1&quot;&gt;</div><div class="line">        &lt;div style=&quot;padding:3px&quot;&gt;</div><div class="line">            &lt;span&gt;部门 ID:&lt;/span&gt;</div><div class="line">            &lt;input id=&quot;deptId&quot; style=&quot;line-height:26px;border:1px solid #ccc&quot;&gt; --&gt;</div><div class="line">            &lt;span&gt;部门名称:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd&apos; &gt;</div><div class="line">            &lt;span&gt;岗位类型:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd3&apos; &gt;</div><div class="line">             &lt;span&gt;设岗科室名称:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd2&apos; style=&quot;line-height:22px;border:1px solid #ccc;border-radius:5px;&quot;&gt;</div><div class="line">             &lt;span&gt;指导老师:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd1&apos; style=&quot;line-height:22px;border:1px solid #ccc;border-radius:5px;&quot;&gt;</div><div class="line">            &lt;a href=&quot;#&quot; class=&quot;easyui-linkbutton&quot; plain=&quot;true&quot; iconCls=&quot;icon-search&quot; onclick=&quot;doFind()&quot;&gt;查询&lt;/a&gt;        </div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">&lt;table id=&quot;tt1&quot; title=&quot;岗位申请&quot; class=&quot;easyui-datagrid&quot; style=&quot;width:100%;height:auto;&quot;  singleSelect=&quot;true&quot; data-options=&quot;fit:true&quot; rownumbers=&quot;true&quot; idField=&apos;deptId&apos; method=&apos;post&apos; toolbar=&apos;#toolbar1&apos;&gt;</div><div class="line">     &lt;thead&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;deptId&quot; width=&quot;5%&quot; align=&quot;center&quot;&gt;学院/部门ID&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;deptName&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;学院/部门名称&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;jobTime&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;岗位时间&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;teacherName&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;指导老师&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;telephone&quot; width=&quot;7%&quot; align=&quot;center&quot;&gt;指导老师电话&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;guideTrain&quot; width=&quot;10%&quot; align=&quot;center&quot;&gt;指导与培训体系&lt;/th&gt;</div><div class="line">           &lt;th colspan=&quot;6&quot; align=&quot;center&quot; &gt;岗位要求&lt;/th&gt;</div><div class="line">            &lt;th rowspan=&quot;2&quot; field=&quot;statusCodeName&quot; align=&quot;center&quot; width=&quot;5%&quot;&gt;审核状态&lt;/th&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt; </div><div class="line">            &lt;th field=&quot;officeName&quot; align=&quot;center&quot; width=&quot;9%&quot;&gt;设岗科室名称&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;typeName&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;岗位类型&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;jobNum&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;设岗科室岗位数&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;jobWork&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;科室工作量&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;responsibility&quot; align=&quot;center&quot; width=&quot;10%&quot;&gt;科室工作职责&lt;/th&gt;</div><div class="line">             &lt;th field=&quot;ability&quot; align=&quot;center&quot; width=&quot;12%&quot;&gt;科室岗位培养的综合素质&lt;/th&gt;</div><div class="line">           </div><div class="line">        &lt;/tr&gt;</div><div class="line">     &lt;/thead&gt;</div><div class="line">  &lt;/table&gt;</div></pre></td></tr></table></figure></p>
-<p>查询部分的js代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function doFind()&#123;</div><div class="line">//获取查询条件</div><div class="line">        var val = $(&apos;#dd&apos;).combobox(&apos;getValue&apos;);</div><div class="line">        var teacherName = $(&apos;#dd1&apos;).val();</div><div class="line">        var officeName = $(&apos;#dd2&apos;).val();</div><div class="line">        var type = $(&apos;#dd3&apos;).combobox(&apos;getValue&apos;);</div><div class="line">//根据查询条件在表格tt中load出来</div><div class="line">$(&quot;#tt1&quot;).datagrid(&apos;load&apos;,&#123;</div><div class="line">deptId:val,</div><div class="line">teacherName:teacherName,</div><div class="line">officeName:officeName,</div><div class="line">type:type</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>但是发现这样有问题，如果某项没填，比如teacherName为空，那么将会在表格中查询teacherName为空的项，从而查不到结果。<br>因此采取先判断查询项是否为空，才能得出正确结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">function doFind()&#123;</div><div class="line">        var val = $(&apos;#dd&apos;).combobox(&apos;getValues&apos;);//允许多选的情况，首先要在id为dd的combobox设置multipl为true</div><div class="line">       if (val[0] == &apos;&apos;) &#123;</div><div class="line">           val = val.slice(1)</div><div class="line">       &#125;</div><div class="line">       var teacherName = $(&apos;#dd1&apos;).val();</div><div class="line">       var officeName = $(&apos;#dd2&apos;).val();</div><div class="line">       var type = $(&apos;#dd3&apos;).combobox(&apos;getValue&apos;)</div><div class="line">       var deptIds = val.join(&apos;,&apos;);//将每项用,分开</div><div class="line">       var query = &#123;&#125;</div><div class="line">      //判断查询条件是否为空，将查询条件保存到对象中</div><div class="line">       if(teacherName)&#123;</div><div class="line">           query.teacherName=teacherName;</div><div class="line">       &#125;</div><div class="line">       if(officeName)&#123;</div><div class="line">           query.officeName=officeName;</div><div class="line">       &#125;</div><div class="line">       if(type)&#123;</div><div class="line">           query.type=type;</div><div class="line">       &#125;</div><div class="line">        if(deptIds)&#123;</div><div class="line">           query.deptId=deptIds;</div><div class="line">       &#125;</div><div class="line">             </div><div class="line">           $(&apos;#tt1&apos;).datagrid(&apos;load&apos;, query);</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;easyui表格查询非常简单，比如说对于一个datagrid如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div clas
     
     </summary>
     

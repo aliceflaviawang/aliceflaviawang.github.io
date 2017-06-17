@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-17T11:35:10.737Z</updated>
+  <updated>2017-06-17T11:52:58.579Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="https://aliceflaviawang.github.io/2017/06/17/serialize-%E7%B3%BB%E5%88%97%E6%96%B9%E6%B3%95/"/>
     <id>https://aliceflaviawang.github.io/2017/06/17/serialize-系列方法/</id>
     <published>2017-06-17T11:22:16.000Z</published>
-    <updated>2017-06-17T11:35:10.737Z</updated>
+    <updated>2017-06-17T11:52:58.579Z</updated>
     
     <content type="html"><![CDATA[<h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><p>jQuery有方法$.fn.serialize()，可以将表单序列化成字符串。提交表单的时候，将表单的每个元素表达成如：username:$(“#username”).val(),content:$(“#content”).val()…无疑随着表单元素越来越复杂，这种方式在增大工作量的同时也使表单元素缺乏弹性。采用serialize（）方法可以将需要提交的字段内容序列化为字符串，username:$(“#username”).val(),content:$(“#content”).val()…可以用一个语句代替:$(“#form”).serialize(),其中#form是表单的id。</p>
-<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为数组，而serializeObject()将表单序列化为对象。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //&quot;username=&amp;content=&quot;</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为JSON格式的数据，而serializeObject()是基于serializeArray（）编写的。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //&quot;username=&amp;content=&quot;</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">

@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,59 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/10/JS与jQuery显示和隐藏div/" title="JS与jQuery显示和隐藏div" itemprop="url">JS与jQuery显示和隐藏div</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-10T12:25:07.000Z" itemprop="datePublished"> 发表于 2017-04-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;div&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;block&quot;;</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;none&quot;;//不占用空间</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;hidden&quot;;//仍然占用空间</div></pre></td></tr></table></figure></p>
+<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//通过css方法设置属性</div><div class="line">$(&quot;#div&quot;).css(&quot;diaplay&quot;,&quot;block&quot;);</div><div class="line">//给元素换class，提前将换的class样式定义好display属性</div><div class="line">$(&quot;#div&quot;).attr(&quot;class&quot;,&quot;blockclass&quot;);</div><div class="line">//通过attr方法</div><div class="line">$(&quot;#div&quot;).attr(&quot;display&quot;,&quot;block&quot;);</div></pre></td></tr></table></figure></p>
+<p>注：jQuery的css方法和attr方法的区别,css顾名思义就是标签自带的css属性，atrr只能取自己定义的属性，例如，如果div中没有diaplay这个属性的话，不能用过attr给其赋值，但是可以用css方法。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/10/JS与jQuery清空输入框/" title="JS与jQuery清空输入框" itemprop="url">JS与jQuery清空输入框</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +141,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-10T12:12:09.000Z" itemprop="datePublished"> Published 2017-04-10</time>
+    <time datetime="2017-04-10T12:12:09.000Z" itemprop="datePublished"> 发表于 2017-04-10</time>
     
   </p>
 </header>
@@ -140,7 +193,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-09T13:09:30.000Z" itemprop="datePublished"> Published 2017-04-09</time>
+    <time datetime="2017-04-09T13:09:30.000Z" itemprop="datePublished"> 发表于 2017-04-09</time>
     
   </p>
 </header>
@@ -194,7 +247,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-09T12:59:26.000Z" itemprop="datePublished"> Published 2017-04-09</time>
+    <time datetime="2017-04-09T12:59:26.000Z" itemprop="datePublished"> 发表于 2017-04-09</time>
     
   </p>
 </header>
@@ -246,7 +299,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-08T12:37:28.000Z" itemprop="datePublished"> Published 2017-04-08</time>
+    <time datetime="2017-04-08T12:37:28.000Z" itemprop="datePublished"> 发表于 2017-04-08</time>
     
   </p>
 </header>
@@ -305,7 +358,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-04T13:44:17.000Z" itemprop="datePublished"> Published 2017-04-04</time>
+    <time datetime="2017-04-04T13:44:17.000Z" itemprop="datePublished"> 发表于 2017-04-04</time>
     
   </p>
 </header>
@@ -383,7 +436,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-04T13:28:41.000Z" itemprop="datePublished"> Published 2017-04-04</time>
+    <time datetime="2017-04-04T13:28:41.000Z" itemprop="datePublished"> 发表于 2017-04-04</time>
     
   </p>
 </header>
@@ -426,10 +479,10 @@
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -440,7 +493,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -462,11 +515,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -616,7 +669,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

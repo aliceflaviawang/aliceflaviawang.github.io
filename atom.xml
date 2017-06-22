@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-17T13:25:38.569Z</updated>
+  <updated>2017-06-22T02:14:29.284Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JSON.parse()和Json.stringify()</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/22/JSON-parse-%E5%92%8CJson-stringify/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/22/JSON-parse-和Json-stringify/</id>
+    <published>2017-06-22T02:01:30.000Z</published>
+    <updated>2017-06-22T02:14:29.284Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a>JSON.parse()</h3><p>parse是用一个字符串中解析出json对象，如：<br>var str=’{“name”:”alice”,”age”:”23”}’<br>结果：<br>JSON.parse(str)<br>Object<br>age:”23”<br>name:”alice”<br><em>proto</em>:Object</p>
+<p>注意：单引号写在{}外面，每个属性名必须用双引号，否则会报错</p>
+<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h3><p>stringify是从对象解析出字符串，如：<br>var a={a:1,b:2}<br>JSON.stringify(a)<br>‘{“a”:1,”b”:2}’</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;JSON-parse&quot;&gt;&lt;a href=&quot;#JSON-parse&quot; class=&quot;headerlink&quot; title=&quot;JSON.parse()&quot;&gt;&lt;/a&gt;JSON.parse()&lt;/h3&gt;&lt;p&gt;parse是用一个字符串中解析出json对象，如：&lt;br&gt;var s
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>serialize()系列方法</title>
@@ -450,26 +471,6 @@
     <summary type="html">
     
       &lt;p&gt;4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：&lt;br&gt;1、http状态码有哪些，代表的什么意思&lt;br&gt;2、用过缓存没有，local st
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>easyui两个datagrid的问题</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/11/easyui%E4%B8%A4%E4%B8%AAdatagrid%E7%9A%84%E9%97%AE%E9%A2%98/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/11/easyui两个datagrid的问题/</id>
-    <published>2017-04-11T11:11:39.000Z</published>
-    <updated>2017-04-11T11:21:49.478Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>easyui框架下，当一个页面出现两个datagrid，或者说出现两个table的时候，datagrid的某些属性会失效，比如说pagination分页会失效.</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>使用两个div将两个datagrid分开，但是使用两个div后，页面不能填充整个屏幕，所以解决两个datagrid分页失效的问题转化为了如何让div填充整个屏幕的问题。解决方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">html, body&#123;</div><div class="line">margin:0;</div><div class="line">padding:0;</div><div class="line">&#125;</div><div class="line">div&#123;</div><div class="line">width:100%;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h3&gt;&lt;p&gt;easyui框架下，当一个页面出现两个datagrid，或者说出现两个table的时候，datagrid的某些属性会失效，比如说pagina
     
     </summary>
     

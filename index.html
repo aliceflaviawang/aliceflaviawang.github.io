@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -81,6 +81,62 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/22/页面内跳转方法总结/" title="页面内跳转方法总结" itemprop="url">页面内跳转方法总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="方法一：用标签，在href里写入定位的DIV的id-如："><a href="#方法一：用标签，在href里写入定位的DIV的id-如：" class="headerlink" title="方法一：用标签，在href里写入定位的DIV的id.如："></a>方法一：用<a>标签，在href里写入定位的DIV的id.如：</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#div1&quot;&gt;scroll to div1&gt;&lt;/a&gt; //定位到div1</div><div class="line">&lt;div id=&quot;div1&quot;&gt;div1&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div2&quot;&gt;div2&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div3&quot;&gt;div3&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>缺点：点击锚点后，浏览器的URL会发生变化，刷新会出现问题。</p>
+<h3 id="方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><a href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。" class="headerlink" title="方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"></a>方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   funtion locate()&#123;</div><div class="line">      window.location.hash=&quot;#div1&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><a href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。" class="headerlink" title="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"></a>方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   function lacate()&#123;</div><div class="line">      $(&quot;html&quot;,&quot;body&quot;).animate(&#123;</div><div class="line">         scrollTop:$(&quot;#div1&quot;).offset().top</div><div class="line">     &#125;,&#123;duration:500,easing:&quot;swing&quot;&#125;)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>优点：url地址不会改变，同时点击锚点会自动响应scroll事件，不需要重新绑定。<br>缺点：如果页面复杂的话，偏移值可能会发生变化需要算法辅助。</p>
+<h3 id="方法四：用js的scrollIntoView方法，直接用："><a href="#方法四：用js的scrollIntoView方法，直接用：" class="headerlink" title="方法四：用js的scrollIntoView方法，直接用："></a>方法四：用js的scrollIntoView方法，直接用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">function lacate()&#123;</div><div class="line">   docuemnt.getElementById(&quot;div1&quot;).scrollIntoView();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>优点：url不会变，同时能够响应scroll事件，不需要算法什么的。<br>注意：scrollIntoView是js方法，不能使用$(“#div1”).scrollIntoView().</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/22/JSON-parse-和Json-stringify/" title="JSON.parse()和Json.stringify()" itemprop="url">JSON.parse()和Json.stringify()</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +144,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> 发表于 2017-06-22</time>
+    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
     
   </p>
 </header>
@@ -140,7 +196,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> 发表于 2017-06-17</time>
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> 發表於 2017-06-17</time>
     
   </p>
 </header>
@@ -195,7 +251,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 发表于 2017-06-15</time>
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 發表於 2017-06-15</time>
     
   </p>
 </header>
@@ -246,7 +302,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 发表于 2017-06-13</time>
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 發表於 2017-06-13</time>
     
   </p>
 </header>
@@ -301,7 +357,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 发表于 2017-06-12</time>
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 發表於 2017-06-12</time>
     
   </p>
 </header>
@@ -360,7 +416,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 发表于 2017-06-08</time>
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 發表於 2017-06-08</time>
     
   </p>
 </header>
@@ -411,7 +467,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 发表于 2017-06-06</time>
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 發表於 2017-06-06</time>
     
   </p>
 </header>
@@ -456,68 +512,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/05/JS定义变量的三种方式/" title="JS定义变量的三种方式" itemprop="url">JS定义变量的三种方式</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 发表于 2017-06-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>1、最常见的var定义变量，可以修改，如果不初始化会输出undefined,但不会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=1;</div><div class="line">console.log(&apos;函数外定义a:&apos;+a); //输出a=1</div><div class="line">function change()&#123;</div><div class="line">  a=4;</div><div class="line">  console.log(&apos;函数内定义a:&apos;+a); //可以输出a=4;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后var定义a为函数内部修改值:&apos;+a); //输出a=4</div></pre></td></tr></table></figure></p>
-<p>2、const定义的变量不可以修改，而且必须初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const b=2;</div><div class="line">// const b; //错误，必须初始化</div><div class="line">console.log(b); //有输出值</div><div class="line">// b=5;</div><div class="line">console.log(b); //报错，不能给常量赋值</div></pre></td></tr></table></figure></p>
-<p>3、let是块级作用域，函数内部使用let定义后，对函数外部无影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let c=3;</div><div class="line">console.log(&apos;函数外定义c:&apos;+c); //输出c=3;</div><div class="line">function change()&#123;</div><div class="line">  let c=6;</div><div class="line">  console.log(&apos;函数内定义c:&apos;+c); //输出c=6;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后let定义c不受函数内部定义的影响：&apos;+c); //输出c=3;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
@@ -528,7 +532,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -550,7 +554,7 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   <div class="weiboshow">
@@ -704,7 +708,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-22T02:14:29.284Z</updated>
+  <updated>2017-06-22T09:04:27.613Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>页面内跳转方法总结</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/22/%E9%A1%B5%E9%9D%A2%E5%86%85%E8%B7%B3%E8%BD%AC%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/22/页面内跳转方法总结/</id>
+    <published>2017-06-22T08:31:43.000Z</published>
+    <updated>2017-06-22T09:04:27.613Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="方法一：用标签，在href里写入定位的DIV的id-如："><a href="#方法一：用标签，在href里写入定位的DIV的id-如：" class="headerlink" title="方法一：用标签，在href里写入定位的DIV的id.如："></a>方法一：用<a>标签，在href里写入定位的DIV的id.如：</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#div1&quot;&gt;scroll to div1&gt;&lt;/a&gt; //定位到div1</div><div class="line">&lt;div id=&quot;div1&quot;&gt;div1&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div2&quot;&gt;div2&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div3&quot;&gt;div3&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>缺点：点击锚点后，浏览器的URL会发生变化，刷新会出现问题。</p>
+<h3 id="方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><a href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。" class="headerlink" title="方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"></a>方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   funtion locate()&#123;</div><div class="line">      window.location.hash=&quot;#div1&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><a href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。" class="headerlink" title="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"></a>方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   function lacate()&#123;</div><div class="line">      $(&quot;html&quot;,&quot;body&quot;).animate(&#123;</div><div class="line">         scrollTop:$(&quot;#div1&quot;).offset().top</div><div class="line">     &#125;,&#123;duration:500,easing:&quot;swing&quot;&#125;)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>优点：url地址不会改变，同时点击锚点会自动响应scroll事件，不需要重新绑定。<br>缺点：如果页面复杂的话，偏移值可能会发生变化需要算法辅助。</p>
+<h3 id="方法四：用js的scrollIntoView方法，直接用："><a href="#方法四：用js的scrollIntoView方法，直接用：" class="headerlink" title="方法四：用js的scrollIntoView方法，直接用："></a>方法四：用js的scrollIntoView方法，直接用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">function lacate()&#123;</div><div class="line">   docuemnt.getElementById(&quot;div1&quot;).scrollIntoView();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>优点：url不会变，同时能够响应scroll事件，不需要算法什么的。<br>注意：scrollIntoView是js方法，不能使用$(“#div1”).scrollIntoView().</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;方法一：用标签，在href里写入定位的DIV的id-如：&quot;&gt;&lt;a href=&quot;#方法一：用标签，在href里写入定位的DIV的id-如：&quot; class=&quot;headerlink&quot; title=&quot;方法一：用标签，在href里写入定位的DIV的id.如：&quot;&gt;&lt;/a&gt;方法
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JSON.parse()和Json.stringify()</title>
@@ -452,25 +477,6 @@
     <updated>2017-04-19T10:40:53.645Z</updated>
     
     <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>腾讯暑期实习面试前端面试总结</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/19/%E8%85%BE%E8%AE%AF%E6%9A%91%E6%9C%9F%E5%AE%9E%E4%B9%A0%E9%9D%A2%E8%AF%95%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/19/腾讯暑期实习面试前端面试总结/</id>
-    <published>2017-04-19T07:36:12.000Z</published>
-    <updated>2017-04-19T08:25:23.576Z</updated>
-    
-    <content type="html"><![CDATA[<p>4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：<br>1、http状态码有哪些，代表的什么意思<br>2、用过缓存没有，local storage和session storage有什么区别<br>3、你说你学过node js，讲一下<br>于是我在门外默默的准备了一下，进去之后面试官看了我的简历上写本科是信息安全，于是问我公钥加密和私钥加密有什么区别。。。我大概记得，但是说反了，然后开始问我一串安全相关的问题，安全掌握的不怎么好，面试官大概没有很多兴趣，就简单问了下css和一个逻辑题就完了：<br>1、Web安全<br>2、url是怎么加密的<br>3、css的优先级<br>4、逻辑题：给一个不规则的5L和6L的桶，装一个3升的水<br>然后很显然就没有然后了，通过此次面试，觉得自己还是要多注意Web安全方面的知识，另外简历上处处都有可能问到，主要看面试官比较擅长哪方面，所以只要写上去都要有所准备。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：&lt;br&gt;1、http状态码有哪些，代表的什么意思&lt;br&gt;2、用过缓存没有，local st
     
     </summary>
     

@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>JS与jQuery清空输入框 | 笑呵呵</title>
+    <title>页面内跳转方法总结 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。1&amp;lt;input id=&amp;quot;input&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;input&amp;quot;&amp;gt; JS方式1document.getElementById(&amp;quot;input&amp;quot;).value=&amp;quot;&amp;quo">
+    <meta name="description" content="方法一：用标签，在href里写入定位的DIV的id.如：1234&amp;lt;a href=&amp;quot;#div1&amp;quot;&amp;gt;scroll to div1&amp;gt;&amp;lt;/a&amp;gt; //定位到div1&amp;lt;div id=&amp;quot;div1&amp;quot;&amp;gt;div1&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;div2&amp;quot;&amp;gt;div2&amp;lt;/div&amp;gt;&amp;lt;">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS与jQuery清空输入框">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/10/JS与jQuery清空输入框/index.html">
+<meta property="og:title" content="页面内跳转方法总结">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/06/22/页面内跳转方法总结/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。1&amp;lt;input id=&amp;quot;input&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;input&amp;quot;&amp;gt; JS方式1document.getElementById(&amp;quot;input&amp;quot;).value=&amp;quot;&amp;quo">
-<meta property="og:updated_time" content="2017-04-10T12:16:41.820Z">
+<meta property="og:description" content="方法一：用标签，在href里写入定位的DIV的id.如：1234&amp;lt;a href=&amp;quot;#div1&amp;quot;&amp;gt;scroll to div1&amp;gt;&amp;lt;/a&amp;gt; //定位到div1&amp;lt;div id=&amp;quot;div1&amp;quot;&amp;gt;div1&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;div2&amp;quot;&amp;gt;div2&amp;lt;/div&amp;gt;&amp;lt;">
+<meta property="og:updated_time" content="2017-06-22T09:04:27.613Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS与jQuery清空输入框">
-<meta name="twitter:description" content="input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。1&amp;lt;input id=&amp;quot;input&amp;quot; type=&amp;quot;text&amp;quot; name=&amp;quot;input&amp;quot;&amp;gt; JS方式1document.getElementById(&amp;quot;input&amp;quot;).value=&amp;quot;&amp;quo">
+<meta name="twitter:title" content="页面内跳转方法总结">
+<meta name="twitter:description" content="方法一：用标签，在href里写入定位的DIV的id.如：1234&amp;lt;a href=&amp;quot;#div1&amp;quot;&amp;gt;scroll to div1&amp;gt;&amp;lt;/a&amp;gt; //定位到div1&amp;lt;div id=&amp;quot;div1&amp;quot;&amp;gt;div1&amp;lt;/div&amp;gt;&amp;lt;div id=&amp;quot;div2&amp;quot;&amp;gt;div2&amp;lt;/div&amp;gt;&amp;lt;">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -81,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/10/JS与jQuery清空输入框/" title="JS与jQuery清空输入框" itemprop="url">JS与jQuery清空输入框</a>
+      <a href="/2017/06/22/页面内跳转方法总结/" title="页面内跳转方法总结" itemprop="url">页面内跳转方法总结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-10T12:12:09.000Z" itemprop="datePublished"> 發表於 2017-04-10</time>
+    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
     
   </p>
 </header>
@@ -97,13 +97,17 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一：用标签，在href里写入定位的DIV的id-如："><span class="toc-number">1.</span> <span class="toc-text">方法一：用标签，在href里写入定位的DIV的id.如：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><span class="toc-number">2.</span> <span class="toc-text">方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><span class="toc-number">3.</span> <span class="toc-text">方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法四：用js的scrollIntoView方法，直接用："><span class="toc-number">4.</span> <span class="toc-text">方法四：用js的scrollIntoView方法，直接用：</span></a></li></ol>
 		
 		</div>
 		
-		<p>input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;input&quot;).value=&quot;&quot;;</div></pre></td></tr></table></figure></p>
-<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#input&quot;).val(&quot;&quot;);</div></pre></td></tr></table></figure></p>
+		<h3 id="方法一：用标签，在href里写入定位的DIV的id-如："><a href="#方法一：用标签，在href里写入定位的DIV的id-如：" class="headerlink" title="方法一：用标签，在href里写入定位的DIV的id.如："></a>方法一：用<a>标签，在href里写入定位的DIV的id.如：</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#div1&quot;&gt;scroll to div1&gt;&lt;/a&gt; //定位到div1</div><div class="line">&lt;div id=&quot;div1&quot;&gt;div1&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div2&quot;&gt;div2&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div3&quot;&gt;div3&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>缺点：点击锚点后，浏览器的URL会发生变化，刷新会出现问题。</p>
+<h3 id="方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><a href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。" class="headerlink" title="方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"></a>方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   funtion locate()&#123;</div><div class="line">      window.location.hash=&quot;#div1&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><a href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。" class="headerlink" title="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"></a>方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   function lacate()&#123;</div><div class="line">      $(&quot;html&quot;,&quot;body&quot;).animate(&#123;</div><div class="line">         scrollTop:$(&quot;#div1&quot;).offset().top</div><div class="line">     &#125;,&#123;duration:500,easing:&quot;swing&quot;&#125;)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>优点：url地址不会改变，同时点击锚点会自动响应scroll事件，不需要重新绑定。<br>缺点：如果页面复杂的话，偏移值可能会发生变化需要算法辅助。</p>
+<h3 id="方法四：用js的scrollIntoView方法，直接用："><a href="#方法四：用js的scrollIntoView方法，直接用：" class="headerlink" title="方法四：用js的scrollIntoView方法，直接用："></a>方法四：用js的scrollIntoView方法，直接用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">function lacate()&#123;</div><div class="line">   docuemnt.getElementById(&quot;div1&quot;).scrollIntoView();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>优点：url不会变，同时能够响应scroll事件，不需要算法什么的。<br>注意：scrollIntoView是js方法，不能使用$(“#div1”).scrollIntoView().</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +120,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/10/JS与jQuery清空输入框/" data-title="JS与jQuery清空输入框 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/06/22/页面内跳转方法总结/" data-title="页面内跳转方法总结 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,21 +134,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/09/java二维排序数组查找元素/" title="java二维排序数组查找元素">
+ <a href="/2017/06/22/JSON-parse-和Json-stringify/" title="JSON.parse()和Json.stringify()">
   <strong>上一篇：</strong><br/>
   <span>
-  java二维排序数组查找元素</span>
+  JSON.parse()和Json.stringify()</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/10/JS与jQuery显示和隐藏div/"  title="JS与jQuery显示和隐藏div">
- <strong>下一篇：</strong><br/> 
- <span>JS与jQuery显示和隐藏div
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -156,7 +152,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一：用标签，在href里写入定位的DIV的id-如："><span class="toc-number">1.</span> <span class="toc-text">方法一：用标签，在href里写入定位的DIV的id.如：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><span class="toc-number">2.</span> <span class="toc-text">方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><span class="toc-number">3.</span> <span class="toc-text">方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法四：用js的scrollIntoView方法，直接用："><span class="toc-number">4.</span> <span class="toc-text">方法四：用js的scrollIntoView方法，直接用：</span></a></li></ol>
  
   </div>
 

@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,81 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/23/jQuery性能优化/" title="jQuery性能优化" itemprop="url">jQuery性能优化</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> Published 2017-06-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="1、使用最新版本的jQuery类库"><a href="#1、使用最新版本的jQuery类库" class="headerlink" title="1、使用最新版本的jQuery类库"></a>1、使用最新版本的jQuery类库</h3><p>jQuery每个新版本都会较上个版本进行bug修复和优化，同时进行一些创新。</p>
+<h3 id="2、使用合适的选择器"><a href="#2、使用合适的选择器" class="headerlink" title="2、使用合适的选择器"></a>2、使用合适的选择器</h3><p>jQuery提供了丰富的选择器来定位DOM元素，下面介绍几种常用的选择器及它们之间的性能差异：</p>
+<h4 id="“-id”"><a href="#“-id”" class="headerlink" title="$(“#id”)"></a>$(“#id”)</h4><p>使用id来定位DOM元素是最佳提高性能的方式，因为jQuery底层将直接调用本地方法document.getElementById()。如果不能直接找到，还可以考虑调用find()方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;div&quot;);</div></pre></td></tr></table></figure></p>
+<p>使用以上方法可以有效缩小定位DOM元素的范围，为了提高性能，可以从最近的ID元素开始往下搜索。</p>
+<h4 id="“p”-“div”-“input”"><a href="#“p”-“div”-“input”" class="headerlink" title="$(“p”),$(“div”),$(“input”)"></a>$(“p”),$(“div”),$(“input”)</h4><p>标签选择器是性能优化的第二选择，因为jQuery将直接调用本地方法document.getElementByTagName()来定位DOM元素。</p>
+<h4 id="“-class”"><a href="#“-class”" class="headerlink" title="$(“.class”)"></a>$(“.class”)</h4><p>对于较新的浏览器，支持本地方法document.getElementByClassName(),老的浏览器如IE8及更早版本只能靠使用DOM搜索方式来实现，这无疑对性能产生较大的影响。所以有选择性的使用它。</p>
+<h4 id="“-attribute-value-”"><a href="#“-attribute-value-”" class="headerlink" title="$(“[attribute=value]”)"></a>$(“[attribute=value]”)</h4><p>利用属性定位DOM元素，本地JavaScript方法并没有直接实现，大多是使用DOM搜索方式来达到效果，很多现代浏览器支持querySelectAll()方法，但是浏览器之间还是有区别。</p>
+<h4 id="“-hidden”"><a href="#“-hidden”" class="headerlink" title="$(“:hidden”)"></a>$(“:hidden”)</h4><p>和上面利用属性定位DOM方式类似，这种伪选择器也没有直接在本地JavaScript实现，并且jQuery需要搜索每一个元素来定位这个选择器，这对性能影响较大。如果一定要用这种方式，建议先用id定位父元素再使用该选择器，这样有助于优化性能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;:hidden&quot;);</div></pre></td></tr></table></figure></p>
+<p>以上是使用选择器的基本规则，性能自上而下依次下降。</p>
+<h3 id="3、缓存对象"><a href="#3、缓存对象" class="headerlink" title="3、缓存对象"></a>3、缓存对象</h3><p>开发人员经常喜欢这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;#traffic input.on&quot;).bind(&quot;click&quot;,function&#123;&#125;);</div><div class="line">$(&quot;#traffic&quot;).css(&quot;border&quot;,&quot;1px solid red&quot;))</div></pre></td></tr></table></figure></p>
+<p>这样写导致的结果是jQuery会在每个选择器创建的过程中，查找DOM，创建多个jQuery对象。比较好的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var $traffic=$(&quot;#traffic&quot;);</div><div class="line">$traffic.bind(&quot;click&quot;,function()&#123;&#125;)</div><div class="line">.css(&quot;border&quot;,&quot;1px solid red&quot;) //使用链式结构让代码更简洁</div></pre></td></tr></table></figure></p>
+<p>如果希望在其他函数中使用jQuery对象，可以把它缓存放全局环境中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//在全局范围内定义一个对象（例如window对象）</div><div class="line">window.$my=&#123;</div><div class="line">   head:$(&quot;head&quot;),</div><div class="line">   traffic:$(&quot;#traffic&quot;),</div><div class="line">  &#125;</div><div class="line">function do()&#123;</div><div class="line">   var script=document.createElement(&quot;script&quot;);</div><div class="line">   $my.head.append(script);  //现在可以引用存储的结果并操作它们</div><div class="line">   $my.coll=$(&quot;#ul li&quot;);//在函数内部操作时，可以继续将查询存入全局对象中</div><div class="line">   $my.coll.css(&quot;border-color&quot;,&quot;red&quot;); //将全局函数作为一个普通的jquery对象使用</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="4、循环时的DOM操作"><a href="#4、循环时的DOM操作" class="headerlink" title="4、循环时的DOM操作"></a>4、循环时的DOM操作</h3><p>使用for,while,$.each处理节点时，要注意：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  list.append(&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>以上每添加一个新的标签元素都作为一个节点添加容器ID中，循环了100次，消耗较大。应该将整个元素字符串在插入DOM中全部创建好：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">var mylist=&quot;&quot;;//暂存列表元素</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  mylist+=&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;;</div><div class="line">  &#125;</div><div class="line">list.append(mylist);</div></pre></td></tr></table></figure></p>
+<p>非常类似与DOM操作中用createElementFragment一次性添加全部DOM节点，再一次性更新DOM：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var fragment=document.createElementFragment();</div><div class="line">for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">  var item=document.createElement(&quot;li&quot;);</div><div class="line">  item.append(document.createTextNode(&quot;option&quot;+i);</div><div class="line">  fragment.appendChild(item);</div><div class="line">  &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure></p>
+<h3 id="5、数组方式使用jQuery对象"><a href="#5、数组方式使用jQuery对象" class="headerlink" title="5、数组方式使用jQuery对象"></a>5、数组方式使用jQuery对象</h3><p>使用for或者while循环而不是$.each()能使代码更快。</p>
+<h3 id="6、事件代理"><a href="#6、事件代理" class="headerlink" title="6、事件代理"></a>6、事件代理</h3><p>每个javascript事件都会冒泡到父级节点。当需要给多个元素同个函数时，事件代理会很有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table td&quot;).click(function()&#123;</div><div class="line">   $(this).css(&apos;background&apos;,&apos;red&apos;)</div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
+<p>假设有100个td元素，使用上述方法，将会绑定100个事件，对性能影响很大。代替这种多元素事件监听的方法是，只需要向他们的父节点绑定一次事件，然后通过event.target获取到点击的当前元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).click(function(event)&#123;</div><div class="line">   $(event.target).css(&apos;background&apos;,&apos;red&apos;); //event.target捕捉触发的目标元素</div><div class="line"> &#125;)</div></pre></td></tr></table></figure></p>
+<p>改进的方式中，只为一个元素绑定了1个事件。jQuery 1.7中提供了on方式，on(type,[selector],[data],fn)中增加了selector，如果能够匹配到该selector则执行此方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).on(&quot;click&quot;,&quot;td&quot;,function()&#123;</div><div class="line">  $(this).css(&apos;background&apos;,&apos;red&apos;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="7、将代码转化成jQuery插件"><a href="#7、将代码转化成jQuery插件" class="headerlink" title="7、将代码转化成jQuery插件"></a>7、将代码转化成jQuery插件</h3><p>将代码转化成插件能让代码具有更好的重用性。</p>
+<h3 id="8、使用join-来拼接字符串"><a href="#8、使用join-来拼接字符串" class="headerlink" title="8、使用join()来拼接字符串"></a>8、使用join()来拼接字符串</h3><p>使用join来拼接字符串比使用”+“来拼接长字符串性能更优。首先创建一个数组，然后循环，最后通过join()将数组转化成字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var array=[];</div><div class="line">for(int i=0;i&lt;100;i++)&#123;</div><div class="line">   array[i]=&apos;&lt;li&gt;&apos;+i+&apos;&lt;/li&gt;&apos;;</div><div class="line"> &#125;</div><div class="line">$(&apos;#list&apos;).html(array.join(&apos;&apos;));</div></pre></td></tr></table></figure></p>
+<h3 id="9、合理利用HTML5的Data属性"><a href="#9、合理利用HTML5的Data属性" class="headerlink" title="9、合理利用HTML5的Data属性"></a>9、合理利用HTML5的Data属性</h3><p>HTML5的data属性可以帮助我们插入数据，特别是前后端的数据交换。jQuery的data（）方法，有效的利用HTML5的属性，来自动得到数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;dl&quot; data-role=&quot;page&quot; data-last=&quot;43&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div><div class="line">//读取数据</div><div class="line">$(&quot;#dl&quot;).data(&quot;role&quot;); //&quot;page&quot;</div><div class="line">$(&quot;#dl&quot;).data(&quot;last&quot;); //43</div><div class="line">$(&quot;#dl&quot;).data(&quot;options&quot;).name; //&quot;John&apos;</div></pre></td></tr></table></figure></p>
+<h3 id="10、尽量使用原生的JavaScript方法"><a href="#10、尽量使用原生的JavaScript方法" class="headerlink" title="10、尽量使用原生的JavaScript方法"></a>10、尽量使用原生的JavaScript方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if($cr.is(&quot;:checked&quot;))&#123; //jQuery方式判断</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>它使用了jQuery提供的is方法来判断多选框是否被选中，但是这里可以直接使用原生的JavaScript方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);  //jQuery对象</div><div class="line">var cr=$cr.get(0); //DOM对象</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if(cr.checked)&#123; //原生的js方式判断</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>第二种方式比第一种方式效率高，因为它不需要拐弯抹角去调用许多函数。</p>
+<h3 id="11、压缩JavaScript"><a href="#11、压缩JavaScript" class="headerlink" title="11、压缩JavaScript"></a>11、压缩JavaScript</h3><p>一方面使用Gzip，另一方面去除JS文件里的注释、空白。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/22/页面内跳转方法总结/" title="页面内跳转方法总结" itemprop="url">页面内跳转方法总结</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +163,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
+    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> Published 2017-06-22</time>
     
   </p>
 </header>
@@ -144,7 +219,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
+    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> Published 2017-06-22</time>
     
   </p>
 </header>
@@ -196,7 +271,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> 發表於 2017-06-17</time>
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> Published 2017-06-17</time>
     
   </p>
 </header>
@@ -251,7 +326,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 發表於 2017-06-15</time>
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> Published 2017-06-15</time>
     
   </p>
 </header>
@@ -302,7 +377,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 發表於 2017-06-13</time>
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> Published 2017-06-13</time>
     
   </p>
 </header>
@@ -357,7 +432,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 發表於 2017-06-12</time>
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> Published 2017-06-12</time>
     
   </p>
 </header>
@@ -416,7 +491,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 發表於 2017-06-08</time>
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> Published 2017-06-08</time>
     
   </p>
 </header>
@@ -454,74 +529,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/06/apply-call-bind用法/" title="apply,call,bind用法" itemprop="url">apply,call,bind用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 發表於 2017-06-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h3 id="apply-call"><a href="#apply-call" class="headerlink" title="apply, call"></a>apply, call</h3><h4 id="共同之处"><a href="#共同之处" class="headerlink" title="共同之处"></a>共同之处</h4><p>都可以用来代替另一个对象调用一个方法，将一个函数的对象上下文从初始上下文改变为由thisObj指定的新对象。</p>
-<h4 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h4><p>apply最多只能有两个参数——新this对象和一个数组argArray，如果argArray不是一个有效的数组或者不是arguments对象，那么将导致一个TypeError，如果没有提供argArray和thisObj任何一个参数，那么Global对象将被用作thisObj，并且无法被传递任何参数<br>call传递的是参数列表，。如果没有提供thisObj参数，那么Global对象被用作thisObj。<br>apply和call功能一样，只是传入参数列表形式不同，如果某个参数数量是不固定的，当参数明确时用call，不明确时用apply，然后把参数push进数组传递，函数内部也可以通过arguments数组来遍历所有参数。</p>
-<h3 id="3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><a href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN" class="headerlink" title="3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply和call不同的是，bind会返回一个改变this指向的新函数，新函数与之前的使用的不是同一块内存地址，所以需要重复使用这个函数的时候，必须将其保存到一个变量，方便下次调用。而apply和call都是调用即执行。另外，bind函数中的首个参数，会自动成为返回新函数中参数的默认值，那么正式调用的时候，只需给出除首个参数外，剩余参数即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f(x,y)&#123;</div><div class="line">	console.log(x+y);</div><div class="line">&#125;</div><div class="line">f.call(null,1,1)  //return 2</div><div class="line">var new_f=f.bind(null,1,1);</div><div class="line">new_f(2); //return 2</div></pre></td></tr></table></figure>
-<p>上面实例中thisArg参数均用null代替了，在未给出指定thisArg对象情况下，null与undefined下this指向的是全局对象，即js代码执行环境。</p>
-<h4 id="apply-call-bind比较"><a href="#apply-call-bind比较" class="headerlink" title="apply, call, bind比较"></a>apply, call, bind比较</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;bar:&apos;hello&apos;&#125;</div><div class="line">var foo=&#123;</div><div class="line">  get:function()&#123;</div><div class="line">     return this.bar;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">var bind=foo.get.bind(obj), call=foo.get.call(obj), apply=foo.get.apply(obj);</div><div class="line"></div><div class="line">console.log(bind(),call,apply); //hello hello hello</div><div class="line">console.log(bind,call,apply); //function()&#123;return this.bar;&#125; &quot;hello&quot; &quot;hello&quot;</div><div class="line">console.log(typeof bind,typeof call,typeof apply); function string string</div><div class="line">console.log(typeof bind(),typeof call,typeof apply); //string string string</div></pre></td></tr></table></figure>
-<p>三者的区别是：当你希望改变上下文环境之后并非立即执行，而是回调执行的时候，使用bind()方法，而apply/call则会立即执行函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apply, call, bind三者都是用来改变函数的this对象的指向</div><div class="line">apply, call, bind三者第一个参数都是this要指向的对象，也就是想指定的上下文</div><div class="line">apply, call, bind三者都可以利用后续参数传参</div><div class="line">bind是返回对应的函数，便于稍后调用；apply, call则立即调用</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -532,7 +549,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -554,11 +571,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
+  <p class="asidetitle">Weibo</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -708,7 +725,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-22T09:04:27.613Z</updated>
+  <updated>2017-06-23T08:48:32.480Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jQuery性能优化</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/23/jQuery%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/23/jQuery性能优化/</id>
+    <published>2017-06-23T02:14:53.000Z</published>
+    <updated>2017-06-23T08:48:32.480Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、使用最新版本的jQuery类库"><a href="#1、使用最新版本的jQuery类库" class="headerlink" title="1、使用最新版本的jQuery类库"></a>1、使用最新版本的jQuery类库</h3><p>jQuery每个新版本都会较上个版本进行bug修复和优化，同时进行一些创新。</p>
+<h3 id="2、使用合适的选择器"><a href="#2、使用合适的选择器" class="headerlink" title="2、使用合适的选择器"></a>2、使用合适的选择器</h3><p>jQuery提供了丰富的选择器来定位DOM元素，下面介绍几种常用的选择器及它们之间的性能差异：</p>
+<h4 id="“-id”"><a href="#“-id”" class="headerlink" title="$(“#id”)"></a>$(“#id”)</h4><p>使用id来定位DOM元素是最佳提高性能的方式，因为jQuery底层将直接调用本地方法document.getElementById()。如果不能直接找到，还可以考虑调用find()方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;div&quot;);</div></pre></td></tr></table></figure></p>
+<p>使用以上方法可以有效缩小定位DOM元素的范围，为了提高性能，可以从最近的ID元素开始往下搜索。</p>
+<h4 id="“p”-“div”-“input”"><a href="#“p”-“div”-“input”" class="headerlink" title="$(“p”),$(“div”),$(“input”)"></a>$(“p”),$(“div”),$(“input”)</h4><p>标签选择器是性能优化的第二选择，因为jQuery将直接调用本地方法document.getElementByTagName()来定位DOM元素。</p>
+<h4 id="“-class”"><a href="#“-class”" class="headerlink" title="$(“.class”)"></a>$(“.class”)</h4><p>对于较新的浏览器，支持本地方法document.getElementByClassName(),老的浏览器如IE8及更早版本只能靠使用DOM搜索方式来实现，这无疑对性能产生较大的影响。所以有选择性的使用它。</p>
+<h4 id="“-attribute-value-”"><a href="#“-attribute-value-”" class="headerlink" title="$(“[attribute=value]”)"></a>$(“[attribute=value]”)</h4><p>利用属性定位DOM元素，本地JavaScript方法并没有直接实现，大多是使用DOM搜索方式来达到效果，很多现代浏览器支持querySelectAll()方法，但是浏览器之间还是有区别。</p>
+<h4 id="“-hidden”"><a href="#“-hidden”" class="headerlink" title="$(“:hidden”)"></a>$(“:hidden”)</h4><p>和上面利用属性定位DOM方式类似，这种伪选择器也没有直接在本地JavaScript实现，并且jQuery需要搜索每一个元素来定位这个选择器，这对性能影响较大。如果一定要用这种方式，建议先用id定位父元素再使用该选择器，这样有助于优化性能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;:hidden&quot;);</div></pre></td></tr></table></figure></p>
+<p>以上是使用选择器的基本规则，性能自上而下依次下降。</p>
+<h3 id="3、缓存对象"><a href="#3、缓存对象" class="headerlink" title="3、缓存对象"></a>3、缓存对象</h3><p>开发人员经常喜欢这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;#traffic input.on&quot;).bind(&quot;click&quot;,function&#123;&#125;);</div><div class="line">$(&quot;#traffic&quot;).css(&quot;border&quot;,&quot;1px solid red&quot;))</div></pre></td></tr></table></figure></p>
+<p>这样写导致的结果是jQuery会在每个选择器创建的过程中，查找DOM，创建多个jQuery对象。比较好的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var $traffic=$(&quot;#traffic&quot;);</div><div class="line">$traffic.bind(&quot;click&quot;,function()&#123;&#125;)</div><div class="line">.css(&quot;border&quot;,&quot;1px solid red&quot;) //使用链式结构让代码更简洁</div></pre></td></tr></table></figure></p>
+<p>如果希望在其他函数中使用jQuery对象，可以把它缓存放全局环境中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//在全局范围内定义一个对象（例如window对象）</div><div class="line">window.$my=&#123;</div><div class="line">   head:$(&quot;head&quot;),</div><div class="line">   traffic:$(&quot;#traffic&quot;),</div><div class="line">  &#125;</div><div class="line">function do()&#123;</div><div class="line">   var script=document.createElement(&quot;script&quot;);</div><div class="line">   $my.head.append(script);  //现在可以引用存储的结果并操作它们</div><div class="line">   $my.coll=$(&quot;#ul li&quot;);//在函数内部操作时，可以继续将查询存入全局对象中</div><div class="line">   $my.coll.css(&quot;border-color&quot;,&quot;red&quot;); //将全局函数作为一个普通的jquery对象使用</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="4、循环时的DOM操作"><a href="#4、循环时的DOM操作" class="headerlink" title="4、循环时的DOM操作"></a>4、循环时的DOM操作</h3><p>使用for,while,$.each处理节点时，要注意：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  list.append(&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>以上每添加一个新的标签元素都作为一个节点添加容器ID中，循环了100次，消耗较大。应该将整个元素字符串在插入DOM中全部创建好：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">var mylist=&quot;&quot;;//暂存列表元素</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  mylist+=&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;;</div><div class="line">  &#125;</div><div class="line">list.append(mylist);</div></pre></td></tr></table></figure></p>
+<p>非常类似与DOM操作中用createElementFragment一次性添加全部DOM节点，再一次性更新DOM：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var fragment=document.createElementFragment();</div><div class="line">for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">  var item=document.createElement(&quot;li&quot;);</div><div class="line">  item.append(document.createTextNode(&quot;option&quot;+i);</div><div class="line">  fragment.appendChild(item);</div><div class="line">  &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure></p>
+<h3 id="5、数组方式使用jQuery对象"><a href="#5、数组方式使用jQuery对象" class="headerlink" title="5、数组方式使用jQuery对象"></a>5、数组方式使用jQuery对象</h3><p>使用for或者while循环而不是$.each()能使代码更快。</p>
+<h3 id="6、事件代理"><a href="#6、事件代理" class="headerlink" title="6、事件代理"></a>6、事件代理</h3><p>每个javascript事件都会冒泡到父级节点。当需要给多个元素同个函数时，事件代理会很有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table td&quot;).click(function()&#123;</div><div class="line">   $(this).css(&apos;background&apos;,&apos;red&apos;)</div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
+<p>假设有100个td元素，使用上述方法，将会绑定100个事件，对性能影响很大。代替这种多元素事件监听的方法是，只需要向他们的父节点绑定一次事件，然后通过event.target获取到点击的当前元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).click(function(event)&#123;</div><div class="line">   $(event.target).css(&apos;background&apos;,&apos;red&apos;); //event.target捕捉触发的目标元素</div><div class="line"> &#125;)</div></pre></td></tr></table></figure></p>
+<p>改进的方式中，只为一个元素绑定了1个事件。jQuery 1.7中提供了on方式，on(type,[selector],[data],fn)中增加了selector，如果能够匹配到该selector则执行此方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).on(&quot;click&quot;,&quot;td&quot;,function()&#123;</div><div class="line">  $(this).css(&apos;background&apos;,&apos;red&apos;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="7、将代码转化成jQuery插件"><a href="#7、将代码转化成jQuery插件" class="headerlink" title="7、将代码转化成jQuery插件"></a>7、将代码转化成jQuery插件</h3><p>将代码转化成插件能让代码具有更好的重用性。</p>
+<h3 id="8、使用join-来拼接字符串"><a href="#8、使用join-来拼接字符串" class="headerlink" title="8、使用join()来拼接字符串"></a>8、使用join()来拼接字符串</h3><p>使用join来拼接字符串比使用”+“来拼接长字符串性能更优。首先创建一个数组，然后循环，最后通过join()将数组转化成字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var array=[];</div><div class="line">for(int i=0;i&lt;100;i++)&#123;</div><div class="line">   array[i]=&apos;&lt;li&gt;&apos;+i+&apos;&lt;/li&gt;&apos;;</div><div class="line"> &#125;</div><div class="line">$(&apos;#list&apos;).html(array.join(&apos;&apos;));</div></pre></td></tr></table></figure></p>
+<h3 id="9、合理利用HTML5的Data属性"><a href="#9、合理利用HTML5的Data属性" class="headerlink" title="9、合理利用HTML5的Data属性"></a>9、合理利用HTML5的Data属性</h3><p>HTML5的data属性可以帮助我们插入数据，特别是前后端的数据交换。jQuery的data（）方法，有效的利用HTML5的属性，来自动得到数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;dl&quot; data-role=&quot;page&quot; data-last=&quot;43&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div><div class="line">//读取数据</div><div class="line">$(&quot;#dl&quot;).data(&quot;role&quot;); //&quot;page&quot;</div><div class="line">$(&quot;#dl&quot;).data(&quot;last&quot;); //43</div><div class="line">$(&quot;#dl&quot;).data(&quot;options&quot;).name; //&quot;John&apos;</div></pre></td></tr></table></figure></p>
+<h3 id="10、尽量使用原生的JavaScript方法"><a href="#10、尽量使用原生的JavaScript方法" class="headerlink" title="10、尽量使用原生的JavaScript方法"></a>10、尽量使用原生的JavaScript方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if($cr.is(&quot;:checked&quot;))&#123; //jQuery方式判断</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>它使用了jQuery提供的is方法来判断多选框是否被选中，但是这里可以直接使用原生的JavaScript方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);  //jQuery对象</div><div class="line">var cr=$cr.get(0); //DOM对象</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if(cr.checked)&#123; //原生的js方式判断</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>第二种方式比第一种方式效率高，因为它不需要拐弯抹角去调用许多函数。</p>
+<h3 id="11、压缩JavaScript"><a href="#11、压缩JavaScript" class="headerlink" title="11、压缩JavaScript"></a>11、压缩JavaScript</h3><p>一方面使用Gzip，另一方面去除JS文件里的注释、空白。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、使用最新版本的jQuery类库&quot;&gt;&lt;a href=&quot;#1、使用最新版本的jQuery类库&quot; class=&quot;headerlink&quot; title=&quot;1、使用最新版本的jQuery类库&quot;&gt;&lt;/a&gt;1、使用最新版本的jQuery类库&lt;/h3&gt;&lt;p&gt;jQuery每个新版
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>页面内跳转方法总结</title>
@@ -463,20 +507,6 @@
     <summary type="html">
     
       &lt;p&gt;当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。&lt;br&gt;例如：&lt;br&gt;&lt;figure class=&quot;highlight 
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>阿里暑期前端面试总结</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/19/%E9%98%BF%E9%87%8C%E6%9A%91%E6%9C%9F%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/19/阿里暑期前端面试总结/</id>
-    <published>2017-04-19T10:40:53.000Z</published>
-    <updated>2017-04-19T10:40:53.645Z</updated>
-    
-    <summary type="html">
     
     </summary>
     

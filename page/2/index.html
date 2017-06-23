@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,64 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/06/apply-call-bind用法/" title="apply,call,bind用法" itemprop="url">apply,call,bind用法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> Published 2017-06-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
+<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
+<h3 id="apply-call"><a href="#apply-call" class="headerlink" title="apply, call"></a>apply, call</h3><h4 id="共同之处"><a href="#共同之处" class="headerlink" title="共同之处"></a>共同之处</h4><p>都可以用来代替另一个对象调用一个方法，将一个函数的对象上下文从初始上下文改变为由thisObj指定的新对象。</p>
+<h4 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h4><p>apply最多只能有两个参数——新this对象和一个数组argArray，如果argArray不是一个有效的数组或者不是arguments对象，那么将导致一个TypeError，如果没有提供argArray和thisObj任何一个参数，那么Global对象将被用作thisObj，并且无法被传递任何参数<br>call传递的是参数列表，。如果没有提供thisObj参数，那么Global对象被用作thisObj。<br>apply和call功能一样，只是传入参数列表形式不同，如果某个参数数量是不固定的，当参数明确时用call，不明确时用apply，然后把参数push进数组传递，函数内部也可以通过arguments数组来遍历所有参数。</p>
+<h3 id="3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><a href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN" class="headerlink" title="3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply和call不同的是，bind会返回一个改变this指向的新函数，新函数与之前的使用的不是同一块内存地址，所以需要重复使用这个函数的时候，必须将其保存到一个变量，方便下次调用。而apply和call都是调用即执行。另外，bind函数中的首个参数，会自动成为返回新函数中参数的默认值，那么正式调用的时候，只需给出除首个参数外，剩余参数即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f(x,y)&#123;</div><div class="line">	console.log(x+y);</div><div class="line">&#125;</div><div class="line">f.call(null,1,1)  //return 2</div><div class="line">var new_f=f.bind(null,1,1);</div><div class="line">new_f(2); //return 2</div></pre></td></tr></table></figure>
+<p>上面实例中thisArg参数均用null代替了，在未给出指定thisArg对象情况下，null与undefined下this指向的是全局对象，即js代码执行环境。</p>
+<h4 id="apply-call-bind比较"><a href="#apply-call-bind比较" class="headerlink" title="apply, call, bind比较"></a>apply, call, bind比较</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;bar:&apos;hello&apos;&#125;</div><div class="line">var foo=&#123;</div><div class="line">  get:function()&#123;</div><div class="line">     return this.bar;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">var bind=foo.get.bind(obj), call=foo.get.call(obj), apply=foo.get.apply(obj);</div><div class="line"></div><div class="line">console.log(bind(),call,apply); //hello hello hello</div><div class="line">console.log(bind,call,apply); //function()&#123;return this.bar;&#125; &quot;hello&quot; &quot;hello&quot;</div><div class="line">console.log(typeof bind,typeof call,typeof apply); function string string</div><div class="line">console.log(typeof bind(),typeof call,typeof apply); //string string string</div></pre></td></tr></table></figure>
+<p>三者的区别是：当你希望改变上下文环境之后并非立即执行，而是回调执行的时候，使用bind()方法，而apply/call则会立即执行函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apply, call, bind三者都是用来改变函数的this对象的指向</div><div class="line">apply, call, bind三者第一个参数都是this要指向的对象，也就是想指定的上下文</div><div class="line">apply, call, bind三者都可以利用后续参数传参</div><div class="line">bind是返回对应的函数，便于稍后调用；apply, call则立即调用</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/05/JS定义变量的三种方式/" title="JS定义变量的三种方式" itemprop="url">JS定义变量的三种方式</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +146,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 發表於 2017-06-05</time>
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
     
   </p>
 </header>
@@ -140,7 +198,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> 發表於 2017-05-27</time>
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
     
   </p>
 </header>
@@ -201,7 +259,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> 發表於 2017-05-26</time>
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
     
   </p>
 </header>
@@ -258,7 +316,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> 發表於 2017-05-24</time>
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
     
   </p>
 </header>
@@ -309,7 +367,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> 發表於 2017-05-01</time>
+    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> Published 2017-05-01</time>
     
   </p>
 </header>
@@ -367,7 +425,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 發表於 2017-04-25</time>
+    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> Published 2017-04-25</time>
     
   </p>
 </header>
@@ -417,7 +475,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> 發表於 2017-04-24</time>
+    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
     
   </p>
 </header>
@@ -456,70 +514,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/transform-origin-rotate实现绕中心旋转/" title="transform-origin,rotate实现绕中心旋转" itemprop="url">transform-origin,rotate实现绕中心旋转</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> 發表於 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>一般实现环形旋转可以通过animation动画的方式<br>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;images/min-iconfont-rocket-active.png&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>通过animation，对应的css代码为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@keyframes spin&#123;</div><div class="line">	to&#123;</div><div class="line">		transform: rotate(1turn);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">img&#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50px;</div><div class="line">	left:50px;</div><div class="line">	width:50px;</div><div class="line">	height:50px;</div><div class="line">	animation:spin 10s infinite linear;</div><div class="line">	transform-origin:150px 150px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>也可以通过transform-origin+rotate的js实现，transform-origin对应旋转中心的位置，rotate可以设置旋转的角度。<br>设置一个图片进行旋转，对于的css代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">img&#123;</div><div class="line">    position: absolute;</div><div class="line"> 	top:50px;</div><div class="line"> 	left:50px;</div><div class="line"> 	width:50px;</div><div class="line"> 	height:50px;</div><div class="line"> 	transform-origin: 150px 150px;  //设置旋转的中心位置</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>对应的js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var deg=0;</div><div class="line">var timer=setInterval(function()&#123;</div><div class="line">	deg+=10;</div><div class="line">	rotate(deg);</div><div class="line">&#125;,20)</div><div class="line">function rotate(deg)&#123;</div><div class="line">	var my=&quot;rotate(&quot;+deg+&quot;deg)&quot;</div><div class="line">	$(&quot;img&quot;).css(&quot;transform&quot;,my)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>对于transform-orgin其默认的位置是元素的中心位置，可以通过设置重新确定中心。<br>注：想了解更多transform实现环形路径平移动画，可以参看 <a href="http://www.open-open.com/lib/view/open1478661385568.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1478661385568.html</a>.</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -530,7 +534,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -552,11 +556,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
+  <p class="asidetitle">Weibo</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -706,7 +710,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

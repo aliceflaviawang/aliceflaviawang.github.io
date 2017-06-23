@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,57 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/08/ajax-dataType/" title="ajax dataType" itemprop="url">ajax dataType</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 發表於 2017-06-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>遇到一个很奇怪的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">           type:&quot;POST&quot;,</div><div class="line">           async:false,</div><div class="line">           contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">           // dataType: &apos;json&apos;,</div><div class="line">           url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">           success:function(data)&#123;</div><div class="line">               console.log(data)  //&#123;&quot;body&quot;:&quot;2017年3月-2017年7月&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;status&quot;:0&#125;</div><div class="line">               console.log(data.body) // undefined  </div><div class="line">           &#125;</div></pre></td></tr></table></figure></p>
+<p>如果没有dataType:’json’,返回的data是json对象，访问data.body是undefined。加上dataType:’json’，返回的是普通对象，访问data.body可以获取到。疑问是，dataType:’json’是指定返回数据的格式是’json’，为什么会返回数据的格式是普通对象，不指定反而返回的是’json’对象，另外返回数据无论是普通对象还是json对象，按理都应该能通过对象.属性访问到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">            type:&quot;POST&quot;,</div><div class="line">            async:false,</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">            success:function(data)&#123;</div><div class="line">                console.log(data)  //&#123;body: &quot;2017年3月-2017年7月&quot;, message: &quot;成功&quot;, status: 0&#125;</div><div class="line">                console.log(data.body) // 2017年3月-2017年7月</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/06/apply-call-bind用法/" title="apply,call,bind用法" itemprop="url">apply,call,bind用法</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +139,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> Published 2017-06-06</time>
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 發表於 2017-06-06</time>
     
   </p>
 </header>
@@ -146,7 +197,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 發表於 2017-06-05</time>
     
   </p>
 </header>
@@ -198,7 +249,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> 發表於 2017-05-27</time>
     
   </p>
 </header>
@@ -259,7 +310,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> 發表於 2017-05-26</time>
     
   </p>
 </header>
@@ -316,7 +367,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> 發表於 2017-05-24</time>
     
   </p>
 </header>
@@ -367,7 +418,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> Published 2017-05-01</time>
+    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> 發表於 2017-05-01</time>
     
   </p>
 </header>
@@ -425,7 +476,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> Published 2017-04-25</time>
+    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 發表於 2017-04-25</time>
     
   </p>
 </header>
@@ -462,68 +513,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
-<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
 <aside class="clearfix">
 
   
@@ -534,7 +533,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情鏈接</p>
     <ul>
         
           <li>
@@ -556,11 +555,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -710,7 +709,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

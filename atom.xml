@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-23T08:48:32.480Z</updated>
+  <updated>2017-06-23T09:12:23.824Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bind(), delegate(), on()方法区别</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/23/bind-delegate-on-%E6%96%B9%E6%B3%95%E5%8C%BA%E5%88%AB/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/23/bind-delegate-on-方法区别/</id>
+    <published>2017-06-23T08:51:44.000Z</published>
+    <updated>2017-06-23T09:12:23.824Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="bind-：-selector-bind-event-data-function"><a href="#bind-：-selector-bind-event-data-function" class="headerlink" title="bind()：$(selector).bind(event,data,function)"></a>bind()：$(selector).bind(event,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div p&quot;).bind(&quot;click&quot;,function()&#123;</div><div class="line">  </div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<p>使用bind()方法为所有div里的p元素都绑定了click事件，存在的问题：<br>1）这里使用了隐式迭代，如果匹配到的元素特别多，影响了性能；<br>2）对于尚未存在的元素，无法绑定。动态添加的p元素，点击会没有响应。<br>顺便提一下，bind()的简写方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div p&quot;).click(function()&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="delegate-selector-delegate-childSelector-event-data-function"><a href="#delegate-selector-delegate-childSelector-event-data-function" class="headerlink" title="delegate():$(selector).delegate(childSelector,event,data,function)"></a>delegate():$(selector).delegate(childSelector,event,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div&quot;）.delegate(&quot;p&quot;,&quot;click&quot;,function()&#123;</div><div class="line"> </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>事件委托方式，不直接为p元素绑定事件，而是为其父元素（或祖先元素）绑定事件，当在div内任意元素点击时，事件会一层层从event.target向上冒泡，直到达到为其绑定事件的元素，如此例中的div元素。冒泡的过程中，如果事件的currentTarget与选择器匹配时就会执行代码。<br>delegate()方法解决了bind具有的两个问题，但是如果事件目标在DOM树很深的位置，这样一层层来查找与选择器匹配的元素，又影响了性能。</p>
+<h3 id="on-selector-on-event-childselector-data-function"><a href="#on-selector-on-event-childselector-data-function" class="headerlink" title="on():$(selector).on(event,childselector,data,function)"></a>on():$(selector).on(event,childselector,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;div&quot;).on(&quot;click&quot;,&quot;p&quot;,function()&#123;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>看jQuery源代码发现，无论是bind()还是delegate()，都是通过on()方法实现的，只是参数不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">bind: function( types, data, fn ) &#123;</div><div class="line">     return this.on( types, null, data, fn );</div><div class="line">    &#125;,</div><div class="line">    unbind: function( types, fn ) &#123;</div><div class="line">     return this.off( types, null, fn );</div><div class="line">    &#125;,</div><div class="line">    delegate: function( selector, types, data, fn ) &#123;</div><div class="line">     return this.on( types, selector, data, fn );</div><div class="line">    &#125;</div><div class="line">    undelegate: function( selector, types, fn ) &#123;</div><div class="line"> // ( namespace ) or ( selector, types [, fn] )</div><div class="line">     return arguments.length === 1 ? this.off( selector, &quot;**&quot; ) : this.off( types, selector || &quot;**&quot;, fn );</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1、选择器匹配元素较多时，不要使用bind()迭代绑定<br>2、id选择器时，可以用bind()<br>3、需要动态绑定时，用delegate()或on()<br>4、用delegate()或on()，DOM树不要太深<br>5、尽量使用on()</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;bind-：-selector-bind-event-data-function&quot;&gt;&lt;a href=&quot;#bind-：-selector-bind-event-data-function&quot; class=&quot;headerlink&quot; title=&quot;bind()：$(sel
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>jQuery性能优化</title>
@@ -486,27 +511,6 @@
     <summary type="html">
     
       &lt;p&gt;ECMAScript中的参数是用一个数组表示的。无论传递给函数的参数是什么（有或者没有），函数接收到的始终都是这个数组。在函数体内通过arguments对象来访问这个参数数组，从而获取传递给函数的每个参数。&lt;br&gt;例如：&lt;br&gt;&lt;figure class=&quot;highligh
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>translate(-50%,-50%)的作用</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/22/translate-50-50-%E7%9A%84%E4%BD%9C%E7%94%A8/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/22/translate-50-50-的作用/</id>
-    <published>2017-04-22T14:01:12.000Z</published>
-    <updated>2017-04-22T14:01:34.391Z</updated>
-    
-    <content type="html"><![CDATA[<p>当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;outer&quot;&gt;</div><div class="line">   &lt;div id=&quot;inner&quot;&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>如果不加transform属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#outer&#123;</div><div class="line">        position: relative;</div><div class="line">        width: 500px;</div><div class="line">        height: 500px;</div><div class="line">        border: 1px solid black;</div><div class="line">&#125;</div><div class="line">#inner&#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>inner框的左上角处于中心位置，如果希望其中心居于中心位置，将应该向上和向左移动一半的边长长度。加上transform属性，就可以实现这个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#inner &#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">        -ms-transform: translate(-50%,-50%);</div><div class="line">        -moz-transform: translate(-50%,-50%);</div><div class="line">        -o-transform: translate(-50%,-50%);</div><div class="line">        transform: translate(-50%,-50%);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。&lt;br&gt;例如：&lt;br&gt;&lt;figure class=&quot;highlight 
     
     </summary>
     

@@ -81,6 +81,56 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 發表於 2017-04-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
   </h1>
   <p class="article-author">By
@@ -417,57 +467,6 @@
     <div class="article-content">
         
         <p>4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：<br>1、http状态码有哪些，代表的什么意思<br>2、用过缓存没有，local storage和session storage有什么区别<br>3、你说你学过node js，讲一下<br>于是我在门外默默的准备了一下，进去之后面试官看了我的简历上写本科是信息安全，于是问我公钥加密和私钥加密有什么区别。。。我大概记得，但是说反了，然后开始问我一串安全相关的问题，安全掌握的不怎么好，面试官大概没有很多兴趣，就简单问了下css和一个逻辑题就完了：<br>1、Web安全<br>2、url是怎么加密的<br>3、css的优先级<br>4、逻辑题：给一个不规则的5L和6L的桶，装一个3升的水<br>然后很显然就没有然后了，通过此次面试，觉得自己还是要多注意Web安全方面的知识，另外简历上处处都有可能问到，主要看面试官比较擅长哪方面，所以只要写上去都要有所准备。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/11/easyui两个datagrid的问题/" title="easyui两个datagrid的问题" itemprop="url">easyui两个datagrid的问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-11T11:11:39.000Z" itemprop="datePublished"> 發表於 2017-04-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>easyui框架下，当一个页面出现两个datagrid，或者说出现两个table的时候，datagrid的某些属性会失效，比如说pagination分页会失效.</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>使用两个div将两个datagrid分开，但是使用两个div后，页面不能填充整个屏幕，所以解决两个datagrid分页失效的问题转化为了如何让div填充整个屏幕的问题。解决方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">html, body&#123;</div><div class="line">margin:0;</div><div class="line">padding:0;</div><div class="line">&#125;</div><div class="line">div&#123;</div><div class="line">width:100%;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
 
         
         

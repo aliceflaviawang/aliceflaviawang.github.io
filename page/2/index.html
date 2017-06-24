@@ -81,6 +81,65 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/" title="return false实现同时对事件对象停止冒泡和默认行为" itemprop="url">return false实现同时对事件对象停止冒泡和默认行为</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 發表於 2017-06-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;content&quot;&gt;</div><div class="line">  外层div元素</div><div class="line">   &lt;span&gt;内层div元素&lt;/span&gt;</div><div class="line">   外层div元素</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;msg&apos;&gt;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;span&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">	&#125;)</div><div class="line">	$(&apos;#content&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;外层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line">	$(&apos;body&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;body元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>效果如图：<br><img src="http://i.imgur.com/Xgm5FoE.png" alt=""><br>点击span元素<br><img src="http://i.imgur.com/VCfPqq8.png" alt=""><br>点击外层div元素<br><img src="http://i.imgur.com/zWRQWSe.png" alt=""><br>点击内层元素，会冒泡到外层的点击事件。</p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>stopPropagation()方法可以停止事件冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&apos;span&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">        event.stopPropagation();</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<p>点击span元素<br><img src="http://i.imgur.com/TYzNfYd.png" alt=""></p>
+<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><p>网页中的元素有自己的默认行为，例如，单击“提交”按钮后表单会提交，有时需要阻止元素的默认行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;test.html&quot;&gt;</div><div class="line">用户名：&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;sub&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;#sub&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不阻止默认行为，用户名为空的时候，也能提交表单。阻止默认行为使用preventDefault()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(&apos;#sub&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;); </div><div class="line">            event.preventDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="同时对事件对象停止冒泡和默认行为——return-false"><a href="#同时对事件对象停止冒泡和默认行为——return-false" class="headerlink" title="同时对事件对象停止冒泡和默认行为——return false"></a>同时对事件对象停止冒泡和默认行为——return false</h3><p>将event.stopPropagation()和event.preventDefault()替换为return false就可以实现同样的效果。</p>
+<h4 id="return-false到底做了什么"><a href="#return-false到底做了什么" class="headerlink" title="return false到底做了什么"></a>return false到底做了什么</h4><p>1、event.preventDefault()<br>2、event.stopPropagation()<br>3、停止回调函数执行并立即返回<br>return false看似实现了阻止冒泡或者阻止默认事件，实际上还做了另外的操作，阻止浏览器默认行为的只有preventDefault()，除非你想停止事件冒泡，否则使用return false会为你的代码埋下很大的隐患。</p>
+<p>###扩展-stopImmediatePropagation()<br>stopImmediatePropagagtion()函数用于阻止剩余的事件处理函数的执行(为同一对象绑定了多个事件处理函数)，并防止当前事件在DOM树上冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;段落文本内容</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;点击&quot; /&gt;</div><div class="line">&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">// 为所有p元素绑定click事件</div><div class="line">$(&quot;p&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;p-click&quot;);</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第一个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-1&quot;);</div><div class="line">    </div><div class="line">    // 阻止事件冒泡到DOM树上，并阻止剩余的事件处理函数的执行</div><div class="line">    // 只执行button-click-1，如果注释掉该行，将执行button-click-1、button-click-2和p-click</div><div class="line">    // 如果换成event.stopPropagation() 将执行button-click-1和button-click-2</div><div class="line">    event.stopImmediatePropagation();</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第二个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-2&quot;);</div><div class="line">&#125; );</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>与stopPropagation()相比，stopImmediatePropagation()还能阻止剩余事件处理函数的执行。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/08/ajax-dataType/" title="ajax dataType" itemprop="url">ajax dataType</a>
   </h1>
   <p class="article-author">By
@@ -433,56 +492,6 @@
 </li>
 </ol>
 <p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 發表於 2017-04-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
 
         
         

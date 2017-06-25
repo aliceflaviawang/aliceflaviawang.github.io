@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,61 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法" itemprop="url">a标签中href=&#39;&#39;的几种用法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> Published 2017-06-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
+<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
+<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
+<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
+<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。（如果希望不返回页面顶端，可以在#后面加任意无效的位置信息，如###）</p>
+<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/" title="return false实现同时对事件对象停止冒泡和默认行为" itemprop="url">return false实现同时对事件对象停止冒泡和默认行为</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +143,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 發表於 2017-06-12</time>
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> Published 2017-06-12</time>
     
   </p>
 </header>
@@ -147,7 +202,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 發表於 2017-06-08</time>
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> Published 2017-06-08</time>
     
   </p>
 </header>
@@ -198,7 +253,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 發表於 2017-06-06</time>
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> Published 2017-06-06</time>
     
   </p>
 </header>
@@ -256,7 +311,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 發表於 2017-06-05</time>
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
     
   </p>
 </header>
@@ -308,7 +363,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> 發表於 2017-05-27</time>
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
     
   </p>
 </header>
@@ -369,7 +424,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> 發表於 2017-05-26</time>
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
     
   </p>
 </header>
@@ -426,7 +481,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> 發表於 2017-05-24</time>
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
     
   </p>
 </header>
@@ -464,74 +519,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/05/01/为什么js没有函数签名/" title="为什么js没有函数签名" itemprop="url">为什么js没有函数签名</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> 發表於 2017-05-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="什么是函数签名"><a href="#什么是函数签名" class="headerlink" title="什么是函数签名"></a>什么是函数签名</h3><p>MDN上关于函数签名的说明：<br>A function signature(or type signature, or method signature) defines input and putput of functions or methods.<br>A signature can include:</p>
-<ol>
-<li>parameters and their types</li>
-<li>a return value and type</li>
-<li>exceptions that might be thrown or passed back</li>
-<li>information about the availability of the method in an object-oriented program(such as the keywords public, static, or prototype).<br>翻译过来就是函数签名定义了函数或方法的输入输出，签名包括参数个数和类型、返回值和类型、抛出或者往后传的异常、面向对象程序方法可行性的信息。<h3 id="为什么js没有函数签名"><a href="#为什么js没有函数签名" class="headerlink" title="为什么js没有函数签名"></a>为什么js没有函数签名</h3>在其他语言中，命名参数必须要求事先创建函数签名，将来调用也必须与该签名一致；而js的参数是由包含0个或多个值的数组来表示的，命名参数只是提供便利，但不是必须的，解析器也不会验证命名参数，所以js没有签名。<br>举个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  alert(&quot;Hi &quot;+arguments[0]+&quot;, &quot;+arguments[1]);</div><div class="line">&#125;</div><div class="line">sayHi(&quot;Alice&quot;,&quot;how are you?&quot;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -542,7 +539,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -564,11 +561,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
+  <p class="asidetitle">Weibo</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -718,7 +715,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

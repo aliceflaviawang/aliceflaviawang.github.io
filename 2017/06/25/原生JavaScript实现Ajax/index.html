@@ -4,24 +4,28 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>append和prepend | 笑呵呵</title>
+    <title>原生JavaScript实现Ajax | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：1234&amp;lt;div id=&amp;quot;console&amp;quot;&amp;gt;   &amp;lt;h2&amp;gt;Console Log&amp;lt;/h2&amp;gt;   &amp;lt;ul&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/div&amp;gt; 添加">
+    <meta name="description" content="Ajax实现步骤： 创建XMLHttpRequest对象XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。12345var XHR=if(window.XMLHttpRequest)&amp;#123;   XHR=new XMLHttpRequest();&amp;#125;else if(window.ActiveXObject)&amp;#123;//I">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="append和prepend">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/04/24/append和prepend/index.html">
+<meta property="og:title" content="原生JavaScript实现Ajax">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/06/25/原生JavaScript实现Ajax/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：1234&amp;lt;div id=&amp;quot;console&amp;quot;&amp;gt;   &amp;lt;h2&amp;gt;Console Log&amp;lt;/h2&amp;gt;   &amp;lt;ul&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/div&amp;gt; 添加">
-<meta property="og:updated_time" content="2017-04-24T14:17:54.922Z">
+<meta property="og:description" content="Ajax实现步骤： 创建XMLHttpRequest对象XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。12345var XHR=if(window.XMLHttpRequest)&amp;#123;   XHR=new XMLHttpRequest();&amp;#125;else if(window.ActiveXObject)&amp;#123;//I">
+<meta property="og:image" content="http://i.imgur.com/k4q4mxH.png">
+<meta property="og:image" content="http://i.imgur.com/uOPv6zj.png">
+<meta property="og:image" content="http://i.imgur.com/L8Znsb2.png">
+<meta property="og:updated_time" content="2017-06-25T13:45:11.070Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="append和prepend">
-<meta name="twitter:description" content="append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：1234&amp;lt;div id=&amp;quot;console&amp;quot;&amp;gt;   &amp;lt;h2&amp;gt;Console Log&amp;lt;/h2&amp;gt;   &amp;lt;ul&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/div&amp;gt; 添加">
+<meta name="twitter:title" content="原生JavaScript实现Ajax">
+<meta name="twitter:description" content="Ajax实现步骤： 创建XMLHttpRequest对象XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。12345var XHR=if(window.XMLHttpRequest)&amp;#123;   XHR=new XMLHttpRequest();&amp;#125;else if(window.ActiveXObject)&amp;#123;//I">
+<meta name="twitter:image" content="http://i.imgur.com/k4q4mxH.png">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -81,14 +85,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
+      <a href="/2017/06/25/原生JavaScript实现Ajax/" title="原生JavaScript实现Ajax" itemprop="url">原生JavaScript实现Ajax</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-06-25T12:21:18.000Z" itemprop="datePublished"> Published 2017-06-25</time>
     
   </p>
 </header>
@@ -97,13 +101,28 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建XMLHttpRequest对象"><span class="toc-number">1.</span> <span class="toc-text">创建XMLHttpRequest对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想服务器发送请求"><span class="toc-number">2.</span> <span class="toc-text">想服务器发送请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器响应"><span class="toc-number">3.</span> <span class="toc-text">服务器响应</span></a></li></ol>
 		
 		</div>
 		
-		<p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
-<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
+		<p>Ajax实现步骤：</p>
+<h3 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：ActiveXObject对象在IE11中已移除。</p>
+<h3 id="想服务器发送请求"><a href="#想服务器发送请求" class="headerlink" title="想服务器发送请求"></a>想服务器发送请求</h3><p>首先调用open方法，有五个参数（常用的前三个）：</p>
+<ol>
+<li>method:必须提供，用来指定发送请求的HTTP方法（GET, POST等）</li>
+<li>uri：请求的url，会被自动解析成绝对地址</li>
+<li>async:请求是否是异步的，默认是true</li>
+<li>username, password:如果需要服务器验证用户，则设置username和password这两个参数。<br>然后调用send方法，按照open方法设定的参数将请求进去发送<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">if(type==&apos;GET&apos;)&#123;</div><div class="line">   //拼接GET方法的URL</div><div class="line">   if(typeof(data)!=&apos;undefined&apos;)&#123;</div><div class="line">      url+=&apos;?&apos;;</div><div class="line">      for(i in data)&#123;</div><div class="line">          url+=i+&apos;=&apos;+data[i]+&apos;&amp;&apos;;</div><div class="line">       &#125;</div><div class="line">      url=url.substring(0,url.length-1); //去掉最后一个&apos;&amp;&apos;</div><div class="line">    &#125;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(null);</div><div class="line">&#125;else if(type==&apos;POST&apos;)&#123;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：理论上GET方法也有body，但一般约定GET的参数都放在URL上，所以type为GET时，send的参数一般是null.</p>
+<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3><p>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：</p>
+<ol>
+<li>status仅当readyState的状态是3或者4的时候才可用</li>
+<li>send()方法必须在readyState的属性值是1，即调用open()方法以后才能调用</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -116,7 +135,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/04/24/append和prepend/" data-title="append和prepend | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/06/25/原生JavaScript实现Ajax/" data-title="原生JavaScript实现Ajax | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -130,21 +149,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/04/24/transform-origin-rotate实现绕中心旋转/" title="transform-origin,rotate实现绕中心旋转">
+ <a href="/2017/06/24/jQuery-proxy-方法/" title="jQuery $.proxy()方法">
   <strong>上一篇：</strong><br/>
   <span>
-  transform-origin,rotate实现绕中心旋转</span>
+  jQuery $.proxy()方法</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/04/25/slice-substring-substr-总结/"  title="slice(), substring(), substr()总结">
- <strong>下一篇：</strong><br/> 
- <span>slice(), substring(), substr()总结
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -156,7 +167,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建XMLHttpRequest对象"><span class="toc-number">1.</span> <span class="toc-text">创建XMLHttpRequest对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想服务器发送请求"><span class="toc-number">2.</span> <span class="toc-text">想服务器发送请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器响应"><span class="toc-number">3.</span> <span class="toc-text">服务器响应</span></a></li></ol>
  
   </div>
 

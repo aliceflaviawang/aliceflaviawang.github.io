@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
 				<h2 class="blog-motto">Live beautifully, dream passionately, love completely</h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -63,7 +63,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -81,6 +81,73 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/25/原生JavaScript实现Ajax/" title="原生JavaScript实现Ajax" itemprop="url">原生JavaScript实现Ajax</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-25T12:21:18.000Z" itemprop="datePublished"> Published 2017-06-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Ajax实现步骤：</p>
+<h3 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：ActiveXObject对象在IE11中已移除。</p>
+<h3 id="想服务器发送请求"><a href="#想服务器发送请求" class="headerlink" title="想服务器发送请求"></a>想服务器发送请求</h3><p>首先调用open方法，有五个参数（常用的前三个）：</p>
+<ol>
+<li>method:必须提供，用来指定发送请求的HTTP方法（GET, POST等）</li>
+<li>uri：请求的url，会被自动解析成绝对地址</li>
+<li>async:请求是否是异步的，默认是true</li>
+<li>username, password:如果需要服务器验证用户，则设置username和password这两个参数。<br>然后调用send方法，按照open方法设定的参数将请求进去发送<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">if(type==&apos;GET&apos;)&#123;</div><div class="line">   //拼接GET方法的URL</div><div class="line">   if(typeof(data)!=&apos;undefined&apos;)&#123;</div><div class="line">      url+=&apos;?&apos;;</div><div class="line">      for(i in data)&#123;</div><div class="line">          url+=i+&apos;=&apos;+data[i]+&apos;&amp;&apos;;</div><div class="line">       &#125;</div><div class="line">      url=url.substring(0,url.length-1); //去掉最后一个&apos;&amp;&apos;</div><div class="line">    &#125;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(null);</div><div class="line">&#125;else if(type==&apos;POST&apos;)&#123;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：理论上GET方法也有body，但一般约定GET的参数都放在URL上，所以type为GET时，send的参数一般是null.</p>
+<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3><p>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：</p>
+<ol>
+<li>status仅当readyState的状态是3或者4的时候才可用</li>
+<li>send()方法必须在readyState的属性值是1，即调用open()方法以后才能调用</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/24/jQuery-proxy-方法/" title="jQuery $.proxy()方法" itemprop="url">jQuery $.proxy()方法</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +155,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-24T14:01:36.000Z" itemprop="datePublished"> 發表於 2017-06-24</time>
+    <time datetime="2017-06-24T14:01:36.000Z" itemprop="datePublished"> Published 2017-06-24</time>
     
   </p>
 </header>
@@ -146,7 +213,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-23T08:51:44.000Z" itemprop="datePublished"> 發表於 2017-06-23</time>
+    <time datetime="2017-06-23T08:51:44.000Z" itemprop="datePublished"> Published 2017-06-23</time>
     
   </p>
 </header>
@@ -202,7 +269,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> 發表於 2017-06-23</time>
+    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> Published 2017-06-23</time>
     
   </p>
 </header>
@@ -277,7 +344,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
+    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> Published 2017-06-22</time>
     
   </p>
 </header>
@@ -333,7 +400,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> 發表於 2017-06-22</time>
+    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> Published 2017-06-22</time>
     
   </p>
 </header>
@@ -385,7 +452,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> 發表於 2017-06-17</time>
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> Published 2017-06-17</time>
     
   </p>
 </header>
@@ -440,7 +507,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 發表於 2017-06-15</time>
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> Published 2017-06-15</time>
     
   </p>
 </header>
@@ -478,71 +545,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法" itemprop="url">a标签中href=&#39;&#39;的几种用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 發表於 2017-06-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
-<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
-<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
-<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
-<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。（如果希望不返回页面顶端，可以在#后面加任意无效的位置信息，如###）</p>
-<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -553,7 +565,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情鏈接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -575,11 +587,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
+  <p class="asidetitle">Weibo</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
 </div>
 
@@ -729,7 +741,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

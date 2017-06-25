@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-06-24T14:30:06.774Z</updated>
+  <updated>2017-06-25T13:45:11.070Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,43 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>原生JavaScript实现Ajax</title>
+    <link href="https://aliceflaviawang.github.io/2017/06/25/%E5%8E%9F%E7%94%9FJavaScript%E5%AE%9E%E7%8E%B0Ajax/"/>
+    <id>https://aliceflaviawang.github.io/2017/06/25/原生JavaScript实现Ajax/</id>
+    <published>2017-06-25T12:21:18.000Z</published>
+    <updated>2017-06-25T13:45:11.070Z</updated>
+    
+    <content type="html"><![CDATA[<p>Ajax实现步骤：</p>
+<h3 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：ActiveXObject对象在IE11中已移除。</p>
+<h3 id="想服务器发送请求"><a href="#想服务器发送请求" class="headerlink" title="想服务器发送请求"></a>想服务器发送请求</h3><p>首先调用open方法，有五个参数（常用的前三个）：</p>
+<ol>
+<li>method:必须提供，用来指定发送请求的HTTP方法（GET, POST等）</li>
+<li>uri：请求的url，会被自动解析成绝对地址</li>
+<li>async:请求是否是异步的，默认是true</li>
+<li>username, password:如果需要服务器验证用户，则设置username和password这两个参数。<br>然后调用send方法，按照open方法设定的参数将请求进去发送<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">if(type==&apos;GET&apos;)&#123;</div><div class="line">   //拼接GET方法的URL</div><div class="line">   if(typeof(data)!=&apos;undefined&apos;)&#123;</div><div class="line">      url+=&apos;?&apos;;</div><div class="line">      for(i in data)&#123;</div><div class="line">          url+=i+&apos;=&apos;+data[i]+&apos;&amp;&apos;;</div><div class="line">       &#125;</div><div class="line">      url=url.substring(0,url.length-1); //去掉最后一个&apos;&amp;&apos;</div><div class="line">    &#125;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(null);</div><div class="line">&#125;else if(type==&apos;POST&apos;)&#123;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：理论上GET方法也有body，但一般约定GET的参数都放在URL上，所以type为GET时，send的参数一般是null.</p>
+<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3><p>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：</p>
+<ol>
+<li>status仅当readyState的状态是3或者4的时候才可用</li>
+<li>send()方法必须在readyState的属性值是1，即调用open()方法以后才能调用</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Ajax实现步骤：&lt;/p&gt;
+&lt;h3 id=&quot;创建XMLHttpRequest对象&quot;&gt;&lt;a href=&quot;#创建XMLHttpRequest对象&quot; class=&quot;headerlink&quot; title=&quot;创建XMLHttpRequest对象&quot;&gt;&lt;/a&gt;创建XMLHttpReques
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>jQuery $.proxy()方法</title>
@@ -485,32 +522,6 @@
     <summary type="html">
     
       &lt;p&gt;一般实现环形旋转可以通过animation动画的方式&lt;br&gt;举个例子：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>apply()和call()用法</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/24/apply-%E5%92%8Ccall-%E7%94%A8%E6%B3%95/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/24/apply-和call-用法/</id>
-    <published>2017-04-24T03:10:47.000Z</published>
-    <updated>2017-04-24T06:38:18.222Z</updated>
-    
-    <content type="html"><![CDATA[<p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
-<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
-<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
-<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。&lt;/p&gt;
-&lt;h2 id=&quot;方法定义&quot;&gt;&lt;a href=&quot;#方法定义&quot; class=&quot;headerlink&quot; title=&quot;方法定义&quot;&gt;&lt;
     
     </summary>
     

@@ -1,0 +1,452 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>javascript是单线程 | 笑呵呵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Alice">
+    
+
+    
+    <meta name="description" content="首先看下面的代码：1234567function foo()&amp;#123;   console.log(&amp;apos;first&amp;apos;);   setTimeout(function()&amp;#123;console.log(&amp;apos;second&amp;apos;)&amp;#125;,5);&amp;#125;for(var i=0;i&amp;lt;100;i++)&amp;#123;  foo();&amp;#125; 执行结果会首先">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript是单线程">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/10/javascript是单线程/index.html">
+<meta property="og:site_name" content="笑呵呵">
+<meta property="og:description" content="首先看下面的代码：1234567function foo()&amp;#123;   console.log(&amp;apos;first&amp;apos;);   setTimeout(function()&amp;#123;console.log(&amp;apos;second&amp;apos;)&amp;#125;,5);&amp;#125;for(var i=0;i&amp;lt;100;i++)&amp;#123;  foo();&amp;#125; 执行结果会首先">
+<meta property="og:updated_time" content="2017-07-10T13:32:15.718Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript是单线程">
+<meta name="twitter:description" content="首先看下面的代码：1234567function foo()&amp;#123;   console.log(&amp;apos;first&amp;apos;);   setTimeout(function()&amp;#123;console.log(&amp;apos;second&amp;apos;)&amp;#125;,5);&amp;#125;for(var i=0;i&amp;lt;100;i++)&amp;#123;  foo();&amp;#125; 执行结果会首先">
+
+    
+    <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="笑呵呵" title="笑呵呵"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
+				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
+			</div>
+			
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/10/javascript是单线程/" title="javascript是单线程" itemprop="url">javascript是单线程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-10T11:51:27.000Z" itemprop="datePublished"> Published 2017-07-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#javascript是单线程的"><span class="toc-number">1.</span> <span class="toc-text">javascript是单线程的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异步事件驱动"><span class="toc-number">2.</span> <span class="toc-text">异步事件驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器不是单线程的"><span class="toc-number">3.</span> <span class="toc-text">浏览器不是单线程的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ajax异步请求是否是真的异步"><span class="toc-number">4.</span> <span class="toc-text">Ajax异步请求是否是真的异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setTimeout-func-0-的作用"><span class="toc-number">5.</span> <span class="toc-text">setTimeout(func,0)的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非阻塞js的实现"><span class="toc-number">6.</span> <span class="toc-text">非阻塞js的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记：setTimeout和setInterval"><span class="toc-number">7.</span> <span class="toc-text">后记：setTimeout和setInterval</span></a></li></ol>
+		
+		</div>
+		
+		<p>首先看下面的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">   console.log(&apos;first&apos;);</div><div class="line">   setTimeout(function()&#123;console.log(&apos;second&apos;)&#125;,5);</div><div class="line">&#125;</div><div class="line">for(var i=0;i&lt;100;i++)&#123;</div><div class="line">  foo();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行结果会首先输出first，然后全部输出second；尽管中间结果会超过5ms，为什么？</p>
+<h3 id="javascript是单线程的"><a href="#javascript是单线程的" class="headerlink" title="javascript是单线程的"></a>javascript是单线程的</h3><p>因为<strong>JS运行在浏览器中，是单线程的，每个window一个JS线程</strong>，既然是单线程，在某个特定时刻只有特定的代码能够背执行，并阻塞其他代码。而浏览器是<strong>事件驱动（Event driven）</strong>的，浏览器中很多行为是异步（Asynchronized）的，会创建事件并放在执行队列中。javascript引擎是单线程处理它的任务队列，你可以理解成就是普通函数和回调函数构成的队列。当异步事件发生时，如鼠标点击事件、定时器触发事件、XMLHttpRequest完成回调触发等，将它们放入执行队列，等待当前代码执行完成。</p>
+<h3 id="异步事件驱动"><a href="#异步事件驱动" class="headerlink" title="异步事件驱动"></a>异步事件驱动</h3><p>浏览器是事件驱动的，浏览器中很多行为是异步的。当一个异步事件发生时，它就进入事件队列。浏览器有个内部大消息循环，EventLoop(事件循环)，会轮询大的事件队列并处理事件。</p>
+<h3 id="浏览器不是单线程的"><a href="#浏览器不是单线程的" class="headerlink" title="浏览器不是单线程的"></a>浏览器不是单线程的</h3><p>虽然JS运行在浏览器中，是单线程的，每个window一个JS线程，但浏览器不是单线程的，例如Webkit或是Gecko引擎，都可能有如下线程：</p>
+<ul>
+<li>javascript引擎线程</li>
+<li>界面渲染线程</li>
+<li>浏览器触发线程</li>
+<li>Http请求线程<br>很多人搞不清，如果js是单线程的，那么谁去轮询大的Event Loop事件队列？答案是浏览器会有单独的线程去专门处理这个队列<h3 id="Ajax异步请求是否是真的异步"><a href="#Ajax异步请求是否是真的异步" class="headerlink" title="Ajax异步请求是否是真的异步"></a>Ajax异步请求是否是真的异步</h3>Ajax请求确实是异步的，这请求是由浏览器新开一个线程请求，事件回调的时候放入Event loop单线程事件队列等候处理。<h3 id="setTimeout-func-0-的作用"><a href="#setTimeout-func-0-的作用" class="headerlink" title="setTimeout(func,0)的作用"></a>setTimeout(func,0)的作用</h3>setTimeout(func,0)非常有用，单丝不是模拟多线程，前面已经说过一个window一个js线程，setTimeout(func,0)主要是告诉js引擎，在0ms后把func放在主事件队列中，等待当前的代码执行完毕后再执行。<br>注：重点是改变了代码的流程，把func的执行放到了等待当前的代码执行完毕后再执行。<h3 id="非阻塞js的实现"><a href="#非阻塞js的实现" class="headerlink" title="非阻塞js的实现"></a>非阻塞js的实现</h3>js在浏览器中需要被下载、解释并执行这三步。尽管浏览器可以实现多线程并行下载，但是必须依次执行。要实现非阻塞js有两个方法：</li>
+</ul>
+<ol>
+<li><p>html5中的defer和async关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;test/javascript&quot; defer src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//没有defer或async，浏览器会立即加载并执行指定的脚本，“立即”的意思是指不等待后续载入的文档元素，读到就立即执行</div><div class="line">&lt;script type=&quot;test/javascript&quot; async src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//有async，加载和渲染后续文档元素的过程将和foo.js的加载与执行并行进行（异步）</div><div class="line">&lt;script type=&quot;test/javascript&quot; defer src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//有defer，加载后续文档元素的过程将和foo.js的加载并行进行(异步)，但是foo.js的执行要在所有元素解析完成之后，DOMContentLoaded事件触发之前完成</div></pre></td></tr></table></figure>
+</li>
+<li><p>动态加载js（比如：使用setTimeout方法）</p>
+<h3 id="后记：setTimeout和setInterval"><a href="#后记：setTimeout和setInterval" class="headerlink" title="后记：setTimeout和setInterval"></a>后记：setTimeout和setInterval</h3><p>setTimeout和setInterval都是指过一段时间，再进行某项操作。<br>setTimeout是让一段代码在指定时间运行（次数是一次），而setInterval是让一段代码每过指定时间就运行一次<br>setInterval的坑：如果间隔时间可能小于定时调用的代码的执行时间，而js是单线程，将定时调用的代码插入到队列中，但是代码中如果已经有了一份没有执行的同意的代码，<strong>时间间隔或许会被跳过</strong>。</p>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/10/javascript是单线程/" data-title="javascript是单线程 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/07/10/Web语义化/" title="Web语义化">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Web语义化</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/10/ready-与window-onload的区别/"  title="$.ready()与window.onload的区别">
+ <strong>下一篇：</strong><br/> 
+ <span>$.ready()与window.onload的区别
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#javascript是单线程的"><span class="toc-number">1.</span> <span class="toc-text">javascript是单线程的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异步事件驱动"><span class="toc-number">2.</span> <span class="toc-text">异步事件驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器不是单线程的"><span class="toc-number">3.</span> <span class="toc-text">浏览器不是单线程的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ajax异步请求是否是真的异步"><span class="toc-number">4.</span> <span class="toc-text">Ajax异步请求是否是真的异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setTimeout-func-0-的作用"><span class="toc-number">5.</span> <span class="toc-text">setTimeout(func,0)的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非阻塞js的实现"><span class="toc-number">6.</span> <span class="toc-text">非阻塞js的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记：setTimeout和setInterval"><span class="toc-number">7.</span> <span class="toc-text">后记：setTimeout和setInterval</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/jsfront/" target="_blank" title="JS高级前端开发">JS高级前端开发</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://segmentfault.com/" target="_blank" title="segmentfault">segmentfault</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://stackoverflow.com/" target="_blank" title="stackoverflow">stackoverflow</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/jikeytang/front-end-collect" target="_blank" title="前端收集">前端收集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Alice Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
 						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
 					</form>
 					
@@ -82,79 +82,44 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/05/24/跨浏览器事件对象———EventUtil/" title="跨浏览器事件对象———EventUtil" itemprop="url">跨浏览器事件对象———EventUtil</a>
+      <a href="/2017/06/25/原生JavaScript实现Ajax/" title="原生JavaScript实现Ajax" itemprop="url">原生JavaScript实现Ajax</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> 发表于 2017-05-24</time>
+    <time datetime="2017-06-25T12:21:18.000Z" itemprop="datePublished"> Published 2017-06-25</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>EventUtil:在JavaScript中，DOM0级、DOM2级与旧版本IE（8-）为对象添加事件的方法不同，为了以跨浏览器的方式处理时间，需要编写一段“通用代码”，即跨浏览器的事件处理程序，这个方法属于一个名为EventUtil的对象，编写并使用该对象后，可保证处理事件的代码能在大多数浏览器下一致地运行。</p>
-<h2 id="EventUtil对象"><a href="#EventUtil对象" class="headerlink" title="EventUtil对象"></a>EventUtil对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">var EventUtil=&#123;</div><div class="line">   addHandler:function(element,type,handler)&#123;//添加事件</div><div class="line">      if(element.addEventListener)&#123;</div><div class="line">         element.addEventListener(type,handler,false); //使用DOM2级方法添加事件，三个参数分别是：要处理的事件名、作为事件处理的函数和一个布尔值（布尔值表示在捕获阶段(true)还是冒泡阶段(false)调用事件处理程序）</div><div class="line">     &#125;</div><div class="line">     else if(element.attachEvent)&#123;</div><div class="line">         element.attachEvent(&quot;on&quot;+type,handler); //使用IE方法添加事件，两个参数分别为：事件处理程序名称和事件处理程序的函数</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=handler; //使用DOM0级方法添加事件</div><div class="line">     &#125;</div><div class="line">   &#125;，</div><div class="line">   removeHandler:function(element,type,handler)&#123; //取消事件</div><div class="line">      if(element.removeEventListener)&#123;</div><div class="line">         element.removeEventListener(type,handler,false);</div><div class="line">     &#125;</div><div class="line">     else if(element.detachEvent)&#123;     </div><div class="line">         element.detachEvent(&quot;on&quot;+type,handler);     </div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getEvent:function(event)&#123; //使用这个方法跨浏览器取得event对象</div><div class="line">      return event?event:window.event; //在IE中，使用DOM0级添加事件处理程序时，event对象作为window对象的一个属性存在，而且在IE中，event对象的一些属性/方法跟其他支持DOM的浏览器不同，正是由于这些差异，EventUtil中的getEvent方法应运而生</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">   getTarget:function(event)&#123; //返回事件的实际目标</div><div class="line">      return event.target||event.srcEelment;  //在IE中，获取事件的目标对象的方法为event.srcElement，而其他兼容DOM的浏览器中，获取事件目标对象的方法却为event.target</div><div class="line">   &#125;,</div><div class="line"></div><div class="line"></div><div class="line">   preventDefault:function(event)&#123; //阻止事件的默认行为</div><div class="line">      if(event.preventDefault)&#123; //在其他兼容DOM的浏览器中，阻止特定事件的默认行为只需要使用event对象自带的preventDefault()方法</div><div class="line">        event.preventDefault();</div><div class="line">     &#125;else&#123; //而IE中，则需要赋予event.returnValue的值为false才能阻止特定事件的默认行为</div><div class="line">        event.returnValue=false;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   stopPropagation:function(event)&#123; </div><div class="line">     if(event.stopPropagation)&#123;</div><div class="line">      event.stopPropagation(); //DOMO级或DOM2级取消事件进一步冒泡或者捕获</div><div class="line">    &#125;else&#123;</div><div class="line">      event.cancelBubble=true; //IE中取消时间冒泡</div><div class="line">    &#125;</div><div class="line">      </div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getRelatedTarget:function(event)&#123; //获取mouseover和mouseout相关元素</div><div class="line">//mouseover与mouseout有“主目标”和“相关元素”的概念，因为在发生mouseover或mouseout事件时，还会涉及到其他元素，这两个事件都会涉及把鼠标指针从一个元素移到另一个元素。具体来说，对mouseover事件，事件的主目标是获得光标的元素，而相关元素是那个失去光标的元素，对mouseout事件而言，事件的主目标是失去光标的元素，而相关元素是那个获得光标的元素。</div><div class="line">      if(event.relatedTarget)&#123;</div><div class="line">        return event.relatedTarget;</div><div class="line">     &#125;</div><div class="line">      else if(event.toElement)&#123; //mouseout触发时，IE的toElement保存的相关元素属性</div><div class="line">        return event.toElement;</div><div class="line">     &#125;</div><div class="line">     else if(event.formElement)&#123; //mouseover触发时，IE的formElement保存相关元素属性</div><div class="line">         return event.formElement;</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         return null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getButton:function(event)&#123;  //获取mousedown或mouseup按下或释放的按钮是鼠标的哪一个</div><div class="line">     if(document.implementation.hasFeature(&quot;MouseEvents&quot;,&quot;2.0&quot;))&#123;</div><div class="line">        return event.button;</div><div class="line">     &#125;else&#123;</div><div class="line">       switch(event.button)&#123;//将IE模型下的button属性映射为DOM模型下的button属性</div><div class="line">         case 0:</div><div class="line">         case 1;</div><div class="line">         case 3;</div><div class="line">         case 5;</div><div class="line">         case 7;</div><div class="line">           return 0; //按下的是鼠标主按钮（一般是左键）</div><div class="line">         case 2:</div><div class="line">         case 6:</div><div class="line">           return 2; //按下的是中间的鼠标按钮</div><div class="line">         case 4:</div><div class="line">           return 1; //鼠标次按钮（一般是右键）</div><div class="line">        &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">  getWheelDelta:function(event)&#123; //获取表示鼠标滚轮滚动方向的数值</div><div class="line">//解决的是与Firefox的差异</div><div class="line">    if(event.wheelDelta)&#123;</div><div class="line">      return event.wheelDelta;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">      return -event.detail*40;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  getCharCode:function(event)&#123; //跨浏览器取得相同的字符编码，需在keypress事件中使用</div><div class="line"></div><div class="line">//在所有浏览器中，按下能够插入或删除的字符的按键都会触发keypress事件，但IE8-及Opera取得字符编码的方式与其他浏览器有差异</div><div class="line">    if(typeof event.charCode==&quot;number&quot;)&#123;</div><div class="line">       return event.charCode;</div><div class="line">    &#125;else&#123;</div><div class="line">       return event.keyCode;</div><div class="line">   &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="举例用法"><a href="#举例用法" class="headerlink" title="举例用法"></a>举例用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//添加了EventUtil之后，获取了event对象、取消了事件进一步捕获或者冒泡、指定了事件的处理程序而无须担心浏览器兼容问题</div><div class="line">var btn=document.getElementById(&quot;#btn&quot;);</div><div class="line">var handler=function(event)&#123;</div><div class="line">   event=EventUtil.getEvent(event); </div><div class="line">   EventUtil.stopPropagation(event); </div><div class="line"> &#125;</div><div class="line">Event.addHandler(btn,&quot;click&quot;,handler);</div></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/05/01/为什么js没有函数签名/" title="为什么js没有函数签名" itemprop="url">为什么js没有函数签名</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> 发表于 2017-05-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="什么是函数签名"><a href="#什么是函数签名" class="headerlink" title="什么是函数签名"></a>什么是函数签名</h3><p>MDN上关于函数签名的说明：<br>A function signature(or type signature, or method signature) defines input and putput of functions or methods.<br>A signature can include:</p>
+        <p>Ajax实现步骤：</p>
+<h3 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：ActiveXObject对象在IE11中已移除。</p>
+<h3 id="想服务器发送请求"><a href="#想服务器发送请求" class="headerlink" title="想服务器发送请求"></a>想服务器发送请求</h3><p>首先调用open方法，有五个参数（常用的前三个）：</p>
 <ol>
-<li>parameters and their types</li>
-<li>a return value and type</li>
-<li>exceptions that might be thrown or passed back</li>
-<li>information about the availability of the method in an object-oriented program(such as the keywords public, static, or prototype).<br>翻译过来就是函数签名定义了函数或方法的输入输出，签名包括参数个数和类型、返回值和类型、抛出或者往后传的异常、面向对象程序方法可行性的信息。<h3 id="为什么js没有函数签名"><a href="#为什么js没有函数签名" class="headerlink" title="为什么js没有函数签名"></a>为什么js没有函数签名</h3>在其他语言中，命名参数必须要求事先创建函数签名，将来调用也必须与该签名一致；而js的参数是由包含0个或多个值的数组来表示的，命名参数只是提供便利，但不是必须的，解析器也不会验证命名参数，所以js没有签名。<br>举个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  alert(&quot;Hi &quot;+arguments[0]+&quot;, &quot;+arguments[1]);</div><div class="line">&#125;</div><div class="line">sayHi(&quot;Alice&quot;,&quot;how are you?&quot;);</div></pre></td></tr></table></figure>
+<li>method:必须提供，用来指定发送请求的HTTP方法（GET, POST等）</li>
+<li>uri：请求的url，会被自动解析成绝对地址</li>
+<li>async:请求是否是异步的，默认是true</li>
+<li>username, password:如果需要服务器验证用户，则设置username和password这两个参数。<br>然后调用send方法，按照open方法设定的参数将请求进去发送<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">if(type==&apos;GET&apos;)&#123;</div><div class="line">   //拼接GET方法的URL</div><div class="line">   if(typeof(data)!=&apos;undefined&apos;)&#123;</div><div class="line">      url+=&apos;?&apos;;</div><div class="line">      for(i in data)&#123;</div><div class="line">          url+=i+&apos;=&apos;+data[i]+&apos;&amp;&apos;;</div><div class="line">       &#125;</div><div class="line">      url=url.substring(0,url.length-1); //去掉最后一个&apos;&amp;&apos;</div><div class="line">    &#125;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(null);</div><div class="line">&#125;else if(type==&apos;POST&apos;)&#123;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
+<p>注：理论上GET方法也有body，但一般约定GET的参数都放在URL上，所以type为GET时，send的参数一般是null.</p>
+<h4 id="get和post的区别"><a href="#get和post的区别" class="headerlink" title="get和post的区别"></a>get和post的区别</h4><p>它们的结构和使用方式相同，区别：</p>
+<ol>
+<li>get请求会将参数跟在url后进行传递，而post则是将参数作为http消息的实体内容发给web服务器 （对用户是不可见的）</li>
+<li>get对传输数据有大小限制（通常不能大于2kb），而post传递的数据量要比get大得多（理论上没有限制。但get效率更高，一般用来查询</li>
+<li>get方式请求的数据会被浏览缓存，post则不会，get具有安全问题、</li>
+<li>get方式和post方式传递的数据在服务器端的获取也不相同<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：</p>
+<ol>
+<li>status仅当readyState的状态是3或者4的时候才可用</li>
+<li>send()方法必须在readyState的属性值是1，即调用open()方法以后才能调用</li>
+</ol>
 
         
         
@@ -191,20 +156,28 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
+      <a href="/2017/06/24/jQuery-proxy-方法/" title="jQuery $.proxy()方法" itemprop="url">jQuery $.proxy()方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> 发表于 2017-04-25</time>
+    <time datetime="2017-06-24T14:01:36.000Z" itemprop="datePublished"> Published 2017-06-24</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$.proxy方法接收一个已有的函数，并返回一个带特定上下文的新的函数。该方法通常用于向上下文只想不同对象的元素添加事件。</p>
+<h3 id="语法1"><a href="#语法1" class="headerlink" title="语法1"></a>语法1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(selector).proxy(function,context) //function：要被调用的已有函数，context:函数所在对象的名称</div></pre></td></tr></table></figure>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;div元素&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">   test=function()&#123;</div><div class="line">      this.text=&quot;这是一个对象属性&quot;;</div><div class="line">      $(&quot;div&quot;).click(this.myClick);</div><div class="line">    &#125;</div><div class="line">    test.prototype.myClick=function()&#123;</div><div class="line">       alert(this.text); </div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击“div元素”，弹出undefined。这是因为执行$(“div”).click(this.myClick)后的this与test()中的this不是同一个。<br>而使用$.proxy()可以将$(“div”).click(this.myClick)执行的this绑定到test的上下文环境中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;div元素&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">   test=function()&#123;</div><div class="line">      this.text=&quot;这是一个对象属性&quot;;</div><div class="line">      $(&quot;div&quot;).click($.proxy(this.myClick),this);</div><div class="line">    &#125;</div><div class="line">    test.prototype.myClick=function()&#123;</div><div class="line">       alert(this.text); </div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击“div元素”，弹出的是“这是一个对象属性”。</p>
+<h3 id="语法2"><a href="#语法2" class="headerlink" title="语法2"></a>语法2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(selector).proxy(context,name) //name:已有的函数，其上下文将被改变（应该是context对象的属性）</div></pre></td></tr></table></figure>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;button&gt;执行test函数&lt;/button&gt;</div><div class="line">&lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  var objPerson=&#123;</div><div class="line">    name:&quot;John&quot;,</div><div class="line">    age:32,</div><div class="line">    test:function()&#123;</div><div class="line">       $(&quot;p&quot;).after(&quot;Name:&quot;+this.name+&quot;&lt;br&gt;Age:&quot;+this.age);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">$(&quot;button&quot;).click(objPerson.test.call(this));</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击button按钮，出现Name:undefined Age:undefined，因为test的上下文环境和objPerson的上下文环境不一样，test里面没有定义name和age对象。可以通过$.proxy()绑定test的上下文环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;button&gt;执行test函数&lt;/button&gt;</div><div class="line">&lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  var objPerson=&#123;</div><div class="line">    name:&quot;John&quot;,</div><div class="line">    age:32,</div><div class="line">    test:function()&#123;</div><div class="line">       $(&quot;p&quot;).after(&quot;Name:&quot;+this.name+&quot;&lt;br&gt;Age:&quot;+this.age);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">$(&quot;button&quot;).click($.proxy(objPerson,&quot;test&quot;));</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击button按钮，出现Name:John Age:32。当然之前分析call函数时，也提到过call()也可以绑定上下文环境，实现与上面同样的效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;button&gt;执行test函数&lt;/button&gt;</div><div class="line">&lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  var objPerson=&#123;</div><div class="line">    name:&quot;John&quot;,</div><div class="line">    age:32,</div><div class="line">    test:function()&#123;</div><div class="line">       $(&quot;p&quot;).after(&quot;Name:&quot;+this.name+&quot;&lt;br&gt;Age:&quot;+this.age);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">$(&quot;button&quot;).click(objPerson.test.call(objPerson));//将test()环境绑定到objPerson环境中</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 
         
         
@@ -241,22 +214,26 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
+      <a href="/2017/06/23/bind-delegate-on-方法区别/" title="bind(), delegate(), on()方法区别" itemprop="url">bind(), delegate(), on()方法区别</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    <time datetime="2017-06-23T08:51:44.000Z" itemprop="datePublished"> Published 2017-06-23</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
-<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
+        <h3 id="bind-：-selector-bind-event-data-function"><a href="#bind-：-selector-bind-event-data-function" class="headerlink" title="bind()：$(selector).bind(event,data,function)"></a>bind()：$(selector).bind(event,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div p&quot;).bind(&quot;click&quot;,function()&#123;</div><div class="line">  </div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
+<p>使用bind()方法为所有div里的p元素都绑定了click事件，存在的问题：<br>1）这里使用了隐式迭代，如果匹配到的元素特别多，影响了性能；<br>2）对于尚未存在的元素，无法绑定。动态添加的p元素，点击会没有响应。<br>顺便提一下，bind()的简写方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div p&quot;).click(function()&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="delegate-selector-delegate-childSelector-event-data-function"><a href="#delegate-selector-delegate-childSelector-event-data-function" class="headerlink" title="delegate():$(selector).delegate(childSelector,event,data,function)"></a>delegate():$(selector).delegate(childSelector,event,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div&quot;）.delegate(&quot;p&quot;,&quot;click&quot;,function()&#123;</div><div class="line"> </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>事件委托方式，不直接为p元素绑定事件，而是为其父元素（或祖先元素）绑定事件，当在div内任意元素点击时，事件会一层层从event.target向上冒泡，直到达到为其绑定事件的元素，如此例中的div元素。冒泡的过程中，如果事件的currentTarget与选择器匹配时就会执行代码。<br>delegate()方法解决了bind具有的两个问题，但是如果事件目标在DOM树很深的位置，这样一层层来查找与选择器匹配的元素，又影响了性能。</p>
+<h3 id="on-selector-on-event-childselector-data-function"><a href="#on-selector-on-event-childselector-data-function" class="headerlink" title="on():$(selector).on(event,childselector,data,function)"></a>on():$(selector).on(event,childselector,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;div&quot;).on(&quot;click&quot;,&quot;p&quot;,function()&#123;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>看jQuery源代码发现，无论是bind()还是delegate()，都是通过on()方法实现的，只是参数不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">bind: function( types, data, fn ) &#123;</div><div class="line">     return this.on( types, null, data, fn );</div><div class="line">    &#125;,</div><div class="line">    unbind: function( types, fn ) &#123;</div><div class="line">     return this.off( types, null, fn );</div><div class="line">    &#125;,</div><div class="line">    delegate: function( selector, types, data, fn ) &#123;</div><div class="line">     return this.on( types, selector, data, fn );</div><div class="line">    &#125;</div><div class="line">    undelegate: function( selector, types, fn ) &#123;</div><div class="line"> // ( namespace ) or ( selector, types [, fn] )</div><div class="line">     return arguments.length === 1 ? this.off( selector, &quot;**&quot; ) : this.off( types, selector || &quot;**&quot;, fn );</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1、选择器匹配元素较多时，不要使用bind()迭代绑定<br>2、id选择器时，可以用bind()<br>3、需要动态绑定时，用delegate()或on()<br>4、用delegate()或on()，DOM树不要太深<br>5、尽量使用on()</p>
 
         
         
@@ -293,24 +270,45 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/transform-origin-rotate实现绕中心旋转/" title="transform-origin,rotate实现绕中心旋转" itemprop="url">transform-origin,rotate实现绕中心旋转</a>
+      <a href="/2017/06/23/jQuery性能优化/" title="jQuery性能优化" itemprop="url">jQuery性能优化</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> Published 2017-06-23</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>一般实现环形旋转可以通过animation动画的方式<br>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;images/min-iconfont-rocket-active.png&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>通过animation，对应的css代码为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@keyframes spin&#123;</div><div class="line">	to&#123;</div><div class="line">		transform: rotate(1turn);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">img&#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50px;</div><div class="line">	left:50px;</div><div class="line">	width:50px;</div><div class="line">	height:50px;</div><div class="line">	animation:spin 10s infinite linear;</div><div class="line">	transform-origin:150px 150px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>也可以通过transform-origin+rotate的js实现，transform-origin对应旋转中心的位置，rotate可以设置旋转的角度。<br>设置一个图片进行旋转，对于的css代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">img&#123;</div><div class="line">    position: absolute;</div><div class="line"> 	top:50px;</div><div class="line"> 	left:50px;</div><div class="line"> 	width:50px;</div><div class="line"> 	height:50px;</div><div class="line"> 	transform-origin: 150px 150px;  //设置旋转的中心位置</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>对应的js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var deg=0;</div><div class="line">var timer=setInterval(function()&#123;</div><div class="line">	deg+=10;</div><div class="line">	rotate(deg);</div><div class="line">&#125;,20)</div><div class="line">function rotate(deg)&#123;</div><div class="line">	var my=&quot;rotate(&quot;+deg+&quot;deg)&quot;</div><div class="line">	$(&quot;img&quot;).css(&quot;transform&quot;,my)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>对于transform-orgin其默认的位置是元素的中心位置，可以通过设置重新确定中心。<br>注：想了解更多transform实现环形路径平移动画，可以参看 <a href="http://www.open-open.com/lib/view/open1478661385568.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1478661385568.html</a>.</p>
+        <h3 id="1、使用最新版本的jQuery类库"><a href="#1、使用最新版本的jQuery类库" class="headerlink" title="1、使用最新版本的jQuery类库"></a>1、使用最新版本的jQuery类库</h3><p>jQuery每个新版本都会较上个版本进行bug修复和优化，同时进行一些创新。</p>
+<h3 id="2、使用合适的选择器"><a href="#2、使用合适的选择器" class="headerlink" title="2、使用合适的选择器"></a>2、使用合适的选择器</h3><p>jQuery提供了丰富的选择器来定位DOM元素，下面介绍几种常用的选择器及它们之间的性能差异：</p>
+<h4 id="“-id”"><a href="#“-id”" class="headerlink" title="$(“#id”)"></a>$(“#id”)</h4><p>使用id来定位DOM元素是最佳提高性能的方式，因为jQuery底层将直接调用本地方法document.getElementById()。如果不能直接找到，还可以考虑调用find()方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;div&quot;);</div></pre></td></tr></table></figure></p>
+<p>使用以上方法可以有效缩小定位DOM元素的范围，为了提高性能，可以从最近的ID元素开始往下搜索。</p>
+<h4 id="“p”-“div”-“input”"><a href="#“p”-“div”-“input”" class="headerlink" title="$(“p”),$(“div”),$(“input”)"></a>$(“p”),$(“div”),$(“input”)</h4><p>标签选择器是性能优化的第二选择，因为jQuery将直接调用本地方法document.getElementByTagName()来定位DOM元素。</p>
+<h4 id="“-class”"><a href="#“-class”" class="headerlink" title="$(“.class”)"></a>$(“.class”)</h4><p>对于较新的浏览器，支持本地方法document.getElementByClassName(),老的浏览器如IE8及更早版本只能靠使用DOM搜索方式来实现，这无疑对性能产生较大的影响。所以有选择性的使用它。</p>
+<h4 id="“-attribute-value-”"><a href="#“-attribute-value-”" class="headerlink" title="$(“[attribute=value]”)"></a>$(“[attribute=value]”)</h4><p>利用属性定位DOM元素，本地JavaScript方法并没有直接实现，大多是使用DOM搜索方式来达到效果，很多现代浏览器支持querySelectAll()方法，但是浏览器之间还是有区别。</p>
+<h4 id="“-hidden”"><a href="#“-hidden”" class="headerlink" title="$(“:hidden”)"></a>$(“:hidden”)</h4><p>和上面利用属性定位DOM方式类似，这种伪选择器也没有直接在本地JavaScript实现，并且jQuery需要搜索每一个元素来定位这个选择器，这对性能影响较大。如果一定要用这种方式，建议先用id定位父元素再使用该选择器，这样有助于优化性能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;:hidden&quot;);</div></pre></td></tr></table></figure></p>
+<p>以上是使用选择器的基本规则，性能自上而下依次下降。</p>
+<h3 id="3、缓存对象"><a href="#3、缓存对象" class="headerlink" title="3、缓存对象"></a>3、缓存对象</h3><p>开发人员经常喜欢这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;#traffic input.on&quot;).bind(&quot;click&quot;,function&#123;&#125;);</div><div class="line">$(&quot;#traffic&quot;).css(&quot;border&quot;,&quot;1px solid red&quot;))</div></pre></td></tr></table></figure></p>
+<p>这样写导致的结果是jQuery会在每个选择器创建的过程中，查找DOM，创建多个jQuery对象。比较好的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var $traffic=$(&quot;#traffic&quot;);</div><div class="line">$traffic.bind(&quot;click&quot;,function()&#123;&#125;)</div><div class="line">.css(&quot;border&quot;,&quot;1px solid red&quot;) //使用链式结构让代码更简洁</div></pre></td></tr></table></figure></p>
+<p>如果希望在其他函数中使用jQuery对象，可以把它缓存放全局环境中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//在全局范围内定义一个对象（例如window对象）</div><div class="line">window.$my=&#123;</div><div class="line">   head:$(&quot;head&quot;),</div><div class="line">   traffic:$(&quot;#traffic&quot;),</div><div class="line">  &#125;</div><div class="line">function do()&#123;</div><div class="line">   var script=document.createElement(&quot;script&quot;);</div><div class="line">   $my.head.append(script);  //现在可以引用存储的结果并操作它们</div><div class="line">   $my.coll=$(&quot;#ul li&quot;);//在函数内部操作时，可以继续将查询存入全局对象中</div><div class="line">   $my.coll.css(&quot;border-color&quot;,&quot;red&quot;); //将全局函数作为一个普通的jquery对象使用</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="4、循环时的DOM操作"><a href="#4、循环时的DOM操作" class="headerlink" title="4、循环时的DOM操作"></a>4、循环时的DOM操作</h3><p>使用for,while,$.each处理节点时，要注意：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  list.append(&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>以上每添加一个新的标签元素都作为一个节点添加容器ID中，循环了100次，消耗较大。应该将整个元素字符串在插入DOM中全部创建好：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">var mylist=&quot;&quot;;//暂存列表元素</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  mylist+=&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;;</div><div class="line">  &#125;</div><div class="line">list.append(mylist);</div></pre></td></tr></table></figure></p>
+<p>非常类似与DOM操作中用createElementFragment一次性添加全部DOM节点，再一次性更新DOM：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var fragment=document.createElementFragment();</div><div class="line">for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">  var item=document.createElement(&quot;li&quot;);</div><div class="line">  item.append(document.createTextNode(&quot;option&quot;+i);</div><div class="line">  fragment.appendChild(item);</div><div class="line">  &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure></p>
+<h3 id="5、数组方式使用jQuery对象"><a href="#5、数组方式使用jQuery对象" class="headerlink" title="5、数组方式使用jQuery对象"></a>5、数组方式使用jQuery对象</h3><p>使用for或者while循环而不是$.each()能使代码更快。</p>
+<h3 id="6、事件代理"><a href="#6、事件代理" class="headerlink" title="6、事件代理"></a>6、事件代理</h3><p>每个javascript事件都会冒泡到父级节点。当需要给多个元素同个函数时，事件代理会很有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table td&quot;).click(function()&#123;</div><div class="line">   $(this).css(&apos;background&apos;,&apos;red&apos;)</div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
+<p>假设有100个td元素，使用上述方法，将会绑定100个事件，对性能影响很大。代替这种多元素事件监听的方法是，只需要向他们的父节点绑定一次事件，然后通过event.target获取到点击的当前元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).click(function(event)&#123;</div><div class="line">   $(event.target).css(&apos;background&apos;,&apos;red&apos;); //event.target捕捉触发的目标元素</div><div class="line"> &#125;)</div></pre></td></tr></table></figure></p>
+<p>改进的方式中，只为一个元素绑定了1个事件。jQuery 1.7中提供了on方式，on(type,[selector],[data],fn)中增加了selector，如果能够匹配到该selector则执行此方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).on(&quot;click&quot;,&quot;td&quot;,function()&#123;</div><div class="line">  $(this).css(&apos;background&apos;,&apos;red&apos;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="7、将代码转化成jQuery插件"><a href="#7、将代码转化成jQuery插件" class="headerlink" title="7、将代码转化成jQuery插件"></a>7、将代码转化成jQuery插件</h3><p>将代码转化成插件能让代码具有更好的重用性。</p>
+<h3 id="8、使用join-来拼接字符串"><a href="#8、使用join-来拼接字符串" class="headerlink" title="8、使用join()来拼接字符串"></a>8、使用join()来拼接字符串</h3><p>使用join来拼接字符串比使用”+“来拼接长字符串性能更优。首先创建一个数组，然后循环，最后通过join()将数组转化成字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var array=[];</div><div class="line">for(int i=0;i&lt;100;i++)&#123;</div><div class="line">   array[i]=&apos;&lt;li&gt;&apos;+i+&apos;&lt;/li&gt;&apos;;</div><div class="line"> &#125;</div><div class="line">$(&apos;#list&apos;).html(array.join(&apos;&apos;));</div></pre></td></tr></table></figure></p>
+<h3 id="9、合理利用HTML5的Data属性"><a href="#9、合理利用HTML5的Data属性" class="headerlink" title="9、合理利用HTML5的Data属性"></a>9、合理利用HTML5的Data属性</h3><p>HTML5的data属性可以帮助我们插入数据，特别是前后端的数据交换。jQuery的data（）方法，有效的利用HTML5的属性，来自动得到数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;dl&quot; data-role=&quot;page&quot; data-last=&quot;43&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div><div class="line">//读取数据</div><div class="line">$(&quot;#dl&quot;).data(&quot;role&quot;); //&quot;page&quot;</div><div class="line">$(&quot;#dl&quot;).data(&quot;last&quot;); //43</div><div class="line">$(&quot;#dl&quot;).data(&quot;options&quot;).name; //&quot;John&apos;</div></pre></td></tr></table></figure></p>
+<h3 id="10、尽量使用原生的JavaScript方法"><a href="#10、尽量使用原生的JavaScript方法" class="headerlink" title="10、尽量使用原生的JavaScript方法"></a>10、尽量使用原生的JavaScript方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if($cr.is(&quot;:checked&quot;))&#123; //jQuery方式判断</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>它使用了jQuery提供的is方法来判断多选框是否被选中，但是这里可以直接使用原生的JavaScript方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);  //jQuery对象</div><div class="line">var cr=$cr.get(0); //DOM对象</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if(cr.checked)&#123; //原生的js方式判断</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>第二种方式比第一种方式效率高，因为它不需要拐弯抹角去调用许多函数。</p>
+<h3 id="11、压缩JavaScript"><a href="#11、压缩JavaScript" class="headerlink" title="11、压缩JavaScript"></a>11、压缩JavaScript</h3><p>一方面使用Gzip，另一方面去除JS文件里的注释、空白。</p>
 
         
         
@@ -347,26 +345,26 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
+      <a href="/2017/06/22/页面内跳转方法总结/" title="页面内跳转方法总结" itemprop="url">页面内跳转方法总结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> Published 2017-06-22</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
-<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
-<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
-<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
+        <h3 id="方法一：用标签，在href里写入定位的DIV的id-如："><a href="#方法一：用标签，在href里写入定位的DIV的id-如：" class="headerlink" title="方法一：用标签，在href里写入定位的DIV的id.如："></a>方法一：用<a>标签，在href里写入定位的DIV的id.如：</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#div1&quot;&gt;scroll to div1&gt;&lt;/a&gt; //定位到div1</div><div class="line">&lt;div id=&quot;div1&quot;&gt;div1&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div2&quot;&gt;div2&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div3&quot;&gt;div3&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>缺点：点击锚点后，浏览器的URL会发生变化，刷新会出现问题。</p>
+<h3 id="方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><a href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。" class="headerlink" title="方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"></a>方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   funtion locate()&#123;</div><div class="line">      window.location.hash=&quot;#div1&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><a href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。" class="headerlink" title="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"></a>方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   function lacate()&#123;</div><div class="line">      $(&quot;html&quot;,&quot;body&quot;).animate(&#123;</div><div class="line">         scrollTop:$(&quot;#div1&quot;).offset().top</div><div class="line">     &#125;,&#123;duration:500,easing:&quot;swing&quot;&#125;)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>优点：url地址不会改变，同时点击锚点会自动响应scroll事件，不需要重新绑定。<br>缺点：如果页面复杂的话，偏移值可能会发生变化需要算法辅助。</p>
+<h3 id="方法四：用js的scrollIntoView方法，直接用："><a href="#方法四：用js的scrollIntoView方法，直接用：" class="headerlink" title="方法四：用js的scrollIntoView方法，直接用："></a>方法四：用js的scrollIntoView方法，直接用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">function lacate()&#123;</div><div class="line">   docuemnt.getElementById(&quot;div1&quot;).scrollIntoView();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>优点：url不会变，同时能够响应scroll事件，不需要算法什么的。<br>注意：scrollIntoView是js方法，不能使用$(“#div1”).scrollIntoView().</p>
 
         
         
@@ -403,29 +401,22 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/24/理解arguments/" title="理解arguments" itemprop="url">理解arguments</a>
+      <a href="/2017/06/22/JSON-parse-和Json-stringify/" title="JSON.parse()和Json.stringify()" itemprop="url">JSON.parse()和Json.stringify()</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T02:02:40.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> Published 2017-06-22</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>ECMAScript中的参数是用一个数组表示的。无论传递给函数的参数是什么（有或者没有），函数接收到的始终都是这个数组。在函数体内通过arguments对象来访问这个参数数组，从而获取传递给函数的每个参数。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi(name,message)&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+name+&quot;,&quot;+message);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以用arguments重写不显示的使用命名参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+arguments[0]+&quot;,&quot;+arguments[1]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="arguments特性"><a href="#arguments特性" class="headerlink" title="arguments特性"></a>arguments特性</h3><h4 id="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"><a href="#1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的" class="headerlink" title="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"></a>1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function howManyArgs(&#123;</div><div class="line">alert(arguments.length);</div><div class="line">&#125;</div><div class="line">howManyArgs(&quot;string&quot;,45); //2</div><div class="line">howManyArgs();            //0</div><div class="line">howManyArgs(12)           //1</div></pre></td></tr></table></figure>
-<h4 id="2、arguments的值永远与对应命名参数的值保持同步"><a href="#2、arguments的值永远与对应命名参数的值保持同步" class="headerlink" title="2、arguments的值永远与对应命名参数的值保持同步"></a>2、arguments的值永远与对应命名参数的值保持同步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function doAdd(num1,num2)&#123;</div><div class="line">arguments[1]=10;</div><div class="line">alert(arguments[0]+num2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>每次执行doAdd函数都会重写第二个参数（将其修改为10），因为arguments[1]的对象的值会自动反映到对应的命名参数，所以修改了arguments[1]也就修改了num2，他们的值会同步（但内存空间是独立的）。如果只传入了一个参数，arguments[1]的值不会反映到命名参数中（因为特性1）。</p>
-<h4 id="3、arguments对象有个callee属性"><a href="#3、arguments对象有个callee属性" class="headerlink" title="3、arguments对象有个callee属性"></a>3、arguments对象有个callee属性</h4><p>callee属性是一个指针，指向拥有这个arguments对象的函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fucntion factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数的执行与函数名紧紧耦合在一起，为了消除这种紧密耦合现象，可以用arguments.callee。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样，无论引用函数是时使用的什么名字，都可以保证正常递归调用。看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //120</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
-<p>而使用函数名，则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //0</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
-<h4 id="后记——函数对象的caller属性"><a href="#后记——函数对象的caller属性" class="headerlink" title="后记——函数对象的caller属性"></a>后记——函数对象的caller属性</h4><p>当一个函数调用另一个函数时，被调用的函数会自动生成一个caller属性，指向调用它的函数对象。若该函数未被调用或没有被其他函数调用，caller为null。<br>而arguments.callee是函数被调用时，arguments.callee对象指向自身，是对自己的引用。<br>注：arguments在函数调用时才有效，因为arguments.callee在函数未调用时是不存在的（即null.callee)。</p>
+        <h3 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a>JSON.parse()</h3><p>parse是用一个字符串中解析出json对象，如：<br>var str=’{“name”:”alice”,”age”:”23”}’<br>结果：<br>JSON.parse(str)<br>Object<br>age:”23”<br>name:”alice”<br><em>proto</em>:Object</p>
+<p>注意：单引号写在{}外面，每个属性名必须用双引号，否则会报错</p>
+<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h3><p>stringify是从对象解析出字符串，如：<br>var a={a:1,b:2}<br>JSON.stringify(a)<br>‘{“a”:1,”b”:2}’</p>
 
         
         
@@ -462,22 +453,76 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/22/translate-50-50-的作用/" title="translate(-50%,-50%)的作用" itemprop="url">translate(-50%,-50%)的作用</a>
+      <a href="/2017/06/17/serialize-系列方法/" title="serialize()系列方法" itemprop="url">serialize()系列方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-22T14:01:12.000Z" itemprop="datePublished"> 发表于 2017-04-22</time>
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> Published 2017-06-17</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;outer&quot;&gt;</div><div class="line">   &lt;div id=&quot;inner&quot;&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>如果不加transform属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#outer&#123;</div><div class="line">        position: relative;</div><div class="line">        width: 500px;</div><div class="line">        height: 500px;</div><div class="line">        border: 1px solid black;</div><div class="line">&#125;</div><div class="line">#inner&#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>inner框的左上角处于中心位置，如果希望其中心居于中心位置，将应该向上和向左移动一半的边长长度。加上transform属性，就可以实现这个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#inner &#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">        -ms-transform: translate(-50%,-50%);</div><div class="line">        -moz-transform: translate(-50%,-50%);</div><div class="line">        -o-transform: translate(-50%,-50%);</div><div class="line">        transform: translate(-50%,-50%);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+        <h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><p>jQuery有方法$.fn.serialize()，可以将表单序列化成字符串。提交表单的时候，将表单的每个元素表达成如：username:$(“#username”).val(),content:$(“#content”).val()…无疑随着表单元素越来越复杂，这种方式在增大工作量的同时也使表单元素缺乏弹性。采用serialize（）方法可以将需要提交的字段内容序列化为字符串，username:$(“#username”).val(),content:$(“#content”).val()…可以用一个语句代替:$(“#form”).serialize(),其中#form是表单的id。</p>
+<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为JSON格式的数据，输出的是对象数组。而serializeObject()是基于serializeArray（）编写的。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //username=&amp;content=</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;&#125;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>1、serializeObject()直接使用的话，会提示serializeObject()is not a funtion.因为serializeObject()本身并不是一个jQuery自带的功能，而是基于serializeArray（）的添加功能，需要对其进行定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$.fn.serializeObject()&#123;</div><div class="line">  var o=&#123;&#125;; //保存对象</div><div class="line">  var a=this.serializeArray(); //先将元素序列化为对象数组</div><div class="line">  $.each(a,function()&#123;</div><div class="line">    if(o[this.name])&#123;//表单中可能有多个相同的label，在插入第一个label后，还有继续插入，这个时候o[label]已经存在了，所以要把o[label]做嵌套处理</div><div class="line">       if（！o[this.name].push)&#123; //如果o[label]不是嵌套在数组里面，实际上就是看o[this.name]是不是一个数组，数组有push方法，对象没有</div><div class="line">          o[thos.name]=[o[this.name]];将o[label]初始为嵌套数组</div><div class="line">        &#125;</div><div class="line">        o[this.name].push(this.value||&apos;&apos;); //将值插入o[label]数组里</div><div class="line">     &#125;</div><div class="line">    else&#123;</div><div class="line">       o[this.name]=this.value||&apos;&apos;;//第一次在o中插入o[label]</div><div class="line">     &#125;</div><div class="line">   &#125;)</div><div class="line">  return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>举个例子,对于下面的表单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;form id=&quot;form&quot;&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt; </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;content&quot; /&gt; </div><div class="line">    &lt;input type=&quot;button&quot; id=&quot;send&quot; onclick=&quot;sen();&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>执行三个函数，分别结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=$(&quot;#form&quot;).serialize(); //username=alice&amp;username=bob&amp;content=123</div><div class="line"> </div><div class="line">var b=$(&quot;#form&quot;).serializeArray();  //[&#123;name:&quot;username&quot;,value=&quot;alice&quot;&#125;,&#123;name:&quot;username&quot;,value=&quot;bob&quot;&#125;,&#123;name:&quot;content&quot;,value=&quot;123&quot;&#125;]</div><div class="line"></div><div class="line">var c=$(&quot;#form&quot;).serializeObject();  //&#123;username:[&quot;alice&quot;,&quot;bob&quot;],content:&quot;123&quot;&#125;</div></pre></td></tr></table></figure></p>
+<p>2、表单元素要序列化必须要使用name属性，form里的name不能用js、jquery的关键字，否则获取不到值。<br>3、不光表单能用到serialize()方法，其他选择器元素也可以。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;:checkbox,:radio&quot;).serialize()</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/15/EasyUI更改弹出框位置/" title="EasyUI更改弹出框位置" itemprop="url">EasyUI更改弹出框位置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> Published 2017-06-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).dialog(&apos;open&apos;).dialog(&apos;center&apos;).dialog(&apos;setTitle&apos;, &apos;添加题目&apos;);</div></pre></td></tr></table></figure></p>
+<p>可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).window(&apos;open&apos;).window(&apos;setTitle&apos;,&apos;添加题目&apos;).window(&apos;resize&apos;,&#123;width:&apos;500px&apos;,height:&apos;800px&apos;,top:&apos;30px&apos;&#125;</div></pre></td></tr></table></figure></p>
 
         
         
@@ -510,14 +555,14 @@
 
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -528,7 +573,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -694,7 +739,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

@@ -1,0 +1,500 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>阿里面试题 | 笑呵呵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Alice">
+    
+
+    
+    <meta name="description" content="1. 判断一个对象是否为空目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”12345var a=&amp;#123;&amp;#125;;if(JSON.stringify(a)==&amp;quot;&amp;#123;&amp;#125;&amp;quot;)&amp;#123;   console.log(&amp;quot;是空对象&amp;quot;);&amp;#125;//是空对象 另外可以使用jQuery的isEmptyObject()">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里面试题">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/13/阿里面试题/index.html">
+<meta property="og:site_name" content="笑呵呵">
+<meta property="og:description" content="1. 判断一个对象是否为空目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”12345var a=&amp;#123;&amp;#125;;if(JSON.stringify(a)==&amp;quot;&amp;#123;&amp;#125;&amp;quot;)&amp;#123;   console.log(&amp;quot;是空对象&amp;quot;);&amp;#125;//是空对象 另外可以使用jQuery的isEmptyObject()">
+<meta property="og:image" content="http://i.imgur.com/0zuFjWe.png">
+<meta property="og:updated_time" content="2017-07-15T11:44:51.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里面试题">
+<meta name="twitter:description" content="1. 判断一个对象是否为空目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”12345var a=&amp;#123;&amp;#125;;if(JSON.stringify(a)==&amp;quot;&amp;#123;&amp;#125;&amp;quot;)&amp;#123;   console.log(&amp;quot;是空对象&amp;quot;);&amp;#125;//是空对象 另外可以使用jQuery的isEmptyObject()">
+<meta name="twitter:image" content="http://i.imgur.com/0zuFjWe.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="笑呵呵" title="笑呵呵"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
+				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
+			</div>
+			
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/13/阿里面试题/" title="阿里面试题" itemprop="url">阿里面试题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-13T13:08:21.000Z" itemprop="datePublished"> Published 2017-07-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式的贪婪与懒惰"><span class="toc-number">1.</span> <span class="toc-text">正则表达式的贪婪与懒惰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式捕获语法"><span class="toc-number">2.</span> <span class="toc-text">正则表达式捕获语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式中的exec和match方法的区别"><span class="toc-number">2.1.</span> <span class="toc-text">正则表达式中的exec和match方法的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-match"><span class="toc-number"></span> <span class="toc-text">1. match()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-exec"><span class="toc-number"></span> <span class="toc-text">2. exec()</span></a>
+		
+		</div>
+		
+		<p><strong>1. 判断一个对象是否为空</strong><br>目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=&#123;&#125;;</div><div class="line">if(JSON.stringify(a)==&quot;&#123;&#125;&quot;)&#123;</div><div class="line">   console.log(&quot;是空对象&quot;);</div><div class="line">&#125;</div><div class="line">//是空对象</div></pre></td></tr></table></figure></p>
+<p>另外可以使用jQuery的isEmptyObject()方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=&#123;&#125;;</div><div class="line">function isEmptyObject(e)&#123;</div><div class="line">   for(var t in e)&#123;</div><div class="line">     return !1;</div><div class="line">  &#125;</div><div class="line">  return !0;</div><div class="line">&#125;</div><div class="line">console.log(isEmptyObject(a)); //true</div></pre></td></tr></table></figure></p>
+<p><strong>2. 判断一个数组是数组</strong><br>方法很多:<br>比如：使用<strong>instanceof</strong>看是不是Array的实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">console.log(arr instanceof Array); //true</div></pre></td></tr></table></figure></p>
+<p>或者看arr是否具有push方法（push方法是数组独有的，其他数组独有的方法都可以）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">function judgeArray(arr)&#123;</div><div class="line">  if(arr.push)&#123;</div><div class="line">     return !0; </div><div class="line">  &#125;</div><div class="line">return !1;</div><div class="line">&#125;</div><div class="line">judgeArray(arr);//true</div></pre></td></tr></table></figure></p>
+<p>或者使用<strong>Object.prototype.toString.call()</strong>方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">Object.prototype.toString.call(arr);  //&quot;[Object Array]&quot;</div></pre></td></tr></table></figure></p>
+<p>Object.prototype.toString.call()方法的原理<br>toString被调用时，执行以下步骤：</p>
+<ol>
+<li>获取this对象的[[class]]属性值</li>
+<li>计算出三个字符串”[Object”, “第一步的操作结果”,”]”连接的新字符串</li>
+<li>返回第二步的操作结果<br>[[class]]是一个内部属性，所有对象都具有该属性。<strong>通过[[class]]属性达到判断对象类型的目的</strong>。（jQuery的$.type()就是干这个的）<br>通过Object.prototype.toString.call()可以判断：</li>
+<li>判断基本类型<br>Object.prototype.toString.call(null);//“[Object Null]”<br>Object.prototype.toString.call(undefined);//“[Object Undefined]”<br>Object.prototype.toString.call(“abc”);//“[Object String]”<br>Object.prototype.toString.call(123);//“[Object Number]”<br>Object.prototype.toString.call(true);//“[Object Boolean]”</li>
+<li>判断引用类型<br>函数类型<br>Function fn(){console.log(“test”);}<br>Object.prototype.toString.call(fn);//”[object Function]”<br>日期类型<br>var date = new Date();<br>Object.prototype.toString.call(date);//”[object Date]”<br>数组类型<br>var arr = [1,2,3];<br>Object.prototype.toString.call(arr);//”[object Array]”<br>正则表达式<br>var reg = /[hbc]at/gi;<br>Object.prototype.toString.call(arr);//”[object Array]”<br>自定义类型<br>function Person(name, age) {<br> this.name = name;<br> this.age = age;<br>}<br>var person = new Person(“Rose”, 18);<br>Object.prototype.toString.call(arr); //”[object Object]”<br>很明显这种方法不能准确判断person是Person类的实例，而只能用instanceof 操作符来进行判断，如下所示：<br>console.log(person instanceof Person);//输出结果为true</li>
+<li>判断原生JSON对象：<br>var isNativeJSON = window.JSON &amp;&amp; Object.prototype.toString.call(JSON);<br>console.log(isNativeJSON);//输出结果为”[object JSON]”说明JSON是原生的，否则不是；</li>
+</ol>
+<p><strong>3. 正则表达式的惰性和非捕获性</strong></p>
+<h3 id="正则表达式的贪婪与懒惰"><a href="#正则表达式的贪婪与懒惰" class="headerlink" title="正则表达式的贪婪与懒惰"></a>正则表达式的贪婪与懒惰</h3><p><strong>贪婪匹配</strong>：当表达式中接受重复的限定符时，通常的行为是匹配尽可能多的字符。<br>懒惰匹配：匹配尽可能少的字符。（加上？，使得整个匹配成功的前提下使用最少重复）<br><strong>懒惰限定符</strong><br><img src="http://i.imgur.com/0zuFjWe.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var str=&apos;aaba-baabb&apos;</div><div class="line">var reg=/a.b/g</div><div class="line">str.match(reg); // [&quot;aab&quot;, &quot;a-b&quot;, &quot;aab&quot;]</div><div class="line">var reg1=/a.&#123;3,4&#125;?b/g</div><div class="line">str.match(reg1) //[&quot;aaba-b&quot;]</div></pre></td></tr></table></figure></p>
+<h3 id="正则表达式捕获语法"><a href="#正则表达式捕获语法" class="headerlink" title="正则表达式捕获语法"></a>正则表达式捕获语法</h3><p>(pattern):匹配pattern并捕获改匹配的子表达式<br>(?:pattern):匹配pattern，与（pattern）区别在于不捕获子表达式<br>(?=pattern):匹配pattern但不出现在匹配结果里<br>(?!pattern):与（？=pattern）相反<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var data=&apos;windows 98 is ok&apos;;</div><div class="line">data.match(/windows (\d+)/); //[&quot;windows 98&quot;,&quot;98&quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?:\d+)/);  //[&quot;windows 98&quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?=\d+)/); //[&quot;windows &quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?!\d+)/); //null</div></pre></td></tr></table></figure></p>
+<h4 id="正则表达式中的exec和match方法的区别"><a href="#正则表达式中的exec和match方法的区别" class="headerlink" title="正则表达式中的exec和match方法的区别"></a>正则表达式中的exec和match方法的区别</h4><p>字符串的正则方法有：match(),replace(),search(),split()<br>正则表达式的方法有：exec(),test()</p>
+<h2 id="1-match"><a href="#1-match" class="headerlink" title="1. match()"></a>1. match()</h2><p>match()属于String正则表达式方法<br>语法：str.match(regexp) //str是要匹配的字符串，regexp是正则表达式<br>match的用法区分是正则表达式有无g全局标志</p>
+<ul>
+<li><p>如果有g全局标志，那么返回的数组保存的是所有的匹配内容，不包括子匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">//设置正则表达式，匹配以13开头11位字符串，全局匹配</div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g; </div><div class="line">var arr=objStr.match(reg); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;13288888888&quot;, &quot;13699999999&quot;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果没有g全局标志，那么返回的数组arr.arr[0]保存的是完整匹配,1-n元素包含了匹配中曾经出现过的任一个子匹配，并有index(匹配开始的位置)和input(整个被查找的字符串)两个属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">//非全局匹配</div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/; </div><div class="line">var arr=objStr.match(reg); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;5&quot;, &quot;22222222&quot;, index: 5, input: &quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>replace()</strong><br>进行字符串替换，然后返回替换后的副本(字符串本身不变)<br>语法：str.replace(regexp,replaceText)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">objStr.replace(reg,&quot;-&quot;) //&quot;我的手机号-，他的手机号-，她的手机号码-&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>search()</strong><br>search()方法指明是否存在相应的匹配，如果找到，返回索引值，否则返回-1。<br>语法：str.search(regexp)<br>与exec()方法不同，只能执行一次，如果regexp含有全局标志将自动忽略，也忽略lastIndex属性。即<strong>只能返回第一个匹配的索引值</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">var index=objStr.search(reg);</div><div class="line">index;  //5</div></pre></td></tr></table></figure></p>
+<p><strong>split()方法</strong><br>将一个字符串分割为子字符串，结果作为数组返回。<br>语法：str.split(seperator,limit) //limit限制返回的个数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g; </div><div class="line">objStr.split(reg); // [&quot;我的手机号&quot;, &quot;5&quot;, &quot;22222222&quot;, &quot;，他的手机号&quot;, &quot;2&quot;, &quot;88888888&quot;, &quot;，她的手机号码&quot;, &quot;6&quot;, &quot;99999999&quot;, &quot;&quot;]</div></pre></td></tr></table></figure></p>
+<h2 id="2-exec"><a href="#2-exec" class="headerlink" title="2. exec()"></a>2. exec()</h2><p>与match()方法不同，exec()属于正则表达式的方法<br>语法：regexp.exec(str)<br><em>exec(exec有无g都无影响)与match的关联就是exec等价于没有g标志的match</em><br><strong>exec()只执行一次</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/;  </div><div class="line">//执行exec函数，尽管是全局匹配的正则表达式，但是exec方法只对指定的字符串进行一次匹配（有无g都只执行一次），获取字符串中第一个与正则表达式想匹配的内容，并且将匹配内容和子匹配的结果存储到返回的数组中</div><div class="line">var arr=reg.exec(objStr); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;5&quot;, &quot;22222222&quot;, index: 5, input: &quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;]</div></pre></td></tr></table></figure></p>
+<p>如果将regexp设为全局标志，每次执行exec()时以lastIndex属性值表示的位置开始查找；如果没有设置全局标志，将忽略lastIndex的值，从字符串的起始位置开始搜索。如果想找到字符串的所有匹配，可以循环执行exec()方法直到找不到了为止，此时必须设置全局标志，否则是个死循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/;  </div><div class="line">var arr; </div><div class="line">while((arr=reg.exec(objStr))!=null)&#123;</div><div class="line">  console.log(arr.index+&quot;-&quot;+reg.lastIndex+&quot;\t&quot;+arr);  //**注意lastIndex属性是属于reg的**zhen</div><div class="line"> &#125;</div><div class="line">//5-16	13522222222,5,22222222</div><div class="line">//22-33	13288888888,2,88888888</div><div class="line">//40-51	13699999999,6,99999999</div></pre></td></tr></table></figure></p>
+<p><strong>test()</strong><br>test()的语法与exec一致，test()方法检查在字符串中是否存在一个匹配指定模式的字符串，存在返回true，不存在返回false。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">reg.test(objStr)</div></pre></td></tr></table></figure></p>
+<p><strong>**4. ES6的声明变量的方法</strong><br>ES5本身的var,function，ES6<br><strong>5. Doctype的类型**</strong><br>&lt;!DOCTYPE&gt;声明位于第一行，告知浏览器文档所使用的规范。<br>HTML 4.01规定了三种DOCTYPE类型：Strict,Transitional,Frameset</p>
+<ol>
+<li><p>stric:需要干净的标记，免于表现层混乱，与CSS配合使用</p>
+</li>
+<li><p>transitional：包含W3C所期望移入样式表的呈现属性和元素。不支持CSS的浏览器可以使用</p>
+</li>
+<li><p>frameset：被用于带有框架的文档</p>
+</li>
+</ol>
+<p>HTML5只有一种&lt;!DOCTYPE HTML&gt;</p>
+<p><strong>6. link和@import的区别</strong><br>1）link属于HTML标签，@import是css提供的<br>2）页面加载时，link同时被加载，而@import页面加载完后被加载的<br>3）link无兼容问题<br>4）link的样式权重高于@import<br><strong>7. 状态码（302，304，307重点关注</strong>）<br><strong>8. 七层网络，各种协议属于哪一层</strong><br><strong>9. css实现省略号</strong><br>使用text-overflow属性规定当文本溢出包含元素时发生的事情。<br>有三种可能的值：</p>
+<ul>
+<li>clip:修剪文本</li>
+<li>ellipsis：显示省略符号来代表被修剪的文本</li>
+<li>string:使用给定的字符串来代表被修剪的文本<br>注：要在文本所在div声明 overflow:hidden;<br><strong>10. null和undefined区别</strong><br><strong>undefined</strong>:声明了变量但未对其初始化<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var message;</div><div class="line">console.log(message); //undefined</div><div class="line">console,log(typeof message); //undefined</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>null</strong>:尚未存在的对象，常用来表示函数企图返回一个不存在的对象。从逻辑            角度来看，null值表示一个空对象指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var car=null; //一般没有必要显示的将变量设为undefined，但是应该明确让变量保存null值，这样可以体现null作为空对象指针的惯例，也有助于区别undefined和null</div><div class="line">console.log(typeof car); //object</div><div class="line">null==undefined //true,**undefined的值实际上派生自null**</div><div class="line">null===undefined //false,**==只需要值相等，===还要比较类型**</div></pre></td></tr></table></figure></p>
+<p><strong>NaN</strong>:即非数值(not a number)是一个特殊的数值，这个数值用于表示本来要返回数值的操作数未返回数值的情况。NaN有两个特点：<strong>1.任何涉及NaN的操作都返回NaN；2.NaN与任何值都不相等，包括NaN本身</strong>。<br>isNaN()判断一个数是否是NaN（非数值）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(typeof NaN) //number</div><div class="line">NaN==NaN //false</div><div class="line">isNaN(NaN) //true</div><div class="line">isNaN(&quot;10&quot;) //false，可以转化成数值10</div><div class="line">isNaN(&quot;blue&quot;) //true，不能转换成数值</div><div class="line">isNaN(true)  //false，可以转换成数值1</div></pre></td></tr></table></figure></p>
+<p><strong>判断undefined、null和NaN的方法：</strong></p>
+<ol>
+<li><p>判断undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a=undefined;</div><div class="line">console.log(typeof a==&quot;undefined&quot;);  true</div></pre></td></tr></table></figure>
+</li>
+<li><p>判断null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a=null;</div><div class="line">if(typeof a==&quot;object&quot;&amp;&amp;a==undefined)&#123;</div><div class="line">  console.log(true);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>还可以通过Object.ptototype.toString.call()方法判断是null还是undefined</p>
+<ol>
+<li>判断NaN<br>使用isNaN()方法</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/13/阿里面试题/" data-title="阿里面试题 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/07/13/常见的数据结构算法/" title="常见的数据结构算法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  常见的数据结构算法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/14/li元素逆序/"  title="li元素逆序">
+ <strong>下一篇：</strong><br/> 
+ <span>li元素逆序
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式的贪婪与懒惰"><span class="toc-number">1.</span> <span class="toc-text">正则表达式的贪婪与懒惰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式捕获语法"><span class="toc-number">2.</span> <span class="toc-text">正则表达式捕获语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式中的exec和match方法的区别"><span class="toc-number">2.1.</span> <span class="toc-text">正则表达式中的exec和match方法的区别</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-match"><span class="toc-number"></span> <span class="toc-text">1. match()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-exec"><span class="toc-number"></span> <span class="toc-text">2. exec()</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/jsfront/" target="_blank" title="JS高级前端开发">JS高级前端开发</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://segmentfault.com/" target="_blank" title="segmentfault">segmentfault</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://stackoverflow.com/" target="_blank" title="stackoverflow">stackoverflow</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/jikeytang/front-end-collect" target="_blank" title="前端收集">前端收集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Alice Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-07-09T08:48:55.028Z</updated>
+  <updated>2017-07-15T14:58:37.352Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,547 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>立即执行函数的作用</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/15/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/15/立即执行函数的作用/</id>
+    <published>2017-07-15T14:39:58.000Z</published>
+    <updated>2017-07-15T14:58:37.352Z</updated>
+    
+    <content type="html"><![CDATA[<p>(function(){})()是立即执行函数（IIFE），它会默认将函数作为表达式去解析，而不是函数声明（注意圆括号内不能包含声明）。<br>它的作用：</p>
+<ol>
+<li>最主要的作用是隔离作用域，直到ES5JS没有块作用域，用来隔离作用域避免污染。</li>
+<li>惰性，利用立即执行特性，返回需要的业务函数或对象，避免每次通过条件判断来处理。</li>
+</ol>
+<h3 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h3><p>惰性载入表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用的过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。<br>举个经典的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    element.addEventListener(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     element.attachEvent(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     element[&apos;on&apos;+type]=fun;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面注册监听函数主要是为了兼容浏览器。由于浏览器差异，不得不再用的时候做能力检测。但是这样做，每次绑定监听，都会对能力做一次检测，然而真正的应用中，同一个应用环境，其实只需要做一次检测即可。<br>下面重写addEvent:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    addEvent=function(type,element,fun)&#123;</div><div class="line">       element.addEventListener(type,fun,false);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">        element.attachEvent(&quot;on&quot;+type,fun);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">       element[&apos;on&apos;+type]=fun;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>由于第一调用addEvent会对浏览器做能力检测，然后重写addEvent。下次再调用的时候，由于函数被重写，不会再做能力检测。</p>
+<p>惰性函数的应用场景：</p>
+<ol>
+<li>应用频繁。用的次数也多越能体现出优势来；</li>
+<li>固定不变。一次判断，在固定的应用环境中不会发生改变；</li>
+<li>复杂的分支判断。没有差异性的，不需要用这种模式。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;(function(){})()是立即执行函数（IIFE），它会默认将函数作为表达式去解析，而不是函数声明（注意圆括号内不能包含声明）。&lt;br&gt;它的作用：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;最主要的作用是隔离作用域，直到ES5JS没有块作用域，用来隔离作用域避免污染。&lt;/li&gt;
+&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>同步和异步</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/15/%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/15/同步和异步/</id>
+    <published>2017-07-15T13:11:06.000Z</published>
+    <updated>2017-07-15T14:29:16.945Z</updated>
+    
+    <content type="html"><![CDATA[<p>延伸 摘自阮一峰es6入门：</p>
+<p>于是，这个问题又回到了最开始的起点：JavaScript是单线程的。</p>
+<p>JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。</p>
+<p>JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
+<p>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。</p>
+<p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
+<p>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。于是就有一个概念，任务队列。</p>
+<p>如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），不得不等着结果出来，再往下执行。</p>
+<p>JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。</p>
+<p>于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
+<p>具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）</p>
+<p>（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。<br>（2）主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。<br>（3）一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。<br>（4）主线程不断重复上面的第三步。<br>下图就是主线程和任务队列的示意图。<br><img src="http://i.imgur.com/X6pz2fm.png" alt=""></p>
+<p>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。  </p>
+<p>“任务队列”是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
+<p>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
+<p>所谓”回调函数”（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
+<p>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
+<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>一个程序就是一个进程，而一个程序中的多个任务则被称为线程。进程是表示资源分配的基本单位，又是调度运行的基本单位。线程是进程中执行运算的最小单位，亦即执行处理机调度的基本单位。进程和线程的关系：</p>
+<ol>
+<li>一个线程只属于一个进程，而一个进程可以有多个线程，但至少有一个线程。线程是操作系统可以识别的最小执行和调度单位。</li>
+<li>资源分配给进程，同一个进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段、数据段、扩展段。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。</li>
+<li>处理机分给线程。即真正在处理机上运行的是线程。</li>
+<li>线程在执行过程中，需要同步写作，不同的线程间要利用消息通信的办法实现同步。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;延伸 摘自阮一峰es6入门：&lt;/p&gt;
+&lt;p&gt;于是，这个问题又回到了最开始的起点：JavaScript是单线程的。&lt;/p&gt;
+&lt;p&gt;JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>src和href的区别</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/15/src%E5%92%8Chref%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/15/src和href的区别/</id>
+    <published>2017-07-15T12:00:43.000Z</published>
+    <updated>2017-07-15T12:17:32.418Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
+<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
+<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
+<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;href&quot;&gt;&lt;a href=&quot;#href&quot; class=&quot;headerlink&quot; title=&quot;href&quot;&gt;&lt;/a&gt;href&lt;/h3&gt;&lt;p&gt;href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。&lt;/p&gt;
+&lt;p
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>li元素逆序</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/14/li%E5%85%83%E7%B4%A0%E9%80%86%E5%BA%8F/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/14/li元素逆序/</id>
+    <published>2017-07-14T13:41:08.000Z</published>
+    <updated>2017-07-15T06:49:50.520Z</updated>
+    
+    <content type="html"><![CDATA[<p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var ul=document.getElementById(&quot;ul&quot;);</div><div class="line">var children=Array.prototype.slice.call(ul.getElementsByTagName(&quot;li&quot;),0);</div><div class="line">var str=&quot;&quot;;</div><div class="line">children.reverse();</div><div class="line">for(var i=0;i&lt;children.length;i++)&#123;</div><div class="line">  str+=children[i].outerHTML;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>getElementsByTagName(“li”)实际上返回的就是类数组，为什么要用Array.prototype.slice.call(ul.getElementsByTagName(“li”),0)呢？<br><strong><br>在此之前先说说js的类数组对象：HTMLCollection，NodeList,arguements.</strong><br><strong>类数组：拥有length的属性，但不是数组（使用instanceof检查返回false），没有forEach,map,slice等数组方法。
+</strong></p>
+<h3 id="类数组常见的三个对象"><a href="#类数组常见的三个对象" class="headerlink" title="类数组常见的三个对象"></a>类数组常见的三个对象</h3><h4 id="1-函数的arguments"><a href="#1-函数的arguments" class="headerlink" title="1. 函数的arguments"></a>1. 函数的arguments</h4><p>arguments:函数通过arguments访问传入函数的参数。它是个对象（不是数组），有length属性。</p>
+<h4 id="2-HTMLCollection对象"><a href="#2-HTMLCollection对象" class="headerlink" title="2. HTMLCollection对象"></a>2. HTMLCollection对象</h4><p>HTMLCollection是一个借口，表示HTML元素的集合，提供可以遍历的列表的方法和属性。拥有length,item,nameItem属性（可以访问元素的name和id属性）。返回HTMLCollection集合的有：document.getElementsByTagName,document.getElementsByClassName。</p>
+<h4 id="3-NodeList对象"><a href="#3-NodeList对象" class="headerlink" title="3. NodeList对象"></a>3. NodeList对象</h4><p>NodeList代表乐意个有顺序的节点列表（不光有元素，还有其他节点如文本节点、注释节点）。有length,item属性。返回NodeList集合的有：document.getElementsByName，document.querySelectorAll，document.getElementById(“table”).childNodes，document.styleSheets。</p>
+<h3 id="类数组转化成数组"><a href="#类数组转化成数组" class="headerlink" title="类数组转化成数组"></a>类数组转化成数组</h3><h4 id="1-arguments"><a href="#1-arguments" class="headerlink" title="1.arguments"></a>1.arguments</h4><p>arguments的数组话，只需要运用[].slice.call()方法便可以将传递给函数的参数数组化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function person()&#123;</div><div class="line">  var args=[].slice.call(arguments); </div><div class="line">  console.log(args);</div><div class="line">&#125;</div><div class="line">person(10,20);</div></pre></td></tr></table></figure></p>
+<h4 id="2-HTMLCollection和NodeList"><a href="#2-HTMLCollection和NodeList" class="headerlink" title="2.HTMLCollection和NodeList"></a>2.HTMLCollection和NodeList</h4><p>对于这两类数组对象的元素集合，如果我们使用[].slice.call()方法，IE8及以下的浏览器竟然会报错，报错的内容是：”Array.prototype.slice:’this’不是javascript对象”，很明显HTMLCollection和NodeList并不是Object的子类。所以为了让类数组转化成纯数组，需要进行处理：</p>
+<ol>
+<li><p>jQuery早期的makeArray做法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">function makeArray(array)&#123;</div><div class="line">    var ret=[];</div><div class="line">   if(array!=null)&#123;</div><div class="line">      var i=array.length;</div><div class="line">      //The window,strings (and functions) also have length</div><div class="line">      if(i==null||typeof array===&quot;string&quot;||array.setInterval)&#123;</div><div class="line">        ret[0]=array;</div><div class="line">     &#125;else&#123;</div><div class="line">        while(i)&#123;</div><div class="line">           ret[--i]=array[i]; //此处将类数组转化成数组，因为类数组可以遍历，因此适用于所有的类数组对象，将其取出放入数组中</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">  return ret;</div><div class="line">&#125;</div><div class="line">var arr=makeArray(div);</div><div class="line">console.log(arr);</div></pre></td></tr></table></figure>
+</li>
+<li><p>prototype的做法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.prototype.slice.call(div,0);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中，第一种做法兼容性比较好，很通用，第二种做法比较高级，但是只适合高版本主流浏览器。</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>HTMLCollection的集合访问dom元素必须要加上[0]，比如document.getElementsByTagName(“li”)[0]</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;直接上代码&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>阿里面试题</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/13/%E9%98%BF%E9%87%8C%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/13/阿里面试题/</id>
+    <published>2017-07-13T13:08:21.000Z</published>
+    <updated>2017-07-15T11:44:51.210Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>1. 判断一个对象是否为空</strong><br>目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=&#123;&#125;;</div><div class="line">if(JSON.stringify(a)==&quot;&#123;&#125;&quot;)&#123;</div><div class="line">   console.log(&quot;是空对象&quot;);</div><div class="line">&#125;</div><div class="line">//是空对象</div></pre></td></tr></table></figure></p>
+<p>另外可以使用jQuery的isEmptyObject()方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=&#123;&#125;;</div><div class="line">function isEmptyObject(e)&#123;</div><div class="line">   for(var t in e)&#123;</div><div class="line">     return !1;</div><div class="line">  &#125;</div><div class="line">  return !0;</div><div class="line">&#125;</div><div class="line">console.log(isEmptyObject(a)); //true</div></pre></td></tr></table></figure></p>
+<p><strong>2. 判断一个数组是数组</strong><br>方法很多:<br>比如：使用<strong>instanceof</strong>看是不是Array的实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">console.log(arr instanceof Array); //true</div></pre></td></tr></table></figure></p>
+<p>或者看arr是否具有push方法（push方法是数组独有的，其他数组独有的方法都可以）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">function judgeArray(arr)&#123;</div><div class="line">  if(arr.push)&#123;</div><div class="line">     return !0; </div><div class="line">  &#125;</div><div class="line">return !1;</div><div class="line">&#125;</div><div class="line">judgeArray(arr);//true</div></pre></td></tr></table></figure></p>
+<p>或者使用<strong>Object.prototype.toString.call()</strong>方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">Object.prototype.toString.call(arr);  //&quot;[Object Array]&quot;</div></pre></td></tr></table></figure></p>
+<p>Object.prototype.toString.call()方法的原理<br>toString被调用时，执行以下步骤：</p>
+<ol>
+<li>获取this对象的[[class]]属性值</li>
+<li>计算出三个字符串”[Object”, “第一步的操作结果”,”]”连接的新字符串</li>
+<li>返回第二步的操作结果<br>[[class]]是一个内部属性，所有对象都具有该属性。<strong>通过[[class]]属性达到判断对象类型的目的</strong>。（jQuery的$.type()就是干这个的）<br>通过Object.prototype.toString.call()可以判断：</li>
+<li>判断基本类型<br>Object.prototype.toString.call(null);//“[Object Null]”<br>Object.prototype.toString.call(undefined);//“[Object Undefined]”<br>Object.prototype.toString.call(“abc”);//“[Object String]”<br>Object.prototype.toString.call(123);//“[Object Number]”<br>Object.prototype.toString.call(true);//“[Object Boolean]”</li>
+<li>判断引用类型<br>函数类型<br>Function fn(){console.log(“test”);}<br>Object.prototype.toString.call(fn);//”[object Function]”<br>日期类型<br>var date = new Date();<br>Object.prototype.toString.call(date);//”[object Date]”<br>数组类型<br>var arr = [1,2,3];<br>Object.prototype.toString.call(arr);//”[object Array]”<br>正则表达式<br>var reg = /[hbc]at/gi;<br>Object.prototype.toString.call(arr);//”[object Array]”<br>自定义类型<br>function Person(name, age) {<br> this.name = name;<br> this.age = age;<br>}<br>var person = new Person(“Rose”, 18);<br>Object.prototype.toString.call(arr); //”[object Object]”<br>很明显这种方法不能准确判断person是Person类的实例，而只能用instanceof 操作符来进行判断，如下所示：<br>console.log(person instanceof Person);//输出结果为true</li>
+<li>判断原生JSON对象：<br>var isNativeJSON = window.JSON &amp;&amp; Object.prototype.toString.call(JSON);<br>console.log(isNativeJSON);//输出结果为”[object JSON]”说明JSON是原生的，否则不是；</li>
+</ol>
+<p><strong>3. 正则表达式的惰性和非捕获性</strong></p>
+<h3 id="正则表达式的贪婪与懒惰"><a href="#正则表达式的贪婪与懒惰" class="headerlink" title="正则表达式的贪婪与懒惰"></a>正则表达式的贪婪与懒惰</h3><p><strong>贪婪匹配</strong>：当表达式中接受重复的限定符时，通常的行为是匹配尽可能多的字符。<br>懒惰匹配：匹配尽可能少的字符。（加上？，使得整个匹配成功的前提下使用最少重复）<br><strong>懒惰限定符</strong><br><img src="http://i.imgur.com/0zuFjWe.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var str=&apos;aaba-baabb&apos;</div><div class="line">var reg=/a.b/g</div><div class="line">str.match(reg); // [&quot;aab&quot;, &quot;a-b&quot;, &quot;aab&quot;]</div><div class="line">var reg1=/a.&#123;3,4&#125;?b/g</div><div class="line">str.match(reg1) //[&quot;aaba-b&quot;]</div></pre></td></tr></table></figure></p>
+<h3 id="正则表达式捕获语法"><a href="#正则表达式捕获语法" class="headerlink" title="正则表达式捕获语法"></a>正则表达式捕获语法</h3><p>(pattern):匹配pattern并捕获改匹配的子表达式<br>(?:pattern):匹配pattern，与（pattern）区别在于不捕获子表达式<br>(?=pattern):匹配pattern但不出现在匹配结果里<br>(?!pattern):与（？=pattern）相反<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var data=&apos;windows 98 is ok&apos;;</div><div class="line">data.match(/windows (\d+)/); //[&quot;windows 98&quot;,&quot;98&quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?:\d+)/);  //[&quot;windows 98&quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?=\d+)/); //[&quot;windows &quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?!\d+)/); //null</div></pre></td></tr></table></figure></p>
+<h4 id="正则表达式中的exec和match方法的区别"><a href="#正则表达式中的exec和match方法的区别" class="headerlink" title="正则表达式中的exec和match方法的区别"></a>正则表达式中的exec和match方法的区别</h4><p>字符串的正则方法有：match(),replace(),search(),split()<br>正则表达式的方法有：exec(),test()</p>
+<h2 id="1-match"><a href="#1-match" class="headerlink" title="1. match()"></a>1. match()</h2><p>match()属于String正则表达式方法<br>语法：str.match(regexp) //str是要匹配的字符串，regexp是正则表达式<br>match的用法区分是正则表达式有无g全局标志</p>
+<ul>
+<li><p>如果有g全局标志，那么返回的数组保存的是所有的匹配内容，不包括子匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">//设置正则表达式，匹配以13开头11位字符串，全局匹配</div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g; </div><div class="line">var arr=objStr.match(reg); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;13288888888&quot;, &quot;13699999999&quot;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果没有g全局标志，那么返回的数组arr.arr[0]保存的是完整匹配,1-n元素包含了匹配中曾经出现过的任一个子匹配，并有index(匹配开始的位置)和input(整个被查找的字符串)两个属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">//非全局匹配</div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/; </div><div class="line">var arr=objStr.match(reg); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;5&quot;, &quot;22222222&quot;, index: 5, input: &quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>replace()</strong><br>进行字符串替换，然后返回替换后的副本(字符串本身不变)<br>语法：str.replace(regexp,replaceText)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">objStr.replace(reg,&quot;-&quot;) //&quot;我的手机号-，他的手机号-，她的手机号码-&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>search()</strong><br>search()方法指明是否存在相应的匹配，如果找到，返回索引值，否则返回-1。<br>语法：str.search(regexp)<br>与exec()方法不同，只能执行一次，如果regexp含有全局标志将自动忽略，也忽略lastIndex属性。即<strong>只能返回第一个匹配的索引值</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">var index=objStr.search(reg);</div><div class="line">index;  //5</div></pre></td></tr></table></figure></p>
+<p><strong>split()方法</strong><br>将一个字符串分割为子字符串，结果作为数组返回。<br>语法：str.split(seperator,limit) //limit限制返回的个数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g; </div><div class="line">objStr.split(reg); // [&quot;我的手机号&quot;, &quot;5&quot;, &quot;22222222&quot;, &quot;，他的手机号&quot;, &quot;2&quot;, &quot;88888888&quot;, &quot;，她的手机号码&quot;, &quot;6&quot;, &quot;99999999&quot;, &quot;&quot;]</div></pre></td></tr></table></figure></p>
+<h2 id="2-exec"><a href="#2-exec" class="headerlink" title="2. exec()"></a>2. exec()</h2><p>与match()方法不同，exec()属于正则表达式的方法<br>语法：regexp.exec(str)<br><em>exec(exec有无g都无影响)与match的关联就是exec等价于没有g标志的match</em><br><strong>exec()只执行一次</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/;  </div><div class="line">//执行exec函数，尽管是全局匹配的正则表达式，但是exec方法只对指定的字符串进行一次匹配（有无g都只执行一次），获取字符串中第一个与正则表达式想匹配的内容，并且将匹配内容和子匹配的结果存储到返回的数组中</div><div class="line">var arr=reg.exec(objStr); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;5&quot;, &quot;22222222&quot;, index: 5, input: &quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;]</div></pre></td></tr></table></figure></p>
+<p>如果将regexp设为全局标志，每次执行exec()时以lastIndex属性值表示的位置开始查找；如果没有设置全局标志，将忽略lastIndex的值，从字符串的起始位置开始搜索。如果想找到字符串的所有匹配，可以循环执行exec()方法直到找不到了为止，此时必须设置全局标志，否则是个死循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/;  </div><div class="line">var arr; </div><div class="line">while((arr=reg.exec(objStr))!=null)&#123;</div><div class="line">  console.log(arr.index+&quot;-&quot;+reg.lastIndex+&quot;\t&quot;+arr);  //**注意lastIndex属性是属于reg的**zhen</div><div class="line"> &#125;</div><div class="line">//5-16	13522222222,5,22222222</div><div class="line">//22-33	13288888888,2,88888888</div><div class="line">//40-51	13699999999,6,99999999</div></pre></td></tr></table></figure></p>
+<p><strong>test()</strong><br>test()的语法与exec一致，test()方法检查在字符串中是否存在一个匹配指定模式的字符串，存在返回true，不存在返回false。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">reg.test(objStr)</div></pre></td></tr></table></figure></p>
+<p><strong>**4. ES6的声明变量的方法</strong><br>ES5本身的var,function，ES6<br><strong>5. Doctype的类型**</strong><br>&lt;!DOCTYPE&gt;声明位于第一行，告知浏览器文档所使用的规范。<br>HTML 4.01规定了三种DOCTYPE类型：Strict,Transitional,Frameset</p>
+<ol>
+<li><p>stric:需要干净的标记，免于表现层混乱，与CSS配合使用</p>
+</li>
+<li><p>transitional：包含W3C所期望移入样式表的呈现属性和元素。不支持CSS的浏览器可以使用</p>
+</li>
+<li><p>frameset：被用于带有框架的文档</p>
+</li>
+</ol>
+<p>HTML5只有一种&lt;!DOCTYPE HTML&gt;</p>
+<p><strong>6. link和@import的区别</strong><br>1）link属于HTML标签，@import是css提供的<br>2）页面加载时，link同时被加载，而@import页面加载完后被加载的<br>3）link无兼容问题<br>4）link的样式权重高于@import<br><strong>7. 状态码（302，304，307重点关注</strong>）<br><strong>8. 七层网络，各种协议属于哪一层</strong><br><strong>9. css实现省略号</strong><br>使用text-overflow属性规定当文本溢出包含元素时发生的事情。<br>有三种可能的值：</p>
+<ul>
+<li>clip:修剪文本</li>
+<li>ellipsis：显示省略符号来代表被修剪的文本</li>
+<li>string:使用给定的字符串来代表被修剪的文本<br>注：要在文本所在div声明 overflow:hidden;<br><strong>10. null和undefined区别</strong><br><strong>undefined</strong>:声明了变量但未对其初始化<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var message;</div><div class="line">console.log(message); //undefined</div><div class="line">console,log(typeof message); //undefined</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>null</strong>:尚未存在的对象，常用来表示函数企图返回一个不存在的对象。从逻辑            角度来看，null值表示一个空对象指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var car=null; //一般没有必要显示的将变量设为undefined，但是应该明确让变量保存null值，这样可以体现null作为空对象指针的惯例，也有助于区别undefined和null</div><div class="line">console.log(typeof car); //object</div><div class="line">null==undefined //true,**undefined的值实际上派生自null**</div><div class="line">null===undefined //false,**==只需要值相等，===还要比较类型**</div></pre></td></tr></table></figure></p>
+<p><strong>NaN</strong>:即非数值(not a number)是一个特殊的数值，这个数值用于表示本来要返回数值的操作数未返回数值的情况。NaN有两个特点：<strong>1.任何涉及NaN的操作都返回NaN；2.NaN与任何值都不相等，包括NaN本身</strong>。<br>isNaN()判断一个数是否是NaN（非数值）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(typeof NaN) //number</div><div class="line">NaN==NaN //false</div><div class="line">isNaN(NaN) //true</div><div class="line">isNaN(&quot;10&quot;) //false，可以转化成数值10</div><div class="line">isNaN(&quot;blue&quot;) //true，不能转换成数值</div><div class="line">isNaN(true)  //false，可以转换成数值1</div></pre></td></tr></table></figure></p>
+<p><strong>判断undefined、null和NaN的方法：</strong></p>
+<ol>
+<li><p>判断undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a=undefined;</div><div class="line">console.log(typeof a==&quot;undefined&quot;);  true</div></pre></td></tr></table></figure>
+</li>
+<li><p>判断null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a=null;</div><div class="line">if(typeof a==&quot;object&quot;&amp;&amp;a==undefined)&#123;</div><div class="line">  console.log(true);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>还可以通过Object.ptototype.toString.call()方法判断是null还是undefined</p>
+<ol>
+<li>判断NaN<br>使用isNaN()方法</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;1. 判断一个对象是否为空&lt;/strong&gt;&lt;br&gt;目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>常见的数据结构算法</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/13/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/13/常见的数据结构算法/</id>
+    <published>2017-07-13T07:12:24.000Z</published>
+    <updated>2017-07-14T00:40:42.967Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>二分查找是基于有序表，是一种在有序数组中查找特定元素的搜索算法。查找过程可以分为：</p>
+<ol>
+<li>首先从有序数组的中间的元素开始搜索，如果改元素正好的目标元素即要查找的元素，则搜索过程结束，否则进行下一步</li>
+<li>如果目标元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半区域查找，然后重复第一步的操作</li>
+<li>如果某一步数组为空，则表示找不到目标元素<br>下面用js分别以递归和不递归的方法写了二分查找（还有对于有重复数组）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3,4,5,6,7,10,10,10,11,23,44,86];</div><div class="line">     // function search(arr,key,low,high)&#123;</div><div class="line">     // 	if(low&gt;high)&#123;</div><div class="line">     // 		return -1;</div><div class="line">     // 	&#125;</div><div class="line">     //     var mid=parseInt((low+high)/2);</div><div class="line">     //     if(key==arr[mid])&#123;</div><div class="line">     //        while(mid&gt;=0)&#123;</div><div class="line">         		//  	mid--;</div><div class="line">         		// 	if(arr[mid]&lt;key)&#123;</div><div class="line">         		// 		return mid+1;</div><div class="line">         		// 	&#125;</div><div class="line">         		// &#125;</div><div class="line">         	</div><div class="line">     //     &#125;else if(key&lt;arr[mid])&#123;</div><div class="line">     //     	high=mid-1;</div><div class="line">     //     	return search(arr,key,low,high);</div><div class="line">     //     &#125;</div><div class="line">     //     else if(key&gt;arr[mid])&#123;</div><div class="line">     //     	low=mid+1;</div><div class="line">     //     	return search(arr,key,low,high)</div><div class="line">     //     &#125;else &#123;</div><div class="line">     //     	return -1;</div><div class="line">     //     &#125;</div><div class="line">     // &#125;</div><div class="line">     // var result=search(arr,10,0,13);</div><div class="line">     // alert(result)</div><div class="line">     function search(arr,key)&#123;</div><div class="line">     	 var low=0;</div><div class="line">     	 var high=arr.length-1;</div><div class="line">         while(low&lt;=high)&#123;</div><div class="line">         	var mid=parseInt((low+high)/2);</div><div class="line">         	if(arr[mid]==key)&#123;</div><div class="line">         		while(mid&gt;=0)&#123;</div><div class="line">         			mid--;</div><div class="line">         			if(arr[mid]&lt;key)&#123;</div><div class="line">         				return mid+1;</div><div class="line">         			&#125;</div><div class="line">         		&#125;</div><div class="line">         	&#125;else if(key&lt;arr[mid])&#123;</div><div class="line">                high=mid-1;</div><div class="line">         	&#125;else if(key&gt;arr[mid])&#123;</div><div class="line">         		low=mid+1;</div><div class="line">         	&#125;else&#123;</div><div class="line">         		return -1;</div><div class="line">         	&#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line">     var result=search(arr,10);</div><div class="line">     alert(result);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序基于两两比较和交换，每次冒出一个关键字最大的记录（升序）或关键字最小的记录（降序）。第一趟：第一个和第二个比较，反序则交换，第二个和第三个比较…直到最后冒出最大的一个数放在最后；第i趟的时候，只需要第一个和第二个比较…直到第n-i个和第n-i+1个比较了。最后得出排序结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function bubble(arr)&#123;</div><div class="line">   var n=arr.length-1;</div><div class="line">   for(var i=0;i&lt;n;i++)&#123;</div><div class="line">     for(var j=0;j&lt;n-i;j++)&#123;</div><div class="line">       if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">          var temp=arr[j];</div><div class="line">          arr[j]=arr[j+1];</div><div class="line">          arr[j+1]=temp;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var result=bubble(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
+<p>冒泡算法的改进：如果最后面的若干记录未发生交换，那么这最后的记录已经具有了正序，不需要再进行冒泡了。因此可以通过记录最后一次交换顺序的位置，来改进冒泡算法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function proBubble(arr)&#123;</div><div class="line">   var i=arr.length-1;</div><div class="line">   while(i&gt;0)&#123; </div><div class="line">      var lastChangeIndex=0;</div><div class="line">      for(var j=0;j&lt;i;j++)&#123;</div><div class="line">        if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">           var temp=arr[j]; </div><div class="line">           arr[j]=arr[j+1];</div><div class="line">           arr[j+1]=temp;</div><div class="line">           lastIndexChange=j;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    i=lastIndexChange;</div><div class="line">  &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var result=proBubble(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>从数组的中间拿一个值，然后通过这个值挨个和数组里面的值进行比较，如果大于的放在一边，小于的放在一边，然后把这些合并，再进行比较，如此反复即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function fast(arr)&#123;</div><div class="line">   //如果只有一位，就没有必要比较</div><div class="line">   if(arr.length&lt;=1)&#123;</div><div class="line">     return arr;</div><div class="line">  &#125;</div><div class="line">  //获取中间值的索引</div><div class="line">  var len=Math.floor(arr.length/2);</div><div class="line">  //截取中间值</div><div class="line">  var cur=arr.splice(len,1);</div><div class="line">  //小于中间值放这里面</div><div class="line">  var left=[];</div><div class="line">  //大于中间值放这里面</div><div class="line">  var right=[];</div><div class="line">  if(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">     //判断是否大于</div><div class="line">     if(cur&gt;arr[i])&#123;</div><div class="line">       left.push(arr[i]);</div><div class="line">    &#125;else&#123;</div><div class="line">        right.push(arr[i]);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">return fast(left).concat(cur,fast(right));//arrObject.concat(arrayX,arrayX,...,arrayX)用于连接两个或多个数组，返回一个新的数组。arrayX可以为具体的值也可以是数组对象 </div><div class="line">&#125;</div><div class="line">var result=fast(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
+<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><ol>
+<li>关于parseInt和Math.floor<br><strong>parseInt</strong>：解析一个字符串，并返回一个整数，这里可以简单理解成返回舍去参数的小数部分后的整数。如parseInt(5.57) //5,parseInt(-1.5)  //-1.<br><strong>Math.floor</strong>:返回小于等于参数的最大整数。如：Math.floor(5.57)  //5,Math.floor(-1.5)  //-2.<br><strong>Math.round</strong>:四舍五入。如：Math.round(5.57)  //6,Math.round(-1.5)  //-1.<br><strong>Math.ceil</strong>:返回大于等于参数的最小整数。如：Math.ceil(5.57)  //6，Math.ceil(-1.5)  //-1</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;二分查找&quot;&gt;&lt;a href=&quot;#二分查找&quot; class=&quot;headerlink&quot; title=&quot;二分查找&quot;&gt;&lt;/a&gt;二分查找&lt;/h3&gt;&lt;p&gt;二分查找是基于有序表，是一种在有序数组中查找特定元素的搜索算法。查找过程可以分为：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先从有序数组
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>HTML网页布局</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/13/HTML%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/13/HTML网页布局/</id>
+    <published>2017-07-13T02:58:01.000Z</published>
+    <updated>2017-07-13T03:31:38.248Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTML网页的四种布局方式：静态布局、自适应布局、流式布局、响应式布局。</p>
+<h3 id="静态布局"><a href="#静态布局" class="headerlink" title="静态布局"></a>静态布局</h3><p>静态布局就是传统的网站形式：对于PC设计一个居中布局，窗口缩小时，内容被遮挡，呈现横竖向滚动条。对于移动设备，单独见一个m.域名及相应的移动网站。</p>
+<h3 id="自适应布局"><a href="#自适应布局" class="headerlink" title="自适应布局"></a>自适应布局</h3><p>自适应布局的特点是分别为不同的屏幕分辨率定义布局（采用媒体查找）。布局切换时页面元素发生改变，但在每个布局中，<strong>页面元素不随窗口大小调整发生变化</strong>。可以把自适应布局看作是静态布局的一个系列。</p>
+<h3 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h3><p>流式布局的特点是页面元素的宽度按照屏幕进行适配调整，主要的问题是如果屏幕尺度跨度太大，那么相对其原始设计而言过小或过大的屏幕不能正常显示。<br>流式布局之所以能按照屏幕进行适配是因为划分区域的参数使用百分比（搭配min-<em>,max-</em>属性使用）。然后后来出现弹性布局，包裹文字的个元素的尺寸采用em作单位，em的实际大小是相对于其上下文的字体大小而言的。如果给body标签设置文字大小是100%，给其他文字都使用相对单位em，那这些文字都会受body上的初始声明的影响。</p>
+<h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><p>响应式布局的特点是分别为不同的屏幕分辨率定义布局，同时，在每个布局中，应用流式布局的概念，即页面元素的宽度随着窗口调整而自动适配。<br><strong>响应式布局看作是流式布局和自适应布局设计理念的融合。</strong></p>
+<p>具体效果可以参照：<a href="http://wow.techbrood.com/fiddle/1753" target="_blank" rel="external">http://wow.techbrood.com/fiddle/1753</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTML网页的四种布局方式：静态布局、自适应布局、流式布局、响应式布局。&lt;/p&gt;
+&lt;h3 id=&quot;静态布局&quot;&gt;&lt;a href=&quot;#静态布局&quot; class=&quot;headerlink&quot; title=&quot;静态布局&quot;&gt;&lt;/a&gt;静态布局&lt;/h3&gt;&lt;p&gt;静态布局就是传统的网站形式：对于PC
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>css3 box-sizing属性</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/12/css3-box-sizing%E5%B1%9E%E6%80%A7/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/12/css3-box-sizing属性/</id>
+    <published>2017-07-12T13:54:21.000Z</published>
+    <updated>2017-07-12T14:35:29.803Z</updated>
+    
+    <content type="html"><![CDATA[<p>box-sizing属性可以为三个值之一：content-box(默认),border-box,padding-box。<br>content-box:border和padding不计算入width之内<br>padding-box:padding计算入width内<br>border-box:border和padding计算如入width之内，其实就是怪异模式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">    .content-box&#123;</div><div class="line">        box-sizing:content-box;</div><div class="line">        -moz-box-sizing:content-box;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        padding: 20px;</div><div class="line">        border: 5px solid #E6A43F;</div><div class="line">        background: blue;</div><div class="line">    &#125;</div><div class="line">    .padding-box&#123;</div><div class="line">        box-sizing:padding-box;</div><div class="line">        -moz-box-sizing:padding-box;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        padding: 20px;</div><div class="line">        border: 5px solid #186645;</div><div class="line">        background: red;                </div><div class="line">    &#125;</div><div class="line">    .border-box&#123;</div><div class="line">        box-sizing:border-box;</div><div class="line">        -moz-box-sizing:border-box;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        padding: 20px;</div><div class="line">        border: 5px solid #3DA3EF;</div><div class="line">        background: yellow;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="http://i.imgur.com/IDEuIqg.png" alt=""></p>
+<h3 id="后记-CSS-calc"><a href="#后记-CSS-calc" class="headerlink" title="后记 CSS calc()"></a>后记 CSS calc()</h3><p>calc()可以理解成一个函数，用来指定元素的长度。可以使用calc()给元素的border、margin、padding、font-size和width等属性设置动态值（如：width: calc(100% - 100px)）。<br><strong>calc()使用规则</strong></p>
+<ul>
+<li>使用”+”、 “-“、 “*”、 “/“四则运算</li>
+<li>可以使用百分比、px、em、rem等单位</li>
+<li>表达式中有”+”和”-“时，其前后必须有空格，如：width: calc(100%++5px)这种写法是错误的<br>例子：使用三列布局的时候，使用calc()可以动态设定中间列的宽度<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;test&lt;/title&gt;</div><div class="line">    &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">    .wrapper&#123;     </div><div class="line">        width: 100%;</div><div class="line">    &#125;</div><div class="line">    .left&#123;</div><div class="line">        float: left;</div><div class="line">        width: 100px;</div><div class="line">        background-color: blue;</div><div class="line">    &#125;</div><div class="line">    .right&#123;</div><div class="line">        float: left;</div><div class="line">        width: 100px;</div><div class="line">        background-color: red;</div><div class="line">    &#125;</div><div class="line">    .main&#123;</div><div class="line">    	 float: left;</div><div class="line">         width: calc(100% - 200px);</div><div class="line">         background-color: #ccc;    </div><div class="line">    &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;wrapper&quot;&gt; </div><div class="line">    &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt;</div><div class="line">     &lt;div class=&quot;main&quot;&gt;main&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt;</div><div class="line">     &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>inline-block</strong><br>使用inline-block也可以实现三列布局，但是因为inline-block中会自带缝隙（是由于标签段之间的空格造成的），所以会造成main的宽度设为 calc(100% - 200px)时将right挤出去了。解决办法有很多，比如设置margin值为负，也可以将wrapper的font-size设为0，将子div的font-size设成正常值。<br><strong>flex</strong><br>flex的话要更方便<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.wrapper&#123;     </div><div class="line">        display: flex;</div><div class="line">    &#125;</div><div class="line">    .left&#123;</div><div class="line">        flex: 0 1 100px;/*设置成占据主轴的空间 */</div><div class="line">        background-color: blue;   </div><div class="line">    &#125;</div><div class="line">    .right&#123;</div><div class="line">        flex: 0 1 100px; </div><div class="line">        background-color: red;    </div><div class="line">    &#125;</div><div class="line">    .main&#123;</div><div class="line">    	 flex:auto;/*实际上为1 1 auto */</div><div class="line">         background-color: #ccc;       </div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;box-sizing属性可以为三个值之一：content-box(默认),border-box,padding-box。&lt;br&gt;content-box:border和padding不计算入width之内&lt;br&gt;padding-box:padding计算入width内&lt;br&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Flex布局</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/12/Flex%E5%B8%83%E5%B1%80/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/12/Flex布局/</id>
+    <published>2017-07-12T08:43:23.000Z</published>
+    <updated>2017-07-12T12:51:04.654Z</updated>
+    
+    <content type="html"><![CDATA[<p>网页布局是CSS的一个重点应用。布局的传统的解决方案，基于盒装模型，依赖于display属性+position属性+float属性。它对于那些特殊布局非常不方便，比如垂直居中就不容易实现。Flex布局，可以简便、完整、响应式地实现各种页面布局。</p>
+<h3 id="Flex布局是什么？"><a href="#Flex布局是什么？" class="headerlink" title="Flex布局是什么？"></a>Flex布局是什么？</h3><p>Flex是Flexible Box的缩写，意为弹性布局，用来为盒状模型提供最大的灵活性。<br>任何一个元素都可以指定为Flex布局，设为Flex布局之后，子元素float、clear和vertical-align属性将失效。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>采用Flex布局的元素，成为Flex容器(flex container)，它的所有子元素自动成为容器成员，称为项目（flex item)。容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end;交叉轴的开始位置叫做cross start，结束位置叫做cross end。项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。<br><img src="http://i.imgur.com/AUpTPcJ.png" alt=""></p>
+<h3 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h3><ul>
+<li>flex-dirction</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>align-content<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4>flex-direction决定主轴的方向（即项目的排列方向）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">  flex-direction:row|row-reverse|column|column-reverse</div><div class="line">  //row(默认值):主轴为水平方向，起点在左端</div><div class="line">  //row-reverse:主轴在水平方向，起点在右端</div><div class="line">  //column:主轴在垂直方向，起点在上沿</div><div class="line">  //column-reverse:主轴在垂直方向，起点在下沿</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><p>默认情况下，项目都排在一条线上（又称“轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">  flex-wrap:nowrap|wrap|wrap-reverse</div><div class="line">  //nowrap(默认)：不换行</div><div class="line">  //warp:换行，第一行在上方</div><div class="line">  //wrap-reverse:换行，第一行在下方</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值是row nowrap.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">   flex-flow:&lt;flex-direction&gt;||&lt;flex-wrap&gt;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="justify-content属性"><a href="#justify-content属性" class="headerlink" title="justify-content属性"></a>justify-content属性</h3><p>justify-content属性定义了项目在主轴上的对齐方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.box &#123;</div><div class="line">  justify-content: flex-start | flex-end | center | space-between | space-around;</div><div class="line">  //flex-start（默认值）：左对齐</div><div class="line">  //flex-end：右对齐</div><div class="line">  //center：居中</div><div class="line">  //space-between：两端对齐，项目之间的间隔都相等</div><div class="line">  //space-around：每个项目两侧的间隔相等。</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><p>align-items属性定义项目在交叉轴上如何对齐<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.box&#123;</div><div class="line">  align-items:flex-start|flex-end|center|baseline|stretch;</div><div class="line">  //flex:交叉轴的起点</div><div class="line">  //flex-end:交叉轴的终点对齐</div><div class="line">  //center:交叉轴的重点对齐</div><div class="line">  //baseline:项目第一行文字的基线对齐</div><div class="line">  //stretch(默认值):如果项目未设置高度或设为auto，将占满整个容器的高度</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">.box &#123;</div><div class="line">  align-content: flex-start | flex-end | center | space-between | space-around | stretch;</div><div class="line">  //flex-start：与交叉轴的起点对齐。</div><div class="line">  //flex-end：与交叉轴的终点对齐。</div><div class="line">  //center：与交叉轴的中点对齐。</div><div class="line">  //space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</div><div class="line">  //space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</div><div class="line">  //stretch（默认值）：轴线占满整个交叉轴。</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><p>◾order<br>◾flex-grow<br>◾flex-shrink<br>◾flex-basis<br>◾flex<br>◾align-self</p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>order定义项目的排列顺序。数值越小，排列越靠前，默认为0.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.item&#123;</div><div class="line">  order:&lt;integer&gt;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h3><p>flex-grow定义了项目的放大比例，默认为0，即如果存在剩余空间，也不放大。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.item&#123;</div><div class="line">  flex-grow:&lt;number&gt;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话），如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他想多一倍。</p>
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h3><p>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.item&#123;</div><div class="line">  flex-shrink:&lt;number&gt;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>flex-basis属性定义了分配多余空间之前，项目占据的主轴（main size）。浏览器根据这个属性，计算主轴是否有多余空间，它的默认值为auto，即项目本来大小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.item&#123;</div><div class="line">  flex-basis:&lt;length&gt;|auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>它可以设为跟width或height属性一样的值，则项目将占据固定的空间</p>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>flex属性是flex-grow,flex-shrink和flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br>flex属性是flex-grow，flex-shrink和flex-basis的简写，默认值为0 1 auto。后两个属性可选。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">.item&#123;</div><div class="line">  flex:none|[&lt;&apos;flex-grow&apos;&gt;&lt;&apos;flex-shrink&apos;&gt;?||&lt;&apos;flex-basis&apos;&gt;]</div></pre></td></tr></table></figure></p>
+<p>该属性有两个快捷键：auto（1 1 auto）和none(0 0 auto)</p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>align-self属性允许单个项目与其他项目以一样的对其方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br>```<br>.items{<br>  align-self:auto|flex-start|flex-end|center|baseline|stretch<br>}<br>除auto外，其他与align-items属性完全一致。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;网页布局是CSS的一个重点应用。布局的传统的解决方案，基于盒装模型，依赖于display属性+position属性+float属性。它对于那些特殊布局非常不方便，比如垂直居中就不容易实现。Flex布局，可以简便、完整、响应式地实现各种页面布局。&lt;/p&gt;
+&lt;h3 id=&quot;Fl
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>跨站脚本攻击</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/11/%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/11/跨站脚本攻击/</id>
+    <published>2017-07-11T08:44:29.000Z</published>
+    <updated>2017-07-12T03:18:38.679Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="跨站脚本攻击（XSS）"><a href="#跨站脚本攻击（XSS）" class="headerlink" title="跨站脚本攻击（XSS）"></a>跨站脚本攻击（XSS）</h3><p>跨站脚本攻击（cross-site script，为了和CSS区分，缩写XSS）。发生的原因是网站将用户输入的内容输出到页面上，在这个过程中可能有恶意代码被浏览器执行。</p>
+<h3 id="XSS的种类"><a href="#XSS的种类" class="headerlink" title="XSS的种类"></a>XSS的种类</h3><h4 id="1-反射型XSS"><a href="#1-反射型XSS" class="headerlink" title="1.反射型XSS"></a>1.反射型XSS</h4><p>它是通过诱使用户打开一个恶意链接，服务端将链接中参数的恶意代码渲染到页面中，再传递给用户由浏览器执行，从而达到攻击的目的。</p>
+<h4 id="2-持久型XSS"><a href="#2-持久型XSS" class="headerlink" title="2.持久型XSS"></a>2.持久型XSS</h4><p>持久型xss将恶意代码提交给服务器，并且存储在服务器端，当用户访问相关内容时再渲染到页面中，以达到攻击的目的，它的危害更大。</p>
+<h3 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h3><h4 id="1-输入检查"><a href="#1-输入检查" class="headerlink" title="1.输入检查"></a>1.输入检查</h4><p>对输入数据做检查，比如用户名只允许是字母和数字，一定要在后台做检查，否则数据可能绕过前端检查直接发给服务器。一般前后端都做检查，前端能过滤掉大部分无效数据。</p>
+<h4 id="2-输出检查"><a href="#2-输出检查" class="headerlink" title="2.输出检查"></a>2.输出检查</h4><p>对渲染到html中内容执行htmlEncode。</p>
+<h2 id="其他攻击方式"><a href="#其他攻击方式" class="headerlink" title="其他攻击方式"></a>其他攻击方式</h2><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>SQL注入与XSS类似，用户提交的数据被当成命令来执行而造成的。</p>
+<h3 id="SQL注入防御"><a href="#SQL注入防御" class="headerlink" title="SQL注入防御"></a>SQL注入防御</h3><p>防止SQL注入最好的方法是使用预编译语句。不同的语言的预编译方法不同，但基本都可以处理。<br>如果无法使用预编译方法，只能像防止XSS那样对参数进行检查和编码。</p>
+<h3 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h3><p>点击劫持是从视觉上欺骗用户。攻击者使用一个透明的iframe覆盖到网页上，诱使用户在该网页上操作，而实际点击却是点在透明的iframe页面。<br>点击劫持延伸出很多攻击方式，有图片覆盖攻击、拖拽劫持等。</p>
+<h3 id="点击劫持的防御"><a href="#点击劫持的防御" class="headerlink" title="点击劫持的防御"></a>点击劫持的防御</h3><p>针对iframe的攻击，可使用一个http头：X-Frame-Options，它有三种可选值：</p>
+<ul>
+<li>DENY：禁止任何页面的frame加载</li>
+<li>SAMEORIGIN:只有同源页面的frame可加载</li>
+<li>ALLOW-FROM:可定义允许frame加载的地址<br>针对图片覆盖攻击，则注意使用预防XSS的方法，防止HTML和JS注入。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;跨站脚本攻击（XSS）&quot;&gt;&lt;a href=&quot;#跨站脚本攻击（XSS）&quot; class=&quot;headerlink&quot; title=&quot;跨站脚本攻击（XSS）&quot;&gt;&lt;/a&gt;跨站脚本攻击（XSS）&lt;/h3&gt;&lt;p&gt;跨站脚本攻击（cross-site script，为了和CSS区分，
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>CSRF攻击与防御</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/11/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/11/CSRF攻击与防御/</id>
+    <published>2017-07-11T06:39:07.000Z</published>
+    <updated>2017-07-11T07:45:07.193Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF:跨站点请求伪造(cross-site request forgery)。攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说是完全合法的，但是却完成了攻击者所期望的一个操作。</p>
+<h3 id="CSRF攻击的原理及过程"><a href="#CSRF攻击的原理及过程" class="headerlink" title="CSRF攻击的原理及过程"></a>CSRF攻击的原理及过程</h3><p><img src="http://i.imgur.com/DO9WNOY.png" alt=""></p>
+<ol>
+<li>用户打开浏览器，访问网站A，输入用户名和密码请求登陆网站A</li>
+<li>在用户信息验证通过之后，网站A产生cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
+<li>用户未退出网站A之前，在同一个浏览器中，打开一个Tab页访问网站B</li>
+<li>网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A</li>
+<li>浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带cookie信息，向网站A发出请求。网站A并不知道请求其实是由B发起的，所以会根据用户的cookie信息以用户的权限处理该请求，导致来自B的恶意被代码执行。<h3 id="CSRF漏洞检测"><a href="#CSRF漏洞检测" class="headerlink" title="CSRF漏洞检测"></a>CSRF漏洞检测</h3>检测CSRF是一项比较繁琐的工作，最简单的方法是抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交有效，那么基本可以确定CSRF漏洞存在。<h3 id="CSRF攻击防御"><a href="#CSRF攻击防御" class="headerlink" title="CSRF攻击防御"></a>CSRF攻击防御</h3><h4 id="1-验证码"><a href="#1-验证码" class="headerlink" title="1.验证码"></a>1.验证码</h4>验证码不单单用来防止注册机的暴力破解，还可以有效防止CSRF的攻击。<br>不过随着html5的发展，利用canvas标签，前端也能识别验证码的字符，让CSRF生效。<h4 id="2-referer-check"><a href="#2-referer-check" class="headerlink" title="2.referer check"></a>2.referer check</h4>referer记录了该http请求的来源地址，http referer是request header的一部分，当浏览器向web服务器发出请求的时候，一般会带上referer，告诉服务器从哪个站点链接过来。<br>服务器通过判断请求头中的referer，也能避免CSRF攻击。<h4 id="3-token"><a href="#3-token" class="headerlink" title="3. token"></a>3. token</h4>CSRF攻击之所以成功是因为黑客可以在不知道验证信息的情况下直接利用用户的cookie来通过安全验证。可以在http请求中以参数的形式加入一个随机产生的token。（比如get方式放拼接到url，post方式以参数方式）<h4 id="4-在http头中自定义属性并验证"><a href="#4-在http头中自定义属性并验证" class="headerlink" title="4.在http头中自定义属性并验证"></a>4.在http头中自定义属性并验证</h4>也是使用token并进行验证，但是不是以参数的形式置于http请求中，而是把它放在http头中自定义的属性里。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;CSRF&quot;&gt;&lt;a href=&quot;#CSRF&quot; class=&quot;headerlink&quot; title=&quot;CSRF&quot;&gt;&lt;/a&gt;CSRF&lt;/h3&gt;&lt;p&gt;CSRF:跨站点请求伪造(cross-site request forgery)。攻击者盗用了你的身份，以你的名义发送恶意请
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>$.ready()与window.onload的区别</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/10/ready-%E4%B8%8Ewindow-onload%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/10/ready-与window-onload的区别/</id>
+    <published>2017-07-10T14:33:43.000Z</published>
+    <updated>2017-07-10T14:41:27.396Z</updated>
+    
+    <content type="html"><![CDATA[<p>区别有三点：</p>
+<h3 id="1、执行时机"><a href="#1、执行时机" class="headerlink" title="1、执行时机"></a>1、执行时机</h3><p>$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东西还没加载完<br>window.onload必须等网页里所有的内容都加载完毕后（包括图片）才执行</p>
+<h3 id="2、编写个数"><a href="#2、编写个数" class="headerlink" title="2、编写个数"></a>2、编写个数</h3><p>$.ready()可以编写多个，每个都执行<br>window.onload不能编写多个（编写多个时，只执行最后一个）</p>
+<h3 id="3、简化写法"><a href="#3、简化写法" class="headerlink" title="3、简化写法"></a>3、简化写法</h3><p>$.ready实际上是$(document).ready的简写，而window.onload没有简写</p>
+<h3 id="后记：DOM文档的加载过程"><a href="#后记：DOM文档的加载过程" class="headerlink" title="后记：DOM文档的加载过程"></a>后记：DOM文档的加载过程</h3><ol>
+<li>解析HTML结构</li>
+<li>加载外部脚本和样式文件</li>
+<li>解析并执行脚本代码</li>
+<li>DOM树构建完成 //DOMContentLoaded</li>
+<li>加载图片等外部文件</li>
+<li>页面加载完 //load<br>所以$.ready()是在第4步后执行，window.onload是在第6步后执行</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;区别有三点：&lt;/p&gt;
+&lt;h3 id=&quot;1、执行时机&quot;&gt;&lt;a href=&quot;#1、执行时机&quot; class=&quot;headerlink&quot; title=&quot;1、执行时机&quot;&gt;&lt;/a&gt;1、执行时机&lt;/h3&gt;&lt;p&gt;$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>javascript是单线程</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/10/javascript%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/10/javascript是单线程/</id>
+    <published>2017-07-10T11:51:27.000Z</published>
+    <updated>2017-07-10T13:32:15.718Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先看下面的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">   console.log(&apos;first&apos;);</div><div class="line">   setTimeout(function()&#123;console.log(&apos;second&apos;)&#125;,5);</div><div class="line">&#125;</div><div class="line">for(var i=0;i&lt;100;i++)&#123;</div><div class="line">  foo();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>执行结果会首先输出first，然后全部输出second；尽管中间结果会超过5ms，为什么？</p>
+<h3 id="javascript是单线程的"><a href="#javascript是单线程的" class="headerlink" title="javascript是单线程的"></a>javascript是单线程的</h3><p>因为<strong>JS运行在浏览器中，是单线程的，每个window一个JS线程</strong>，既然是单线程，在某个特定时刻只有特定的代码能够背执行，并阻塞其他代码。而浏览器是<strong>事件驱动（Event driven）</strong>的，浏览器中很多行为是异步（Asynchronized）的，会创建事件并放在执行队列中。javascript引擎是单线程处理它的任务队列，你可以理解成就是普通函数和回调函数构成的队列。当异步事件发生时，如鼠标点击事件、定时器触发事件、XMLHttpRequest完成回调触发等，将它们放入执行队列，等待当前代码执行完成。</p>
+<h3 id="异步事件驱动"><a href="#异步事件驱动" class="headerlink" title="异步事件驱动"></a>异步事件驱动</h3><p>浏览器是事件驱动的，浏览器中很多行为是异步的。当一个异步事件发生时，它就进入事件队列。浏览器有个内部大消息循环，EventLoop(事件循环)，会轮询大的事件队列并处理事件。</p>
+<h3 id="浏览器不是单线程的"><a href="#浏览器不是单线程的" class="headerlink" title="浏览器不是单线程的"></a>浏览器不是单线程的</h3><p>虽然JS运行在浏览器中，是单线程的，每个window一个JS线程，但浏览器不是单线程的，例如Webkit或是Gecko引擎，都可能有如下线程：</p>
+<ul>
+<li>javascript引擎线程</li>
+<li>界面渲染线程</li>
+<li>浏览器触发线程</li>
+<li>Http请求线程<br>很多人搞不清，如果js是单线程的，那么谁去轮询大的Event Loop事件队列？答案是浏览器会有单独的线程去专门处理这个队列<h3 id="Ajax异步请求是否是真的异步"><a href="#Ajax异步请求是否是真的异步" class="headerlink" title="Ajax异步请求是否是真的异步"></a>Ajax异步请求是否是真的异步</h3>Ajax请求确实是异步的，这请求是由浏览器新开一个线程请求，事件回调的时候放入Event loop单线程事件队列等候处理。<h3 id="setTimeout-func-0-的作用"><a href="#setTimeout-func-0-的作用" class="headerlink" title="setTimeout(func,0)的作用"></a>setTimeout(func,0)的作用</h3>setTimeout(func,0)非常有用，单丝不是模拟多线程，前面已经说过一个window一个js线程，setTimeout(func,0)主要是告诉js引擎，在0ms后把func放在主事件队列中，等待当前的代码执行完毕后再执行。<br>注：重点是改变了代码的流程，把func的执行放到了等待当前的代码执行完毕后再执行。<h3 id="非阻塞js的实现"><a href="#非阻塞js的实现" class="headerlink" title="非阻塞js的实现"></a>非阻塞js的实现</h3>js在浏览器中需要被下载、解释并执行这三步。尽管浏览器可以实现多线程并行下载，但是必须依次执行。要实现非阻塞js有两个方法：</li>
+</ul>
+<ol>
+<li><p>html5中的defer和async关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;test/javascript&quot; defer src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//没有defer或async，浏览器会立即加载并执行指定的脚本，“立即”的意思是指不等待后续载入的文档元素，读到就立即执行</div><div class="line">&lt;script type=&quot;test/javascript&quot; async src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//有async，加载和渲染后续文档元素的过程将和foo.js的加载与执行并行进行（异步）</div><div class="line">&lt;script type=&quot;test/javascript&quot; defer src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//有defer，加载后续文档元素的过程将和foo.js的加载并行进行(异步)，但是foo.js的执行要在所有元素解析完成之后，DOMContentLoaded事件触发之前完成</div></pre></td></tr></table></figure>
+</li>
+<li><p>动态加载js（比如：使用setTimeout方法）</p>
+<h3 id="后记：setTimeout和setInterval"><a href="#后记：setTimeout和setInterval" class="headerlink" title="后记：setTimeout和setInterval"></a>后记：setTimeout和setInterval</h3><p>setTimeout和setInterval都是指过一段时间，再进行某项操作。<br>setTimeout是让一段代码在指定时间运行（次数是一次），而setInterval是让一段代码每过指定时间就运行一次<br>setInterval的坑：如果间隔时间可能小于定时调用的代码的执行时间，而js是单线程，将定时调用的代码插入到队列中，但是代码中如果已经有了一份没有执行的同意的代码，<strong>时间间隔或许会被跳过</strong>。</p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先看下面的代码：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div cl
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Web语义化</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/10/Web%E8%AF%AD%E4%B9%89%E5%8C%96/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/10/Web语义化/</id>
+    <published>2017-07-10T08:53:48.000Z</published>
+    <updated>2017-07-10T09:29:13.939Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="web语义化的含义"><a href="#web语义化的含义" class="headerlink" title="web语义化的含义"></a>web语义化的含义</h3><p>web语义化是指在进行html结构、表现、行为设计时，尽量使用语义化标签，使程序简洁明了，易于进行web操作和网站SEO，方便团队协作的一种标准，以期实现一种“无障碍”的web开发。<br>SEO:搜索引擎优化，指对网站进行站内优化和站外优化，从而提高网站关键词排名以及公司产品的曝光度。</p>
+<h3 id="web语义化的作用"><a href="#web语义化的作用" class="headerlink" title="web语义化的作用"></a>web语义化的作用</h3><ol>
+<li>有利于机器识别，方便SEO</li>
+<li>代码简洁明了，利于阅读和维护，方便以后扩展</li>
+<li>有利于团队协作，减少出错率，使工作有个统一标准<h3 id="web语义化分类"><a href="#web语义化分类" class="headerlink" title="web语义化分类"></a>web语义化分类</h3><h4 id="1、HTML标签语义化"><a href="#1、HTML标签语义化" class="headerlink" title="1、HTML标签语义化"></a>1、HTML标签语义化</h4>HTML为网页文档提供上下文结构和含义。对于HTML体系而言，<strong>Web语义化是指使用恰当的标签，是页面有良好的结构，让页面元素有含义，便于被浏览器、搜索引擎解析</strong>。<br>一个经典的页面结构：<br><img src="http://i.imgur.com/PCFZNzK.png" alt=""><h4 id="2、ARIA无障碍web规范"><a href="#2、ARIA无障碍web规范" class="headerlink" title="2、ARIA无障碍web规范"></a>2、ARIA无障碍web规范</h4>应用于HTML的ARIA有两部分组成：role和aria-*<br>其中role标识了一个元素的作用，aria-描述了与之有关的事物特征及状态<br>比如：<div class="navigation">作用是导航<h4 id="3、CSS命名语义化"><a href="#3、CSS命名语义化" class="headerlink" title="3、CSS命名语义化"></a>3、CSS命名语义化</h4>css语义就是class和id命名的语义，用易于理解的名称对html标签附加class和id命名。<strong>如果说html语义化是给机器看的，那么css命名的语义化就是给人看的</strong>。良好的css命名减少沟通调试成本。<h4 id="4、URL语义化"><a href="#4、URL语义化" class="headerlink" title="4、URL语义化"></a>4、URL语义化</h4>url语义化，可以使得<strong>搜索引擎或者爬虫更好的理解当前url所在目录所需要表达的内容</strong>；而对于用户来说，<strong>通过url也可以判断上一级目录或者下一级目录想要表达的内容</strong>，可以提高用户体验。</div></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;web语义化的含义&quot;&gt;&lt;a href=&quot;#web语义化的含义&quot; class=&quot;headerlink&quot; title=&quot;web语义化的含义&quot;&gt;&lt;/a&gt;web语义化的含义&lt;/h3&gt;&lt;p&gt;web语义化是指在进行html结构、表现、行为设计时，尽量使用语义化标签，使程序简洁
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Bootsstrap实现原理</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/10/Bootsstrap%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/10/Bootsstrap实现原理/</id>
+    <published>2017-07-10T06:30:43.000Z</published>
+    <updated>2017-07-10T08:12:44.199Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1、整体架构"><a href="#1、整体架构" class="headerlink" title="1、整体架构"></a>1、整体架构</h3><p>下图为bootstrap整体架构图，共分为六大部分<br><img src="http://i.imgur.com/DBICY3e.png" alt=""></p>
+<h4 id="1-1、12栅格系统"><a href="#1-1、12栅格系统" class="headerlink" title="1.1、12栅格系统"></a>1.1、12栅格系统</h4><p>12栅格系统就是把网页的总宽度平分为12份，我们可以自由组合。栅格系统使用的总宽度可以不固定，Bootstrap是按百分比进行平分。<br>12栅格系统是整个Bootstrap的核心功能，也是响应式设计核心理念的一个实现形式。</p>
+<h4 id="1-2、jQuery"><a href="#1-2、jQuery" class="headerlink" title="1.2、jQuery"></a>1.2、jQuery</h4><p>Bootstrap所以的javascript插件都依赖于jQuery 1.10+，如果要使用这些插件，那就必须引入jquery库。如果只使用css组件，那就可以不引用它了。</p>
+<h4 id="1-3、响应式设计"><a href="#1-3、响应式设计" class="headerlink" title="1.3、响应式设计"></a>1.3、响应式设计</h4><p>响应式是一个理念而非功能，Bootstrap的内容都是以响应式设计为设计理念来实现的。<br>响应式设计的目的：让页面有能力自动响应用户的设备环境。响应式网页设计就是一个网站兼容多个终端，而不是为每个终端做一个特定的版本。<br>实践方式：由多方面决定，包括弹性网格和布局、图片、css媒体查询的使用等</p>
+<h3 id="2、栅格系统"><a href="#2、栅格系统" class="headerlink" title="2、栅格系统"></a>2、栅格系统</h3><h4 id="2-1-实现原理"><a href="#2-1-实现原理" class="headerlink" title="2.1 实现原理"></a>2.1 实现原理</h4><p>通过定义容器，平分12份（默认），再调整内外边距，最后结合媒体查询，就制作出了强大的响应式的栅格系统。</p>
+<h4 id="2-2-工作原理"><a href="#2-2-工作原理" class="headerlink" title="2.2 工作原理"></a>2.2 工作原理</h4><ol>
+<li>一行数据（row）必须包含在.container中，以便为其赋予合适的对其方式和内边距</li>
+<li>使用行（row）在水平方向创建一组（column）</li>
+<li>具体内容应放置于（column）内，而且只有列（column）可以作为行（row）的直接子元素</li>
+<li>使用像.row和.col-xs-4这样的方式来快速创建栅格布局</li>
+<li>通过设置padding从而创建列（column）之间的间隔，然后通过第一列和最后一列设置负值的margin从而抵消掉padding的影响</li>
+<li>栅格系统中的列是通过指定1到12的值来表示其跨越的范围<h5 id="container的作用"><a href="#container的作用" class="headerlink" title="container的作用"></a>container的作用</h5></li>
+</ol>
+<ul>
+<li>提供宽度限制。container随着页面宽度变化而变化，由于column的宽度是基于百分比的，所以它们的宽度不用去管。</li>
+<li>提供左右padding，以至于文本内容不会触及浏览器边缘。<h5 id="Row"><a href="#Row" class="headerlink" title="Row"></a>Row</h5></li>
+<li>Row是column的存放容器，Row中最多能放12个左浮动的column</li>
+<li>Row有个特殊的地方就是左右-15px的margin，这样刚好抵消了父容器container中的15px的padding<h5 id="Column"><a href="#Column" class="headerlink" title="Column"></a>Column</h5>column有左右15px的padding，所以位于两边的column有15px的padding，可以是内容不会碰到container的边界<h5 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h5>由于container和column都有15px的padding，所以嵌套时column就相当于container了，这样可以实现任意嵌套</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1、整体架构&quot;&gt;&lt;a href=&quot;#1、整体架构&quot; class=&quot;headerlink&quot; title=&quot;1、整体架构&quot;&gt;&lt;/a&gt;1、整体架构&lt;/h3&gt;&lt;p&gt;下图为bootstrap整体架构图，共分为六大部分&lt;br&gt;&lt;img src=&quot;http://i.imgur.
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>前端面试准备</title>
@@ -257,7 +798,7 @@
     <link href="https://aliceflaviawang.github.io/2017/06/25/%E5%8E%9F%E7%94%9FJavaScript%E5%AE%9E%E7%8E%B0Ajax/"/>
     <id>https://aliceflaviawang.github.io/2017/06/25/原生JavaScript实现Ajax/</id>
     <published>2017-06-25T12:21:18.000Z</published>
-    <updated>2017-06-25T13:45:11.070Z</updated>
+    <updated>2017-07-10T02:18:40.284Z</updated>
     
     <content type="html"><![CDATA[<p>Ajax实现步骤：</p>
 <h3 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -271,7 +812,14 @@
 </li>
 </ol>
 <p>注：理论上GET方法也有body，但一般约定GET的参数都放在URL上，所以type为GET时，send的参数一般是null.</p>
-<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3><p>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="get和post的区别"><a href="#get和post的区别" class="headerlink" title="get和post的区别"></a>get和post的区别</h4><p>它们的结构和使用方式相同，区别：</p>
+<ol>
+<li>get请求会将参数跟在url后进行传递，而post则是将参数作为http消息的实体内容发给web服务器 （对用户是不可见的）</li>
+<li>get对传输数据有大小限制（通常不能大于2kb），而post传递的数据量要比get大得多（理论上没有限制。但get效率更高，一般用来查询</li>
+<li>get方式请求的数据会被浏览缓存，post则不会，get具有安全问题、</li>
+<li>get方式和post方式传递的数据在服务器端的获取也不相同<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <p>注：</p>
 <ol>
 <li>status仅当readyState的状态是3或者4的时候才可用</li>
@@ -380,362 +928,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;1、使用最新版本的jQuery类库&quot;&gt;&lt;a href=&quot;#1、使用最新版本的jQuery类库&quot; class=&quot;headerlink&quot; title=&quot;1、使用最新版本的jQuery类库&quot;&gt;&lt;/a&gt;1、使用最新版本的jQuery类库&lt;/h3&gt;&lt;p&gt;jQuery每个新版
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>页面内跳转方法总结</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/22/%E9%A1%B5%E9%9D%A2%E5%86%85%E8%B7%B3%E8%BD%AC%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/22/页面内跳转方法总结/</id>
-    <published>2017-06-22T08:31:43.000Z</published>
-    <updated>2017-06-22T09:04:27.613Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="方法一：用标签，在href里写入定位的DIV的id-如："><a href="#方法一：用标签，在href里写入定位的DIV的id-如：" class="headerlink" title="方法一：用标签，在href里写入定位的DIV的id.如："></a>方法一：用<a>标签，在href里写入定位的DIV的id.如：</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;#div1&quot;&gt;scroll to div1&gt;&lt;/a&gt; //定位到div1</div><div class="line">&lt;div id=&quot;div1&quot;&gt;div1&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div2&quot;&gt;div2&lt;/div&gt;</div><div class="line">&lt;div id=&quot;div3&quot;&gt;div3&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>缺点：点击锚点后，浏览器的URL会发生变化，刷新会出现问题。</p>
-<h3 id="方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"><a href="#方法二：使用js中的window-location-hash-”divId”跳转，但地址也会发生变化，跟第一种方法差不多。" class="headerlink" title="方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。"></a>方法二：使用js中的window.location.hash=”divId”跳转，但地址也会发生变化，跟第一种方法差不多。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   funtion locate()&#123;</div><div class="line">      window.location.hash=&quot;#div1&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"><a href="#方法三：用animate属性，当点击锚点后，页面滚动到相应的div。" class="headerlink" title="方法三：用animate属性，当点击锚点后，页面滚动到相应的div。"></a>方法三：用animate属性，当点击锚点后，页面滚动到相应的div。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">   function lacate()&#123;</div><div class="line">      $(&quot;html&quot;,&quot;body&quot;).animate(&#123;</div><div class="line">         scrollTop:$(&quot;#div1&quot;).offset().top</div><div class="line">     &#125;,&#123;duration:500,easing:&quot;swing&quot;&#125;)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>优点：url地址不会改变，同时点击锚点会自动响应scroll事件，不需要重新绑定。<br>缺点：如果页面复杂的话，偏移值可能会发生变化需要算法辅助。</p>
-<h3 id="方法四：用js的scrollIntoView方法，直接用："><a href="#方法四：用js的scrollIntoView方法，直接用：" class="headerlink" title="方法四：用js的scrollIntoView方法，直接用："></a>方法四：用js的scrollIntoView方法，直接用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">function lacate()&#123;</div><div class="line">   docuemnt.getElementById(&quot;div1&quot;).scrollIntoView();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>优点：url不会变，同时能够响应scroll事件，不需要算法什么的。<br>注意：scrollIntoView是js方法，不能使用$(“#div1”).scrollIntoView().</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;方法一：用标签，在href里写入定位的DIV的id-如：&quot;&gt;&lt;a href=&quot;#方法一：用标签，在href里写入定位的DIV的id-如：&quot; class=&quot;headerlink&quot; title=&quot;方法一：用标签，在href里写入定位的DIV的id.如：&quot;&gt;&lt;/a&gt;方法
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>JSON.parse()和Json.stringify()</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/22/JSON-parse-%E5%92%8CJson-stringify/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/22/JSON-parse-和Json-stringify/</id>
-    <published>2017-06-22T02:01:30.000Z</published>
-    <updated>2017-06-22T02:14:29.284Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a>JSON.parse()</h3><p>parse是用一个字符串中解析出json对象，如：<br>var str=’{“name”:”alice”,”age”:”23”}’<br>结果：<br>JSON.parse(str)<br>Object<br>age:”23”<br>name:”alice”<br><em>proto</em>:Object</p>
-<p>注意：单引号写在{}外面，每个属性名必须用双引号，否则会报错</p>
-<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h3><p>stringify是从对象解析出字符串，如：<br>var a={a:1,b:2}<br>JSON.stringify(a)<br>‘{“a”:1,”b”:2}’</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;JSON-parse&quot;&gt;&lt;a href=&quot;#JSON-parse&quot; class=&quot;headerlink&quot; title=&quot;JSON.parse()&quot;&gt;&lt;/a&gt;JSON.parse()&lt;/h3&gt;&lt;p&gt;parse是用一个字符串中解析出json对象，如：&lt;br&gt;var s
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>serialize()系列方法</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/17/serialize-%E7%B3%BB%E5%88%97%E6%96%B9%E6%B3%95/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/17/serialize-系列方法/</id>
-    <published>2017-06-17T11:22:16.000Z</published>
-    <updated>2017-06-17T13:25:38.569Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><p>jQuery有方法$.fn.serialize()，可以将表单序列化成字符串。提交表单的时候，将表单的每个元素表达成如：username:$(“#username”).val(),content:$(“#content”).val()…无疑随着表单元素越来越复杂，这种方式在增大工作量的同时也使表单元素缺乏弹性。采用serialize（）方法可以将需要提交的字段内容序列化为字符串，username:$(“#username”).val(),content:$(“#content”).val()…可以用一个语句代替:$(“#form”).serialize(),其中#form是表单的id。</p>
-<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为JSON格式的数据，输出的是对象数组。而serializeObject()是基于serializeArray（）编写的。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //username=&amp;content=</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;&#125;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>1、serializeObject()直接使用的话，会提示serializeObject()is not a funtion.因为serializeObject()本身并不是一个jQuery自带的功能，而是基于serializeArray（）的添加功能，需要对其进行定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$.fn.serializeObject()&#123;</div><div class="line">  var o=&#123;&#125;; //保存对象</div><div class="line">  var a=this.serializeArray(); //先将元素序列化为对象数组</div><div class="line">  $.each(a,function()&#123;</div><div class="line">    if(o[this.name])&#123;//表单中可能有多个相同的label，在插入第一个label后，还有继续插入，这个时候o[label]已经存在了，所以要把o[label]做嵌套处理</div><div class="line">       if（！o[this.name].push)&#123; //如果o[label]不是嵌套在数组里面，实际上就是看o[this.name]是不是一个数组，数组有push方法，对象没有</div><div class="line">          o[thos.name]=[o[this.name]];将o[label]初始为嵌套数组</div><div class="line">        &#125;</div><div class="line">        o[this.name].push(this.value||&apos;&apos;); //将值插入o[label]数组里</div><div class="line">     &#125;</div><div class="line">    else&#123;</div><div class="line">       o[this.name]=this.value||&apos;&apos;;//第一次在o中插入o[label]</div><div class="line">     &#125;</div><div class="line">   &#125;)</div><div class="line">  return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>举个例子,对于下面的表单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;form id=&quot;form&quot;&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt; </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;content&quot; /&gt; </div><div class="line">    &lt;input type=&quot;button&quot; id=&quot;send&quot; onclick=&quot;sen();&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
-<p>执行三个函数，分别结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=$(&quot;#form&quot;).serialize(); //username=alice&amp;username=bob&amp;content=123</div><div class="line"> </div><div class="line">var b=$(&quot;#form&quot;).serializeArray();  //[&#123;name:&quot;username&quot;,value=&quot;alice&quot;&#125;,&#123;name:&quot;username&quot;,value=&quot;bob&quot;&#125;,&#123;name:&quot;content&quot;,value=&quot;123&quot;&#125;]</div><div class="line"></div><div class="line">var c=$(&quot;#form&quot;).serializeObject();  //&#123;username:[&quot;alice&quot;,&quot;bob&quot;],content:&quot;123&quot;&#125;</div></pre></td></tr></table></figure></p>
-<p>2、表单元素要序列化必须要使用name属性，form里的name不能用js、jquery的关键字，否则获取不到值。<br>3、不光表单能用到serialize()方法，其他选择器元素也可以。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;:checkbox,:radio&quot;).serialize()</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;serialize&quot;&gt;&lt;a href=&quot;#serialize&quot; class=&quot;headerlink&quot; title=&quot;serialize()&quot;&gt;&lt;/a&gt;serialize()&lt;/h3&gt;&lt;p&gt;jQuery有方法$.fn.serialize()，可以将表单序列化成字符串
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>EasyUI更改弹出框位置</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/15/EasyUI%E6%9B%B4%E6%94%B9%E5%BC%B9%E5%87%BA%E6%A1%86%E4%BD%8D%E7%BD%AE/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/15/EasyUI更改弹出框位置/</id>
-    <published>2017-06-15T02:15:18.000Z</published>
-    <updated>2017-06-15T02:21:15.667Z</updated>
-    
-    <content type="html"><![CDATA[<p>EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).dialog(&apos;open&apos;).dialog(&apos;center&apos;).dialog(&apos;setTitle&apos;, &apos;添加题目&apos;);</div></pre></td></tr></table></figure></p>
-<p>可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).window(&apos;open&apos;).window(&apos;setTitle&apos;,&apos;添加题目&apos;).window(&apos;resize&apos;,&#123;width:&apos;500px&apos;,height:&apos;800px&apos;,top:&apos;30px&apos;&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。&lt;br&gt;如：&lt;br&gt;&lt;figure class=&quot;high
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>a标签中href=&#39;&#39;的几种用法</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/13/a%E6%A0%87%E7%AD%BE%E4%B8%ADhref-%E7%9A%84%E5%87%A0%E7%A7%8D%E7%94%A8%E6%B3%95/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/13/a标签中href-的几种用法/</id>
-    <published>2017-06-13T06:54:22.000Z</published>
-    <updated>2017-06-13T12:29:08.779Z</updated>
-    
-    <content type="html"><![CDATA[<p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
-<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
-<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
-<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
-<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。（如果希望不返回页面顶端，可以在#后面加任意无效的位置信息，如###）</p>
-<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。&lt;/p&gt;
-&lt;h3 id=&quot;一、href的几种调用方法&quot;&gt;&lt;a href=&quot;#一、href的几种调用方法&quot; class=&quot;headerlink&quot; title=&quot;一、href的几种调用方法&quot;&gt;&lt;/a&gt;一、h
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>return false实现同时对事件对象停止冒泡和默认行为</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/12/return-false%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%97%B6%E5%AF%B9%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E5%81%9C%E6%AD%A2%E5%86%92%E6%B3%A1%E5%92%8C%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BA/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/</id>
-    <published>2017-06-12T08:06:54.000Z</published>
-    <updated>2017-06-12T09:17:10.934Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;content&quot;&gt;</div><div class="line">  外层div元素</div><div class="line">   &lt;span&gt;内层div元素&lt;/span&gt;</div><div class="line">   外层div元素</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;msg&apos;&gt;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;span&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">	&#125;)</div><div class="line">	$(&apos;#content&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;外层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line">	$(&apos;body&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;body元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<p>效果如图：<br><img src="http://i.imgur.com/Xgm5FoE.png" alt=""><br>点击span元素<br><img src="http://i.imgur.com/VCfPqq8.png" alt=""><br>点击外层div元素<br><img src="http://i.imgur.com/zWRQWSe.png" alt=""><br>点击内层元素，会冒泡到外层的点击事件。</p>
-<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>stopPropagation()方法可以停止事件冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&apos;span&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">        event.stopPropagation();</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
-<p>点击span元素<br><img src="http://i.imgur.com/TYzNfYd.png" alt=""></p>
-<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><p>网页中的元素有自己的默认行为，例如，单击“提交”按钮后表单会提交，有时需要阻止元素的默认行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;test.html&quot;&gt;</div><div class="line">用户名：&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;sub&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;#sub&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>如果不阻止默认行为，用户名为空的时候，也能提交表单。阻止默认行为使用preventDefault()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(&apos;#sub&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;); </div><div class="line">            event.preventDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
-<h3 id="同时对事件对象停止冒泡和默认行为——return-false"><a href="#同时对事件对象停止冒泡和默认行为——return-false" class="headerlink" title="同时对事件对象停止冒泡和默认行为——return false"></a>同时对事件对象停止冒泡和默认行为——return false</h3><p>将event.stopPropagation()和event.preventDefault()替换为return false就可以实现同样的效果。</p>
-<h4 id="return-false到底做了什么"><a href="#return-false到底做了什么" class="headerlink" title="return false到底做了什么"></a>return false到底做了什么</h4><p>1、event.preventDefault()<br>2、event.stopPropagation()<br>3、停止回调函数执行并立即返回<br>return false看似实现了阻止冒泡或者阻止默认事件，实际上还做了另外的操作，阻止浏览器默认行为的只有preventDefault()，除非你想停止事件冒泡，否则使用return false会为你的代码埋下很大的隐患。</p>
-<p>###扩展-stopImmediatePropagation()<br>stopImmediatePropagagtion()函数用于阻止剩余的事件处理函数的执行(为同一对象绑定了多个事件处理函数)，并防止当前事件在DOM树上冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;段落文本内容</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;点击&quot; /&gt;</div><div class="line">&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">// 为所有p元素绑定click事件</div><div class="line">$(&quot;p&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;p-click&quot;);</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第一个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-1&quot;);</div><div class="line">    </div><div class="line">    // 阻止事件冒泡到DOM树上，并阻止剩余的事件处理函数的执行</div><div class="line">    // 只执行button-click-1，如果注释掉该行，将执行button-click-1、button-click-2和p-click</div><div class="line">    // 如果换成event.stopPropagation() 将执行button-click-1和button-click-2</div><div class="line">    event.stopImmediatePropagation();</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第二个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-2&quot;);</div><div class="line">&#125; );</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>与stopPropagation()相比，stopImmediatePropagation()还能阻止剩余事件处理函数的执行。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;冒泡&quot;&gt;&lt;a href=&quot;#冒泡&quot; class=&quot;headerlink&quot; title=&quot;冒泡&quot;&gt;&lt;/a&gt;冒泡&lt;/h3&gt;&lt;p&gt;网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。&lt;br&gt;&lt;figur
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ajax dataType</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/08/ajax-dataType/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/08/ajax-dataType/</id>
-    <published>2017-06-08T02:42:09.000Z</published>
-    <updated>2017-06-09T06:30:48.124Z</updated>
-    
-    <content type="html"><![CDATA[<p>遇到一个很奇怪的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">           type:&quot;POST&quot;,</div><div class="line">           async:false,</div><div class="line">           contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">           // dataType: &apos;json&apos;,</div><div class="line">           url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">           success:function(data)&#123;</div><div class="line">               console.log(data)  //&#123;&quot;body&quot;:&quot;2017年3月-2017年7月&quot;,&quot;message&quot;:&quot;成功&quot;,&quot;status&quot;:0&#125;</div><div class="line">               console.log(data.body) // undefined  </div><div class="line">           &#125;</div></pre></td></tr></table></figure></p>
-<p>如果没有dataType:’json’,返回的data是json对象，访问data.body是undefined。加上dataType:’json’，返回的是普通对象，访问data.body可以获取到。疑问是，dataType:’json’是指定返回数据的格式是’json’，为什么会返回数据的格式是普通对象，不指定反而返回的是’json’对象，另外返回数据无论是普通对象还是json对象，按理都应该能通过对象.属性访问到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">            type:&quot;POST&quot;,</div><div class="line">            async:false,</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            url:baseUrl+&quot;/office/getEmploymentPeriod.do&quot;,</div><div class="line">            success:function(data)&#123;</div><div class="line">                console.log(data)  //&#123;body: &quot;2017年3月-2017年7月&quot;, message: &quot;成功&quot;, status: 0&#125;</div><div class="line">                console.log(data.body) // 2017年3月-2017年7月</div><div class="line">            &#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;遇到一个很奇怪的问题&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div c
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>apply,call,bind用法</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/06/apply-call-bind%E7%94%A8%E6%B3%95/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/06/apply-call-bind用法/</id>
-    <published>2017-06-06T03:10:43.000Z</published>
-    <updated>2017-06-06T06:45:04.789Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h3 id="apply-call"><a href="#apply-call" class="headerlink" title="apply, call"></a>apply, call</h3><h4 id="共同之处"><a href="#共同之处" class="headerlink" title="共同之处"></a>共同之处</h4><p>都可以用来代替另一个对象调用一个方法，将一个函数的对象上下文从初始上下文改变为由thisObj指定的新对象。</p>
-<h4 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h4><p>apply最多只能有两个参数——新this对象和一个数组argArray，如果argArray不是一个有效的数组或者不是arguments对象，那么将导致一个TypeError，如果没有提供argArray和thisObj任何一个参数，那么Global对象将被用作thisObj，并且无法被传递任何参数<br>call传递的是参数列表，。如果没有提供thisObj参数，那么Global对象被用作thisObj。<br>apply和call功能一样，只是传入参数列表形式不同，如果某个参数数量是不固定的，当参数明确时用call，不明确时用apply，然后把参数push进数组传递，函数内部也可以通过arguments数组来遍历所有参数。</p>
-<h3 id="3、bind-方法——fun-bind-thisObj-arg1-arg2-argN"><a href="#3、bind-方法——fun-bind-thisObj-arg1-arg2-argN" class="headerlink" title="3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>3、bind()方法——fun.bind(thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply和call不同的是，bind会返回一个改变this指向的新函数，新函数与之前的使用的不是同一块内存地址，所以需要重复使用这个函数的时候，必须将其保存到一个变量，方便下次调用。而apply和call都是调用即执行。另外，bind函数中的首个参数，会自动成为返回新函数中参数的默认值，那么正式调用的时候，只需给出除首个参数外，剩余参数即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f(x,y)&#123;</div><div class="line">	console.log(x+y);</div><div class="line">&#125;</div><div class="line">f.call(null,1,1)  //return 2</div><div class="line">var new_f=f.bind(null,1,1);</div><div class="line">new_f(2); //return 2</div></pre></td></tr></table></figure>
-<p>上面实例中thisArg参数均用null代替了，在未给出指定thisArg对象情况下，null与undefined下this指向的是全局对象，即js代码执行环境。</p>
-<h4 id="apply-call-bind比较"><a href="#apply-call-bind比较" class="headerlink" title="apply, call, bind比较"></a>apply, call, bind比较</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;bar:&apos;hello&apos;&#125;</div><div class="line">var foo=&#123;</div><div class="line">  get:function()&#123;</div><div class="line">     return this.bar;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">var bind=foo.get.bind(obj), call=foo.get.call(obj), apply=foo.get.apply(obj);</div><div class="line"></div><div class="line">console.log(bind(),call,apply); //hello hello hello</div><div class="line">console.log(bind,call,apply); //function()&#123;return this.bar;&#125; &quot;hello&quot; &quot;hello&quot;</div><div class="line">console.log(typeof bind,typeof call,typeof apply); function string string</div><div class="line">console.log(typeof bind(),typeof call,typeof apply); //string string string</div></pre></td></tr></table></figure>
-<p>三者的区别是：当你希望改变上下文环境之后并非立即执行，而是回调执行的时候，使用bind()方法，而apply/call则会立即执行函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">apply, call, bind三者都是用来改变函数的this对象的指向</div><div class="line">apply, call, bind三者第一个参数都是this要指向的对象，也就是想指定的上下文</div><div class="line">apply, call, bind三者都可以利用后续参数传参</div><div class="line">bind是返回对应的函数，便于稍后调用；apply, call则立即调用</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1、apply-方法——apply-thisObj-argArray&quot;&gt;&lt;a href=&quot;#1、apply-方法——apply-thisObj-argArray&quot; class=&quot;headerlink&quot; title=&quot;1、apply()方法——apply([this
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>JS定义变量的三种方式</title>
-    <link href="https://aliceflaviawang.github.io/2017/06/05/JS%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
-    <id>https://aliceflaviawang.github.io/2017/06/05/JS定义变量的三种方式/</id>
-    <published>2017-06-05T03:05:49.000Z</published>
-    <updated>2017-06-05T03:18:28.496Z</updated>
-    
-    <content type="html"><![CDATA[<p>1、最常见的var定义变量，可以修改，如果不初始化会输出undefined,但不会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=1;</div><div class="line">console.log(&apos;函数外定义a:&apos;+a); //输出a=1</div><div class="line">function change()&#123;</div><div class="line">  a=4;</div><div class="line">  console.log(&apos;函数内定义a:&apos;+a); //可以输出a=4;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后var定义a为函数内部修改值:&apos;+a); //输出a=4</div></pre></td></tr></table></figure></p>
-<p>2、const定义的变量不可以修改，而且必须初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const b=2;</div><div class="line">// const b; //错误，必须初始化</div><div class="line">console.log(b); //有输出值</div><div class="line">// b=5;</div><div class="line">console.log(b); //报错，不能给常量赋值</div></pre></td></tr></table></figure></p>
-<p>3、let是块级作用域，函数内部使用let定义后，对函数外部无影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let c=3;</div><div class="line">console.log(&apos;函数外定义c:&apos;+c); //输出c=3;</div><div class="line">function change()&#123;</div><div class="line">  let c=6;</div><div class="line">  console.log(&apos;函数内定义c:&apos;+c); //输出c=6;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后let定义c不受函数内部定义的影响：&apos;+c); //输出c=3;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1、最常见的var定义变量，可以修改，如果不初始化会输出undefined,但不会报错。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/d
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>从输入URL到浏览器显示页面发生了什么</title>
-    <link href="https://aliceflaviawang.github.io/2017/05/27/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"/>
-    <id>https://aliceflaviawang.github.io/2017/05/27/从输入URL到浏览器显示页面发生了什么/</id>
-    <published>2017-05-27T02:06:07.000Z</published>
-    <updated>2017-05-27T07:15:26.824Z</updated>
-    
-    <content type="html"><![CDATA[<p>从输入URL到浏览器显示页面，这个过程分为两个部分：网络通信和页面渲染。</p>
-<h3 id="一、网络通信"><a href="#一、网络通信" class="headerlink" title="一、网络通信"></a>一、网络通信</h3><p>互联网内各网络设备间的通信都遵循TCP/IP协议，利用TCP/IP协议族进行网络通信时，会通过分层顺序与对方进行通信。分层由高到低分别为：应用层、传输层、网络层、数据链路层。发送端从应用层往下走，接收端从数据链路层往上走。如下图所示：<br><img src="http://i.imgur.com/7oFnzfS.png" alt=""></p>
-<h4 id="1-在浏览器中输入URL"><a href="#1-在浏览器中输入URL" class="headerlink" title="1.在浏览器中输入URL"></a>1.在浏览器中输入URL</h4><p>用户输入URL，例如<a href="http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。" target="_blank" rel="external">http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。</a></p>
-<h4 id="2-应用层DNS解析域名"><a href="#2-应用层DNS解析域名" class="headerlink" title="2.应用层DNS解析域名"></a>2.应用层DNS解析域名</h4><p>客户端先检查本地是否有对应的IP地址，若找到则返回响应的IP地址。若没找到则请求上级DNS服务器，直至找到根节点。</p>
-<h4 id="3-应用层客户端发送HTTP请求"><a href="#3-应用层客户端发送HTTP请求" class="headerlink" title="3.应用层客户端发送HTTP请求"></a>3.应用层客户端发送HTTP请求</h4><p>HTTP请求包括请求报头和请求主体两个部分，其中请求报头包含了至关重要的信息，包括请求的方法（GET/POST)、目标URL、遵循的协议（HTTP/HTTPS/FTP…),返回的信息是否需要缓存，以及客户端是否发送cookie等。</p>
-<h4 id="4-传输层TCP传输报文"><a href="#4-传输层TCP传输报文" class="headerlink" title="4.传输层TCP传输报文"></a>4.传输层TCP传输报文</h4><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。它为了方便传输，将大块的数据分割成以报文段位单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN/ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACL标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br><img src="http://i.imgur.com/DgQcVRu.png" alt=""></p>
-<h4 id="5-网络层IP协议查询MAC地址"><a href="#5-网络层IP协议查询MAC地址" class="headerlink" title="5.网络层IP协议查询MAC地址"></a>5.网络层IP协议查询MAC地址</h4><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。</p>
-<h4 id="6-数据到达数据链路层"><a href="#6-数据到达数据链路层" class="headerlink" title="6.数据到达数据链路层"></a>6.数据到达数据链路层</h4><p>在找到对方的MAC地址后，就将数据发送到数据链路层传输。这时客户端发送请求的阶段结束。</p>
-<h4 id="7-服务器接收数据"><a href="#7-服务器接收数据" class="headerlink" title="7.服务器接收数据"></a>7.服务器接收数据</h4><p>接收端的服务器在链路层接收到数据包，再层层向上直到应用层。这过程中包括在运输层通过TCP协议将分段的数据包重新组成原来得HTTP请求报文。</p>
-<h4 id="8-服务器响应请求"><a href="#8-服务器响应请求" class="headerlink" title="8.服务器响应请求"></a>8.服务器响应请求</h4><p>服务接收到客户端发送的HTTP请求后，查找客户端请求的资源，并返回响应报文，响应报文中包括一个重要的信息————状态码。状态码由三位数字组成，其中比较常见的是200 OK表示请求成功。301表示永久重定向，即请求的资源已经永久转移到新的位置。在返回301状态码的同时，响应报文也会附带重定向的URL，客户端接收后将HTTP请求的URL做相应的改变再重新发送。404 not found表示客户端请求的资源找不到。</p>
-<h4 id="9-服务器返回相应文件"><a href="#9-服务器返回相应文件" class="headerlink" title="9.服务器返回相应文件"></a>9.服务器返回相应文件</h4><p>请求成功后，服务器会返回相应的HTML文件。接下来就到了页面渲染阶段了。</p>
-<h3 id="二、页面渲染"><a href="#二、页面渲染" class="headerlink" title="二、页面渲染"></a>二、页面渲染</h3><p>现代浏览器渲染页面的过程是这样的：解析HTML以构建DOM树——&gt;构建渲染树——&gt;布局渲染树——&gt;绘制渲染树。<br>DOM树是由HTML文件中的标签排列组成，渲染树是在DOM树种加入CSS或HTML中的style样式而形成。渲染树只包含显示在页面中的DOM元素，像<head>元素或display属性值为none的元素都不在渲染树中。<br>在浏览器还没接收到完整的HTML文件时，它就开始渲染页面了，在遇到外部链入的脚本标签或样式标签或图片时，会再次发送HTTP请求重复上述的步骤。在收到CSS文件后会对已经渲染的页面重新渲染，加入它们应有的样式，图片文件加载完立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</head></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;从输入URL到浏览器显示页面，这个过程分为两个部分：网络通信和页面渲染。&lt;/p&gt;
-&lt;h3 id=&quot;一、网络通信&quot;&gt;&lt;a href=&quot;#一、网络通信&quot; class=&quot;headerlink&quot; title=&quot;一、网络通信&quot;&gt;&lt;/a&gt;一、网络通信&lt;/h3&gt;&lt;p&gt;互联网内各网络设备间
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>DOM性能提升</title>
-    <link href="https://aliceflaviawang.github.io/2017/05/26/DOM%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87/"/>
-    <id>https://aliceflaviawang.github.io/2017/05/26/DOM性能提升/</id>
-    <published>2017-05-26T07:42:01.000Z</published>
-    <updated>2017-05-26T08:51:27.848Z</updated>
-    
-    <content type="html"><![CDATA[<p>DOM(文档对象模型)是针对HTNL和XML文档的一个API（应用程序编程接口），DOM可以将任何一个HTML或XML文档描绘成一个由多层节点构成的节点树，允许开发人员添加、移除和修改页面的某一部分。</p>
-<h3 id="DOM的核心问题"><a href="#DOM的核心问题" class="headerlink" title="DOM的核心问题"></a>DOM的核心问题</h3><p>DOM会导致一系列的重绘(repaint)、重新排版(reflow)操作。为了确保执行结果的准确性，所有的修改是按顺序同步进行的，大部分浏览器都不会在执行过程中更新DOM。相应的，这些浏览器将对DOM的操作放在一个队列，并在JavaScript脚本执行完毕以后按顺序一次执行完毕。也就是说，在JavaScript执行的过程，直到发生重新排版，用户一直被阻塞。<br>一般的浏览器中（不含IE），repaint的速度远快于reflow，所以避免reflow更重要。<br><strong>reflow:</strong>例如某个子元素样式发生改变，直接影响到了其父元素以及往上追溯很多祖先元素（包括兄弟元素），这时候浏览器要重新渲染这个子元素相关联的所有元素的过程。reflow几乎无法避免。<br><strong>repaint:</strong>如果只是改变某个元素的背景色、文字颜色、边框颜色等等不影响它周围或内部布局的属性，将只会引起浏览器的repaint。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>关键：</strong>减少DOM操作引起的reflow。</p>
-<h4 id="1、使用DoucumentFragment一次性更新DOM"><a href="#1、使用DoucumentFragment一次性更新DOM" class="headerlink" title="1、使用DoucumentFragment一次性更新DOM"></a>1、使用DoucumentFragment一次性更新DOM</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//使用容器保存临时变更，最后一次性更新DOM</div><div class="line">var fragment=document.createDocumentFragment();</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   fragment.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure>
-<h4 id="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"><a href="#2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排" class="headerlink" title="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"></a>2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list.style.display=&quot;none&quot;;</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   list.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.style.display=&quot;&quot;;</div></pre></td></tr></table></figure>
-<h4 id="3、一次性修改样式属性"><a href="#3、一次性修改样式属性" class="headerlink" title="3、一次性修改样式属性"></a>3、一次性修改样式属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这样做很引起多次重排</div><div class="line">element.style.backgroundColor=&quot;blue&quot;;</div><div class="line">element.style.color=&quot;red&quot;;</div><div class="line">element.style.fontSize=&quot;12em&quot;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//更好的做法是，把样式放在一个class下</div><div class="line">.newStyle&#123;</div><div class="line">  background-color:blue;</div><div class="line">  color:red;</div><div class="line">  font-size:12em;</div><div class="line">&#125;</div><div class="line">element.className=&quot;newStyle&quot;;</div></pre></td></tr></table></figure>
-<h4 id="4、使用缓存，缓存临时节点"><a href="#4、使用缓存，缓存临时节点" class="headerlink" title="4、使用缓存，缓存临时节点"></a>4、使用缓存，缓存临时节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//不好的做法</div><div class="line">document.getElementById(&quot;myDiv&quot;).style.left=document.getElementById(&quot;myDiv&quot;).offsetLeft+document.getElementById(&quot;myDiv&quot;).offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//更好的做法</div><div class="line">var myDiv=document.getElementById(&quot;myDiv&quot;);</div><div class="line">myDiv.style.left=myDiv.offsetLeft+myDiv.offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;DOM(文档对象模型)是针对HTNL和XML文档的一个API（应用程序编程接口），DOM可以将任何一个HTML或XML文档描绘成一个由多层节点构成的节点树，允许开发人员添加、移除和修改页面的某一部分。&lt;/p&gt;
-&lt;h3 id=&quot;DOM的核心问题&quot;&gt;&lt;a href=&quot;#DOM的
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>跨浏览器事件对象———EventUtil</title>
-    <link href="https://aliceflaviawang.github.io/2017/05/24/%E8%B7%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E2%80%94%E2%80%94%E2%80%94EventUtil/"/>
-    <id>https://aliceflaviawang.github.io/2017/05/24/跨浏览器事件对象———EventUtil/</id>
-    <published>2017-05-24T02:12:22.000Z</published>
-    <updated>2017-05-24T07:19:29.935Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>EventUtil:在JavaScript中，DOM0级、DOM2级与旧版本IE（8-）为对象添加事件的方法不同，为了以跨浏览器的方式处理时间，需要编写一段“通用代码”，即跨浏览器的事件处理程序，这个方法属于一个名为EventUtil的对象，编写并使用该对象后，可保证处理事件的代码能在大多数浏览器下一致地运行。</p>
-<h2 id="EventUtil对象"><a href="#EventUtil对象" class="headerlink" title="EventUtil对象"></a>EventUtil对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">var EventUtil=&#123;</div><div class="line">   addHandler:function(element,type,handler)&#123;//添加事件</div><div class="line">      if(element.addEventListener)&#123;</div><div class="line">         element.addEventListener(type,handler,false); //使用DOM2级方法添加事件，三个参数分别是：要处理的事件名、作为事件处理的函数和一个布尔值（布尔值表示在捕获阶段(true)还是冒泡阶段(false)调用事件处理程序）</div><div class="line">     &#125;</div><div class="line">     else if(element.attachEvent)&#123;</div><div class="line">         element.attachEvent(&quot;on&quot;+type,handler); //使用IE方法添加事件，两个参数分别为：事件处理程序名称和事件处理程序的函数</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=handler; //使用DOM0级方法添加事件</div><div class="line">     &#125;</div><div class="line">   &#125;，</div><div class="line">   removeHandler:function(element,type,handler)&#123; //取消事件</div><div class="line">      if(element.removeEventListener)&#123;</div><div class="line">         element.removeEventListener(type,handler,false);</div><div class="line">     &#125;</div><div class="line">     else if(element.detachEvent)&#123;     </div><div class="line">         element.detachEvent(&quot;on&quot;+type,handler);     </div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getEvent:function(event)&#123; //使用这个方法跨浏览器取得event对象</div><div class="line">      return event?event:window.event; //在IE中，使用DOM0级添加事件处理程序时，event对象作为window对象的一个属性存在，而且在IE中，event对象的一些属性/方法跟其他支持DOM的浏览器不同，正是由于这些差异，EventUtil中的getEvent方法应运而生</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">   getTarget:function(event)&#123; //返回事件的实际目标</div><div class="line">      return event.target||event.srcEelment;  //在IE中，获取事件的目标对象的方法为event.srcElement，而其他兼容DOM的浏览器中，获取事件目标对象的方法却为event.target</div><div class="line">   &#125;,</div><div class="line"></div><div class="line"></div><div class="line">   preventDefault:function(event)&#123; //阻止事件的默认行为</div><div class="line">      if(event.preventDefault)&#123; //在其他兼容DOM的浏览器中，阻止特定事件的默认行为只需要使用event对象自带的preventDefault()方法</div><div class="line">        event.preventDefault();</div><div class="line">     &#125;else&#123; //而IE中，则需要赋予event.returnValue的值为false才能阻止特定事件的默认行为</div><div class="line">        event.returnValue=false;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   stopPropagation:function(event)&#123; </div><div class="line">     if(event.stopPropagation)&#123;</div><div class="line">      event.stopPropagation(); //DOMO级或DOM2级取消事件进一步冒泡或者捕获</div><div class="line">    &#125;else&#123;</div><div class="line">      event.cancelBubble=true; //IE中取消时间冒泡</div><div class="line">    &#125;</div><div class="line">      </div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getRelatedTarget:function(event)&#123; //获取mouseover和mouseout相关元素</div><div class="line">//mouseover与mouseout有“主目标”和“相关元素”的概念，因为在发生mouseover或mouseout事件时，还会涉及到其他元素，这两个事件都会涉及把鼠标指针从一个元素移到另一个元素。具体来说，对mouseover事件，事件的主目标是获得光标的元素，而相关元素是那个失去光标的元素，对mouseout事件而言，事件的主目标是失去光标的元素，而相关元素是那个获得光标的元素。</div><div class="line">      if(event.relatedTarget)&#123;</div><div class="line">        return event.relatedTarget;</div><div class="line">     &#125;</div><div class="line">      else if(event.toElement)&#123; //mouseout触发时，IE的toElement保存的相关元素属性</div><div class="line">        return event.toElement;</div><div class="line">     &#125;</div><div class="line">     else if(event.formElement)&#123; //mouseover触发时，IE的formElement保存相关元素属性</div><div class="line">         return event.formElement;</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         return null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getButton:function(event)&#123;  //获取mousedown或mouseup按下或释放的按钮是鼠标的哪一个</div><div class="line">     if(document.implementation.hasFeature(&quot;MouseEvents&quot;,&quot;2.0&quot;))&#123;</div><div class="line">        return event.button;</div><div class="line">     &#125;else&#123;</div><div class="line">       switch(event.button)&#123;//将IE模型下的button属性映射为DOM模型下的button属性</div><div class="line">         case 0:</div><div class="line">         case 1;</div><div class="line">         case 3;</div><div class="line">         case 5;</div><div class="line">         case 7;</div><div class="line">           return 0; //按下的是鼠标主按钮（一般是左键）</div><div class="line">         case 2:</div><div class="line">         case 6:</div><div class="line">           return 2; //按下的是中间的鼠标按钮</div><div class="line">         case 4:</div><div class="line">           return 1; //鼠标次按钮（一般是右键）</div><div class="line">        &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">  getWheelDelta:function(event)&#123; //获取表示鼠标滚轮滚动方向的数值</div><div class="line">//解决的是与Firefox的差异</div><div class="line">    if(event.wheelDelta)&#123;</div><div class="line">      return event.wheelDelta;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">      return -event.detail*40;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  getCharCode:function(event)&#123; //跨浏览器取得相同的字符编码，需在keypress事件中使用</div><div class="line"></div><div class="line">//在所有浏览器中，按下能够插入或删除的字符的按键都会触发keypress事件，但IE8-及Opera取得字符编码的方式与其他浏览器有差异</div><div class="line">    if(typeof event.charCode==&quot;number&quot;)&#123;</div><div class="line">       return event.charCode;</div><div class="line">    &#125;else&#123;</div><div class="line">       return event.keyCode;</div><div class="line">   &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="举例用法"><a href="#举例用法" class="headerlink" title="举例用法"></a>举例用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//添加了EventUtil之后，获取了event对象、取消了事件进一步捕获或者冒泡、指定了事件的处理程序而无须担心浏览器兼容问题</div><div class="line">var btn=document.getElementById(&quot;#btn&quot;);</div><div class="line">var handler=function(event)&#123;</div><div class="line">   event=EventUtil.getEvent(event); </div><div class="line">   EventUtil.stopPropagation(event); </div><div class="line"> &#125;</div><div class="line">Event.addHandler(btn,&quot;click&quot;,handler);</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;EventUtil:在JavaScript中，DOM0级、DOM2级与旧版本IE（8-）为对象添加事件的方法不同，为了以跨浏览器的方式处理时
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>为什么js没有函数签名</title>
-    <link href="https://aliceflaviawang.github.io/2017/05/01/%E4%B8%BA%E4%BB%80%E4%B9%88js%E6%B2%A1%E6%9C%89%E5%87%BD%E6%95%B0%E7%AD%BE%E5%90%8D/"/>
-    <id>https://aliceflaviawang.github.io/2017/05/01/为什么js没有函数签名/</id>
-    <published>2017-05-01T02:30:42.000Z</published>
-    <updated>2017-05-02T01:18:01.450Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="什么是函数签名"><a href="#什么是函数签名" class="headerlink" title="什么是函数签名"></a>什么是函数签名</h3><p>MDN上关于函数签名的说明：<br>A function signature(or type signature, or method signature) defines input and putput of functions or methods.<br>A signature can include:</p>
-<ol>
-<li>parameters and their types</li>
-<li>a return value and type</li>
-<li>exceptions that might be thrown or passed back</li>
-<li>information about the availability of the method in an object-oriented program(such as the keywords public, static, or prototype).<br>翻译过来就是函数签名定义了函数或方法的输入输出，签名包括参数个数和类型、返回值和类型、抛出或者往后传的异常、面向对象程序方法可行性的信息。<h3 id="为什么js没有函数签名"><a href="#为什么js没有函数签名" class="headerlink" title="为什么js没有函数签名"></a>为什么js没有函数签名</h3>在其他语言中，命名参数必须要求事先创建函数签名，将来调用也必须与该签名一致；而js的参数是由包含0个或多个值的数组来表示的，命名参数只是提供便利，但不是必须的，解析器也不会验证命名参数，所以js没有签名。<br>举个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  alert(&quot;Hi &quot;+arguments[0]+&quot;, &quot;+arguments[1]);</div><div class="line">&#125;</div><div class="line">sayHi(&quot;Alice&quot;,&quot;how are you?&quot;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;什么是函数签名&quot;&gt;&lt;a href=&quot;#什么是函数签名&quot; class=&quot;headerlink&quot; title=&quot;什么是函数签名&quot;&gt;&lt;/a&gt;什么是函数签名&lt;/h3&gt;&lt;p&gt;MDN上关于函数签名的说明：&lt;br&gt;A function signature(or type sig
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>slice(), substring(), substr()总结</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/25/slice-substring-substr-%E6%80%BB%E7%BB%93/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/25/slice-substring-substr-总结/</id>
-    <published>2017-04-25T13:47:05.000Z</published>
-    <updated>2017-04-25T13:56:07.132Z</updated>
-    
-    <content type="html"><![CDATA[<p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。&lt;br&gt;区别：&lt;br&gt;1、参数不同&lt;br&gt;slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>append和prepend</title>
-    <link href="https://aliceflaviawang.github.io/2017/04/24/append%E5%92%8Cprepend/"/>
-    <id>https://aliceflaviawang.github.io/2017/04/24/append和prepend/</id>
-    <published>2017-04-24T14:09:07.000Z</published>
-    <updated>2017-04-24T14:17:54.922Z</updated>
-    
-    <content type="html"><![CDATA[<p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
-<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;t
     
     </summary>
     

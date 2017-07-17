@@ -4,24 +4,27 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>src和href的区别 | 笑呵呵</title>
+    <title>TCP连接与关闭过程 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+    <meta name="description" content="建立连接：三次握手在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如图：  客户端A发送SYN包（SYN=j）到服务器B，并进入SYN_SEND状态，等待服务器B确认； 服务器B收到SYN包，必须确认客户A的SYN（ACK=J+1）,同时也发送一个SYN包（SYN=k），即ACK+SYN包，此时服务器B进入SYN_RECV状态； 客户端A收到服务器B的SYN+ACK包">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="src和href的区别">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/index.html">
+<meta property="og:title" content="TCP连接与关闭过程">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/16/TCP连接与关闭过程/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
-<meta property="og:updated_time" content="2017-07-16T14:45:25.556Z">
+<meta property="og:description" content="建立连接：三次握手在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如图：  客户端A发送SYN包（SYN=j）到服务器B，并进入SYN_SEND状态，等待服务器B确认； 服务器B收到SYN包，必须确认客户A的SYN（ACK=J+1）,同时也发送一个SYN包（SYN=k），即ACK+SYN包，此时服务器B进入SYN_RECV状态； 客户端A收到服务器B的SYN+ACK包">
+<meta property="og:image" content="http://i.imgur.com/RNmWGXf.png">
+<meta property="og:image" content="http://i.imgur.com/7UNjaZS.png">
+<meta property="og:updated_time" content="2017-07-16T12:23:33.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="src和href的区别">
-<meta name="twitter:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+<meta name="twitter:title" content="TCP连接与关闭过程">
+<meta name="twitter:description" content="建立连接：三次握手在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如图：  客户端A发送SYN包（SYN=j）到服务器B，并进入SYN_SEND状态，等待服务器B确认； 服务器B收到SYN包，必须确认客户A的SYN（ACK=J+1）,同时也发送一个SYN包（SYN=k），即ACK+SYN包，此时服务器B进入SYN_RECV状态； 客户端A收到服务器B的SYN+ACK包">
+<meta name="twitter:image" content="http://i.imgur.com/RNmWGXf.png">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -82,14 +85,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/07/15/src和href的区别/" title="src和href的区别" itemprop="url">src和href的区别</a>
+      <a href="/2017/07/16/TCP连接与关闭过程/" title="TCP连接与关闭过程" itemprop="url">TCP连接与关闭过程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-15T12:00:43.000Z" itemprop="datePublished"> Published 2017-07-15</time>
+    <time datetime="2017-07-16T11:58:42.000Z" itemprop="datePublished"> Published 2017-07-16</time>
     
   </p>
 </header>
@@ -98,21 +101,24 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
-<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
-<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
-<h4 id="顺便提一下css-js的放置位置"><a href="#顺便提一下css-js的放置位置" class="headerlink" title="顺便提一下css,js的放置位置"></a>顺便提一下css,js的放置位置</h4><p>css放在页面头部，页面渲染时是根据DOM结构生成了一个DOM树然后加上css样式生成渲染树，如果css放在后面可能页面会出现闪跳的感觉，白屏或者布局混乱直到css加载完成。</p>
-<p>js一般放在之前：因为</p>
+		<p><strong>建立连接：三次握手</strong><br>在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如图：<br><img src="http://i.imgur.com/RNmWGXf.png" alt=""></p>
 <ol>
-<li>执行到<script>这句的时候，会中断其他资源的下载和处理(因为js有可能会修改DOM，所以会阻塞其他的下载和呈现)，知道其下载、解析、执行完毕，因此不能放在头部会组阻塞页面</li>
-<li>不能将需要访问dom元素的<script>放在body之前，因为此时还没生成dom，在body之前访问dom元素会出错<br>（ 但也不能将所有的放在body之后，一些页面的效果的实现，是需要预先动态的加载一些js脚本的）</li>
+<li>客户端A发送SYN包（SYN=j）到服务器B，并进入SYN_SEND状态，等待服务器B确认；</li>
+<li>服务器B收到SYN包，必须确认客户A的SYN（ACK=J+1）,同时也发送一个SYN包（SYN=k），即ACK+SYN包，此时服务器B进入SYN_RECV状态；</li>
+<li>客户端A收到服务器B的SYN+ACK包，，向服务器B发送确认包ACK（ACK=K+1）。此包发送完毕，客户端A和服务器B进入ESTABLISHED状态，完成三次握手。<br>客户端与服务器端开始传送数据。</li>
 </ol>
-</script></li></ol>  
+<p><strong>断开连接：四次挥手</strong><br>由于TCP是双全工的，因此每个方向都必须单独进行关闭。<br>这个原则是当一方完成它的数据发送任务就能发送一个FIN来终止这个方向的连接。<br>收到一个FIN只意味着一个方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。<br>首先进行关闭的一方进行主动关闭，而另一方执行被动关闭。<br><img src="http://i.imgur.com/7UNjaZS.png" alt=""></p>
+<ol>
+<li>客户A发送一个FIN，用来关闭客户A到服务器B的数据传送</li>
+<li>服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序列号。</li>
+<li>服务器B关闭与客户端A的连接，发送一个FIN给客户端A。</li>
+<li>客户端A发回ACK报文确认，并将确认序号设置为收到序号加1。</li>
+</ol>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -124,7 +130,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/" data-title="src和href的区别 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/16/TCP连接与关闭过程/" data-title="TCP连接与关闭过程 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,18 +144,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/07/14/li元素逆序/" title="li元素逆序">
+ <a href="/2017/07/16/如何选择图片格式GIF-JPG-PNG/" title="如何选择图片格式GIF,JPG,PNG">
   <strong>上一篇：</strong><br/>
   <span>
-  li元素逆序</span>
+  如何选择图片格式GIF,JPG,PNG</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/07/15/同步和异步/"  title="同步和异步">
+<a href="/2017/07/16/border-radius-50-和100/"  title="border-radius:50%和100%">
  <strong>下一篇：</strong><br/> 
- <span>同步和异步
+ <span>border-radius:50%和100%
 </span>
 </a>
 </div>
@@ -164,7 +170,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+ 
  
   </div>
 

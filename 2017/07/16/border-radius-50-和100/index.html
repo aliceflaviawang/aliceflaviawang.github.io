@@ -4,24 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>src和href的区别 | 笑呵呵</title>
+    <title>border-radius:50%和100% | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+    <meta name="description" content="用来画圆border-radius必不可少，我们把这个值设成50%，发现设成100%也有效。 下面是一个150px x 150px大小的方形，将它的四个角的半径都设置成50%。根据W3C的规范定义，如果border-radius的值是百分比，就是相对于border box的宽度和高度的百分比。在本例中，50%就是75px。 border-radius工作原理如果两个相邻的角的半径和超过了对应的盒子">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="src和href的区别">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/index.html">
+<meta property="og:title" content="border-radius:50%和100%">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/16/border-radius-50-和100/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
-<meta property="og:updated_time" content="2017-07-16T14:45:25.556Z">
+<meta property="og:description" content="用来画圆border-radius必不可少，我们把这个值设成50%，发现设成100%也有效。 下面是一个150px x 150px大小的方形，将它的四个角的半径都设置成50%。根据W3C的规范定义，如果border-radius的值是百分比，就是相对于border box的宽度和高度的百分比。在本例中，50%就是75px。 border-radius工作原理如果两个相邻的角的半径和超过了对应的盒子">
+<meta property="og:image" content="http://i.imgur.com/Z7MgAcK.png">
+<meta property="og:updated_time" content="2017-07-16T13:50:30.142Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="src和href的区别">
-<meta name="twitter:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+<meta name="twitter:title" content="border-radius:50%和100%">
+<meta name="twitter:description" content="用来画圆border-radius必不可少，我们把这个值设成50%，发现设成100%也有效。 下面是一个150px x 150px大小的方形，将它的四个角的半径都设置成50%。根据W3C的规范定义，如果border-radius的值是百分比，就是相对于border box的宽度和高度的百分比。在本例中，50%就是75px。 border-radius工作原理如果两个相邻的角的半径和超过了对应的盒子">
+<meta name="twitter:image" content="http://i.imgur.com/Z7MgAcK.png">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -82,14 +84,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/07/15/src和href的区别/" title="src和href的区别" itemprop="url">src和href的区别</a>
+      <a href="/2017/07/16/border-radius-50-和100/" title="border-radius:50%和100%" itemprop="url">border-radius:50%和100%</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-15T12:00:43.000Z" itemprop="datePublished"> Published 2017-07-15</time>
+    <time datetime="2017-07-16T13:27:16.000Z" itemprop="datePublished"> Published 2017-07-16</time>
     
   </p>
 </header>
@@ -98,21 +100,16 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#border-radius工作原理"><span class="toc-number">1.</span> <span class="toc-text">border-radius工作原理</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
-<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
-<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
-<h4 id="顺便提一下css-js的放置位置"><a href="#顺便提一下css-js的放置位置" class="headerlink" title="顺便提一下css,js的放置位置"></a>顺便提一下css,js的放置位置</h4><p>css放在页面头部，页面渲染时是根据DOM结构生成了一个DOM树然后加上css样式生成渲染树，如果css放在后面可能页面会出现闪跳的感觉，白屏或者布局混乱直到css加载完成。</p>
-<p>js一般放在之前：因为</p>
-<ol>
-<li>执行到<script>这句的时候，会中断其他资源的下载和处理(因为js有可能会修改DOM，所以会阻塞其他的下载和呈现)，知道其下载、解析、执行完毕，因此不能放在头部会组阻塞页面</li>
-<li>不能将需要访问dom元素的<script>放在body之前，因为此时还没生成dom，在body之前访问dom元素会出错<br>（ 但也不能将所有的放在body之后，一些页面的效果的实现，是需要预先动态的加载一些js脚本的）</li>
-</ol>
-</script></li></ol>  
+		<p>用来画圆border-radius必不可少，我们把这个值设成50%，发现设成100%也有效。</p>
+<p>下面是一个150px x 150px大小的方形，将它的四个角的半径都设置成50%。根据W3C的规范定义，如果border-radius的值是百分比，就是相对于border box的宽度和高度的百分比。在本例中，50%就是75px。<br><img src="http://i.imgur.com/Z7MgAcK.png" alt=""></p>
+<h3 id="border-radius工作原理"><a href="#border-radius工作原理" class="headerlink" title="border-radius工作原理"></a>border-radius工作原理</h3><p><strong>如果两个相邻的角的半径和超过了对应的盒子的边的长度，那么浏览器要重新计算保证它们不会重合。</strong></p>
+<p>如果左上角的圆角被设置成100%，那么圆角就会从这个方形左下角跨到右上角，相当于把圆角半径设置成150px。如果右上角的圆角半径也设置成100%，则两个相邻的圆角合起来就有200%。这种情况自然是不允许的，所以浏览器会重新计算，匀出空间给右边的圆角，同时缩放两个圆角的半径直到它们刚好符合这个方形，所以半径就变成了50%。</p>
+<p>实际上方形所能拥有的最大半径是其宽高的50%，超过了就会重新计算。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -124,7 +121,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/" data-title="src和href的区别 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/16/border-radius-50-和100/" data-title="border-radius:50%和100% | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,18 +135,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/07/14/li元素逆序/" title="li元素逆序">
+ <a href="/2017/07/16/TCP连接与关闭过程/" title="TCP连接与关闭过程">
   <strong>上一篇：</strong><br/>
   <span>
-  li元素逆序</span>
+  TCP连接与关闭过程</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/07/15/同步和异步/"  title="同步和异步">
+<a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/"  title="http头：Expires,Cache-Control,Last-Modified,ETag">
  <strong>下一篇：</strong><br/> 
- <span>同步和异步
+ <span>http头：Expires,Cache-Control,Last-Modified,ETag
 </span>
 </a>
 </div>
@@ -164,7 +161,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#border-radius工作原理"><span class="toc-number">1.</span> <span class="toc-text">border-radius工作原理</span></a></li></ol>
  
   </div>
 

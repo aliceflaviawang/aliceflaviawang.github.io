@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://i.imgur.com/k4q4mxH.png">
 <meta property="og:image" content="http://i.imgur.com/uOPv6zj.png">
 <meta property="og:image" content="http://i.imgur.com/L8Znsb2.png">
-<meta property="og:updated_time" content="2017-07-10T02:18:40.284Z">
+<meta property="og:updated_time" content="2017-07-17T01:45:52.718Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原生JavaScript实现Ajax">
 <meta name="twitter:description" content="Ajax实现步骤： 创建XMLHttpRequest对象XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。12345var XHR=if(window.XMLHttpRequest)&amp;#123;   XHR=new XMLHttpRequest();&amp;#125;else if(window.ActiveXObject)&amp;#123;//I">
@@ -102,7 +102,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建XMLHttpRequest对象"><span class="toc-number">1.</span> <span class="toc-text">创建XMLHttpRequest对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想服务器发送请求"><span class="toc-number">2.</span> <span class="toc-text">想服务器发送请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#get和post的区别"><span class="toc-number">2.1.</span> <span class="toc-text">get和post的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器响应"><span class="toc-number">3.</span> <span class="toc-text">服务器响应</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建XMLHttpRequest对象"><span class="toc-number">1.</span> <span class="toc-text">创建XMLHttpRequest对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想服务器发送请求"><span class="toc-number">2.</span> <span class="toc-text">想服务器发送请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#get和post的区别"><span class="toc-number">2.1.</span> <span class="toc-text">get和post的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器响应"><span class="toc-number">3.</span> <span class="toc-text">服务器响应</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#http-302-303-307"><span class="toc-number">3.1.</span> <span class="toc-text">http 302 303 307</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ajax的交互模型"><span class="toc-number">3.2.</span> <span class="toc-text">Ajax的交互模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步与异步的区别"><span class="toc-number">3.3.</span> <span class="toc-text">同步与异步的区别</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -131,6 +131,17 @@
 <li>status仅当readyState的状态是3或者4的时候才可用</li>
 <li>send()方法必须在readyState的属性值是1，即调用open()方法以后才能调用</li>
 </ol>
+<h4 id="http-302-303-307"><a href="#http-302-303-307" class="headerlink" title="http 302 303 307"></a>http 302 303 307</h4><p>302作为HTTP 1.0的标准，现在使用只是为了兼容性的处理。<br>HTTP 1.1有303 307作为详细的补充，其实是对302的细化<br>302：指示资源在另一个位置，该位置通过;Location指定<br>303：请求的资源可以在另一个URI处找到，客户端必须使用GET方法来获取新位置的资源<br>307：后续请求资源的方法是使用与当前交互相同的方法而不是全部使用GET</p>
+<h4 id="Ajax的交互模型"><a href="#Ajax的交互模型" class="headerlink" title="Ajax的交互模型"></a>Ajax的交互模型</h4><ul>
+<li>用户发出请求</li>
+<li>创建XMLHttpRequest对象</li>
+<li>告诉XMLHttpRequest对象哪个函数会处理XMLHttpRequest对象状态的改变，为此要把对象的onReadyStateChange属性设置为响应该事件的JavaScript函数的引用</li>
+<li>创建请求，用open方法指定get还是post，是否同步，url地址</li>
+<li>发送请求，send方法</li>
+<li>接收结果并分析</li>
+<li>实现刷新</li>
+</ul>
+<h4 id="同步与异步的区别"><a href="#同步与异步的区别" class="headerlink" title="同步与异步的区别"></a>同步与异步的区别</h4><p>同步：脚本会停留等待服务器发送回复然后再继续<br>异步：脚本允许页面继续其进程并处理可能的回复</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -183,7 +194,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建XMLHttpRequest对象"><span class="toc-number">1.</span> <span class="toc-text">创建XMLHttpRequest对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想服务器发送请求"><span class="toc-number">2.</span> <span class="toc-text">想服务器发送请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#get和post的区别"><span class="toc-number">2.1.</span> <span class="toc-text">get和post的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器响应"><span class="toc-number">3.</span> <span class="toc-text">服务器响应</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建XMLHttpRequest对象"><span class="toc-number">1.</span> <span class="toc-text">创建XMLHttpRequest对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#想服务器发送请求"><span class="toc-number">2.</span> <span class="toc-text">想服务器发送请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#get和post的区别"><span class="toc-number">2.1.</span> <span class="toc-text">get和post的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器响应"><span class="toc-number">3.</span> <span class="toc-text">服务器响应</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#http-302-303-307"><span class="toc-number">3.1.</span> <span class="toc-text">http 302 303 307</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ajax的交互模型"><span class="toc-number">3.2.</span> <span class="toc-text">Ajax的交互模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#同步与异步的区别"><span class="toc-number">3.3.</span> <span class="toc-text">同步与异步的区别</span></a></li></ol></li></ol>
  
   </div>
 

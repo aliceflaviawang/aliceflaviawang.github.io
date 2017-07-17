@@ -82,6 +82,415 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/17/inline-block和float的区别/" title="inline-block和float的区别" itemprop="url">inline-block和float的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-17T05:38:48.000Z" itemprop="datePublished"> Published 2017-07-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。</p>
+<p>float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈现环绕状排列。</p>
+<p>共同点：<br>都能实现元素在一行显示，并且可以自由设置元素大小</p>
+<p>区别：<br>inline-block：水平排列一行，即使元素高度不一，也会以最大元素高度为行高，即使高度小的元素周围留空，也不会有第二行元素上浮补位<br>（inline-block仍在文档流里，减少了程序对DOM的更改操作，因为DOM的每一次更改，浏览器会重绘DOM树）<br>float：让元素脱离文档流，呈环绕状排列，如遇上行有空白，而当前元素的大小可以挤进去，这个元素会在上行补位排列</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" title="http头：Expires,Cache-Control,Last-Modified,ETag" itemprop="url">http头：Expires,Cache-Control,Last-Modified,ETag</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-17T02:01:46.000Z" itemprop="datePublished"> Published 2017-07-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。</p>
+<p>让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。</p>
+<p><strong>1. Expires（过期时间）</strong><br>Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。</p>
+<p>缺点：</p>
+<ol>
+<li>客户端与服务器时间不同步导致Expire的配置出现问题</li>
+<li>很容易在配置后忘记具体的过期时间，导致过期来临出现浪涌现象</li>
+</ol>
+<p><strong>2. Cache-Control（缓存控制） Http头信息</strong><br>Cache-Control让网站发布者可以更全面的控制他们的内容，并定位过期时间的限制。</p>
+<ul>
+<li>public响应头，通知浏览器无条件缓存该响应</li>
+<li>private响应头，通知浏览器只针对单个用户缓存响应。且可以具体指定某个字段。如：private-“username”</li>
+<li>no-cache请求头，浏览器去服务器取数据并验证缓存。响应头告诉浏览器必须要回复服务器校验，不管有没有缓存。如果确定没有被改，可以使用缓存中的数据</li>
+<li>no-store要求浏览器任何情况下都不要缓存</li>
+<li>max-age 强制浏览器根据该值校验缓存。即自身age值，与请求时间做比较，如果超过max-age值，则强制去服务器端验证。以确保返回一个新鲜的响应。其功能与传统的Expire类似，但区别在于Expire是根据某个特定日期值做比较，一旦客户端自身的时间不准确，则结果可能就是错误的，而max-age则是客户端时间比较。max-age的优先级高于Expire。</li>
+</ul>
+<p>Expire指定的时间可以是相对文件的最后访问时间（Atime）或者修改时间（Mtime），而max-age相对的是文档的请求时间（Atime）</p>
+<p><strong>3. Last-Modified/If-Modified-Since</strong><br>告诉服务器上一次从服务器连同数据所获得的日期，如果数据从那时起没有改变，服务器发送状态代码304，不再重新发送数据。</p>
+<p><strong>4. ETag/If-None-Match</strong><br>是实现与最近修改数据检查同样的功能的另一种方法，没有变化时不重新下载数据</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>Exipire/Cache-Control header是控制浏览器是否直接从浏览器缓存中获取数据还是重新发送请求到服务器取数据。只是Cache-Control比Expires控制的多些，而且Cache-control会重写Expires规则。</p>
+<p>Last-Modified/ETag是浏览器发送请求到服务器后判断文件是否修改过，如果没有修改过就只发送一个304给浏览器，告诉浏览器从本地缓存取数据；如果修改过那就整个数据重新发送给浏览器。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/16/border-radius-50-和100/" title="border-radius:50%和100%" itemprop="url">border-radius:50%和100%</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-16T13:27:16.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>用来画圆border-radius必不可少，我们把这个值设成50%，发现设成100%也有效。</p>
+<p>下面是一个150px x 150px大小的方形，将它的四个角的半径都设置成50%。根据W3C的规范定义，如果border-radius的值是百分比，就是相对于border box的宽度和高度的百分比。在本例中，50%就是75px。<br><img src="http://i.imgur.com/Z7MgAcK.png" alt=""></p>
+<h3 id="border-radius工作原理"><a href="#border-radius工作原理" class="headerlink" title="border-radius工作原理"></a>border-radius工作原理</h3><p><strong>如果两个相邻的角的半径和超过了对应的盒子的边的长度，那么浏览器要重新计算保证它们不会重合。</strong></p>
+<p>如果左上角的圆角被设置成100%，那么圆角就会从这个方形左下角跨到右上角，相当于把圆角半径设置成150px。如果右上角的圆角半径也设置成100%，则两个相邻的圆角合起来就有200%。这种情况自然是不允许的，所以浏览器会重新计算，匀出空间给右边的圆角，同时缩放两个圆角的半径直到它们刚好符合这个方形，所以半径就变成了50%。</p>
+<p>实际上方形所能拥有的最大半径是其宽高的50%，超过了就会重新计算。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/16/TCP连接与关闭过程/" title="TCP连接与关闭过程" itemprop="url">TCP连接与关闭过程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-16T11:58:42.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>建立连接：三次握手</strong><br>在TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如图：<br><img src="http://i.imgur.com/RNmWGXf.png" alt=""></p>
+<ol>
+<li>客户端A发送SYN包（SYN=j）到服务器B，并进入SYN_SEND状态，等待服务器B确认；</li>
+<li>服务器B收到SYN包，必须确认客户A的SYN（ACK=J+1）,同时也发送一个SYN包（SYN=k），即ACK+SYN包，此时服务器B进入SYN_RECV状态；</li>
+<li>客户端A收到服务器B的SYN+ACK包，，向服务器B发送确认包ACK（ACK=K+1）。此包发送完毕，客户端A和服务器B进入ESTABLISHED状态，完成三次握手。<br>客户端与服务器端开始传送数据。</li>
+</ol>
+<p><strong>断开连接：四次挥手</strong><br>由于TCP是双全工的，因此每个方向都必须单独进行关闭。<br>这个原则是当一方完成它的数据发送任务就能发送一个FIN来终止这个方向的连接。<br>收到一个FIN只意味着一个方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。<br>首先进行关闭的一方进行主动关闭，而另一方执行被动关闭。<br><img src="http://i.imgur.com/7UNjaZS.png" alt=""></p>
+<ol>
+<li>客户A发送一个FIN，用来关闭客户A到服务器B的数据传送</li>
+<li>服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序列号。</li>
+<li>服务器B关闭与客户端A的连接，发送一个FIN给客户端A。</li>
+<li>客户端A发回ACK报文确认，并将确认序号设置为收到序号加1。</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/16/如何选择图片格式GIF-JPG-PNG/" title="如何选择图片格式GIF,JPG,PNG" itemprop="url">如何选择图片格式GIF,JPG,PNG</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-16T08:37:15.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="JPEG（简写jpg）"><a href="#JPEG（简写jpg）" class="headerlink" title="JPEG（简写jpg）"></a>JPEG（简写jpg）</h3><p>JPEG是一种大小与质量相平衡的压缩图片格式。通俗的说：高的压缩比=低的图片质量=小的文件大小。由于JPEG无法保持100%的原始图像的像素数据，所以它不被认为是一种无损图像格式。</p>
+<p>它支持上百万种颜色。适合轻微是真的像素色彩丰富的图片唱歌，并不适合简单色彩的图片如logo，icons。</p>
+<p>它不支持图形渐进、北京透明，更不支持动画，有损压缩不可恢复</p>
+<h3 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h3><p>是为了使图片能够应用在在线应用程序上所特别开发的图片格式。GIF，是一种无损（100%保持原始图片像素数据信息），8位图片格式（一个8位图像仅能支持256中不同颜色，多于将出现失真）。</p>
+<p><strong>压缩特性：</strong><br>采用LZW算法进行压缩</p>
+<p><strong>透明特性：</strong><br>支持基本的透明性</p>
+<p><strong>支持隔行扫描：</strong><br>隔行扫描能够令图片在浏览器中更快的加载和显示</p>
+<p><strong>动画GIF：</strong><br>支持动画。Flash动画出来之前，GIF动画可以说是唯一的动画。GIF将单帧的图像组合起来，然后轮流播放每一帧而成为动画。</p>
+<h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><p>PNG也是一种无损压缩，但与GIF不同的是，PNG同时支持8位和24位的图像。</p>
+<p>8位PNG图片的用途与GIF格式基本相同</p>
+<p><strong>24位PNG</strong>：<br>24位PNG，支持160万种不同的像素颜色且支持Alpha透明效果。也就是说无论透明度设为多少，PNG图片均能够与背景很好的融合在一起。</p>
+<p>不支持动画，高级压缩，支持全彩图像，对色彩丰富的图像取得不错的视觉效果</p>
+<h3 id="总比较"><a href="#总比较" class="headerlink" title="总比较"></a>总比较</h3><p>大小：PNG≈JPG&gt;GIF<br>透明性：PNG&gt;GIF&gt;JPG<br>色彩丰富度：JPG&gt;PNG&gt;GIF<br>兼容度：GIF≈JPG&gt;PNG</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/16/childNodes和children的区别/" title="childNodes和children的区别" itemprop="url">childNodes和children的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-16T04:07:05.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="childNodes"><a href="#childNodes" class="headerlink" title="childNodes"></a>childNodes</h3><p>标准的，它返回指定元素的子元素集合，包括HTML节点，属性节点和文本节点。可以通过nideType来判断是哪个类型的节点，只有当nodeType==1时才是元素节点，2是属性节点，3是文本节点。</p>
+<h3 id="children"><a href="#children" class="headerlink" title="children"></a>children</h3><p>非标准的，它只返回HTML节点（IE中包含注释节点）。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/16/渐进增强和优雅降级/" title="渐进增强和优雅降级" itemprop="url">渐进增强和优雅降级</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-16T03:56:59.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="渐进增强"><a href="#渐进增强" class="headerlink" title="渐进增强"></a>渐进增强</h3><p>针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</p>
+<h3 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h3><p>一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。</p>
+<p><strong>区别</strong>：</p>
+<ol>
+<li>优雅降级是从复杂的现状开始，并试图减少用户体验的供给；</li>
+<li>渐进增强是从一个非常基础的，能够起作用的版本开始，并不断扩充，以适应未来环境的需要；</li>
+<li>降级（功能衰退）意味着往回看；而渐进增强则意味着朝前看，同时保证其根基处于安全地带。</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/15/立即执行函数的作用/" title="立即执行函数的作用" itemprop="url">立即执行函数的作用</a>
   </h1>
   <p class="article-author">By
@@ -139,492 +548,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/15/同步和异步/" title="同步和异步" itemprop="url">同步和异步</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-15T13:11:06.000Z" itemprop="datePublished"> Published 2017-07-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>延伸 摘自阮一峰es6入门：</p>
-<p>于是，这个问题又回到了最开始的起点：JavaScript是单线程的。</p>
-<p>JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。</p>
-<p>JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
-<p>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。</p>
-<p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
-<p>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。于是就有一个概念，任务队列。</p>
-<p>如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），不得不等着结果出来，再往下执行。</p>
-<p>JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。</p>
-<p>于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
-<p>具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）</p>
-<p>（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。<br>（2）主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。<br>（3）一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。<br>（4）主线程不断重复上面的第三步。<br>下图就是主线程和任务队列的示意图。<br><img src="http://i.imgur.com/X6pz2fm.png" alt=""></p>
-<p>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。  </p>
-<p>“任务队列”是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
-<p>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
-<p>所谓”回调函数”（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
-<p>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
-<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>一个程序就是一个进程，而一个程序中的多个任务则被称为线程。进程是表示资源分配的基本单位，又是调度运行的基本单位。线程是进程中执行运算的最小单位，亦即执行处理机调度的基本单位。进程和线程的关系：</p>
-<ol>
-<li>一个线程只属于一个进程，而一个进程可以有多个线程，但至少有一个线程。线程是操作系统可以识别的最小执行和调度单位。</li>
-<li>资源分配给进程，同一个进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段、数据段、扩展段。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。</li>
-<li>处理机分给线程。即真正在处理机上运行的是线程。</li>
-<li>线程在执行过程中，需要同步写作，不同的线程间要利用消息通信的办法实现同步。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/15/src和href的区别/" title="src和href的区别" itemprop="url">src和href的区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-15T12:00:43.000Z" itemprop="datePublished"> Published 2017-07-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
-<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
-<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/14/li元素逆序/" title="li元素逆序" itemprop="url">li元素逆序</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-14T13:41:08.000Z" itemprop="datePublished"> Published 2017-07-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var ul=document.getElementById(&quot;ul&quot;);</div><div class="line">var children=Array.prototype.slice.call(ul.getElementsByTagName(&quot;li&quot;),0);</div><div class="line">var str=&quot;&quot;;</div><div class="line">children.reverse();</div><div class="line">for(var i=0;i&lt;children.length;i++)&#123;</div><div class="line">  str+=children[i].outerHTML;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>getElementsByTagName(“li”)实际上返回的就是类数组，为什么要用Array.prototype.slice.call(ul.getElementsByTagName(“li”),0)呢？<br><strong><br>在此之前先说说js的类数组对象：HTMLCollection，NodeList,arguements.</strong><br><strong>类数组：拥有length的属性，但不是数组（使用instanceof检查返回false），没有forEach,map,slice等数组方法。
-</strong></p>
-<h3 id="类数组常见的三个对象"><a href="#类数组常见的三个对象" class="headerlink" title="类数组常见的三个对象"></a>类数组常见的三个对象</h3><h4 id="1-函数的arguments"><a href="#1-函数的arguments" class="headerlink" title="1. 函数的arguments"></a>1. 函数的arguments</h4><p>arguments:函数通过arguments访问传入函数的参数。它是个对象（不是数组），有length属性。</p>
-<h4 id="2-HTMLCollection对象"><a href="#2-HTMLCollection对象" class="headerlink" title="2. HTMLCollection对象"></a>2. HTMLCollection对象</h4><p>HTMLCollection是一个借口，表示HTML元素的集合，提供可以遍历的列表的方法和属性。拥有length,item,nameItem属性（可以访问元素的name和id属性）。返回HTMLCollection集合的有：document.getElementsByTagName,document.getElementsByClassName。</p>
-<h4 id="3-NodeList对象"><a href="#3-NodeList对象" class="headerlink" title="3. NodeList对象"></a>3. NodeList对象</h4><p>NodeList代表乐意个有顺序的节点列表（不光有元素，还有其他节点如文本节点、注释节点）。有length,item属性。返回NodeList集合的有：document.getElementsByName，document.querySelectorAll，document.getElementById(“table”).childNodes，document.styleSheets。</p>
-<h3 id="类数组转化成数组"><a href="#类数组转化成数组" class="headerlink" title="类数组转化成数组"></a>类数组转化成数组</h3><h4 id="1-arguments"><a href="#1-arguments" class="headerlink" title="1.arguments"></a>1.arguments</h4><p>arguments的数组话，只需要运用[].slice.call()方法便可以将传递给函数的参数数组化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function person()&#123;</div><div class="line">  var args=[].slice.call(arguments); </div><div class="line">  console.log(args);</div><div class="line">&#125;</div><div class="line">person(10,20);</div></pre></td></tr></table></figure></p>
-<h4 id="2-HTMLCollection和NodeList"><a href="#2-HTMLCollection和NodeList" class="headerlink" title="2.HTMLCollection和NodeList"></a>2.HTMLCollection和NodeList</h4><p>对于这两类数组对象的元素集合，如果我们使用[].slice.call()方法，IE8及以下的浏览器竟然会报错，报错的内容是：”Array.prototype.slice:’this’不是javascript对象”，很明显HTMLCollection和NodeList并不是Object的子类。所以为了让类数组转化成纯数组，需要进行处理：</p>
-<ol>
-<li><p>jQuery早期的makeArray做法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">function makeArray(array)&#123;</div><div class="line">    var ret=[];</div><div class="line">   if(array!=null)&#123;</div><div class="line">      var i=array.length;</div><div class="line">      //The window,strings (and functions) also have length</div><div class="line">      if(i==null||typeof array===&quot;string&quot;||array.setInterval)&#123;</div><div class="line">        ret[0]=array;</div><div class="line">     &#125;else&#123;</div><div class="line">        while(i)&#123;</div><div class="line">           ret[--i]=array[i]; //此处将类数组转化成数组，因为类数组可以遍历，因此适用于所有的类数组对象，将其取出放入数组中</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">  return ret;</div><div class="line">&#125;</div><div class="line">var arr=makeArray(div);</div><div class="line">console.log(arr);</div></pre></td></tr></table></figure>
-</li>
-<li><p>prototype的做法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.prototype.slice.call(div,0);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>其中，第一种做法兼容性比较好，很通用，第二种做法比较高级，但是只适合高版本主流浏览器。</p>
-<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>HTMLCollection的集合访问dom元素必须要加上[0]，比如document.getElementsByTagName(“li”)[0]</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/13/阿里面试题/" title="阿里面试题" itemprop="url">阿里面试题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-13T13:08:21.000Z" itemprop="datePublished"> Published 2017-07-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>1. 判断一个对象是否为空</strong><br>目前知道两种方式：第一种将JSON对象变成字符串，看字符串是否为“{}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=&#123;&#125;;</div><div class="line">if(JSON.stringify(a)==&quot;&#123;&#125;&quot;)&#123;</div><div class="line">   console.log(&quot;是空对象&quot;);</div><div class="line">&#125;</div><div class="line">//是空对象</div></pre></td></tr></table></figure></p>
-<p>另外可以使用jQuery的isEmptyObject()方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=&#123;&#125;;</div><div class="line">function isEmptyObject(e)&#123;</div><div class="line">   for(var t in e)&#123;</div><div class="line">     return !1;</div><div class="line">  &#125;</div><div class="line">  return !0;</div><div class="line">&#125;</div><div class="line">console.log(isEmptyObject(a)); //true</div></pre></td></tr></table></figure></p>
-<p><strong>2. 判断一个数组是数组</strong><br>方法很多:<br>比如：使用<strong>instanceof</strong>看是不是Array的实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">console.log(arr instanceof Array); //true</div></pre></td></tr></table></figure></p>
-<p>或者看arr是否具有push方法（push方法是数组独有的，其他数组独有的方法都可以）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">function judgeArray(arr)&#123;</div><div class="line">  if(arr.push)&#123;</div><div class="line">     return !0; </div><div class="line">  &#125;</div><div class="line">return !1;</div><div class="line">&#125;</div><div class="line">judgeArray(arr);//true</div></pre></td></tr></table></figure></p>
-<p>或者使用<strong>Object.prototype.toString.call()</strong>方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var arr=[];</div><div class="line">Object.prototype.toString.call(arr);  //&quot;[Object Array]&quot;</div></pre></td></tr></table></figure></p>
-<p>Object.prototype.toString.call()方法的原理<br>toString被调用时，执行以下步骤：</p>
-<ol>
-<li>获取this对象的[[class]]属性值</li>
-<li>计算出三个字符串”[Object”, “第一步的操作结果”,”]”连接的新字符串</li>
-<li>返回第二步的操作结果<br>[[class]]是一个内部属性，所有对象都具有该属性。<strong>通过[[class]]属性达到判断对象类型的目的</strong>。（jQuery的$.type()就是干这个的）<br>通过Object.prototype.toString.call()可以判断：</li>
-<li>判断基本类型<br>Object.prototype.toString.call(null);//“[Object Null]”<br>Object.prototype.toString.call(undefined);//“[Object Undefined]”<br>Object.prototype.toString.call(“abc”);//“[Object String]”<br>Object.prototype.toString.call(123);//“[Object Number]”<br>Object.prototype.toString.call(true);//“[Object Boolean]”</li>
-<li>判断引用类型<br>函数类型<br>Function fn(){console.log(“test”);}<br>Object.prototype.toString.call(fn);//”[object Function]”<br>日期类型<br>var date = new Date();<br>Object.prototype.toString.call(date);//”[object Date]”<br>数组类型<br>var arr = [1,2,3];<br>Object.prototype.toString.call(arr);//”[object Array]”<br>正则表达式<br>var reg = /[hbc]at/gi;<br>Object.prototype.toString.call(arr);//”[object Array]”<br>自定义类型<br>function Person(name, age) {<br> this.name = name;<br> this.age = age;<br>}<br>var person = new Person(“Rose”, 18);<br>Object.prototype.toString.call(arr); //”[object Object]”<br>很明显这种方法不能准确判断person是Person类的实例，而只能用instanceof 操作符来进行判断，如下所示：<br>console.log(person instanceof Person);//输出结果为true</li>
-<li>判断原生JSON对象：<br>var isNativeJSON = window.JSON &amp;&amp; Object.prototype.toString.call(JSON);<br>console.log(isNativeJSON);//输出结果为”[object JSON]”说明JSON是原生的，否则不是；</li>
-</ol>
-<p><strong>3. 正则表达式的惰性和非捕获性</strong></p>
-<h3 id="正则表达式的贪婪与懒惰"><a href="#正则表达式的贪婪与懒惰" class="headerlink" title="正则表达式的贪婪与懒惰"></a>正则表达式的贪婪与懒惰</h3><p><strong>贪婪匹配</strong>：当表达式中接受重复的限定符时，通常的行为是匹配尽可能多的字符。<br>懒惰匹配：匹配尽可能少的字符。（加上？，使得整个匹配成功的前提下使用最少重复）<br><strong>懒惰限定符</strong><br><img src="http://i.imgur.com/0zuFjWe.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var str=&apos;aaba-baabb&apos;</div><div class="line">var reg=/a.b/g</div><div class="line">str.match(reg); // [&quot;aab&quot;, &quot;a-b&quot;, &quot;aab&quot;]</div><div class="line">var reg1=/a.&#123;3,4&#125;?b/g</div><div class="line">str.match(reg1) //[&quot;aaba-b&quot;]</div></pre></td></tr></table></figure></p>
-<h3 id="正则表达式捕获语法"><a href="#正则表达式捕获语法" class="headerlink" title="正则表达式捕获语法"></a>正则表达式捕获语法</h3><p>(pattern):匹配pattern并捕获改匹配的子表达式<br>(?:pattern):匹配pattern，与（pattern）区别在于不捕获子表达式<br>(?=pattern):匹配pattern但不出现在匹配结果里<br>(?!pattern):与（？=pattern）相反<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var data=&apos;windows 98 is ok&apos;;</div><div class="line">data.match(/windows (\d+)/); //[&quot;windows 98&quot;,&quot;98&quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?:\d+)/);  //[&quot;windows 98&quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?=\d+)/); //[&quot;windows &quot;,&quot;0&quot;,&quot;windows 98 is ok&quot;]</div><div class="line">data.match(/windows (?!\d+)/); //null</div></pre></td></tr></table></figure></p>
-<h4 id="正则表达式中的exec和match方法的区别"><a href="#正则表达式中的exec和match方法的区别" class="headerlink" title="正则表达式中的exec和match方法的区别"></a>正则表达式中的exec和match方法的区别</h4><p>字符串的正则方法有：match(),replace(),search(),split()<br>正则表达式的方法有：exec(),test()</p>
-<h2 id="1-match"><a href="#1-match" class="headerlink" title="1. match()"></a>1. match()</h2><p>match()属于String正则表达式方法<br>语法：str.match(regexp) //str是要匹配的字符串，regexp是正则表达式<br>match的用法区分是正则表达式有无g全局标志</p>
-<ul>
-<li><p>如果有g全局标志，那么返回的数组保存的是所有的匹配内容，不包括子匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">//设置正则表达式，匹配以13开头11位字符串，全局匹配</div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g; </div><div class="line">var arr=objStr.match(reg); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;13288888888&quot;, &quot;13699999999&quot;]</div></pre></td></tr></table></figure>
-</li>
-<li><p>如果没有g全局标志，那么返回的数组arr.arr[0]保存的是完整匹配,1-n元素包含了匹配中曾经出现过的任一个子匹配，并有index(匹配开始的位置)和input(整个被查找的字符串)两个属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">//非全局匹配</div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/; </div><div class="line">var arr=objStr.match(reg); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;5&quot;, &quot;22222222&quot;, index: 5, input: &quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;]</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>replace()</strong><br>进行字符串替换，然后返回替换后的副本(字符串本身不变)<br>语法：str.replace(regexp,replaceText)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">objStr.replace(reg,&quot;-&quot;) //&quot;我的手机号-，他的手机号-，她的手机号码-&quot;</div></pre></td></tr></table></figure></p>
-<p><strong>search()</strong><br>search()方法指明是否存在相应的匹配，如果找到，返回索引值，否则返回-1。<br>语法：str.search(regexp)<br>与exec()方法不同，只能执行一次，如果regexp含有全局标志将自动忽略，也忽略lastIndex属性。即<strong>只能返回第一个匹配的索引值</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">var index=objStr.search(reg);</div><div class="line">index;  //5</div></pre></td></tr></table></figure></p>
-<p><strong>split()方法</strong><br>将一个字符串分割为子字符串，结果作为数组返回。<br>语法：str.split(seperator,limit) //limit限制返回的个数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g; </div><div class="line">objStr.split(reg); // [&quot;我的手机号&quot;, &quot;5&quot;, &quot;22222222&quot;, &quot;，他的手机号&quot;, &quot;2&quot;, &quot;88888888&quot;, &quot;，她的手机号码&quot;, &quot;6&quot;, &quot;99999999&quot;, &quot;&quot;]</div></pre></td></tr></table></figure></p>
-<h2 id="2-exec"><a href="#2-exec" class="headerlink" title="2. exec()"></a>2. exec()</h2><p>与match()方法不同，exec()属于正则表达式的方法<br>语法：regexp.exec(str)<br><em>exec(exec有无g都无影响)与match的关联就是exec等价于没有g标志的match</em><br><strong>exec()只执行一次</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/;  </div><div class="line">//执行exec函数，尽管是全局匹配的正则表达式，但是exec方法只对指定的字符串进行一次匹配（有无g都只执行一次），获取字符串中第一个与正则表达式想匹配的内容，并且将匹配内容和子匹配的结果存储到返回的数组中</div><div class="line">var arr=reg.exec(objStr); </div><div class="line">arr //[&quot;13522222222&quot;, &quot;5&quot;, &quot;22222222&quot;, index: 5, input: &quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;]</div></pre></td></tr></table></figure></p>
-<p>如果将regexp设为全局标志，每次执行exec()时以lastIndex属性值表示的位置开始查找；如果没有设置全局标志，将忽略lastIndex的值，从字符串的起始位置开始搜索。如果想找到字符串的所有匹配，可以循环执行exec()方法直到找不到了为止，此时必须设置全局标志，否则是个死循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/;  </div><div class="line">var arr; </div><div class="line">while((arr=reg.exec(objStr))!=null)&#123;</div><div class="line">  console.log(arr.index+&quot;-&quot;+reg.lastIndex+&quot;\t&quot;+arr);  //**注意lastIndex属性是属于reg的**zhen</div><div class="line"> &#125;</div><div class="line">//5-16	13522222222,5,22222222</div><div class="line">//22-33	13288888888,2,88888888</div><div class="line">//40-51	13699999999,6,99999999</div></pre></td></tr></table></figure></p>
-<p><strong>test()</strong><br>test()的语法与exec一致，test()方法检查在字符串中是否存在一个匹配指定模式的字符串，存在返回true，不存在返回false。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objStr=&quot;我的手机号13522222222，他的手机号13288888888，她的手机号码13699999999&quot;; </div><div class="line">var reg=/13(\d)(\d&#123;8&#125;)/g;  </div><div class="line">reg.test(objStr)</div></pre></td></tr></table></figure></p>
-<p><strong>**4. ES6的声明变量的方法</strong><br>ES5本身的var,function，ES6<br><strong>5. Doctype的类型**</strong><br>&lt;!DOCTYPE&gt;声明位于第一行，告知浏览器文档所使用的规范。<br>HTML 4.01规定了三种DOCTYPE类型：Strict,Transitional,Frameset</p>
-<ol>
-<li><p>stric:需要干净的标记，免于表现层混乱，与CSS配合使用</p>
-</li>
-<li><p>transitional：包含W3C所期望移入样式表的呈现属性和元素。不支持CSS的浏览器可以使用</p>
-</li>
-<li><p>frameset：被用于带有框架的文档</p>
-</li>
-</ol>
-<p>HTML5只有一种&lt;!DOCTYPE HTML&gt;</p>
-<p><strong>6. link和@import的区别</strong><br>1）link属于HTML标签，@import是css提供的<br>2）页面加载时，link同时被加载，而@import页面加载完后被加载的<br>3）link无兼容问题<br>4）link的样式权重高于@import<br><strong>7. 状态码（302，304，307重点关注</strong>）<br><strong>8. 七层网络，各种协议属于哪一层</strong><br><strong>9. css实现省略号</strong><br>使用text-overflow属性规定当文本溢出包含元素时发生的事情。<br>有三种可能的值：</p>
-<ul>
-<li>clip:修剪文本</li>
-<li>ellipsis：显示省略符号来代表被修剪的文本</li>
-<li>string:使用给定的字符串来代表被修剪的文本<br>注：要在文本所在div声明 overflow:hidden;<br><strong>10. null和undefined区别</strong><br><strong>undefined</strong>:声明了变量但未对其初始化<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var message;</div><div class="line">console.log(message); //undefined</div><div class="line">console,log(typeof message); //undefined</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>null</strong>:尚未存在的对象，常用来表示函数企图返回一个不存在的对象。从逻辑            角度来看，null值表示一个空对象指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var car=null; //一般没有必要显示的将变量设为undefined，但是应该明确让变量保存null值，这样可以体现null作为空对象指针的惯例，也有助于区别undefined和null</div><div class="line">console.log(typeof car); //object</div><div class="line">null==undefined //true,**undefined的值实际上派生自null**</div><div class="line">null===undefined //false,**==只需要值相等，===还要比较类型**</div></pre></td></tr></table></figure></p>
-<p><strong>NaN</strong>:即非数值(not a number)是一个特殊的数值，这个数值用于表示本来要返回数值的操作数未返回数值的情况。NaN有两个特点：<strong>1.任何涉及NaN的操作都返回NaN；2.NaN与任何值都不相等，包括NaN本身</strong>。<br>isNaN()判断一个数是否是NaN（非数值）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">console.log(typeof NaN) //number</div><div class="line">NaN==NaN //false</div><div class="line">isNaN(NaN) //true</div><div class="line">isNaN(&quot;10&quot;) //false，可以转化成数值10</div><div class="line">isNaN(&quot;blue&quot;) //true，不能转换成数值</div><div class="line">isNaN(true)  //false，可以转换成数值1</div></pre></td></tr></table></figure></p>
-<p><strong>判断undefined、null和NaN的方法：</strong></p>
-<ol>
-<li><p>判断undefined</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a=undefined;</div><div class="line">console.log(typeof a==&quot;undefined&quot;);  true</div></pre></td></tr></table></figure>
-</li>
-<li><p>判断null</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a=null;</div><div class="line">if(typeof a==&quot;object&quot;&amp;&amp;a==undefined)&#123;</div><div class="line">  console.log(true);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>还可以通过Object.ptototype.toString.call()方法判断是null还是undefined</p>
-<ol>
-<li>判断NaN<br>使用isNaN()方法</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/13/常见的数据结构算法/" title="常见的数据结构算法" itemprop="url">常见的数据结构算法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-13T07:12:24.000Z" itemprop="datePublished"> Published 2017-07-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>二分查找是基于有序表，是一种在有序数组中查找特定元素的搜索算法。查找过程可以分为：</p>
-<ol>
-<li>首先从有序数组的中间的元素开始搜索，如果改元素正好的目标元素即要查找的元素，则搜索过程结束，否则进行下一步</li>
-<li>如果目标元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半区域查找，然后重复第一步的操作</li>
-<li>如果某一步数组为空，则表示找不到目标元素<br>下面用js分别以递归和不递归的方法写了二分查找（还有对于有重复数组）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3,4,5,6,7,10,10,10,11,23,44,86];</div><div class="line">     // function search(arr,key,low,high)&#123;</div><div class="line">     // 	if(low&gt;high)&#123;</div><div class="line">     // 		return -1;</div><div class="line">     // 	&#125;</div><div class="line">     //     var mid=parseInt((low+high)/2);</div><div class="line">     //     if(key==arr[mid])&#123;</div><div class="line">     //        while(mid&gt;=0)&#123;</div><div class="line">         		//  	mid--;</div><div class="line">         		// 	if(arr[mid]&lt;key)&#123;</div><div class="line">         		// 		return mid+1;</div><div class="line">         		// 	&#125;</div><div class="line">         		// &#125;</div><div class="line">         	</div><div class="line">     //     &#125;else if(key&lt;arr[mid])&#123;</div><div class="line">     //     	high=mid-1;</div><div class="line">     //     	return search(arr,key,low,high);</div><div class="line">     //     &#125;</div><div class="line">     //     else if(key&gt;arr[mid])&#123;</div><div class="line">     //     	low=mid+1;</div><div class="line">     //     	return search(arr,key,low,high)</div><div class="line">     //     &#125;else &#123;</div><div class="line">     //     	return -1;</div><div class="line">     //     &#125;</div><div class="line">     // &#125;</div><div class="line">     // var result=search(arr,10,0,13);</div><div class="line">     // alert(result)</div><div class="line">     function search(arr,key)&#123;</div><div class="line">     	 var low=0;</div><div class="line">     	 var high=arr.length-1;</div><div class="line">         while(low&lt;=high)&#123;</div><div class="line">         	var mid=parseInt((low+high)/2);</div><div class="line">         	if(arr[mid]==key)&#123;</div><div class="line">         		while(mid&gt;=0)&#123;</div><div class="line">         			mid--;</div><div class="line">         			if(arr[mid]&lt;key)&#123;</div><div class="line">         				return mid+1;</div><div class="line">         			&#125;</div><div class="line">         		&#125;</div><div class="line">         	&#125;else if(key&lt;arr[mid])&#123;</div><div class="line">                high=mid-1;</div><div class="line">         	&#125;else if(key&gt;arr[mid])&#123;</div><div class="line">         		low=mid+1;</div><div class="line">         	&#125;else&#123;</div><div class="line">         		return -1;</div><div class="line">         	&#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line">     var result=search(arr,10);</div><div class="line">     alert(result);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序基于两两比较和交换，每次冒出一个关键字最大的记录（升序）或关键字最小的记录（降序）。第一趟：第一个和第二个比较，反序则交换，第二个和第三个比较…直到最后冒出最大的一个数放在最后；第i趟的时候，只需要第一个和第二个比较…直到第n-i个和第n-i+1个比较了。最后得出排序结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function bubble(arr)&#123;</div><div class="line">   var n=arr.length-1;</div><div class="line">   for(var i=0;i&lt;n;i++)&#123;</div><div class="line">     for(var j=0;j&lt;n-i;j++)&#123;</div><div class="line">       if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">          var temp=arr[j];</div><div class="line">          arr[j]=arr[j+1];</div><div class="line">          arr[j+1]=temp;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var result=bubble(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
-<p>冒泡算法的改进：如果最后面的若干记录未发生交换，那么这最后的记录已经具有了正序，不需要再进行冒泡了。因此可以通过记录最后一次交换顺序的位置，来改进冒泡算法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function proBubble(arr)&#123;</div><div class="line">   var i=arr.length-1;</div><div class="line">   while(i&gt;0)&#123; </div><div class="line">      var lastChangeIndex=0;</div><div class="line">      for(var j=0;j&lt;i;j++)&#123;</div><div class="line">        if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">           var temp=arr[j]; </div><div class="line">           arr[j]=arr[j+1];</div><div class="line">           arr[j+1]=temp;</div><div class="line">           lastIndexChange=j;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    i=lastIndexChange;</div><div class="line">  &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var result=proBubble(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
-<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>从数组的中间拿一个值，然后通过这个值挨个和数组里面的值进行比较，如果大于的放在一边，小于的放在一边，然后把这些合并，再进行比较，如此反复即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function fast(arr)&#123;</div><div class="line">   //如果只有一位，就没有必要比较</div><div class="line">   if(arr.length&lt;=1)&#123;</div><div class="line">     return arr;</div><div class="line">  &#125;</div><div class="line">  //获取中间值的索引</div><div class="line">  var len=Math.floor(arr.length/2);</div><div class="line">  //截取中间值</div><div class="line">  var cur=arr.splice(len,1);</div><div class="line">  //小于中间值放这里面</div><div class="line">  var left=[];</div><div class="line">  //大于中间值放这里面</div><div class="line">  var right=[];</div><div class="line">  if(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">     //判断是否大于</div><div class="line">     if(cur&gt;arr[i])&#123;</div><div class="line">       left.push(arr[i]);</div><div class="line">    &#125;else&#123;</div><div class="line">        right.push(arr[i]);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">return fast(left).concat(cur,fast(right));//arrObject.concat(arrayX,arrayX,...,arrayX)用于连接两个或多个数组，返回一个新的数组。arrayX可以为具体的值也可以是数组对象 </div><div class="line">&#125;</div><div class="line">var result=fast(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
-<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><ol>
-<li>关于parseInt和Math.floor<br><strong>parseInt</strong>：解析一个字符串，并返回一个整数，这里可以简单理解成返回舍去参数的小数部分后的整数。如parseInt(5.57) //5,parseInt(-1.5)  //-1.<br><strong>Math.floor</strong>:返回小于等于参数的最大整数。如：Math.floor(5.57)  //5,Math.floor(-1.5)  //-2.<br><strong>Math.round</strong>:四舍五入。如：Math.round(5.57)  //6,Math.round(-1.5)  //-1.<br><strong>Math.ceil</strong>:返回大于等于参数的最小整数。如：Math.ceil(5.57)  //6，Math.ceil(-1.5)  //-1</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/13/HTML网页布局/" title="HTML网页布局" itemprop="url">HTML网页布局</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-13T02:58:01.000Z" itemprop="datePublished"> Published 2017-07-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>HTML网页的四种布局方式：静态布局、自适应布局、流式布局、响应式布局。</p>
-<h3 id="静态布局"><a href="#静态布局" class="headerlink" title="静态布局"></a>静态布局</h3><p>静态布局就是传统的网站形式：对于PC设计一个居中布局，窗口缩小时，内容被遮挡，呈现横竖向滚动条。对于移动设备，单独见一个m.域名及相应的移动网站。</p>
-<h3 id="自适应布局"><a href="#自适应布局" class="headerlink" title="自适应布局"></a>自适应布局</h3><p>自适应布局的特点是分别为不同的屏幕分辨率定义布局（采用媒体查找）。布局切换时页面元素发生改变，但在每个布局中，<strong>页面元素不随窗口大小调整发生变化</strong>。可以把自适应布局看作是静态布局的一个系列。</p>
-<h3 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h3><p>流式布局的特点是页面元素的宽度按照屏幕进行适配调整，主要的问题是如果屏幕尺度跨度太大，那么相对其原始设计而言过小或过大的屏幕不能正常显示。<br>流式布局之所以能按照屏幕进行适配是因为划分区域的参数使用百分比（搭配min-<em>,max-</em>属性使用）。然后后来出现弹性布局，包裹文字的个元素的尺寸采用em作单位，em的实际大小是相对于其上下文的字体大小而言的。如果给body标签设置文字大小是100%，给其他文字都使用相对单位em，那这些文字都会受body上的初始声明的影响。</p>
-<h3 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h3><p>响应式布局的特点是分别为不同的屏幕分辨率定义布局，同时，在每个布局中，应用流式布局的概念，即页面元素的宽度随着窗口调整而自动适配。<br><strong>响应式布局看作是流式布局和自适应布局设计理念的融合。</strong></p>
-<p>具体效果可以参照：<a href="http://wow.techbrood.com/fiddle/1753" target="_blank" rel="external">http://wow.techbrood.com/fiddle/1753</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/12/css3-box-sizing属性/" title="css3 box-sizing属性" itemprop="url">css3 box-sizing属性</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-12T13:54:21.000Z" itemprop="datePublished"> Published 2017-07-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>box-sizing属性可以为三个值之一：content-box(默认),border-box,padding-box。<br>content-box:border和padding不计算入width之内<br>padding-box:padding计算入width内<br>border-box:border和padding计算如入width之内，其实就是怪异模式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">    .content-box&#123;</div><div class="line">        box-sizing:content-box;</div><div class="line">        -moz-box-sizing:content-box;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        padding: 20px;</div><div class="line">        border: 5px solid #E6A43F;</div><div class="line">        background: blue;</div><div class="line">    &#125;</div><div class="line">    .padding-box&#123;</div><div class="line">        box-sizing:padding-box;</div><div class="line">        -moz-box-sizing:padding-box;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        padding: 20px;</div><div class="line">        border: 5px solid #186645;</div><div class="line">        background: red;                </div><div class="line">    &#125;</div><div class="line">    .border-box&#123;</div><div class="line">        box-sizing:border-box;</div><div class="line">        -moz-box-sizing:border-box;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        padding: 20px;</div><div class="line">        border: 5px solid #3DA3EF;</div><div class="line">        background: yellow;</div><div class="line">    &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p><img src="http://i.imgur.com/IDEuIqg.png" alt=""></p>
-<h3 id="后记-CSS-calc"><a href="#后记-CSS-calc" class="headerlink" title="后记 CSS calc()"></a>后记 CSS calc()</h3><p>calc()可以理解成一个函数，用来指定元素的长度。可以使用calc()给元素的border、margin、padding、font-size和width等属性设置动态值（如：width: calc(100% - 100px)）。<br><strong>calc()使用规则</strong></p>
-<ul>
-<li>使用”+”、 “-“、 “*”、 “/“四则运算</li>
-<li>可以使用百分比、px、em、rem等单位</li>
-<li>表达式中有”+”和”-“时，其前后必须有空格，如：width: calc(100%++5px)这种写法是错误的<br>例子：使用三列布局的时候，使用calc()可以动态设定中间列的宽度<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;test&lt;/title&gt;</div><div class="line">    &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">    .wrapper&#123;     </div><div class="line">        width: 100%;</div><div class="line">    &#125;</div><div class="line">    .left&#123;</div><div class="line">        float: left;</div><div class="line">        width: 100px;</div><div class="line">        background-color: blue;</div><div class="line">    &#125;</div><div class="line">    .right&#123;</div><div class="line">        float: left;</div><div class="line">        width: 100px;</div><div class="line">        background-color: red;</div><div class="line">    &#125;</div><div class="line">    .main&#123;</div><div class="line">    	 float: left;</div><div class="line">         width: calc(100% - 200px);</div><div class="line">         background-color: #ccc;    </div><div class="line">    &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;wrapper&quot;&gt; </div><div class="line">    &lt;div class=&quot;left&quot;&gt;left&lt;/div&gt;</div><div class="line">     &lt;div class=&quot;main&quot;&gt;main&lt;/div&gt;</div><div class="line">    &lt;div class=&quot;right&quot;&gt;right&lt;/div&gt;</div><div class="line">     &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>inline-block</strong><br>使用inline-block也可以实现三列布局，但是因为inline-block中会自带缝隙（是由于标签段之间的空格造成的），所以会造成main的宽度设为 calc(100% - 200px)时将right挤出去了。解决办法有很多，比如设置margin值为负，也可以将wrapper的font-size设为0，将子div的font-size设成正常值。<br><strong>flex</strong><br>flex的话要更方便<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.wrapper&#123;     </div><div class="line">        display: flex;</div><div class="line">    &#125;</div><div class="line">    .left&#123;</div><div class="line">        flex: 0 1 100px;/*设置成占据主轴的空间 */</div><div class="line">        background-color: blue;   </div><div class="line">    &#125;</div><div class="line">    .right&#123;</div><div class="line">        flex: 0 1 100px; </div><div class="line">        background-color: red;    </div><div class="line">    &#125;</div><div class="line">    .main&#123;</div><div class="line">    	 flex:auto;/*实际上为1 1 auto */</div><div class="line">         background-color: #ccc;       </div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>

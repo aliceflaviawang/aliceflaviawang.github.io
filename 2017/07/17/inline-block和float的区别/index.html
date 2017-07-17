@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>src和href的区别 | 笑呵呵</title>
+    <title>inline-block和float的区别 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+    <meta name="description" content="inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。 float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="src和href的区别">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/index.html">
+<meta property="og:title" content="inline-block和float的区别">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/17/inline-block和float的区别/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
-<meta property="og:updated_time" content="2017-07-16T14:45:25.556Z">
+<meta property="og:description" content="inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。 float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈">
+<meta property="og:updated_time" content="2017-07-17T05:59:31.968Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="src和href的区别">
-<meta name="twitter:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+<meta name="twitter:title" content="inline-block和float的区别">
+<meta name="twitter:description" content="inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。 float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -82,14 +82,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/07/15/src和href的区别/" title="src和href的区别" itemprop="url">src和href的区别</a>
+      <a href="/2017/07/17/inline-block和float的区别/" title="inline-block和float的区别" itemprop="url">inline-block和float的区别</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-15T12:00:43.000Z" itemprop="datePublished"> Published 2017-07-15</time>
+    <time datetime="2017-07-17T05:38:48.000Z" itemprop="datePublished"> Published 2017-07-17</time>
     
   </p>
 </header>
@@ -98,21 +98,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
-<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
-<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
-<h4 id="顺便提一下css-js的放置位置"><a href="#顺便提一下css-js的放置位置" class="headerlink" title="顺便提一下css,js的放置位置"></a>顺便提一下css,js的放置位置</h4><p>css放在页面头部，页面渲染时是根据DOM结构生成了一个DOM树然后加上css样式生成渲染树，如果css放在后面可能页面会出现闪跳的感觉，白屏或者布局混乱直到css加载完成。</p>
-<p>js一般放在之前：因为</p>
-<ol>
-<li>执行到<script>这句的时候，会中断其他资源的下载和处理(因为js有可能会修改DOM，所以会阻塞其他的下载和呈现)，知道其下载、解析、执行完毕，因此不能放在头部会组阻塞页面</li>
-<li>不能将需要访问dom元素的<script>放在body之前，因为此时还没生成dom，在body之前访问dom元素会出错<br>（ 但也不能将所有的放在body之后，一些页面的效果的实现，是需要预先动态的加载一些js脚本的）</li>
-</ol>
-</script></li></ol>  
+		<p>inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。</p>
+<p>float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈现环绕状排列。</p>
+<p>共同点：<br>都能实现元素在一行显示，并且可以自由设置元素大小</p>
+<p>区别：<br>inline-block：水平排列一行，即使元素高度不一，也会以最大元素高度为行高，即使高度小的元素周围留空，也不会有第二行元素上浮补位<br>（inline-block仍在文档流里，减少了程序对DOM的更改操作，因为DOM的每一次更改，浏览器会重绘DOM树）<br>float：让元素脱离文档流，呈环绕状排列，如遇上行有空白，而当前元素的大小可以挤进去，这个元素会在上行补位排列</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -124,7 +118,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/" data-title="src和href的区别 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/17/inline-block和float的区别/" data-title="inline-block和float的区别 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,21 +132,13 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/07/14/li元素逆序/" title="li元素逆序">
+ <a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" title="http头：Expires,Cache-Control,Last-Modified,ETag">
   <strong>上一篇：</strong><br/>
   <span>
-  li元素逆序</span>
+  http头：Expires,Cache-Control,Last-Modified,ETag</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2017/07/15/同步和异步/"  title="同步和异步">
- <strong>下一篇：</strong><br/> 
- <span>同步和异步
-</span>
-</a>
-</div>
 
 </nav>
 
@@ -164,7 +150,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+ 
  
   </div>
 

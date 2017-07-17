@@ -82,6 +82,369 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/11/easyui两个datagrid的问题/" title="easyui两个datagrid的问题" itemprop="url">easyui两个datagrid的问题</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-11T11:11:39.000Z" itemprop="datePublished"> Published 2017-04-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>easyui框架下，当一个页面出现两个datagrid，或者说出现两个table的时候，datagrid的某些属性会失效，比如说pagination分页会失效.</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>使用两个div将两个datagrid分开，但是使用两个div后，页面不能填充整个屏幕，所以解决两个datagrid分页失效的问题转化为了如何让div填充整个屏幕的问题。解决方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">html, body&#123;</div><div class="line">margin:0;</div><div class="line">padding:0;</div><div class="line">&#125;</div><div class="line">div&#123;</div><div class="line">width:100%;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/10/easyui表格查询/" title="easyui表格查询" itemprop="url">easyui表格查询</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-10T13:09:22.000Z" itemprop="datePublished"> Published 2017-04-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>easyui表格查询非常简单，比如说对于一个datagrid如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;toolbar1&quot;&gt;</div><div class="line">        &lt;div style=&quot;padding:3px&quot;&gt;</div><div class="line">            &lt;span&gt;部门 ID:&lt;/span&gt;</div><div class="line">            &lt;input id=&quot;deptId&quot; style=&quot;line-height:26px;border:1px solid #ccc&quot;&gt; --&gt;</div><div class="line">            &lt;span&gt;部门名称:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd&apos; &gt;</div><div class="line">            &lt;span&gt;岗位类型:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd3&apos; &gt;</div><div class="line">             &lt;span&gt;设岗科室名称:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd2&apos; style=&quot;line-height:22px;border:1px solid #ccc;border-radius:5px;&quot;&gt;</div><div class="line">             &lt;span&gt;指导老师:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd1&apos; style=&quot;line-height:22px;border:1px solid #ccc;border-radius:5px;&quot;&gt;</div><div class="line">            &lt;a href=&quot;#&quot; class=&quot;easyui-linkbutton&quot; plain=&quot;true&quot; iconCls=&quot;icon-search&quot; onclick=&quot;doFind()&quot;&gt;查询&lt;/a&gt;        </div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">&lt;table id=&quot;tt1&quot; title=&quot;岗位申请&quot; class=&quot;easyui-datagrid&quot; style=&quot;width:100%;height:auto;&quot;  singleSelect=&quot;true&quot; data-options=&quot;fit:true&quot; rownumbers=&quot;true&quot; idField=&apos;deptId&apos; method=&apos;post&apos; toolbar=&apos;#toolbar1&apos;&gt;</div><div class="line">     &lt;thead&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;deptId&quot; width=&quot;5%&quot; align=&quot;center&quot;&gt;学院/部门ID&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;deptName&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;学院/部门名称&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;jobTime&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;岗位时间&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;teacherName&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;指导老师&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;telephone&quot; width=&quot;7%&quot; align=&quot;center&quot;&gt;指导老师电话&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;guideTrain&quot; width=&quot;10%&quot; align=&quot;center&quot;&gt;指导与培训体系&lt;/th&gt;</div><div class="line">           &lt;th colspan=&quot;6&quot; align=&quot;center&quot; &gt;岗位要求&lt;/th&gt;</div><div class="line">            &lt;th rowspan=&quot;2&quot; field=&quot;statusCodeName&quot; align=&quot;center&quot; width=&quot;5%&quot;&gt;审核状态&lt;/th&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt; </div><div class="line">            &lt;th field=&quot;officeName&quot; align=&quot;center&quot; width=&quot;9%&quot;&gt;设岗科室名称&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;typeName&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;岗位类型&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;jobNum&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;设岗科室岗位数&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;jobWork&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;科室工作量&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;responsibility&quot; align=&quot;center&quot; width=&quot;10%&quot;&gt;科室工作职责&lt;/th&gt;</div><div class="line">             &lt;th field=&quot;ability&quot; align=&quot;center&quot; width=&quot;12%&quot;&gt;科室岗位培养的综合素质&lt;/th&gt;</div><div class="line">           </div><div class="line">        &lt;/tr&gt;</div><div class="line">     &lt;/thead&gt;</div><div class="line">  &lt;/table&gt;</div></pre></td></tr></table></figure></p>
+<p>查询部分的js代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function doFind()&#123;</div><div class="line">//获取查询条件</div><div class="line">        var val = $(&apos;#dd&apos;).combobox(&apos;getValue&apos;);</div><div class="line">        var teacherName = $(&apos;#dd1&apos;).val();</div><div class="line">        var officeName = $(&apos;#dd2&apos;).val();</div><div class="line">        var type = $(&apos;#dd3&apos;).combobox(&apos;getValue&apos;);</div><div class="line">//根据查询条件在表格tt中load出来</div><div class="line">$(&quot;#tt1&quot;).datagrid(&apos;load&apos;,&#123;</div><div class="line">deptId:val,</div><div class="line">teacherName:teacherName,</div><div class="line">officeName:officeName,</div><div class="line">type:type</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>但是发现这样有问题，如果某项没填，比如teacherName为空，那么将会在表格中查询teacherName为空的项，从而查不到结果。<br>因此采取先判断查询项是否为空，才能得出正确结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">function doFind()&#123;</div><div class="line">        var val = $(&apos;#dd&apos;).combobox(&apos;getValues&apos;);//允许多选的情况，首先要在id为dd的combobox设置multipl为true</div><div class="line">       if (val[0] == &apos;&apos;) &#123;</div><div class="line">           val = val.slice(1)</div><div class="line">       &#125;</div><div class="line">       var teacherName = $(&apos;#dd1&apos;).val();</div><div class="line">       var officeName = $(&apos;#dd2&apos;).val();</div><div class="line">       var type = $(&apos;#dd3&apos;).combobox(&apos;getValue&apos;)</div><div class="line">       var deptIds = val.join(&apos;,&apos;);//将每项用,分开</div><div class="line">       var query = &#123;&#125;</div><div class="line">      //判断查询条件是否为空，将查询条件保存到对象中</div><div class="line">       if(teacherName)&#123;</div><div class="line">           query.teacherName=teacherName;</div><div class="line">       &#125;</div><div class="line">       if(officeName)&#123;</div><div class="line">           query.officeName=officeName;</div><div class="line">       &#125;</div><div class="line">       if(type)&#123;</div><div class="line">           query.type=type;</div><div class="line">       &#125;</div><div class="line">        if(deptIds)&#123;</div><div class="line">           query.deptId=deptIds;</div><div class="line">       &#125;</div><div class="line">             </div><div class="line">           $(&apos;#tt1&apos;).datagrid(&apos;load&apos;, query);</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/10/easyui的dialog中插入下拉框/" title="easyui的dialog中插入下拉框" itemprop="url">easyui的dialog中插入下拉框</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-10T12:53:55.000Z" itemprop="datePublished"> Published 2017-04-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>easyui是一个集成了各种用户界面的插件的框架，特别使用各种表格的开发，能大大节省时间。在项目中遇到的问题时，下dialog中无法使用combobox生成下拉框，于是只能通过打开dialog时插入一个下拉框。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$(&apos;#fm_deptId&apos;).append(&apos;&lt;option&gt;bitem6&lt;/option&gt;&apos;);</div><div class="line">        var depts = [];</div><div class="line">        var query = &#123;</div><div class="line">            rows: 200,</div><div class="line">            page: 1</div><div class="line">        &#125;</div><div class="line">        var newHtml = &apos;&apos;;</div><div class="line">        $.ajax(&#123;</div><div class="line">            type: &apos;POST&apos;,</div><div class="line">            async: false,</div><div class="line">            url: url_queryDept,//向接口请求下拉框数据</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            data: JSON.stringify(query),</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function(data) &#123;</div><div class="line">                $.each(data.result, function(i, val) &#123;</div><div class="line">                    var temp = val.deptId + val.deptName;数据由一个id和name组成</div><div class="line">                    var option = &apos;&lt;option value=&apos; + val.deptId + &apos;&gt;&apos; + temp + &apos;&lt;/option&gt;&apos;;</div><div class="line">                    newHtml = newHtml + option;</div><div class="line">                &#125;)</div><div class="line">                $(&apos;#fm_deptId&apos;)[0].innerHTML = newHtml;                          </div><div class="line">            &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>注：如果想要选中下拉框的某一个选项作为下拉框的默认值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#fm_deptId  option[value=&apos;+ current_deptId+&apos;] &apos;).attr(&quot;selected&quot;,true);</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/10/win10永久激活方方法/" title="win10永久激活方方法" itemprop="url">win10永久激活方方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-10T12:44:58.000Z" itemprop="datePublished"> Published 2017-04-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天提示win10许可证要过期了，于是尝试了各种工具，Microsoft Toolkit、HEU_KMS_Activator、KMS10_Crack2都不行，最后在网上找到了这个方法，一分钟不到就搞定了，分享一下网址<a href="https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。" target="_blank" rel="external">https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/10/JS与jQuery显示和隐藏div/" title="JS与jQuery显示和隐藏div" itemprop="url">JS与jQuery显示和隐藏div</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-10T12:25:07.000Z" itemprop="datePublished"> Published 2017-04-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;div&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;block&quot;;</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;none&quot;;//不占用空间</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;hidden&quot;;//仍然占用空间</div></pre></td></tr></table></figure></p>
+<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//通过css方法设置属性</div><div class="line">$(&quot;#div&quot;).css(&quot;diaplay&quot;,&quot;block&quot;);</div><div class="line">//给元素换class，提前将换的class样式定义好display属性</div><div class="line">$(&quot;#div&quot;).attr(&quot;class&quot;,&quot;blockclass&quot;);</div><div class="line">//通过attr方法</div><div class="line">$(&quot;#div&quot;).attr(&quot;display&quot;,&quot;block&quot;);</div></pre></td></tr></table></figure></p>
+<p>注：jQuery的css方法和attr方法的区别,css顾名思义就是标签自带的css属性，atrr只能取自己定义的属性，例如，如果div中没有diaplay这个属性的话，不能用过attr给其赋值，但是可以用css方法。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/10/JS与jQuery清空输入框/" title="JS与jQuery清空输入框" itemprop="url">JS与jQuery清空输入框</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-10T12:12:09.000Z" itemprop="datePublished"> Published 2017-04-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;input&quot;).value=&quot;&quot;;</div></pre></td></tr></table></figure></p>
+<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#input&quot;).val(&quot;&quot;);</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/09/java二维排序数组查找元素/" title="java二维排序数组查找元素" itemprop="url">java二维排序数组查找元素</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-09T13:09:30.000Z" itemprop="datePublished"> Published 2017-04-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<h3 id="简单做法"><a href="#简单做法" class="headerlink" title="简单做法"></a>简单做法</h3><p>看到这个题目，如果不考虑数组元素的排序，只考虑能不能找到的话，非常简单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     for(int i=0;i&lt;array.length;i++)&#123;</div><div class="line">           for(int j=0;j&lt;array[0].length;j++)&#123;</div><div class="line">               if(array[i][j]==target)&#123;</div><div class="line">                   return true;</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/R1O8tor.png" alt=""></p>
+<h3 id="题目的本质"><a href="#题目的本质" class="headerlink" title="题目的本质"></a>题目的本质</h3><p>因为数组是排序的，所以考虑用二分查找，而查找不能盲目的查找，比如从第一个元素开始查找，如果比目标元素小，是往下找还是往右找呢，同里也不能从最后一个元素开始查找，可以从第一行最右边开始查找，如果比目标元素大就往左查找，反之往下查找，同理也可以从第一列最下边开始查找。举例从第一行最右边开始查找，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     int row=0;</div><div class="line">       int col=array[0].length-1;</div><div class="line">       while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">           if(array[row][col]==target) &#123;</div><div class="line">               return true;</div><div class="line">           &#125;</div><div class="line">           else if(array[row][col]&lt;target)&#123;</div><div class="line">               row++;</div><div class="line">           &#125;</div><div class="line">           else&#123;</div><div class="line">               col--;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<h4 id="运行效果-1"><a href="#运行效果-1" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/k5vNfmD.png" alt=""></p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package com.company;</div><div class="line">import java.util.Scanner;</div><div class="line">public class Solution &#123;</div><div class="line">    public boolean Find(int target, int [][] array) &#123;</div><div class="line">      int row=0;</div><div class="line">        int col=array[0].length-1;</div><div class="line">        while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">            if(array[row][col]==target) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">            else if(array[row][col]&lt;target)&#123;</div><div class="line">                row++;</div><div class="line">            &#125;</div><div class="line">            else&#123;</div><div class="line">                col--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">    public static void main(String srgs[])&#123;</div><div class="line">        Scanner s=new Scanner(System.in);</div><div class="line">        System.out.println(&quot;请输入数组的行和列&quot;);</div><div class="line">        int x=s.nextInt();</div><div class="line">        int y=s.nextInt();</div><div class="line">        int [][]arr=new int[x][y];</div><div class="line">        System.out.println(&quot;请输入数组元素&quot;);</div><div class="line">        for(int i=0;i&lt;x;i++)&#123;</div><div class="line">            for(int j=0;j&lt;y;j++)&#123;</div><div class="line"></div><div class="line">               arr[i][j]=s.nextInt();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(&quot;请输入你想查找的数：&quot;);</div><div class="line">        int t=s.nextInt();</div><div class="line">      Solution a=new Solution();</div><div class="line"></div><div class="line">        if(a.Find(t,arr))&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">else&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中没有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/09/基于easyui项目学习的总结（一）/" title="基于easyui项目学习的总结（一）" itemprop="url">基于easyui项目学习的总结（一）</a>
   </h1>
   <p class="article-author">By
@@ -128,196 +491,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/08/git bash命令上传下载代代码/" title="git bash命令上传下载代代码" itemprop="url">git bash命令上传下载代代码</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-08T12:37:28.000Z" itemprop="datePublished"> Published 2017-04-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>git bash是window下的命令行工具，在官网上下载git for windows安装即可。如何通过git bash将代码传到git上和下载到本地的呢remote</p>
-<h3 id="上传到git"><a href="#上传到git" class="headerlink" title="上传到git"></a>上传到git</h3><p>1、安装完成后，在命令行输入下面的代码进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;your real name&quot;</div><div class="line">$ git config --global user.email &quot;your eamil address&quot;</div></pre></td></tr></table></figure></p>
-<p>注：”your real name“是你的真实姓名，”your eamil address”是你的注册github的邮箱<br>2、在主用户目录下，输入下面的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C &quot;your eamil address</div></pre></td></tr></table></figure></p>
-<p> 然后在自己电脑的C盘下找到.ssh文件夹，用记事本打开里面的id_rsa.pub,复制里面的内容。登陆Github，在账户设置里找到SSH keys页面，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容。<br>3、利用”cd”命令将路径切换到你要上传的代码所在的文件夹下面（或者打开你要上传的代码的文件夹，右键git bash here）,输入一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$git init  //把目录变成git可以管理的仓库</div><div class="line">$git add .  //add后面加&quot;.&quot;表示上传所以的代码，如果想上传指定的，只需要把&quot;.&quot;改成文件名即可</div><div class="line">$git commit -m &quot;你对文件的描述&quot;  //提交你对文件的描述</div></pre></td></tr></table></figure></p>
-<p>4、在本地仓库目录下输入下面命令将本地仓库和远程仓库关联（如果已经上传过代码了，可以直接跳到第6步）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$git remote add orgin git@github.com:yonghuming/kuming.git</div></pre></td></tr></table></figure></p>
-<p>origin可是换成你想要的任何名字，但是要记住这个源名字（与第6步的origin对应，我每次都是新起一个名字因为经常提示origin已经存在了）<br>5、输入如下代码，将自己的文件上传<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$git push -u origin master</div></pre></td></tr></table></figure></p>
-<p>其实github上每次创建一个新的仓库的时候，都有命令提示<br><img src="http://i.imgur.com/ZKONJeq.png" alt=""></p>
-<h3 id="从git上下载"><a href="#从git上下载" class="headerlink" title="从git上下载"></a>从git上下载</h3><p>$git clone git@github.com:yonghuming/kuming.git</p>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>$git pull origin master</p>
-<h3 id="经常遇到的问题"><a href="#经常遇到的问题" class="headerlink" title="经常遇到的问题"></a>经常遇到的问题</h3><p>error:src refspec master does not match any<br>原因：本地版本库为空，空目录不能提交</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/04/Github-Pages-Hexo搭建教程/" title="Github Pages+Hexo搭建教程" itemprop="url">Github Pages+Hexo搭建教程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-04T13:44:17.000Z" itemprop="datePublished"> Published 2017-04-04</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>越来越感觉世界真是太大了，每天学习很多东西，希望能够记录下来自己学习的点点滴滴，也能分享给更多的人，因此搭建了这个博客。<br>关于为什么选择github pages而不是wordpress，因为github pages有300M免费空间，资料自己管理，保存可靠，而且现在的项目开发，团队协作都需要用到github，通过搭建博客也更好的学习了如何使用github。</p>
-<h2 id="github安装"><a href="#github安装" class="headerlink" title="github安装"></a>github安装</h2><p>在官网<a href="https://git-for-windows.github.io/上下载git，安装比较简单。" target="_blank" rel="external">https://git-for-windows.github.io/上下载git，安装比较简单。</a><br>访问<a href="http://www.github.com/，注册username和邮箱，注册过程也比较简单。" target="_blank" rel="external">http://www.github.com/，注册username和邮箱，注册过程也比较简单。</a></p>
-<h2 id="使用GitHub-Pages建立博客"><a href="#使用GitHub-Pages建立博客" class="headerlink" title="使用GitHub Pages建立博客"></a>使用GitHub Pages建立博客</h2><h3 id="github建立仓库"><a href="#github建立仓库" class="headerlink" title="github建立仓库"></a>github建立仓库</h3><p>登陆系统后，在github首页，点击页面右下角New Repository<br><img src="http://i.imgur.com/v8Lk46D.png" alt=""><br>填写项目信息：<br>project name:aliceflaviawang.github.io<br>注：GitHub Pages的Repository名字是特定的，比如我的Github账号是aliceflaviawang,那么我的GitHub Pages Repository名字就是aliceflaviawang.github.io。<br>点击Create Reposity完成创建。<br>进入创建的仓库，打开Settings<br><img src="http://i.imgur.com/Y0wL28v.png" alt=""><br>选择一个主题<br><img src="http://i.imgur.com/dHRoRry.png" alt=""><br>选择完毕，回到仓库页面，发现多了两个文件，_config.yml是配置文件。<br><img src="http://i.imgur.com/ijwYMdZ.png" alt=""><br>此时打开aliceflaviawang.github.io，可以看到index.md显示的内容。</p>
-<h2 id="安装node-js"><a href="#安装node-js" class="headerlink" title="安装node.js"></a>安装node.js</h2><p>参考教程<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html，非常简单。" target="_blank" rel="external">http://www.runoob.com/nodejs/nodejs-install-setup.html，非常简单。</a></p>
-<h2 id="用Hexo克隆主题"><a href="#用Hexo克隆主题" class="headerlink" title="用Hexo克隆主题"></a>用Hexo克隆主题</h2><h3 id="Hexo介绍"><a href="#Hexo介绍" class="headerlink" title="Hexo介绍"></a>Hexo介绍</h3><p>Hexo是一个简单、快速、强大的博客发布工具，支持Markdown格式</p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>打开git bash<br><img src="http://i.imgur.com/uYDBON6.png" alt=""><br>或者cmd,进入node文件夹，安装hexo<br><img src="http://i.imgur.com/0aql1aJ.png" alt=""><br>注：-g是全局安装的意思</p>
-<h3 id="部署Hexo"><a href="#部署Hexo" class="headerlink" title="部署Hexo"></a>部署Hexo</h3><p>在我的电脑中建立一个名叫Hexo的文件夹，然后在此文件夹中右键打开Git Bash.<br><img src="http://i.imgur.com/3Q0whFE.png" alt=""><br>Hexo会自动在目标文件夹建立网站所需要的所有文件。</p>
-<h3 id="复制主题"><a href="#复制主题" class="headerlink" title="复制主题"></a>复制主题</h3><p>建立Hexo之后就可以复制主题了，网上有很多好看的主题可以自己选择。此处选择的是wuchong的主题。<br><img src="http://i.imgur.com/0ixZIoS.png" alt=""></p>
-<h3 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h3><p>修改Hexo目录下的_config.yml,将theme属性设置为jacman。<br><img src="http://i.imgur.com/LypOezH.png" alt=""></p>
-<h3 id="更新主题"><a href="#更新主题" class="headerlink" title="更新主题"></a>更新主题</h3><p><img src="http://i.imgur.com/Iht64kt.png" alt=""></p>
-<h3 id="本地查看调试"><a href="#本地查看调试" class="headerlink" title="本地查看调试"></a>本地查看调试</h3><p><img src="http://i.imgur.com/gO8zvjJ.png" alt=""></p>
-<p>hexo g是生成，hexo d是部署，可是先后使用或者直接使用组合命令hexo d -g，发现Hexo文件夹生成了public文件。<br><img src="http://i.imgur.com/Bx059qg.png" alt=""></p>
-<h3 id="查看搭建效果"><a href="#查看搭建效果" class="headerlink" title="查看搭建效果"></a>查看搭建效果</h3><p>浏览器输入<a href="http://localhost:4000,查看搭建效果。" target="_blank" rel="external">http://localhost:4000,查看搭建效果。</a><br>如果localhost:4000无法访问，是因为你的电脑端口被占用了，而hexo默认的端口是4000，可以通过修改端口来解决这个问题。<br><img src="http://i.imgur.com/4YHTq94.png" alt=""></p>
-<p>比如将端口改成4040<br>现在就可以看到效果了<br><img src="http://i.imgur.com/l6fA31h.png" alt=""></p>
-<h2 id="Hexo设置"><a href="#Hexo设置" class="headerlink" title="Hexo设置"></a>Hexo设置</h2><p>网站搭建完成之后，可以根据需要对Hexo生产的网站进行设置，设置是修改_config.yml，我复制一下别人的设置，可以参考一下。</p>
-<figure class="highlight plain"><figcaption><span>Hexo Configuration</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line">## Docs: https://hexo.io/docs/configuration.html</div><div class="line">## Source: https://github.com/hexojs/hexo/</div><div class="line"></div><div class="line"># Site</div><div class="line">title: XTong notes</div><div class="line">subtitle: Live beautifully, dream passionately, love completely</div><div class="line">description: You Never Know Who You Are</div><div class="line">author: X T W</div><div class="line">language: zh-Hans</div><div class="line">timezone: Asia/Shanghai</div><div class="line"></div><div class="line"># URL</div><div class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;</div><div class="line">url: https://aliceflaviawang.github.io/</div><div class="line">root: /</div><div class="line">permalink: :year/:month/:day/:title/</div><div class="line">permalink_defaults:</div><div class="line"></div><div class="line"># Directory</div><div class="line">source_dir: source</div><div class="line">public_dir: public</div><div class="line">tag_dir: tags</div><div class="line">archive_dir: archives</div><div class="line">category_dir: categories</div><div class="line">code_dir: downloads/code</div><div class="line">i18n_dir: :lang</div><div class="line">skip_render:</div><div class="line"></div><div class="line"># Writing</div><div class="line">new_post_name: :title.md # File name of new posts</div><div class="line">default_layout: post</div><div class="line">titlecase: false # Transform title into titlecase</div><div class="line">external_link: true # Open external links in new tab</div><div class="line">filename_case: 0</div><div class="line">render_drafts: false</div><div class="line">post_asset_folder: false</div><div class="line">relative_link: false</div><div class="line">future: true</div><div class="line">highlight:</div><div class="line">  enable: true</div><div class="line">  line_number: true</div><div class="line">  auto_detect: false</div><div class="line">  tab_replace:</div><div class="line"></div><div class="line"># Category &amp; Tag</div><div class="line">default_category: other</div><div class="line">category_map:</div><div class="line">tag_map:</div><div class="line"></div><div class="line"># Date / Time format</div><div class="line">## Hexo uses Moment.js to parse and display date</div><div class="line">## You can customize the date format as defined in</div><div class="line">## http://momentjs.com/docs/#/displaying/format/</div><div class="line">date_format: YYYY-MM-DD</div><div class="line">time_format: HH:mm:ss</div><div class="line"></div><div class="line"># Pagination</div><div class="line">## Set per_page to 0 to disable pagination</div><div class="line">per_page: 8</div><div class="line">pagination_dir: page</div><div class="line"></div><div class="line"># Extensions</div><div class="line">## Plugins: https://hexo.io/plugins/</div><div class="line">## Themes: https://hexo.io/themes/</div><div class="line">theme: jacman</div><div class="line"></div><div class="line"></div><div class="line"># Deployment</div><div class="line">## Docs: https://hexo.io/docs/deployment.html</div><div class="line">deploy:</div><div class="line">  type: git</div><div class="line">  repo: https://github.com/aliceflaviawang/aliceflaviawang.github.io.git</div><div class="line">  branch: master</div><div class="line"></div><div class="line">feed:</div><div class="line">  type: atom</div><div class="line">  path: atom.xml</div><div class="line">  limit: 20</div><div class="line">  hub:</div><div class="line"> </div><div class="line">baidusitemap:</div><div class="line">    path: baidusitemap.xml</div><div class="line">search:</div><div class="line">    path: search.xml</div><div class="line">    field: post</div><div class="line">    format: html</div><div class="line">    limit: 10000</div></pre></td></tr></table></figure>
-<p>注：与gitgub pages建立关联（非常关键）<br><img src="http://i.imgur.com/oz5FlsU.png" alt=""></p>
-<h3 id="发表新文章"><a href="#发表新文章" class="headerlink" title="发表新文章"></a>发表新文章</h3><p>使用hexo发表文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo n #写文章</div></pre></td></tr></table></figure></p>
-<p>写完之后，推送到服务器上，执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo g #生成</div><div class="line">$ hexo d #部署 或者hexo d -g</div></pre></td></tr></table></figure></p>
-<p>或者使用markdown来写文章<br>常用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new post &quot;postname&quot; #新建文章</div></pre></td></tr></table></figure></p>
-<p>注：如果 $ hexo d命令提示ERROR Deployer not found: git，解决办法 $ npm install hexo-deployer-git –save,然后再重新生成部署。hexo d实际上就是将博客部署到gitgub上去。<br>hexo new post执行后会在项目source_posts中生成postname.md文件，用编辑器打开即可编辑，也可以直接在source_posts中新建一个md文件。<br>写完之后，部署到服务器上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo g</div><div class="line">$ hexo d</div></pre></td></tr></table></figure></p>
-<p>打开aliceflaviawang.github.io,可以看到第一篇博客了<br><img src="http://i.imgur.com/QStY3zn.png" alt=""></p>
-<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>其实搭建博客不一定需要域名，当然如果你嫌github.io不够高大上，当然可以买个域名来装x.<br>很多地方可以买域名，不只是godaddy，像腾讯云、万网…很多，我在godaddy中文网站上上买了aliceflaviawang.com这个网站，因为中文网站指引比较明确，就不详说了。</p>
-<h3 id="将域名与Github-Pages空间绑定"><a href="#将域名与Github-Pages空间绑定" class="headerlink" title="将域名与Github Pages空间绑定"></a>将域名与Github Pages空间绑定</h3><h4 id="GitHub-pages设置"><a href="#GitHub-pages设置" class="headerlink" title="GitHub pages设置"></a>GitHub pages设置</h4><p>方法一：在Repository的根目录下面，新建一个名为CNAME的文本文件，里面写入你想要绑定的域名，比如aliceflaviawang.com<br>方法二：点击setting，在custom domain下面天上你想要绑定的域名，点击save，会自动生成一个CNAME文件，里面保存的就是你的域名了。<br><img src="http://i.imgur.com/c8zrjMc.png" alt=""></p>
-<h4 id="DNS设置"><a href="#DNS设置" class="headerlink" title="DNS设置"></a>DNS设置</h4><p>用DNSpod，我在腾讯云上注册了下，注意必须实名认证了才让你解析域名，由于我的域名已经退了，就直接使用别人的图片<br><img src="http://i.imgur.com/DoXEiYI.png" alt=""></p>
-<p>添加域名，如下图设置<br>其中A的两条记录指向的ip地址是github pages提供的地址，这个记录是云解析解析出来的结果，云解析会提示去godaddy修改dns地址。<br>我采用的方式是自己添加，首先ping <a href="http://aliceflaviawang.github.io的地址，获得A的地址添加，然后添加www域名地址。" target="_blank" rel="external">http://aliceflaviawang.github.io的地址，获得A的地址添加，然后添加www域名地址。</a></p>
-<h4 id="godaddy修改DNS"><a href="#godaddy修改DNS" class="headerlink" title="godaddy修改DNS"></a>godaddy修改DNS</h4><p>点击我的账户里–&gt;点击域名–&gt;将godaddy的NameServer更改成f1g1ns1.dnspod.net和f1g1ns2.dnspod.net （域名解析后提示）。</p>
-<h4 id="访问博客"><a href="#访问博客" class="headerlink" title="访问博客"></a>访问博客</h4><p>现在就不需要访问aliceflaviawang.github.io了，可以直接访问aliceflaviawang.com<br>注：如果访问的时候发现页面是github首页，说明需要清除一下缓存了。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>本博客主要参考的是<a href="http://blog.sina.com.cn/s/blog_617ccc0c0101h84p.html。" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_617ccc0c0101h84p.html。</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/04/我的第一篇博客/" title="我的第一篇博客" itemprop="url">我的第一篇博客</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-04T13:28:41.000Z" itemprop="datePublished"> Published 2017-04-04</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>清明节放假的最后一天，终于搭建了这个博客，心情还是比较激动的，希望以后能够通过博客这种方式记录下每天的进步！</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
   </nav>
 
 </div>

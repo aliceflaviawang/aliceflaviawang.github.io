@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>src和href的区别 | 笑呵呵</title>
+    <title>http头：Expires,Cache-Control,Last-Modified,ETag | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+    <meta name="description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。 1. Expires（过期时间）Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。 缺点：  客户端与服务器时间">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="src和href的区别">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/index.html">
+<meta property="og:title" content="http头：Expires,Cache-Control,Last-Modified,ETag">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
-<meta property="og:updated_time" content="2017-07-16T14:45:25.556Z">
+<meta property="og:description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。 1. Expires（过期时间）Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。 缺点：  客户端与服务器时间">
+<meta property="og:updated_time" content="2017-07-17T03:30:31.908Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="src和href的区别">
-<meta name="twitter:description" content="hrefhref标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。 当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。  src一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求s">
+<meta name="twitter:title" content="http头：Expires,Cache-Control,Last-Modified,ETag">
+<meta name="twitter:description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。 1. Expires（过期时间）Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。 缺点：  客户端与服务器时间">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -82,14 +82,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/07/15/src和href的区别/" title="src和href的区别" itemprop="url">src和href的区别</a>
+      <a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" title="http头：Expires,Cache-Control,Last-Modified,ETag" itemprop="url">http头：Expires,Cache-Control,Last-Modified,ETag</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-15T12:00:43.000Z" itemprop="datePublished"> Published 2017-07-15</time>
+    <time datetime="2017-07-17T02:01:46.000Z" itemprop="datePublished"> Published 2017-07-17</time>
     
   </p>
 </header>
@@ -98,21 +98,32 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number">1.</span> <span class="toc-text">总结：</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
-<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
-<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
-<h4 id="顺便提一下css-js的放置位置"><a href="#顺便提一下css-js的放置位置" class="headerlink" title="顺便提一下css,js的放置位置"></a>顺便提一下css,js的放置位置</h4><p>css放在页面头部，页面渲染时是根据DOM结构生成了一个DOM树然后加上css样式生成渲染树，如果css放在后面可能页面会出现闪跳的感觉，白屏或者布局混乱直到css加载完成。</p>
-<p>js一般放在之前：因为</p>
+		<p>缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。</p>
+<p>让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。</p>
+<p><strong>1. Expires（过期时间）</strong><br>Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。</p>
+<p>缺点：</p>
 <ol>
-<li>执行到<script>这句的时候，会中断其他资源的下载和处理(因为js有可能会修改DOM，所以会阻塞其他的下载和呈现)，知道其下载、解析、执行完毕，因此不能放在头部会组阻塞页面</li>
-<li>不能将需要访问dom元素的<script>放在body之前，因为此时还没生成dom，在body之前访问dom元素会出错<br>（ 但也不能将所有的放在body之后，一些页面的效果的实现，是需要预先动态的加载一些js脚本的）</li>
+<li>客户端与服务器时间不同步导致Expire的配置出现问题</li>
+<li>很容易在配置后忘记具体的过期时间，导致过期来临出现浪涌现象</li>
 </ol>
-</script></li></ol>  
+<p><strong>2. Cache-Control（缓存控制） Http头信息</strong><br>Cache-Control让网站发布者可以更全面的控制他们的内容，并定位过期时间的限制。</p>
+<ul>
+<li>public响应头，通知浏览器无条件缓存该响应</li>
+<li>private响应头，通知浏览器只针对单个用户缓存响应。且可以具体指定某个字段。如：private-“username”</li>
+<li>no-cache请求头，浏览器去服务器取数据并验证缓存。响应头告诉浏览器必须要回复服务器校验，不管有没有缓存。如果确定没有被改，可以使用缓存中的数据</li>
+<li>no-store要求浏览器任何情况下都不要缓存</li>
+<li>max-age 强制浏览器根据该值校验缓存。即自身age值，与请求时间做比较，如果超过max-age值，则强制去服务器端验证。以确保返回一个新鲜的响应。其功能与传统的Expire类似，但区别在于Expire是根据某个特定日期值做比较，一旦客户端自身的时间不准确，则结果可能就是错误的，而max-age则是客户端时间比较。max-age的优先级高于Expire。</li>
+</ul>
+<p>Expire指定的时间可以是相对文件的最后访问时间（Atime）或者修改时间（Mtime），而max-age相对的是文档的请求时间（Atime）</p>
+<p><strong>3. Last-Modified/If-Modified-Since</strong><br>告诉服务器上一次从服务器连同数据所获得的日期，如果数据从那时起没有改变，服务器发送状态代码304，不再重新发送数据。</p>
+<p><strong>4. ETag/If-None-Match</strong><br>是实现与最近修改数据检查同样的功能的另一种方法，没有变化时不重新下载数据</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>Exipire/Cache-Control header是控制浏览器是否直接从浏览器缓存中获取数据还是重新发送请求到服务器取数据。只是Cache-Control比Expires控制的多些，而且Cache-control会重写Expires规则。</p>
+<p>Last-Modified/ETag是浏览器发送请求到服务器后判断文件是否修改过，如果没有修改过就只发送一个304给浏览器，告诉浏览器从本地缓存取数据；如果修改过那就整个数据重新发送给浏览器。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -124,7 +135,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/07/15/src和href的区别/" data-title="src和href的区别 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" data-title="http头：Expires,Cache-Control,Last-Modified,ETag | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -138,18 +149,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/07/14/li元素逆序/" title="li元素逆序">
+ <a href="/2017/07/16/border-radius-50-和100/" title="border-radius:50%和100%">
   <strong>上一篇：</strong><br/>
   <span>
-  li元素逆序</span>
+  border-radius:50%和100%</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/07/15/同步和异步/"  title="同步和异步">
+<a href="/2017/07/17/inline-block和float的区别/"  title="inline-block和float的区别">
  <strong>下一篇：</strong><br/> 
- <span>同步和异步
+ <span>inline-block和float的区别
 </span>
 </a>
 </div>
@@ -164,7 +175,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#href"><span class="toc-number">1.</span> <span class="toc-text">href</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#src"><span class="toc-number">2.</span> <span class="toc-text">src</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#顺便提一下css-js的放置位置"><span class="toc-number">2.1.</span> <span class="toc-text">顺便提一下css,js的放置位置</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number">1.</span> <span class="toc-text">总结：</span></a></li></ol>
  
   </div>
 

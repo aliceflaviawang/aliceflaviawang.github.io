@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-07-17T05:59:31.968Z</updated>
+  <updated>2017-07-31T01:33:29.142Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,123 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Promise</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/31/Promise/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/31/Promise/</id>
+    <published>2017-07-31T01:33:29.000Z</published>
+    <updated>2017-07-31T01:33:29.142Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>猜数游戏</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/29/%E7%8C%9C%E6%95%B0%E6%B8%B8%E6%88%8F/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/29/猜数游戏/</id>
+    <published>2017-07-29T08:44:01.000Z</published>
+    <updated>2017-07-29T09:29:45.325Z</updated>
+    
+    <content type="html"><![CDATA[<p>牛客上的猜数题，分析过程非常有意思，记录一下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">牛牛和羊羊在玩一个有趣的猜数游戏。在这个游戏中,牛牛玩家选择一个正整数,羊羊根据已给的提示猜这个数字。第i个提示是&quot;Y&quot;或者&quot;N&quot;,表示牛牛选择的数是否是i的倍数。例如,如果提示是&quot;YYNYY&quot;,它表示这个数使1,2,4,5的倍数,但不是3的倍数。注意到一些提示会出现错误。例如: 提示&quot;NYYY&quot;是错误的,因为所有的整数都是1的倍数,所以起始元素肯定不会是&quot;N&quot;。此外,例如&quot;YNNY&quot;的提示也是错误的,因为结果不可能是4的倍数但不是2的倍数。现在给出一个整数n,表示已给的提示的长度。请计算出长度为n的合法的提示的个数。例如 n = 5:合法的提示有:YNNNN YNNNY YNYNN YNYNY YYNNN YYNNYYYNYN YYNYY YYYNN YYYNY YYYYN YYYYY所以输出12 输入描述:</div><div class="line">输入包括一个整数n(1 ≤ n ≤ 10^6),表示已给提示的长度。</div><div class="line">输出描述:</div><div class="line">输出一个整数,表示合法的提示个数。因为答案可能会很大,所以输出对于1000000007的模</div><div class="line">输入例子1:</div><div class="line">5</div><div class="line">输出例子1:</div><div class="line">12</div></pre></td></tr></table></figure></p>
+<p>分析：<br>首先看有几种可能：</p>
+<ol>
+<li>如果第i个数是素数，前面除了1没有能除尽的，所以i有Y和N两种可能</li>
+<li>如果第i个数是素数的幂次，比如输入的是12，那么其中2、4、8是素数2的幂次，分析下2、4、8，有YYY、NNN、YNN、YYN四种可能，3、9是素数3的幂次，有YY、NN、YN两种可能…总结规律得出如果有n个幂次，就有n+1种可能的情况。</li>
+<li>如果第i个数不是素数的幂次，比如6、10，可以发现，6取决于2、3，如果2、3为YY，6必然为Y，其他情况都为N，也就是6、10这种并非素数的幂次的数并不影响可能的情况</li>
+</ol>
+<p>因此，只需要考虑素数幂次的个数（素数是特殊的幂次即一次幂，如果有n个幂次，就有n+1种可能）。<br>对12来说：有4<em>3</em>2<em>2</em>2种可能，对应的分别是（2、4、8）、（3、9）、（5）、（7）、（9）.<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function count(n)&#123;</div><div class="line">   var mod=Math.pow(10,9)+7; //防止答案过大，输出对于1000000007的模</div><div class="line">   var ans=1;//结果</div><div class="line">   var arr=[];//定义布尔数组</div><div class="line">   for(var i=2;i&lt;=n;i++)&#123;</div><div class="line">     var count=0; //统计幂次</div><div class="line">     //找出素数</div><div class="line">     if(arr[i])</div><div class="line">       continue;</div><div class="line">      for(var j=i+i;j&lt;=n;j+=i)&#123;</div><div class="line">         arr[j]=true;</div><div class="line">     &#125;</div><div class="line">     var mi=i;</div><div class="line">     while(mi&lt;=n)&#123;</div><div class="line">       count++;</div><div class="line">       mi*=i;</div><div class="line">    &#125;</div><div class="line">    ans=ans*(count+1)%mod;</div><div class="line">  &#125;</div><div class="line">  console.log(ans);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;牛客上的猜数题，分析过程非常有意思，记录一下。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ORACLE导入dmp文件详解</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/27/ORACLE%E5%AF%BC%E5%85%A5dmp%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/27/ORACLE导入dmp文件详解/</id>
+    <published>2017-07-27T02:19:16.000Z</published>
+    <updated>2017-07-27T03:28:15.657Z</updated>
+    
+    <content type="html"><![CDATA[<p>折腾了一天终于导入成功并查看到了，决定写个教程。<br>准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。</p>
+<ol>
+<li>安装oracle 11g<br>这个比较简单，百度上很多教程如：<a href="http://www.cnblogs.com/qfb620/p/4577255.html。" target="_blank" rel="external">http://www.cnblogs.com/qfb620/p/4577255.html。</a></li>
+</ol>
+<p>需要注意的是<br><img src="http://i.imgur.com/SS9Ee2V.png" alt=""><br>这一步不要填电子邮件，否则会报连接错误<br><img src="http://i.imgur.com/1Ha6MKi.png" alt=""><br>这一步填写口令的时候主要开头不要是数字，否则安装完会报错（但是不确定有没有影响）</p>
+<ol>
+<li>安装完成后修改用户名和密码<br>在控制台用sqlplus / as sysdba登陆oracle系统<br><img src="http://i.imgur.com/LVJ31Nu.png" alt=""><br>使用命令修改用户名密码<br>alter user 用户名 indentified by “密码”</li>
+</ol>
+<ol>
+<li>打开pl/sql developer<br>初始打开时<br><img src="http://i.imgur.com/AElweZ7.png" alt=""><br>用户名和密码为第2步修改的用户名和密码，数据库是“ip/数据库名（默认是orcl）”</li>
+</ol>
+<p>点击登录，报错<br><img src="http://i.imgur.com/fPYQPZq.png" alt=""><br>解决办法：在未登陆的情况下进入pl/sql，在工具-&gt;首选项-&gt;连接里面设置Oracle主目录名和OCI库（其中Oracle主目录在Oracle安装目录下，OCI在安装目录的BIN目录下）<br><img src="http://i.imgur.com/8dgBtn4.png" alt=""></p>
+<p>再次登陆，依然报错，原因是无法load BIN目录下的oci.dll文件<br><img src="http://i.imgur.com/U7U0VWr.png" alt=""><br>解决办法：  在这个地址<a href="http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program" target="_blank" rel="external">http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program</a> Files\”下，然后将上一步OCI目录改成”D:\Program Files\instantclient_10_2\instantclient_10_2\oci.dll”。<br><img src="http://i.imgur.com/X0D3w1B.png" alt=""></p>
+<p>重新登陆，发现出现了“连接为”这一项，并且自动出现了用户名和数据库地址，点击出现了”Oracle client ORA-12541: TNS:no listener [closed]”错误。<br>解决办法：<br>首先找到Oracle安装目录下的listener.ora和tnsnames.ora(我的是在E:\app\Alice\product\11.2.0\dbhome_1\NETWORK\ADMIN下)，将host=localhost改成host=ip<br><img src="http://i.imgur.com/wRcpnjz.png" alt=""><br>然后重启Oracle服务，WinKey+r<br><img src="http://i.imgur.com/CQhHzjJ.png" alt=""></p>
+<p>再次打开pl/sql，点击确定登录成功<br><img src="http://i.imgur.com/66Znr2F.jpg" alt=""></p>
+<ol>
+<li>导入dmp文件<br>打开工具-&gt;导入表-&gt;Oracle导入（dmp文件选择Oacle导入）<br>在“导入可执行文件”栏填入的是可执行的文件，比如Oracle安装目录的BIN目录下的imp.exe文件（我的地址是”E:\app\Alice\product\11.2.0\dbhome_1\BIN\imp.exe”），导入文件就是你要导入的dmp文件的地址。<br><img src="http://i.imgur.com/hINz0hF.png" alt=""></li>
+</ol>
+<p>导入成功，下方会有提示<br><img src="http://i.imgur.com/eO3jpvu.png" alt=""></p>
+<p>点击左侧的Table的项，刷新，可以看到导入的表，然后右键编辑表可以看到新导入的表结构<br><img src="http://i.imgur.com/BLoNSsE.png" alt=""></p>
+<p>此时你可能会发现表里有些乱码，解决办法是：新建环境变量NLS_LANG，值为SIMPLIFIE DCHINESE_CHINA.ZHS16GBK，保存后重启pl/sql，如果还是乱码，则将环境变量值改为AMERICAN_AMERICA.ZHS16GBK（我将值改为AMERICAN_AMERICA.ZHS16GBK才成功）。<br><img src="http://i.imgur.com/MLNHplV.png" alt=""></p>
+<p>至此，Oracle安装、导入及查看dmp文件过程完成。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;折腾了一天终于导入成功并查看到了，决定写个教程。&lt;br&gt;准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;安装oracle 11g&lt;br&gt;这个比较简单，百度上很多教程如：&lt;a hre
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>尾递归</title>
+    <link href="https://aliceflaviawang.github.io/2017/07/24/%E5%B0%BE%E9%80%92%E5%BD%92/"/>
+    <id>https://aliceflaviawang.github.io/2017/07/24/尾递归/</id>
+    <published>2017-07-24T07:59:48.000Z</published>
+    <updated>2017-07-24T13:49:17.786Z</updated>
+    
+    <content type="html"><![CDATA[<p>函数调用自身，成为递归。如果尾调用自身，就称为尾递归。</p>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。</p>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function factorial(n)&#123;</div><div class="line">   if(n===1) return 1;</div><div class="line">   return n*factorial(n-1);</div><div class="line">&#125;</div><div class="line">factorial(5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度O(n)。<br>如果改成尾递归，只保留一个调用记录，复杂度O(1)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,total)&#123;</div><div class="line">  if(n&lt;=1) return total;</div><div class="line">   return factorial(n-1,n*toatl);</div><div class="line">&#125;</div><div class="line">factorial(5,1)</div></pre></td></tr></table></figure></p>
+<p>非常经典的例子，Fibonacci数列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n)&#123;</div><div class="line">  if(n&lt;=1)&#123;return 1&#125;;</div><div class="line">  return Fibonacci(n-1)+Fibonacci(n-2);</div><div class="line">&#125;</div><div class="line">Fibonacci(10);  //89</div><div class="line">Fibonacci(100);  //堆栈溢出</div><div class="line">Fibonacci(1000);  //堆栈溢出</div></pre></td></tr></table></figure></p>
+<p>如果将其改为尾递归实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n,ac1=1,ac2=1)&#123;</div><div class="line">  if(n&lt;=1)&#123;return ac2&#125;;</div><div class="line">  return Fibonacci(n-1,ac2,ac1+ac2);</div><div class="line">&#125;</div><div class="line">Fibonacci(100)  //573147844013817200000</div><div class="line">Fibonacci(1000) //7.0330367711422765e+208</div><div class="line">Fibonacci(10000) //栈溢出</div></pre></td></tr></table></figure></p>
+<h3 id="递归函数的改写"><a href="#递归函数的改写" class="headerlink" title="递归函数的改写"></a>递归函数的改写</h3><p>尾递归的实现往往需要改写递归函数，确保最后一步只调用自身。做到这一点的方法，就是把所有用到的内部变量改写成函数的参数。<br>有两种方法可以解决：</p>
+<ol>
+<li><p>在尾递归之外，再提供一个正常行驶的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">funtion tailFactorial(n,total)&#123;</div><div class="line">   if(n===1) return total;</div><div class="line">   return tailFactorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">function factorial(n)&#123;</div><div class="line">   tailFactorial(n,1)</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+<li><p>采用ES6的函数默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,toatl=1)&#123;</div><div class="line">  if(n===1) return toatl;</div><div class="line">  return factorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>递归本质上是一种循环操作，循环可以用递归代替，而一旦使用递归，最好使用尾递归。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;函数调用自身，成为递归。如果尾调用自身，就称为尾递归。&lt;/p&gt;
+&lt;p&gt;递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMASc
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>inline-block和float的区别</title>
@@ -325,7 +442,7 @@
     <link href="https://aliceflaviawang.github.io/2017/07/14/li%E5%85%83%E7%B4%A0%E9%80%86%E5%BA%8F/"/>
     <id>https://aliceflaviawang.github.io/2017/07/14/li元素逆序/</id>
     <published>2017-07-14T13:41:08.000Z</published>
-    <updated>2017-07-15T06:49:50.520Z</updated>
+    <updated>2017-07-24T13:53:47.268Z</updated>
     
     <content type="html"><![CDATA[<p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var ul=document.getElementById(&quot;ul&quot;);</div><div class="line">var children=Array.prototype.slice.call(ul.getElementsByTagName(&quot;li&quot;),0);</div><div class="line">var str=&quot;&quot;;</div><div class="line">children.reverse();</div><div class="line">for(var i=0;i&lt;children.length;i++)&#123;</div><div class="line">  str+=children[i].outerHTML;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>getElementsByTagName(“li”)实际上返回的就是类数组，为什么要用Array.prototype.slice.call(ul.getElementsByTagName(“li”),0)呢？<br><strong><br>在此之前先说说js的类数组对象：HTMLCollection，NodeList,arguements.</strong><br><strong>类数组：拥有length的属性，但不是数组（使用instanceof检查返回false），没有forEach,map,slice等数组方法。
@@ -344,6 +461,10 @@
 </li>
 </ol>
 <p>其中，第一种做法兼容性比较好，很通用，第二种做法比较高级，但是只适合高版本主流浏览器。</p>
+<ol>
+<li>ES6增加的Array.from方法<br>Array.from可将两类对象转为整正的数组：类似数组的对象（array-like object,类数组对象的本质特征是必须有length属性，即任何有length属性的对象，都可以通过Array.from方法转为数组）和可遍历（iterator）的对象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.from(div);</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>HTMLCollection的集合访问dom元素必须要加上[0]，比如document.getElementsByTagName(“li”)[0]</p>
 ]]></content>
     
@@ -568,133 +689,6 @@
     
       &lt;p&gt;网页布局是CSS的一个重点应用。布局的传统的解决方案，基于盒装模型，依赖于display属性+position属性+float属性。它对于那些特殊布局非常不方便，比如垂直居中就不容易实现。Flex布局，可以简便、完整、响应式地实现各种页面布局。&lt;/p&gt;
 &lt;h3 id=&quot;Fl
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>跨站脚本攻击</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/11/%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/11/跨站脚本攻击/</id>
-    <published>2017-07-11T08:44:29.000Z</published>
-    <updated>2017-07-12T03:18:38.679Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="跨站脚本攻击（XSS）"><a href="#跨站脚本攻击（XSS）" class="headerlink" title="跨站脚本攻击（XSS）"></a>跨站脚本攻击（XSS）</h3><p>跨站脚本攻击（cross-site script，为了和CSS区分，缩写XSS）。发生的原因是网站将用户输入的内容输出到页面上，在这个过程中可能有恶意代码被浏览器执行。</p>
-<h3 id="XSS的种类"><a href="#XSS的种类" class="headerlink" title="XSS的种类"></a>XSS的种类</h3><h4 id="1-反射型XSS"><a href="#1-反射型XSS" class="headerlink" title="1.反射型XSS"></a>1.反射型XSS</h4><p>它是通过诱使用户打开一个恶意链接，服务端将链接中参数的恶意代码渲染到页面中，再传递给用户由浏览器执行，从而达到攻击的目的。</p>
-<h4 id="2-持久型XSS"><a href="#2-持久型XSS" class="headerlink" title="2.持久型XSS"></a>2.持久型XSS</h4><p>持久型xss将恶意代码提交给服务器，并且存储在服务器端，当用户访问相关内容时再渲染到页面中，以达到攻击的目的，它的危害更大。</p>
-<h3 id="XSS防御"><a href="#XSS防御" class="headerlink" title="XSS防御"></a>XSS防御</h3><h4 id="1-输入检查"><a href="#1-输入检查" class="headerlink" title="1.输入检查"></a>1.输入检查</h4><p>对输入数据做检查，比如用户名只允许是字母和数字，一定要在后台做检查，否则数据可能绕过前端检查直接发给服务器。一般前后端都做检查，前端能过滤掉大部分无效数据。</p>
-<h4 id="2-输出检查"><a href="#2-输出检查" class="headerlink" title="2.输出检查"></a>2.输出检查</h4><p>对渲染到html中内容执行htmlEncode。</p>
-<h2 id="其他攻击方式"><a href="#其他攻击方式" class="headerlink" title="其他攻击方式"></a>其他攻击方式</h2><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>SQL注入与XSS类似，用户提交的数据被当成命令来执行而造成的。</p>
-<h3 id="SQL注入防御"><a href="#SQL注入防御" class="headerlink" title="SQL注入防御"></a>SQL注入防御</h3><p>防止SQL注入最好的方法是使用预编译语句。不同的语言的预编译方法不同，但基本都可以处理。<br>如果无法使用预编译方法，只能像防止XSS那样对参数进行检查和编码。</p>
-<h3 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h3><p>点击劫持是从视觉上欺骗用户。攻击者使用一个透明的iframe覆盖到网页上，诱使用户在该网页上操作，而实际点击却是点在透明的iframe页面。<br>点击劫持延伸出很多攻击方式，有图片覆盖攻击、拖拽劫持等。</p>
-<h3 id="点击劫持的防御"><a href="#点击劫持的防御" class="headerlink" title="点击劫持的防御"></a>点击劫持的防御</h3><p>针对iframe的攻击，可使用一个http头：X-Frame-Options，它有三种可选值：</p>
-<ul>
-<li>DENY：禁止任何页面的frame加载</li>
-<li>SAMEORIGIN:只有同源页面的frame可加载</li>
-<li>ALLOW-FROM:可定义允许frame加载的地址<br>针对图片覆盖攻击，则注意使用预防XSS的方法，防止HTML和JS注入。</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;跨站脚本攻击（XSS）&quot;&gt;&lt;a href=&quot;#跨站脚本攻击（XSS）&quot; class=&quot;headerlink&quot; title=&quot;跨站脚本攻击（XSS）&quot;&gt;&lt;/a&gt;跨站脚本攻击（XSS）&lt;/h3&gt;&lt;p&gt;跨站脚本攻击（cross-site script，为了和CSS区分，
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CSRF攻击与防御</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/11/CSRF%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/11/CSRF攻击与防御/</id>
-    <published>2017-07-11T06:39:07.000Z</published>
-    <updated>2017-07-11T07:45:07.193Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF:跨站点请求伪造(cross-site request forgery)。攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说是完全合法的，但是却完成了攻击者所期望的一个操作。</p>
-<h3 id="CSRF攻击的原理及过程"><a href="#CSRF攻击的原理及过程" class="headerlink" title="CSRF攻击的原理及过程"></a>CSRF攻击的原理及过程</h3><p><img src="http://i.imgur.com/DO9WNOY.png" alt=""></p>
-<ol>
-<li>用户打开浏览器，访问网站A，输入用户名和密码请求登陆网站A</li>
-<li>在用户信息验证通过之后，网站A产生cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
-<li>用户未退出网站A之前，在同一个浏览器中，打开一个Tab页访问网站B</li>
-<li>网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A</li>
-<li>浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带cookie信息，向网站A发出请求。网站A并不知道请求其实是由B发起的，所以会根据用户的cookie信息以用户的权限处理该请求，导致来自B的恶意被代码执行。<h3 id="CSRF漏洞检测"><a href="#CSRF漏洞检测" class="headerlink" title="CSRF漏洞检测"></a>CSRF漏洞检测</h3>检测CSRF是一项比较繁琐的工作，最简单的方法是抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交有效，那么基本可以确定CSRF漏洞存在。<h3 id="CSRF攻击防御"><a href="#CSRF攻击防御" class="headerlink" title="CSRF攻击防御"></a>CSRF攻击防御</h3><h4 id="1-验证码"><a href="#1-验证码" class="headerlink" title="1.验证码"></a>1.验证码</h4>验证码不单单用来防止注册机的暴力破解，还可以有效防止CSRF的攻击。<br>不过随着html5的发展，利用canvas标签，前端也能识别验证码的字符，让CSRF生效。<h4 id="2-referer-check"><a href="#2-referer-check" class="headerlink" title="2.referer check"></a>2.referer check</h4>referer记录了该http请求的来源地址，http referer是request header的一部分，当浏览器向web服务器发出请求的时候，一般会带上referer，告诉服务器从哪个站点链接过来。<br>服务器通过判断请求头中的referer，也能避免CSRF攻击。<h4 id="3-token"><a href="#3-token" class="headerlink" title="3. token"></a>3. token</h4>CSRF攻击之所以成功是因为黑客可以在不知道验证信息的情况下直接利用用户的cookie来通过安全验证。可以在http请求中以参数的形式加入一个随机产生的token。（比如get方式放拼接到url，post方式以参数方式）<h4 id="4-在http头中自定义属性并验证"><a href="#4-在http头中自定义属性并验证" class="headerlink" title="4.在http头中自定义属性并验证"></a>4.在http头中自定义属性并验证</h4>也是使用token并进行验证，但是不是以参数的形式置于http请求中，而是把它放在http头中自定义的属性里。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;CSRF&quot;&gt;&lt;a href=&quot;#CSRF&quot; class=&quot;headerlink&quot; title=&quot;CSRF&quot;&gt;&lt;/a&gt;CSRF&lt;/h3&gt;&lt;p&gt;CSRF:跨站点请求伪造(cross-site request forgery)。攻击者盗用了你的身份，以你的名义发送恶意请
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>$.ready()与window.onload的区别</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/10/ready-%E4%B8%8Ewindow-onload%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/10/ready-与window-onload的区别/</id>
-    <published>2017-07-10T14:33:43.000Z</published>
-    <updated>2017-07-10T14:41:27.396Z</updated>
-    
-    <content type="html"><![CDATA[<p>区别有三点：</p>
-<h3 id="1、执行时机"><a href="#1、执行时机" class="headerlink" title="1、执行时机"></a>1、执行时机</h3><p>$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东西还没加载完<br>window.onload必须等网页里所有的内容都加载完毕后（包括图片）才执行</p>
-<h3 id="2、编写个数"><a href="#2、编写个数" class="headerlink" title="2、编写个数"></a>2、编写个数</h3><p>$.ready()可以编写多个，每个都执行<br>window.onload不能编写多个（编写多个时，只执行最后一个）</p>
-<h3 id="3、简化写法"><a href="#3、简化写法" class="headerlink" title="3、简化写法"></a>3、简化写法</h3><p>$.ready实际上是$(document).ready的简写，而window.onload没有简写</p>
-<h3 id="后记：DOM文档的加载过程"><a href="#后记：DOM文档的加载过程" class="headerlink" title="后记：DOM文档的加载过程"></a>后记：DOM文档的加载过程</h3><ol>
-<li>解析HTML结构</li>
-<li>加载外部脚本和样式文件</li>
-<li>解析并执行脚本代码</li>
-<li>DOM树构建完成 //DOMContentLoaded</li>
-<li>加载图片等外部文件</li>
-<li>页面加载完 //load<br>所以$.ready()是在第4步后执行，window.onload是在第6步后执行</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;区别有三点：&lt;/p&gt;
-&lt;h3 id=&quot;1、执行时机&quot;&gt;&lt;a href=&quot;#1、执行时机&quot; class=&quot;headerlink&quot; title=&quot;1、执行时机&quot;&gt;&lt;/a&gt;1、执行时机&lt;/h3&gt;&lt;p&gt;$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>javascript是单线程</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/10/javascript%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/10/javascript是单线程/</id>
-    <published>2017-07-10T11:51:27.000Z</published>
-    <updated>2017-07-10T13:32:15.718Z</updated>
-    
-    <content type="html"><![CDATA[<p>首先看下面的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">   console.log(&apos;first&apos;);</div><div class="line">   setTimeout(function()&#123;console.log(&apos;second&apos;)&#125;,5);</div><div class="line">&#125;</div><div class="line">for(var i=0;i&lt;100;i++)&#123;</div><div class="line">  foo();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>执行结果会首先输出first，然后全部输出second；尽管中间结果会超过5ms，为什么？</p>
-<h3 id="javascript是单线程的"><a href="#javascript是单线程的" class="headerlink" title="javascript是单线程的"></a>javascript是单线程的</h3><p>因为<strong>JS运行在浏览器中，是单线程的，每个window一个JS线程</strong>，既然是单线程，在某个特定时刻只有特定的代码能够背执行，并阻塞其他代码。而浏览器是<strong>事件驱动（Event driven）</strong>的，浏览器中很多行为是异步（Asynchronized）的，会创建事件并放在执行队列中。javascript引擎是单线程处理它的任务队列，你可以理解成就是普通函数和回调函数构成的队列。当异步事件发生时，如鼠标点击事件、定时器触发事件、XMLHttpRequest完成回调触发等，将它们放入执行队列，等待当前代码执行完成。</p>
-<h3 id="异步事件驱动"><a href="#异步事件驱动" class="headerlink" title="异步事件驱动"></a>异步事件驱动</h3><p>浏览器是事件驱动的，浏览器中很多行为是异步的。当一个异步事件发生时，它就进入事件队列。浏览器有个内部大消息循环，EventLoop(事件循环)，会轮询大的事件队列并处理事件。</p>
-<h3 id="浏览器不是单线程的"><a href="#浏览器不是单线程的" class="headerlink" title="浏览器不是单线程的"></a>浏览器不是单线程的</h3><p>虽然JS运行在浏览器中，是单线程的，每个window一个JS线程，但浏览器不是单线程的，例如Webkit或是Gecko引擎，都可能有如下线程：</p>
-<ul>
-<li>javascript引擎线程</li>
-<li>界面渲染线程</li>
-<li>浏览器触发线程</li>
-<li>Http请求线程<br>很多人搞不清，如果js是单线程的，那么谁去轮询大的Event Loop事件队列？答案是浏览器会有单独的线程去专门处理这个队列<h3 id="Ajax异步请求是否是真的异步"><a href="#Ajax异步请求是否是真的异步" class="headerlink" title="Ajax异步请求是否是真的异步"></a>Ajax异步请求是否是真的异步</h3>Ajax请求确实是异步的，这请求是由浏览器新开一个线程请求，事件回调的时候放入Event loop单线程事件队列等候处理。<h3 id="setTimeout-func-0-的作用"><a href="#setTimeout-func-0-的作用" class="headerlink" title="setTimeout(func,0)的作用"></a>setTimeout(func,0)的作用</h3>setTimeout(func,0)非常有用，单丝不是模拟多线程，前面已经说过一个window一个js线程，setTimeout(func,0)主要是告诉js引擎，在0ms后把func放在主事件队列中，等待当前的代码执行完毕后再执行。<br>注：重点是改变了代码的流程，把func的执行放到了等待当前的代码执行完毕后再执行。<h3 id="非阻塞js的实现"><a href="#非阻塞js的实现" class="headerlink" title="非阻塞js的实现"></a>非阻塞js的实现</h3>js在浏览器中需要被下载、解释并执行这三步。尽管浏览器可以实现多线程并行下载，但是必须依次执行。要实现非阻塞js有两个方法：</li>
-</ul>
-<ol>
-<li><p>html5中的defer和async关键字</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;test/javascript&quot; defer src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//没有defer或async，浏览器会立即加载并执行指定的脚本，“立即”的意思是指不等待后续载入的文档元素，读到就立即执行</div><div class="line">&lt;script type=&quot;test/javascript&quot; async src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//有async，加载和渲染后续文档元素的过程将和foo.js的加载与执行并行进行（异步）</div><div class="line">&lt;script type=&quot;test/javascript&quot; defer src=&quot;foo.js&quot;&gt;&lt;/script&gt;</div><div class="line">//有defer，加载后续文档元素的过程将和foo.js的加载并行进行(异步)，但是foo.js的执行要在所有元素解析完成之后，DOMContentLoaded事件触发之前完成</div></pre></td></tr></table></figure>
-</li>
-<li><p>动态加载js（比如：使用setTimeout方法）</p>
-<h3 id="后记：setTimeout和setInterval"><a href="#后记：setTimeout和setInterval" class="headerlink" title="后记：setTimeout和setInterval"></a>后记：setTimeout和setInterval</h3><p>setTimeout和setInterval都是指过一段时间，再进行某项操作。<br>setTimeout是让一段代码在指定时间运行（次数是一次），而setInterval是让一段代码每过指定时间就运行一次<br>setInterval的坑：如果间隔时间可能小于定时调用的代码的执行时间，而js是单线程，将定时调用的代码插入到队列中，但是代码中如果已经有了一份没有执行的同意的代码，<strong>时间间隔或许会被跳过</strong>。</p>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;首先看下面的代码：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div cl
     
     </summary>
     

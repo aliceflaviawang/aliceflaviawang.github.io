@@ -82,6 +82,248 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/31/Promise/" title="Promise" itemprop="url">Promise</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-31T01:33:29.000Z" itemprop="datePublished"> Published 2017-07-31</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/29/猜数游戏/" title="猜数游戏" itemprop="url">猜数游戏</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-29T08:44:01.000Z" itemprop="datePublished"> Published 2017-07-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>牛客上的猜数题，分析过程非常有意思，记录一下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">牛牛和羊羊在玩一个有趣的猜数游戏。在这个游戏中,牛牛玩家选择一个正整数,羊羊根据已给的提示猜这个数字。第i个提示是&quot;Y&quot;或者&quot;N&quot;,表示牛牛选择的数是否是i的倍数。例如,如果提示是&quot;YYNYY&quot;,它表示这个数使1,2,4,5的倍数,但不是3的倍数。注意到一些提示会出现错误。例如: 提示&quot;NYYY&quot;是错误的,因为所有的整数都是1的倍数,所以起始元素肯定不会是&quot;N&quot;。此外,例如&quot;YNNY&quot;的提示也是错误的,因为结果不可能是4的倍数但不是2的倍数。现在给出一个整数n,表示已给的提示的长度。请计算出长度为n的合法的提示的个数。例如 n = 5:合法的提示有:YNNNN YNNNY YNYNN YNYNY YYNNN YYNNYYYNYN YYNYY YYYNN YYYNY YYYYN YYYYY所以输出12 输入描述:</div><div class="line">输入包括一个整数n(1 ≤ n ≤ 10^6),表示已给提示的长度。</div><div class="line">输出描述:</div><div class="line">输出一个整数,表示合法的提示个数。因为答案可能会很大,所以输出对于1000000007的模</div><div class="line">输入例子1:</div><div class="line">5</div><div class="line">输出例子1:</div><div class="line">12</div></pre></td></tr></table></figure></p>
+<p>分析：<br>首先看有几种可能：</p>
+<ol>
+<li>如果第i个数是素数，前面除了1没有能除尽的，所以i有Y和N两种可能</li>
+<li>如果第i个数是素数的幂次，比如输入的是12，那么其中2、4、8是素数2的幂次，分析下2、4、8，有YYY、NNN、YNN、YYN四种可能，3、9是素数3的幂次，有YY、NN、YN两种可能…总结规律得出如果有n个幂次，就有n+1种可能的情况。</li>
+<li>如果第i个数不是素数的幂次，比如6、10，可以发现，6取决于2、3，如果2、3为YY，6必然为Y，其他情况都为N，也就是6、10这种并非素数的幂次的数并不影响可能的情况</li>
+</ol>
+<p>因此，只需要考虑素数幂次的个数（素数是特殊的幂次即一次幂，如果有n个幂次，就有n+1种可能）。<br>对12来说：有4<em>3</em>2<em>2</em>2种可能，对应的分别是（2、4、8）、（3、9）、（5）、（7）、（9）.<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function count(n)&#123;</div><div class="line">   var mod=Math.pow(10,9)+7; //防止答案过大，输出对于1000000007的模</div><div class="line">   var ans=1;//结果</div><div class="line">   var arr=[];//定义布尔数组</div><div class="line">   for(var i=2;i&lt;=n;i++)&#123;</div><div class="line">     var count=0; //统计幂次</div><div class="line">     //找出素数</div><div class="line">     if(arr[i])</div><div class="line">       continue;</div><div class="line">      for(var j=i+i;j&lt;=n;j+=i)&#123;</div><div class="line">         arr[j]=true;</div><div class="line">     &#125;</div><div class="line">     var mi=i;</div><div class="line">     while(mi&lt;=n)&#123;</div><div class="line">       count++;</div><div class="line">       mi*=i;</div><div class="line">    &#125;</div><div class="line">    ans=ans*(count+1)%mod;</div><div class="line">  &#125;</div><div class="line">  console.log(ans);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/27/ORACLE导入dmp文件详解/" title="ORACLE导入dmp文件详解" itemprop="url">ORACLE导入dmp文件详解</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-27T02:19:16.000Z" itemprop="datePublished"> Published 2017-07-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>折腾了一天终于导入成功并查看到了，决定写个教程。<br>准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。</p>
+<ol>
+<li>安装oracle 11g<br>这个比较简单，百度上很多教程如：<a href="http://www.cnblogs.com/qfb620/p/4577255.html。" target="_blank" rel="external">http://www.cnblogs.com/qfb620/p/4577255.html。</a></li>
+</ol>
+<p>需要注意的是<br><img src="http://i.imgur.com/SS9Ee2V.png" alt=""><br>这一步不要填电子邮件，否则会报连接错误<br><img src="http://i.imgur.com/1Ha6MKi.png" alt=""><br>这一步填写口令的时候主要开头不要是数字，否则安装完会报错（但是不确定有没有影响）</p>
+<ol>
+<li>安装完成后修改用户名和密码<br>在控制台用sqlplus / as sysdba登陆oracle系统<br><img src="http://i.imgur.com/LVJ31Nu.png" alt=""><br>使用命令修改用户名密码<br>alter user 用户名 indentified by “密码”</li>
+</ol>
+<ol>
+<li>打开pl/sql developer<br>初始打开时<br><img src="http://i.imgur.com/AElweZ7.png" alt=""><br>用户名和密码为第2步修改的用户名和密码，数据库是“ip/数据库名（默认是orcl）”</li>
+</ol>
+<p>点击登录，报错<br><img src="http://i.imgur.com/fPYQPZq.png" alt=""><br>解决办法：在未登陆的情况下进入pl/sql，在工具-&gt;首选项-&gt;连接里面设置Oracle主目录名和OCI库（其中Oracle主目录在Oracle安装目录下，OCI在安装目录的BIN目录下）<br><img src="http://i.imgur.com/8dgBtn4.png" alt=""></p>
+<p>再次登陆，依然报错，原因是无法load BIN目录下的oci.dll文件<br><img src="http://i.imgur.com/U7U0VWr.png" alt=""><br>解决办法：  在这个地址<a href="http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program" target="_blank" rel="external">http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program</a> Files\”下，然后将上一步OCI目录改成”D:\Program Files\instantclient_10_2\instantclient_10_2\oci.dll”。<br><img src="http://i.imgur.com/X0D3w1B.png" alt=""></p>
+<p>重新登陆，发现出现了“连接为”这一项，并且自动出现了用户名和数据库地址，点击出现了”Oracle client ORA-12541: TNS:no listener [closed]”错误。<br>解决办法：<br>首先找到Oracle安装目录下的listener.ora和tnsnames.ora(我的是在E:\app\Alice\product\11.2.0\dbhome_1\NETWORK\ADMIN下)，将host=localhost改成host=ip<br><img src="http://i.imgur.com/wRcpnjz.png" alt=""><br>然后重启Oracle服务，WinKey+r<br><img src="http://i.imgur.com/CQhHzjJ.png" alt=""></p>
+<p>再次打开pl/sql，点击确定登录成功<br><img src="http://i.imgur.com/66Znr2F.jpg" alt=""></p>
+<ol>
+<li>导入dmp文件<br>打开工具-&gt;导入表-&gt;Oracle导入（dmp文件选择Oacle导入）<br>在“导入可执行文件”栏填入的是可执行的文件，比如Oracle安装目录的BIN目录下的imp.exe文件（我的地址是”E:\app\Alice\product\11.2.0\dbhome_1\BIN\imp.exe”），导入文件就是你要导入的dmp文件的地址。<br><img src="http://i.imgur.com/hINz0hF.png" alt=""></li>
+</ol>
+<p>导入成功，下方会有提示<br><img src="http://i.imgur.com/eO3jpvu.png" alt=""></p>
+<p>点击左侧的Table的项，刷新，可以看到导入的表，然后右键编辑表可以看到新导入的表结构<br><img src="http://i.imgur.com/BLoNSsE.png" alt=""></p>
+<p>此时你可能会发现表里有些乱码，解决办法是：新建环境变量NLS_LANG，值为SIMPLIFIE DCHINESE_CHINA.ZHS16GBK，保存后重启pl/sql，如果还是乱码，则将环境变量值改为AMERICAN_AMERICA.ZHS16GBK（我将值改为AMERICAN_AMERICA.ZHS16GBK才成功）。<br><img src="http://i.imgur.com/MLNHplV.png" alt=""></p>
+<p>至此，Oracle安装、导入及查看dmp文件过程完成。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/24/尾递归/" title="尾递归" itemprop="url">尾递归</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-24T07:59:48.000Z" itemprop="datePublished"> Published 2017-07-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>函数调用自身，成为递归。如果尾调用自身，就称为尾递归。</p>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。</p>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function factorial(n)&#123;</div><div class="line">   if(n===1) return 1;</div><div class="line">   return n*factorial(n-1);</div><div class="line">&#125;</div><div class="line">factorial(5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度O(n)。<br>如果改成尾递归，只保留一个调用记录，复杂度O(1)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,total)&#123;</div><div class="line">  if(n&lt;=1) return total;</div><div class="line">   return factorial(n-1,n*toatl);</div><div class="line">&#125;</div><div class="line">factorial(5,1)</div></pre></td></tr></table></figure></p>
+<p>非常经典的例子，Fibonacci数列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n)&#123;</div><div class="line">  if(n&lt;=1)&#123;return 1&#125;;</div><div class="line">  return Fibonacci(n-1)+Fibonacci(n-2);</div><div class="line">&#125;</div><div class="line">Fibonacci(10);  //89</div><div class="line">Fibonacci(100);  //堆栈溢出</div><div class="line">Fibonacci(1000);  //堆栈溢出</div></pre></td></tr></table></figure></p>
+<p>如果将其改为尾递归实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n,ac1=1,ac2=1)&#123;</div><div class="line">  if(n&lt;=1)&#123;return ac2&#125;;</div><div class="line">  return Fibonacci(n-1,ac2,ac1+ac2);</div><div class="line">&#125;</div><div class="line">Fibonacci(100)  //573147844013817200000</div><div class="line">Fibonacci(1000) //7.0330367711422765e+208</div><div class="line">Fibonacci(10000) //栈溢出</div></pre></td></tr></table></figure></p>
+<h3 id="递归函数的改写"><a href="#递归函数的改写" class="headerlink" title="递归函数的改写"></a>递归函数的改写</h3><p>尾递归的实现往往需要改写递归函数，确保最后一步只调用自身。做到这一点的方法，就是把所有用到的内部变量改写成函数的参数。<br>有两种方法可以解决：</p>
+<ol>
+<li><p>在尾递归之外，再提供一个正常行驶的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">funtion tailFactorial(n,total)&#123;</div><div class="line">   if(n===1) return total;</div><div class="line">   return tailFactorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">function factorial(n)&#123;</div><div class="line">   tailFactorial(n,1)</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+<li><p>采用ES6的函数默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,toatl=1)&#123;</div><div class="line">  if(n===1) return toatl;</div><div class="line">  return factorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>递归本质上是一种循环操作，循环可以用递归代替，而一旦使用递归，最好使用尾递归。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/17/inline-block和float的区别/" title="inline-block和float的区别" itemprop="url">inline-block和float的区别</a>
   </h1>
   <p class="article-author">By
@@ -284,239 +526,6 @@
 <li>服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序列号。</li>
 <li>服务器B关闭与客户端A的连接，发送一个FIN给客户端A。</li>
 <li>客户端A发回ACK报文确认，并将确认序号设置为收到序号加1。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/16/如何选择图片格式GIF-JPG-PNG/" title="如何选择图片格式GIF,JPG,PNG" itemprop="url">如何选择图片格式GIF,JPG,PNG</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-16T08:37:15.000Z" itemprop="datePublished"> Published 2017-07-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="JPEG（简写jpg）"><a href="#JPEG（简写jpg）" class="headerlink" title="JPEG（简写jpg）"></a>JPEG（简写jpg）</h3><p>JPEG是一种大小与质量相平衡的压缩图片格式。通俗的说：高的压缩比=低的图片质量=小的文件大小。由于JPEG无法保持100%的原始图像的像素数据，所以它不被认为是一种无损图像格式。</p>
-<p>它支持上百万种颜色。适合轻微是真的像素色彩丰富的图片唱歌，并不适合简单色彩的图片如logo，icons。</p>
-<p>它不支持图形渐进、北京透明，更不支持动画，有损压缩不可恢复</p>
-<h3 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h3><p>是为了使图片能够应用在在线应用程序上所特别开发的图片格式。GIF，是一种无损（100%保持原始图片像素数据信息），8位图片格式（一个8位图像仅能支持256中不同颜色，多于将出现失真）。</p>
-<p><strong>压缩特性：</strong><br>采用LZW算法进行压缩</p>
-<p><strong>透明特性：</strong><br>支持基本的透明性</p>
-<p><strong>支持隔行扫描：</strong><br>隔行扫描能够令图片在浏览器中更快的加载和显示</p>
-<p><strong>动画GIF：</strong><br>支持动画。Flash动画出来之前，GIF动画可以说是唯一的动画。GIF将单帧的图像组合起来，然后轮流播放每一帧而成为动画。</p>
-<h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><p>PNG也是一种无损压缩，但与GIF不同的是，PNG同时支持8位和24位的图像。</p>
-<p>8位PNG图片的用途与GIF格式基本相同</p>
-<p><strong>24位PNG</strong>：<br>24位PNG，支持160万种不同的像素颜色且支持Alpha透明效果。也就是说无论透明度设为多少，PNG图片均能够与背景很好的融合在一起。</p>
-<p>不支持动画，高级压缩，支持全彩图像，对色彩丰富的图像取得不错的视觉效果</p>
-<h3 id="总比较"><a href="#总比较" class="headerlink" title="总比较"></a>总比较</h3><p>大小：PNG≈JPG&gt;GIF<br>透明性：PNG&gt;GIF&gt;JPG<br>色彩丰富度：JPG&gt;PNG&gt;GIF<br>兼容度：GIF≈JPG&gt;PNG</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/16/childNodes和children的区别/" title="childNodes和children的区别" itemprop="url">childNodes和children的区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-16T04:07:05.000Z" itemprop="datePublished"> Published 2017-07-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="childNodes"><a href="#childNodes" class="headerlink" title="childNodes"></a>childNodes</h3><p>标准的，它返回指定元素的子元素集合，包括HTML节点，属性节点和文本节点。可以通过nideType来判断是哪个类型的节点，只有当nodeType==1时才是元素节点，2是属性节点，3是文本节点。</p>
-<h3 id="children"><a href="#children" class="headerlink" title="children"></a>children</h3><p>非标准的，它只返回HTML节点（IE中包含注释节点）。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/16/渐进增强和优雅降级/" title="渐进增强和优雅降级" itemprop="url">渐进增强和优雅降级</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-16T03:56:59.000Z" itemprop="datePublished"> Published 2017-07-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="渐进增强"><a href="#渐进增强" class="headerlink" title="渐进增强"></a>渐进增强</h3><p>针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</p>
-<h3 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h3><p>一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。</p>
-<p><strong>区别</strong>：</p>
-<ol>
-<li>优雅降级是从复杂的现状开始，并试图减少用户体验的供给；</li>
-<li>渐进增强是从一个非常基础的，能够起作用的版本开始，并不断扩充，以适应未来环境的需要；</li>
-<li>降级（功能衰退）意味着往回看；而渐进增强则意味着朝前看，同时保证其根基处于安全地带。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/15/立即执行函数的作用/" title="立即执行函数的作用" itemprop="url">立即执行函数的作用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-15T14:39:58.000Z" itemprop="datePublished"> Published 2017-07-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>(function(){})()是立即执行函数（IIFE），它会默认将函数作为表达式去解析，而不是函数声明（注意圆括号内不能包含声明）。<br>它的作用：</p>
-<ol>
-<li>最主要的作用是隔离作用域，直到ES5JS没有块作用域，用来隔离作用域避免污染。</li>
-<li>惰性，利用立即执行特性，返回需要的业务函数或对象，避免每次通过条件判断来处理。</li>
-</ol>
-<h3 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h3><p>惰性载入表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用的过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。<br>举个经典的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    element.addEventListener(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     element.attachEvent(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     element[&apos;on&apos;+type]=fun;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面注册监听函数主要是为了兼容浏览器。由于浏览器差异，不得不再用的时候做能力检测。但是这样做，每次绑定监听，都会对能力做一次检测，然而真正的应用中，同一个应用环境，其实只需要做一次检测即可。<br>下面重写addEvent:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    addEvent=function(type,element,fun)&#123;</div><div class="line">       element.addEventListener(type,fun,false);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">        element.attachEvent(&quot;on&quot;+type,fun);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">       element[&apos;on&apos;+type]=fun;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>由于第一调用addEvent会对浏览器做能力检测，然后重写addEvent。下次再调用的时候，由于函数被重写，不会再做能力检测。</p>
-<p>惰性函数的应用场景：</p>
-<ol>
-<li>应用频繁。用的次数也多越能体现出优势来；</li>
-<li>固定不变。一次判断，在固定的应用环境中不会发生改变；</li>
-<li>复杂的分支判断。没有差异性的，不需要用这种模式。</li>
 </ol>
 
         

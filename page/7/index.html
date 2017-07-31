@@ -82,6 +82,216 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/24/理解arguments/" title="理解arguments" itemprop="url">理解arguments</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-24T02:02:40.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>ECMAScript中的参数是用一个数组表示的。无论传递给函数的参数是什么（有或者没有），函数接收到的始终都是这个数组。在函数体内通过arguments对象来访问这个参数数组，从而获取传递给函数的每个参数。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi(name,message)&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+name+&quot;,&quot;+message);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以用arguments重写不显示的使用命名参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+arguments[0]+&quot;,&quot;+arguments[1]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="arguments特性"><a href="#arguments特性" class="headerlink" title="arguments特性"></a>arguments特性</h3><h4 id="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"><a href="#1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的" class="headerlink" title="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"></a>1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function howManyArgs(&#123;</div><div class="line">alert(arguments.length);</div><div class="line">&#125;</div><div class="line">howManyArgs(&quot;string&quot;,45); //2</div><div class="line">howManyArgs();            //0</div><div class="line">howManyArgs(12)           //1</div></pre></td></tr></table></figure>
+<h4 id="2、arguments的值永远与对应命名参数的值保持同步"><a href="#2、arguments的值永远与对应命名参数的值保持同步" class="headerlink" title="2、arguments的值永远与对应命名参数的值保持同步"></a>2、arguments的值永远与对应命名参数的值保持同步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function doAdd(num1,num2)&#123;</div><div class="line">arguments[1]=10;</div><div class="line">alert(arguments[0]+num2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>每次执行doAdd函数都会重写第二个参数（将其修改为10），因为arguments[1]的对象的值会自动反映到对应的命名参数，所以修改了arguments[1]也就修改了num2，他们的值会同步（但内存空间是独立的）。如果只传入了一个参数，arguments[1]的值不会反映到命名参数中（因为特性1）。</p>
+<h4 id="3、arguments对象有个callee属性"><a href="#3、arguments对象有个callee属性" class="headerlink" title="3、arguments对象有个callee属性"></a>3、arguments对象有个callee属性</h4><p>callee属性是一个指针，指向拥有这个arguments对象的函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fucntion factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的函数的执行与函数名紧紧耦合在一起，为了消除这种紧密耦合现象，可以用arguments.callee。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样，无论引用函数是时使用的什么名字，都可以保证正常递归调用。看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //120</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
+<p>而使用函数名，则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //0</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
+<h4 id="后记——函数对象的caller属性"><a href="#后记——函数对象的caller属性" class="headerlink" title="后记——函数对象的caller属性"></a>后记——函数对象的caller属性</h4><p>当一个函数调用另一个函数时，被调用的函数会自动生成一个caller属性，指向调用它的函数对象。若该函数未被调用或没有被其他函数调用，caller为null。<br>而arguments.callee是函数被调用时，arguments.callee对象指向自身，是对自己的引用。<br>注：arguments在函数调用时才有效，因为arguments.callee在函数未调用时是不存在的（即null.callee)。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/22/translate-50-50-的作用/" title="translate(-50%,-50%)的作用" itemprop="url">translate(-50%,-50%)的作用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-22T14:01:12.000Z" itemprop="datePublished"> Published 2017-04-22</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;outer&quot;&gt;</div><div class="line">   &lt;div id=&quot;inner&quot;&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不加transform属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#outer&#123;</div><div class="line">        position: relative;</div><div class="line">        width: 500px;</div><div class="line">        height: 500px;</div><div class="line">        border: 1px solid black;</div><div class="line">&#125;</div><div class="line">#inner&#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>inner框的左上角处于中心位置，如果希望其中心居于中心位置，将应该向上和向左移动一半的边长长度。加上transform属性，就可以实现这个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#inner &#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">        -ms-transform: translate(-50%,-50%);</div><div class="line">        -moz-transform: translate(-50%,-50%);</div><div class="line">        -o-transform: translate(-50%,-50%);</div><div class="line">        transform: translate(-50%,-50%);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/19/阿里暑期前端面试总结/" title="阿里暑期前端面试总结" itemprop="url">阿里暑期前端面试总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> Published 2017-04-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/19/腾讯暑期实习面试前端面试总结/" title="腾讯暑期实习面试前端面试总结" itemprop="url">腾讯暑期实习面试前端面试总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-19T07:36:12.000Z" itemprop="datePublished"> Published 2017-04-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：<br>1、http状态码有哪些，代表的什么意思<br>2、用过缓存没有，local storage和session storage有什么区别<br>3、你说你学过node js，讲一下<br>于是我在门外默默的准备了一下，进去之后面试官看了我的简历上写本科是信息安全，于是问我公钥加密和私钥加密有什么区别。。。我大概记得，但是说反了，然后开始问我一串安全相关的问题，安全掌握的不怎么好，面试官大概没有很多兴趣，就简单问了下css和一个逻辑题就完了：<br>1、Web安全<br>2、url是怎么加密的<br>3、css的优先级<br>4、逻辑题：给一个不规则的5L和6L的桶，装一个3升的水<br>然后很显然就没有然后了，通过此次面试，觉得自己还是要多注意Web安全方面的知识，另外简历上处处都有可能问到，主要看面试官比较擅长哪方面，所以只要写上去都要有所准备。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/11/easyui两个datagrid的问题/" title="easyui两个datagrid的问题" itemprop="url">easyui两个datagrid的问题</a>
   </h1>
   <p class="article-author">By
@@ -250,217 +460,6 @@
     <div class="article-content">
         
         <p>今天提示win10许可证要过期了，于是尝试了各种工具，Microsoft Toolkit、HEU_KMS_Activator、KMS10_Crack2都不行，最后在网上找到了这个方法，一分钟不到就搞定了，分享一下网址<a href="https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。" target="_blank" rel="external">https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/10/JS与jQuery显示和隐藏div/" title="JS与jQuery显示和隐藏div" itemprop="url">JS与jQuery显示和隐藏div</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-10T12:25:07.000Z" itemprop="datePublished"> Published 2017-04-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>关于div隐藏很显示的问题，经常遇到，JS和jQuery有不同的处理方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;div&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;block&quot;;</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;none&quot;;//不占用空间</div><div class="line">document.getElementById(&quot;div&quot;).style.display=&quot;hidden&quot;;//仍然占用空间</div></pre></td></tr></table></figure></p>
-<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//通过css方法设置属性</div><div class="line">$(&quot;#div&quot;).css(&quot;diaplay&quot;,&quot;block&quot;);</div><div class="line">//给元素换class，提前将换的class样式定义好display属性</div><div class="line">$(&quot;#div&quot;).attr(&quot;class&quot;,&quot;blockclass&quot;);</div><div class="line">//通过attr方法</div><div class="line">$(&quot;#div&quot;).attr(&quot;display&quot;,&quot;block&quot;);</div></pre></td></tr></table></figure></p>
-<p>注：jQuery的css方法和attr方法的区别,css顾名思义就是标签自带的css属性，atrr只能取自己定义的属性，例如，如果div中没有diaplay这个属性的话，不能用过attr给其赋值，但是可以用css方法。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/10/JS与jQuery清空输入框/" title="JS与jQuery清空输入框" itemprop="url">JS与jQuery清空输入框</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-10T12:12:09.000Z" itemprop="datePublished"> Published 2017-04-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>input输入框输入之后，再次输入的时候需要清空输入框。对于input输入框，JS与jQuery清空方式不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>JS方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.getElementById(&quot;input&quot;).value=&quot;&quot;;</div></pre></td></tr></table></figure></p>
-<p>jQuery方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#input&quot;).val(&quot;&quot;);</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/09/java二维排序数组查找元素/" title="java二维排序数组查找元素" itemprop="url">java二维排序数组查找元素</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-09T13:09:30.000Z" itemprop="datePublished"> Published 2017-04-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
-<h3 id="简单做法"><a href="#简单做法" class="headerlink" title="简单做法"></a>简单做法</h3><p>看到这个题目，如果不考虑数组元素的排序，只考虑能不能找到的话，非常简单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     for(int i=0;i&lt;array.length;i++)&#123;</div><div class="line">           for(int j=0;j&lt;array[0].length;j++)&#123;</div><div class="line">               if(array[i][j]==target)&#123;</div><div class="line">                   return true;</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/R1O8tor.png" alt=""></p>
-<h3 id="题目的本质"><a href="#题目的本质" class="headerlink" title="题目的本质"></a>题目的本质</h3><p>因为数组是排序的，所以考虑用二分查找，而查找不能盲目的查找，比如从第一个元素开始查找，如果比目标元素小，是往下找还是往右找呢，同里也不能从最后一个元素开始查找，可以从第一行最右边开始查找，如果比目标元素大就往左查找，反之往下查找，同理也可以从第一列最下边开始查找。举例从第一行最右边开始查找，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public boolean Find(int target, int [][] array) &#123;</div><div class="line">     int row=0;</div><div class="line">       int col=array[0].length-1;</div><div class="line">       while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">           if(array[row][col]==target) &#123;</div><div class="line">               return true;</div><div class="line">           &#125;</div><div class="line">           else if(array[row][col]&lt;target)&#123;</div><div class="line">               row++;</div><div class="line">           &#125;</div><div class="line">           else&#123;</div><div class="line">               col--;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">       return false;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-<h4 id="运行效果-1"><a href="#运行效果-1" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://i.imgur.com/k5vNfmD.png" alt=""></p>
-<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">package com.company;</div><div class="line">import java.util.Scanner;</div><div class="line">public class Solution &#123;</div><div class="line">    public boolean Find(int target, int [][] array) &#123;</div><div class="line">      int row=0;</div><div class="line">        int col=array[0].length-1;</div><div class="line">        while(row&lt;array.length&amp;&amp;col&gt;=0)&#123;</div><div class="line">            if(array[row][col]==target) &#123;</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">            else if(array[row][col]&lt;target)&#123;</div><div class="line">                row++;</div><div class="line">            &#125;</div><div class="line">            else&#123;</div><div class="line">                col--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">    public static void main(String srgs[])&#123;</div><div class="line">        Scanner s=new Scanner(System.in);</div><div class="line">        System.out.println(&quot;请输入数组的行和列&quot;);</div><div class="line">        int x=s.nextInt();</div><div class="line">        int y=s.nextInt();</div><div class="line">        int [][]arr=new int[x][y];</div><div class="line">        System.out.println(&quot;请输入数组元素&quot;);</div><div class="line">        for(int i=0;i&lt;x;i++)&#123;</div><div class="line">            for(int j=0;j&lt;y;j++)&#123;</div><div class="line"></div><div class="line">               arr[i][j]=s.nextInt();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        System.out.println(&quot;请输入你想查找的数：&quot;);</div><div class="line">        int t=s.nextInt();</div><div class="line">      Solution a=new Solution();</div><div class="line"></div><div class="line">        if(a.Find(t,arr))&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">else&#123;</div><div class="line">            System.out.println(&quot;数组&quot;+arr+&quot;中没有数&quot;+t);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/09/基于easyui项目学习的总结（一）/" title="基于easyui项目学习的总结（一）" itemprop="url">基于easyui项目学习的总结（一）</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-09T12:59:26.000Z" itemprop="datePublished"> Published 2017-04-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>最近在做的项目，是基于easyui框架，项目进度非常紧张，并没有太多时间来总结，就用零碎时间一点点总结吧，主要是从网上及大神同学身上学到了很多。</p>
-<h3 id="easyui-placeholder解决方案"><a href="#easyui-placeholder解决方案" class="headerlink" title="easyui placeholder解决方案"></a>easyui placeholder解决方案</h3><p>因为easyui经常用到table、textbox，因此会遇到需要用placeholder来提示输入内容的时候，但是easyui不支持h5的placeholder,因此，为了实现这个效果，在网上找到了解决方案。<br>1、给input标签添加placeholder<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;fm_jobTime&quot;&quot; name=&quot;jobTime&quot; class=&quot;easyui-textbox&quot; required=&quot;true&quot; label=&quot;岗位时间:&quot; style=&quot;width:100%&quot; placeholder=&quot;xxxx年x月-xxxx年x月&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>2、页面加载完毕的时候，将easyui生成的input标签的placeholder重置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$(function()&#123;</div><div class="line">window.onload = inputPlaceholder();</div><div class="line">&#125;);</div><div class="line">/**</div><div class="line">easyui number placeholder</div><div class="line">*/</div><div class="line">function numberinputPlaceholder()&#123;</div><div class="line">$(&quot;.easyui-textbox&quot;).each(function(i)&#123;</div><div class="line">var span = $(this).siblings(&quot;span&quot;)[0];</div><div class="line">var targetInput = $(span).find(&quot;input:first&quot;);</div><div class="line">if(targetInput)&#123;</div><div class="line">$(targetInput).attr(&quot;placeholder&quot;, $(this).attr(&quot;placeholder&quot;));</div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
         
         

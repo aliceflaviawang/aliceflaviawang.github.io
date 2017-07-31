@@ -4,24 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>inline-block和float的区别 | 笑呵呵</title>
+    <title>尾递归 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
 
     
-    <meta name="description" content="inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。 float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈">
+    <meta name="description" content="函数调用自身，成为递归。如果尾调用自身，就称为尾递归。 递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。 举个例子：123456function factor">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="inline-block和float的区别">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/17/inline-block和float的区别/index.html">
+<meta property="og:title" content="尾递归">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/24/尾递归/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。 float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈">
-<meta property="og:updated_time" content="2017-07-17T05:59:31.968Z">
+<meta property="og:description" content="函数调用自身，成为递归。如果尾调用自身，就称为尾递归。 递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。 举个例子：123456function factor">
+<meta property="og:updated_time" content="2017-07-24T13:49:17.786Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="inline-block和float的区别">
-<meta name="twitter:description" content="inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。 float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈">
+<meta name="twitter:title" content="尾递归">
+<meta name="twitter:description" content="函数调用自身，成为递归。如果尾调用自身，就称为尾递归。 递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。 举个例子：123456function factor">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -82,14 +82,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/07/17/inline-block和float的区别/" title="inline-block和float的区别" itemprop="url">inline-block和float的区别</a>
+      <a href="/2017/07/24/尾递归/" title="尾递归" itemprop="url">尾递归</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-17T05:38:48.000Z" itemprop="datePublished"> Published 2017-07-17</time>
+    <time datetime="2017-07-24T07:59:48.000Z" itemprop="datePublished"> Published 2017-07-24</time>
     
   </p>
 </header>
@@ -98,14 +98,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#递归函数的改写"><span class="toc-number">1.</span> <span class="toc-text">递归函数的改写</span></a></li></ol>
 		
 		</div>
 		
-		<p>inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。</p>
-<p>float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈现环绕状排列。</p>
-<p>共同点：<br>都能实现元素在一行显示，并且可以自由设置元素大小</p>
-<p>区别：<br>inline-block：水平排列一行，即使元素高度不一，也会以最大元素高度为行高，即使高度小的元素周围留空，也不会有第二行元素上浮补位<br>（inline-block仍在文档流里，减少了程序对DOM的更改操作，因为DOM的每一次更改，浏览器会重绘DOM树）<br>float：让元素脱离文档流，呈环绕状排列，如遇上行有空白，而当前元素的大小可以挤进去，这个元素会在上行补位排列</p>
+		<p>函数调用自身，成为递归。如果尾调用自身，就称为尾递归。</p>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。</p>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function factorial(n)&#123;</div><div class="line">   if(n===1) return 1;</div><div class="line">   return n*factorial(n-1);</div><div class="line">&#125;</div><div class="line">factorial(5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度O(n)。<br>如果改成尾递归，只保留一个调用记录，复杂度O(1)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,total)&#123;</div><div class="line">  if(n&lt;=1) return total;</div><div class="line">   return factorial(n-1,n*toatl);</div><div class="line">&#125;</div><div class="line">factorial(5,1)</div></pre></td></tr></table></figure></p>
+<p>非常经典的例子，Fibonacci数列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n)&#123;</div><div class="line">  if(n&lt;=1)&#123;return 1&#125;;</div><div class="line">  return Fibonacci(n-1)+Fibonacci(n-2);</div><div class="line">&#125;</div><div class="line">Fibonacci(10);  //89</div><div class="line">Fibonacci(100);  //堆栈溢出</div><div class="line">Fibonacci(1000);  //堆栈溢出</div></pre></td></tr></table></figure></p>
+<p>如果将其改为尾递归实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n,ac1=1,ac2=1)&#123;</div><div class="line">  if(n&lt;=1)&#123;return ac2&#125;;</div><div class="line">  return Fibonacci(n-1,ac2,ac1+ac2);</div><div class="line">&#125;</div><div class="line">Fibonacci(100)  //573147844013817200000</div><div class="line">Fibonacci(1000) //7.0330367711422765e+208</div><div class="line">Fibonacci(10000) //栈溢出</div></pre></td></tr></table></figure></p>
+<h3 id="递归函数的改写"><a href="#递归函数的改写" class="headerlink" title="递归函数的改写"></a>递归函数的改写</h3><p>尾递归的实现往往需要改写递归函数，确保最后一步只调用自身。做到这一点的方法，就是把所有用到的内部变量改写成函数的参数。<br>有两种方法可以解决：</p>
+<ol>
+<li><p>在尾递归之外，再提供一个正常行驶的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">funtion tailFactorial(n,total)&#123;</div><div class="line">   if(n===1) return total;</div><div class="line">   return tailFactorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">function factorial(n)&#123;</div><div class="line">   tailFactorial(n,1)</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+<li><p>采用ES6的函数默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,toatl=1)&#123;</div><div class="line">  if(n===1) return toatl;</div><div class="line">  return factorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>递归本质上是一种循环操作，循环可以用递归代替，而一旦使用递归，最好使用尾递归。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -118,7 +130,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/07/17/inline-block和float的区别/" data-title="inline-block和float的区别 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/07/24/尾递归/" data-title="尾递归 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -132,18 +144,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" title="http头：Expires,Cache-Control,Last-Modified,ETag">
+ <a href="/2017/07/17/inline-block和float的区别/" title="inline-block和float的区别">
   <strong>上一篇：</strong><br/>
   <span>
-  http头：Expires,Cache-Control,Last-Modified,ETag</span>
+  inline-block和float的区别</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/07/24/尾递归/"  title="尾递归">
+<a href="/2017/07/27/ORACLE导入dmp文件详解/"  title="ORACLE导入dmp文件详解">
  <strong>下一篇：</strong><br/> 
- <span>尾递归
+ <span>ORACLE导入dmp文件详解
 </span>
 </a>
 </div>
@@ -158,7 +170,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#递归函数的改写"><span class="toc-number">1.</span> <span class="toc-text">递归函数的改写</span></a></li></ol>
  
   </div>
 

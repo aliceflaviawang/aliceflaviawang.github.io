@@ -18,7 +18,7 @@
 <meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/14/li元素逆序/index.html">
 <meta property="og:site_name" content="笑呵呵">
 <meta property="og:description" content="直接上代码1234567var ul=document.getElementById(&amp;quot;ul&amp;quot;);var children=Array.prototype.slice.call(ul.getElementsByTagName(&amp;quot;li&amp;quot;),0);var str=&amp;quot;&amp;quot;;children.reverse();for(var i=0;i&amp;lt;c">
-<meta property="og:updated_time" content="2017-07-15T06:49:50.520Z">
+<meta property="og:updated_time" content="2017-07-24T13:53:47.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="li元素逆序">
 <meta name="twitter:description" content="直接上代码1234567var ul=document.getElementById(&amp;quot;ul&amp;quot;);var children=Array.prototype.slice.call(ul.getElementsByTagName(&amp;quot;li&amp;quot;),0);var str=&amp;quot;&amp;quot;;children.reverse();for(var i=0;i&amp;lt;c">
@@ -119,6 +119,10 @@
 </li>
 </ol>
 <p>其中，第一种做法兼容性比较好，很通用，第二种做法比较高级，但是只适合高版本主流浏览器。</p>
+<ol>
+<li>ES6增加的Array.from方法<br>Array.from可将两类对象转为整正的数组：类似数组的对象（array-like object,类数组对象的本质特征是必须有length属性，即任何有length属性的对象，都可以通过Array.from方法转为数组）和可遍历（iterator）的对象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.from(div);</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>HTMLCollection的集合访问dom元素必须要加上[0]，比如document.getElementsByTagName(“li”)[0]</p>
   
 	</div>

@@ -4,12 +4,117 @@
 
     
   <url>
+    <loc>https://aliceflaviawang.github.io/2017/08/09/JS%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2017-08-09T14:56:07.914Z</lastmod>
+    <data>
+        <display>
+        <title>JS严格模式</title>
+        <pubTime>2017-08-09T13:53:55.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://aliceflaviawang.github.io/2017/08/09/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2017-08-09T13:47:57.637Z</lastmod>
+    <data>
+        <display>
+        <title>箭头函数</title>
+        <pubTime>2017-08-09T12:10:13.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://aliceflaviawang.github.io/2017/08/09/ES6%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E7%9A%84this%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84this%E5%AF%B9%E6%AF%94/</loc>
+    <lastmod>2017-08-09T09:26:32.764Z</lastmod>
+    <data>
+        <display>
+        <title>ES6箭头函数的this与普通函数的this对比</title>
+        <pubTime>2017-08-09T03:16:19.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://aliceflaviawang.github.io/2017/07/17/http%E5%A4%B4%EF%BC%9AExpires-Cache-Control-Last-Modified-ETag/</loc>
+    <lastmod>2017-08-08T02:48:26.140Z</lastmod>
+    <data>
+        <display>
+        <title>http头：Expires,Cache-Control,Last-Modified,ETag</title>
+        <pubTime>2017-07-17T02:01:46.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://aliceflaviawang.github.io/2017/07/03/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/</loc>
+    <lastmod>2017-08-07T11:59:06.916Z</lastmod>
+    <data>
+        <display>
+        <title>前端面试准备</title>
+        <pubTime>2017-07-03T09:03:08.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://aliceflaviawang.github.io/2017/08/01/DNS%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2017-08-01T14:27:51.147Z</lastmod>
+    <data>
+        <display>
+        <title>DNS解析</title>
+        <pubTime>2017-08-01T14:03:18.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://aliceflaviawang.github.io/2017/07/31/Promise/</loc>
-    <lastmod>2017-07-31T01:33:29.142Z</lastmod>
+    <lastmod>2017-08-01T07:46:02.025Z</lastmod>
     <data>
         <display>
         <title>Promise</title>
         <pubTime>2017-07-31T01:33:29.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://aliceflaviawang.github.io/2017/08/01/for-of%E7%9A%84%E4%BC%98%E5%8A%BF/</loc>
+    <lastmod>2017-08-01T07:18:12.511Z</lastmod>
+    <data>
+        <display>
+        <title>for...of的优势</title>
+        <pubTime>2017-08-01T06:51:45.000Z</pubTime>
         
          
            
@@ -115,21 +220,6 @@
         <display>
         <title>inline-block和float的区别</title>
         <pubTime>2017-07-17T05:38:48.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://aliceflaviawang.github.io/2017/07/17/http%E5%A4%B4%EF%BC%9AExpires-Cache-Control-Last-Modified-ETag/</loc>
-    <lastmod>2017-07-17T03:30:31.908Z</lastmod>
-    <data>
-        <display>
-        <title>http头：Expires,Cache-Control,Last-Modified,ETag</title>
-        <pubTime>2017-07-17T02:01:46.000Z</pubTime>
         
          
            
@@ -430,21 +520,6 @@
         <display>
         <title>Bootsstrap实现原理</title>
         <pubTime>2017-07-10T06:30:43.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://aliceflaviawang.github.io/2017/07/03/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/</loc>
-    <lastmod>2017-07-09T08:48:55.028Z</lastmod>
-    <data>
-        <display>
-        <title>前端面试准备</title>
-        <pubTime>2017-07-03T09:03:08.000Z</pubTime>
         
          
            

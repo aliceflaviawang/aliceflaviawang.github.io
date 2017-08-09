@@ -1,0 +1,452 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>箭头函数 | 笑呵呵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Alice">
+    
+
+    
+    <meta name="description" content="基本用法ES6允许使用“箭头”定义函数1var f= v =&amp;gt; v; 上面的箭头函数等同于：123var f = function(v)&amp;#123;  return v;&amp;#125; 如果箭头函数不需要参数或者需要多个参数，就使用一个圆括号代表参数部分。1var sum=(num1,num2) =&amp;gt; num1+num2; 如果箭头函数的代码部门多于一条语句，就要使用大括号将它们括起来，">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="箭头函数">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/08/09/箭头函数/index.html">
+<meta property="og:site_name" content="笑呵呵">
+<meta property="og:description" content="基本用法ES6允许使用“箭头”定义函数1var f= v =&amp;gt; v; 上面的箭头函数等同于：123var f = function(v)&amp;#123;  return v;&amp;#125; 如果箭头函数不需要参数或者需要多个参数，就使用一个圆括号代表参数部分。1var sum=(num1,num2) =&amp;gt; num1+num2; 如果箭头函数的代码部门多于一条语句，就要使用大括号将它们括起来，">
+<meta property="og:updated_time" content="2017-08-09T13:47:57.637Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="箭头函数">
+<meta name="twitter:description" content="基本用法ES6允许使用“箭头”定义函数1var f= v =&amp;gt; v; 上面的箭头函数等同于：123var f = function(v)&amp;#123;  return v;&amp;#125; 如果箭头函数不需要参数或者需要多个参数，就使用一个圆括号代表参数部分。1var sum=(num1,num2) =&amp;gt; num1+num2; 如果箭头函数的代码部门多于一条语句，就要使用大括号将它们括起来，">
+
+    
+    <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="笑呵呵" title="笑呵呵"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
+				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
+			</div>
+			
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/09/箭头函数/" title="箭头函数" itemprop="url">箭头函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-09T12:10:13.000Z" itemprop="datePublished"> Published 2017-08-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本用法"><span class="toc-number">1.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用注意点"><span class="toc-number">2.</span> <span class="toc-text">使用注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数绑定"><span class="toc-number">3.</span> <span class="toc-text">函数绑定</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6允许使用“箭头”定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f= v =&gt; v;</div></pre></td></tr></table></figure></p>
+<p>上面的箭头函数等同于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v)&#123;</div><div class="line">  return v;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果箭头函数不需要参数或者需要多个参数，就使用一个圆括号代表参数部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var sum=(num1,num2) =&gt; num1+num2;</div></pre></td></tr></table></figure></p>
+<p>如果箭头函数的代码部门多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var sum=(num1,num2) =&gt; &#123;return num1+num2; &#125;</div></pre></td></tr></table></figure></p>
+<p>由于大括号被解释为代码块，如果箭头函数直接返回一个对象，必须在对象外面加上括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var getTempItem =id =&gt; (&#123;id:id,name:&quot;Temp&quot;&#125;)</div></pre></td></tr></table></figure></p>
+<p>箭头函数可以与变量结构结合使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const full=(&#123;first,last&#125;) =&gt; first+&apos; &apos;+last;</div></pre></td></tr></table></figure></p>
+<h3 id="使用注意点"><a href="#使用注意点" class="headerlink" title="使用注意点"></a>使用注意点</h3><ol>
+<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象</li>
+<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在，如果要用，可以用Rest参数代替</li>
+<li>不可以使用yield命令，因为箭头函数不能用作Generator函数</li>
+</ol>
+<p>this指向固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正因为它没有this，所以也就不能用作构造函数。</p>
+<p>除了this以外，以下三个变量在箭头函数中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">     console.log(&apos;args:&apos;, arguments);</div><div class="line">   &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo(2,4,6,8)</div><div class="line">//[2,4,6,8]</div></pre></td></tr></table></figure></p>
+<p>注意此处箭头函数内部的变量arguments，是函数foo的arguments变量，因为foo是普通函数，具有arguments。如果将function foo(){}换成var foo=()=&gt;{}，将会报arguments is undefined的错。<br>使用rest参数代替arguments：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var foo=(...numbers)=&gt;&#123;</div><div class="line">setTimeout(() =&gt; &#123;</div><div class="line">     console.log(&apos;args:&apos;, numbers);</div><div class="line">   &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo(2,4,6,8)</div></pre></td></tr></table></figure></p>
+<p>另外，由于箭头函数没有自己的this，所以当然也就不能用call,apply,bind这些方法改变this的指向。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">  return [</div><div class="line">     (()=&gt;this.x).bind(&#123;x:&apos;inner&apos;&#125;)()</div><div class="line">  ]</div><div class="line">&#125;).call(&#123;x:&apos;outer&apos;&#125;)</div><div class="line">//outer</div></pre></td></tr></table></figure></p>
+<p>箭头函数没有自己的this，所以bind方法无效，内部的this指向外部的this，相当于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var x=&apos;outer&apos;;</div><div class="line">(function() &#123;</div><div class="line">   return [</div><div class="line">    (() =&gt; this.x).bind(&#123; x: &apos;inner&apos; &#125;)()</div><div class="line">  ];</div><div class="line"> &#125;)();</div></pre></td></tr></table></figure></p>
+<h3 id="函数绑定"><a href="#函数绑定" class="headerlink" title="函数绑定"></a>函数绑定</h3><p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、bind、apply）。但是很多场合不适用，于是ES7提出了”函数绑定”运算符来取代call、bind、apply调用。<br>函数绑定运算符是并排两个双冒号(::)，双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（this对象），绑定到右边的函数上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">foo::bar</div><div class="line">//等同于</div><div class="line">bar.bind(foo)</div><div class="line"></div><div class="line">foo:bar(...arguments)</div><div class="line">//等同于</div><div class="line">bar.apply(foo,arguments)</div></pre></td></tr></table></figure></p>
+<p>如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定到该对象上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let log=::console.log</div><div class="line">//等同于</div><div class="line">var log=console.log.bind(console)</div></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://aliceflaviawang.github.io/2017/08/09/箭头函数/" data-title="箭头函数 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/09/ES6箭头函数的this与普通函数的this对比/" title="ES6箭头函数的this与普通函数的this对比">
+  <strong>上一篇：</strong><br/>
+  <span>
+  ES6箭头函数的this与普通函数的this对比</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/09/JS严格模式/"  title="JS严格模式">
+ <strong>下一篇：</strong><br/> 
+ <span>JS严格模式
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本用法"><span class="toc-number">1.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用注意点"><span class="toc-number">2.</span> <span class="toc-text">使用注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数绑定"><span class="toc-number">3.</span> <span class="toc-text">函数绑定</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/jsfront/" target="_blank" title="JS高级前端开发">JS高级前端开发</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://segmentfault.com/" target="_blank" title="segmentfault">segmentfault</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://stackoverflow.com/" target="_blank" title="stackoverflow">stackoverflow</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/jikeytang/front-end-collect" target="_blank" title="前端收集">前端收集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Alice Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -9,7 +9,7 @@
     
     <meta name="author" content="Alice">
     
-
+    
     
     <meta name="description" content="区别有三点： 1、执行时机$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东西还没加载完window.onload必须等网页里所有的内容都加载完毕后（包括图片）才执行 2、编写个数$.ready()可以编写多个，每个都执行window.onload不能编写多个（编写多个时，只执行最后一个） 3、简化写法$.ready实际上是$(document).ready的简写，而">
 <meta name="keywords">
@@ -42,7 +42,7 @@
 <div>
 		
 			<div id="imglogo">
-				<a href="/"><img src="/img/logo.png" alt="笑呵呵" title="笑呵呵"/></a>
+				<a href="/"><img src="/img/favicon.png" alt="笑呵呵" title="笑呵呵"/></a>
 			</div>
 			
 			<div id="textlogo">
@@ -64,11 +64,10 @@
 					
 					<li>
  					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
-						<input type="hidden" name="q" value="site:aliceflaviawang.github.io">
-					</form>
+						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						</form>
 					
 					</li>
 				</ul>

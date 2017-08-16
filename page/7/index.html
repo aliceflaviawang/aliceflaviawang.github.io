@@ -81,6 +81,116 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/05/26/DOM性能提升/" title="DOM性能提升" itemprop="url">DOM性能提升</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>DOM(文档对象模型)是针对HTNL和XML文档的一个API（应用程序编程接口），DOM可以将任何一个HTML或XML文档描绘成一个由多层节点构成的节点树，允许开发人员添加、移除和修改页面的某一部分。</p>
+<h3 id="DOM的核心问题"><a href="#DOM的核心问题" class="headerlink" title="DOM的核心问题"></a>DOM的核心问题</h3><p>DOM会导致一系列的重绘(repaint)、重新排版(reflow)操作。为了确保执行结果的准确性，所有的修改是按顺序同步进行的，大部分浏览器都不会在执行过程中更新DOM。相应的，这些浏览器将对DOM的操作放在一个队列，并在JavaScript脚本执行完毕以后按顺序一次执行完毕。也就是说，在JavaScript执行的过程，直到发生重新排版，用户一直被阻塞。<br>一般的浏览器中（不含IE），repaint的速度远快于reflow，所以避免reflow更重要。<br><strong>reflow:</strong>例如某个子元素样式发生改变，直接影响到了其父元素以及往上追溯很多祖先元素（包括兄弟元素），这时候浏览器要重新渲染这个子元素相关联的所有元素的过程。reflow几乎无法避免。<br><strong>repaint:</strong>如果只是改变某个元素的背景色、文字颜色、边框颜色等等不影响它周围或内部布局的属性，将只会引起浏览器的repaint。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>关键：</strong>减少DOM操作引起的reflow。</p>
+<h4 id="1、使用DoucumentFragment一次性更新DOM"><a href="#1、使用DoucumentFragment一次性更新DOM" class="headerlink" title="1、使用DoucumentFragment一次性更新DOM"></a>1、使用DoucumentFragment一次性更新DOM</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//使用容器保存临时变更，最后一次性更新DOM</div><div class="line">var fragment=document.createDocumentFragment();</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   fragment.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure>
+<h4 id="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"><a href="#2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排" class="headerlink" title="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"></a>2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list.style.display=&quot;none&quot;;</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   list.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.style.display=&quot;&quot;;</div></pre></td></tr></table></figure>
+<h4 id="3、一次性修改样式属性"><a href="#3、一次性修改样式属性" class="headerlink" title="3、一次性修改样式属性"></a>3、一次性修改样式属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这样做很引起多次重排</div><div class="line">element.style.backgroundColor=&quot;blue&quot;;</div><div class="line">element.style.color=&quot;red&quot;;</div><div class="line">element.style.fontSize=&quot;12em&quot;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//更好的做法是，把样式放在一个class下</div><div class="line">.newStyle&#123;</div><div class="line">  background-color:blue;</div><div class="line">  color:red;</div><div class="line">  font-size:12em;</div><div class="line">&#125;</div><div class="line">element.className=&quot;newStyle&quot;;</div></pre></td></tr></table></figure>
+<h4 id="4、使用缓存，缓存临时节点"><a href="#4、使用缓存，缓存临时节点" class="headerlink" title="4、使用缓存，缓存临时节点"></a>4、使用缓存，缓存临时节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//不好的做法</div><div class="line">document.getElementById(&quot;myDiv&quot;).style.left=document.getElementById(&quot;myDiv&quot;).offsetLeft+document.getElementById(&quot;myDiv&quot;).offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//更好的做法</div><div class="line">var myDiv=document.getElementById(&quot;myDiv&quot;);</div><div class="line">myDiv.style.left=myDiv.offsetLeft+myDiv.offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/24/跨浏览器事件对象———EventUtil/" title="跨浏览器事件对象———EventUtil" itemprop="url">跨浏览器事件对象———EventUtil</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>EventUtil:在JavaScript中，DOM0级、DOM2级与旧版本IE（8-）为对象添加事件的方法不同，为了以跨浏览器的方式处理时间，需要编写一段“通用代码”，即跨浏览器的事件处理程序，这个方法属于一个名为EventUtil的对象，编写并使用该对象后，可保证处理事件的代码能在大多数浏览器下一致地运行。</p>
+<h2 id="EventUtil对象"><a href="#EventUtil对象" class="headerlink" title="EventUtil对象"></a>EventUtil对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">var EventUtil=&#123;</div><div class="line">   addHandler:function(element,type,handler)&#123;//添加事件</div><div class="line">      if(element.addEventListener)&#123;</div><div class="line">         element.addEventListener(type,handler,false); //使用DOM2级方法添加事件，三个参数分别是：要处理的事件名、作为事件处理的函数和一个布尔值（布尔值表示在捕获阶段(true)还是冒泡阶段(false)调用事件处理程序）</div><div class="line">     &#125;</div><div class="line">     else if(element.attachEvent)&#123;</div><div class="line">         element.attachEvent(&quot;on&quot;+type,handler); //使用IE方法添加事件，两个参数分别为：事件处理程序名称和事件处理程序的函数</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=handler; //使用DOM0级方法添加事件</div><div class="line">     &#125;</div><div class="line">   &#125;，</div><div class="line">   removeHandler:function(element,type,handler)&#123; //取消事件</div><div class="line">      if(element.removeEventListener)&#123;</div><div class="line">         element.removeEventListener(type,handler,false);</div><div class="line">     &#125;</div><div class="line">     else if(element.detachEvent)&#123;     </div><div class="line">         element.detachEvent(&quot;on&quot;+type,handler);     </div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getEvent:function(event)&#123; //使用这个方法跨浏览器取得event对象</div><div class="line">      return event?event:window.event; //在IE中，使用DOM0级添加事件处理程序时，event对象作为window对象的一个属性存在，而且在IE中，event对象的一些属性/方法跟其他支持DOM的浏览器不同，正是由于这些差异，EventUtil中的getEvent方法应运而生</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">   getTarget:function(event)&#123; //返回事件的实际目标</div><div class="line">      return event.target||event.srcEelment;  //在IE中，获取事件的目标对象的方法为event.srcElement，而其他兼容DOM的浏览器中，获取事件目标对象的方法却为event.target</div><div class="line">   &#125;,</div><div class="line"></div><div class="line"></div><div class="line">   preventDefault:function(event)&#123; //阻止事件的默认行为</div><div class="line">      if(event.preventDefault)&#123; //在其他兼容DOM的浏览器中，阻止特定事件的默认行为只需要使用event对象自带的preventDefault()方法</div><div class="line">        event.preventDefault();</div><div class="line">     &#125;else&#123; //而IE中，则需要赋予event.returnValue的值为false才能阻止特定事件的默认行为</div><div class="line">        event.returnValue=false;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   stopPropagation:function(event)&#123; </div><div class="line">     if(event.stopPropagation)&#123;</div><div class="line">      event.stopPropagation(); //DOMO级或DOM2级取消事件进一步冒泡或者捕获</div><div class="line">    &#125;else&#123;</div><div class="line">      event.cancelBubble=true; //IE中取消时间冒泡</div><div class="line">    &#125;</div><div class="line">      </div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getRelatedTarget:function(event)&#123; //获取mouseover和mouseout相关元素</div><div class="line">//mouseover与mouseout有“主目标”和“相关元素”的概念，因为在发生mouseover或mouseout事件时，还会涉及到其他元素，这两个事件都会涉及把鼠标指针从一个元素移到另一个元素。具体来说，对mouseover事件，事件的主目标是获得光标的元素，而相关元素是那个失去光标的元素，对mouseout事件而言，事件的主目标是失去光标的元素，而相关元素是那个获得光标的元素。</div><div class="line">      if(event.relatedTarget)&#123;</div><div class="line">        return event.relatedTarget;</div><div class="line">     &#125;</div><div class="line">      else if(event.toElement)&#123; //mouseout触发时，IE的toElement保存的相关元素属性</div><div class="line">        return event.toElement;</div><div class="line">     &#125;</div><div class="line">     else if(event.formElement)&#123; //mouseover触发时，IE的formElement保存相关元素属性</div><div class="line">         return event.formElement;</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         return null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getButton:function(event)&#123;  //获取mousedown或mouseup按下或释放的按钮是鼠标的哪一个</div><div class="line">     if(document.implementation.hasFeature(&quot;MouseEvents&quot;,&quot;2.0&quot;))&#123;</div><div class="line">        return event.button;</div><div class="line">     &#125;else&#123;</div><div class="line">       switch(event.button)&#123;//将IE模型下的button属性映射为DOM模型下的button属性</div><div class="line">         case 0:</div><div class="line">         case 1;</div><div class="line">         case 3;</div><div class="line">         case 5;</div><div class="line">         case 7;</div><div class="line">           return 0; //按下的是鼠标主按钮（一般是左键）</div><div class="line">         case 2:</div><div class="line">         case 6:</div><div class="line">           return 2; //按下的是中间的鼠标按钮</div><div class="line">         case 4:</div><div class="line">           return 1; //鼠标次按钮（一般是右键）</div><div class="line">        &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">  getWheelDelta:function(event)&#123; //获取表示鼠标滚轮滚动方向的数值</div><div class="line">//解决的是与Firefox的差异</div><div class="line">    if(event.wheelDelta)&#123;</div><div class="line">      return event.wheelDelta;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">      return -event.detail*40;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  getCharCode:function(event)&#123; //跨浏览器取得相同的字符编码，需在keypress事件中使用</div><div class="line"></div><div class="line">//在所有浏览器中，按下能够插入或删除的字符的按键都会触发keypress事件，但IE8-及Opera取得字符编码的方式与其他浏览器有差异</div><div class="line">    if(typeof event.charCode==&quot;number&quot;)&#123;</div><div class="line">       return event.charCode;</div><div class="line">    &#125;else&#123;</div><div class="line">       return event.keyCode;</div><div class="line">   &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="举例用法"><a href="#举例用法" class="headerlink" title="举例用法"></a>举例用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//添加了EventUtil之后，获取了event对象、取消了事件进一步捕获或者冒泡、指定了事件的处理程序而无须担心浏览器兼容问题</div><div class="line">var btn=document.getElementById(&quot;#btn&quot;);</div><div class="line">var handler=function(event)&#123;</div><div class="line">   event=EventUtil.getEvent(event); </div><div class="line">   EventUtil.stopPropagation(event); </div><div class="line"> &#125;</div><div class="line">Event.addHandler(btn,&quot;click&quot;,handler);</div></pre></td></tr></table></figure>
+<h3 id="补充addEventListener的第三个参数useCapture"><a href="#补充addEventListener的第三个参数useCapture" class="headerlink" title="补充addEventListener的第三个参数useCapture"></a>补充addEventListener的第三个参数useCapture</h3><p>事件有三个阶段：<br>捕获阶段：外–&gt;里<br>目标阶段：<br>冒泡阶段：里–&gt;外<br>useCapture是一个布尔值，默认是false。如果是true的话表示在事件捕获阶段调用事件处理程序；如果是false表示在事件冒泡阶段处理程序。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/05/01/为什么js没有函数签名/" title="为什么js没有函数签名" itemprop="url">为什么js没有函数签名</a>
   </h1>
   <p class="article-author">By
@@ -375,107 +485,6 @@
 <p>而使用函数名，则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //0</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
 <h4 id="后记——函数对象的caller属性"><a href="#后记——函数对象的caller属性" class="headerlink" title="后记——函数对象的caller属性"></a>后记——函数对象的caller属性</h4><p>当一个函数调用另一个函数时，被调用的函数会自动生成一个caller属性，指向调用它的函数对象。若该函数未被调用或没有被其他函数调用，caller为null。<br>而arguments.callee是函数被调用时，arguments.callee对象指向自身，是对自己的引用。<br>注：arguments在函数调用时才有效，因为arguments.callee在函数未调用时是不存在的（即null.callee)。</p>
 
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/22/translate-50-50-的作用/" title="translate(-50%,-50%)的作用" itemprop="url">translate(-50%,-50%)的作用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-22T14:01:12.000Z" itemprop="datePublished"> Published 2017-04-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;outer&quot;&gt;</div><div class="line">   &lt;div id=&quot;inner&quot;&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>如果不加transform属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#outer&#123;</div><div class="line">        position: relative;</div><div class="line">        width: 500px;</div><div class="line">        height: 500px;</div><div class="line">        border: 1px solid black;</div><div class="line">&#125;</div><div class="line">#inner&#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>inner框的左上角处于中心位置，如果希望其中心居于中心位置，将应该向上和向左移动一半的边长长度。加上transform属性，就可以实现这个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#inner &#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">        -ms-transform: translate(-50%,-50%);</div><div class="line">        -moz-transform: translate(-50%,-50%);</div><div class="line">        -o-transform: translate(-50%,-50%);</div><div class="line">        transform: translate(-50%,-50%);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/19/阿里暑期前端面试总结/" title="阿里暑期前端面试总结" itemprop="url">阿里暑期前端面试总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> Published 2017-04-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        
         
         
         <p class="article-more-link">

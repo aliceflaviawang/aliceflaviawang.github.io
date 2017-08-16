@@ -81,6 +81,112 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/17/serialize-系列方法/" title="serialize()系列方法" itemprop="url">serialize()系列方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> Published 2017-06-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="serialize"><a href="#serialize" class="headerlink" title="serialize()"></a>serialize()</h3><p>jQuery有方法$.fn.serialize()，可以将表单序列化成字符串。提交表单的时候，将表单的每个元素表达成如：username:$(“#username”).val(),content:$(“#content”).val()…无疑随着表单元素越来越复杂，这种方式在增大工作量的同时也使表单元素缺乏弹性。采用serialize（）方法可以将需要提交的字段内容序列化为字符串，username:$(“#username”).val(),content:$(“#content”).val()…可以用一个语句代替:$(“#form”).serialize(),其中#form是表单的id。</p>
+<h3 id="serialize-的其他两种方法–serializeArray-和serializeObject"><a href="#serialize-的其他两种方法–serializeArray-和serializeObject" class="headerlink" title="serialize()的其他两种方法–serializeArray()和serializeObject()"></a>serialize()的其他两种方法–serializeArray()和serializeObject()</h3><p>serializeArray()是将表单序列化为JSON格式的数据，输出的是对象数组。而serializeObject()是基于serializeArray（）编写的。下面例子能非常清晰的看出其中的区别：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#form&quot;).serialize(); //username=&amp;content=</div><div class="line">$(&quot;#form&quot;).serializeArray(); //[&#123;name:&quot;username&quot;,value:&quot;&quot;&#125;,&#123;name:&quot;content&quot;,value:&quot;&quot;&#125;]</div><div class="line">$(&quot;#form&quot;).serializeObject(); //&#123;username:&quot;&quot;,content:&quot;&quot;&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>1、serializeObject()直接使用的话，会提示serializeObject()is not a funtion.因为serializeObject()本身并不是一个jQuery自带的功能，而是基于serializeArray（）的添加功能，需要对其进行定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$.fn.serializeObject()&#123;</div><div class="line">  var o=&#123;&#125;; //保存对象</div><div class="line">  var a=this.serializeArray(); //先将元素序列化为对象数组</div><div class="line">  $.each(a,function()&#123;</div><div class="line">    if(o[this.name])&#123;//表单中可能有多个相同的label，在插入第一个label后，还有继续插入，这个时候o[label]已经存在了，所以要把o[label]做嵌套处理</div><div class="line">       if（！o[this.name].push)&#123; //如果o[label]不是嵌套在数组里面，实际上就是看o[this.name]是不是一个数组，数组有push方法，对象没有</div><div class="line">          o[thos.name]=[o[this.name]];将o[label]初始为嵌套数组</div><div class="line">        &#125;</div><div class="line">        o[this.name].push(this.value||&apos;&apos;); //将值插入o[label]数组里</div><div class="line">     &#125;</div><div class="line">    else&#123;</div><div class="line">       o[this.name]=this.value||&apos;&apos;;//第一次在o中插入o[label]</div><div class="line">     &#125;</div><div class="line">   &#125;)</div><div class="line">  return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>举个例子,对于下面的表单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;form id=&quot;form&quot;&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;  </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt; </div><div class="line">    &lt;input type=&quot;text&quot; name=&quot;content&quot; /&gt; </div><div class="line">    &lt;input type=&quot;button&quot; id=&quot;send&quot; onclick=&quot;sen();&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p>执行三个函数，分别结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a=$(&quot;#form&quot;).serialize(); //username=alice&amp;username=bob&amp;content=123</div><div class="line"> </div><div class="line">var b=$(&quot;#form&quot;).serializeArray();  //[&#123;name:&quot;username&quot;,value=&quot;alice&quot;&#125;,&#123;name:&quot;username&quot;,value=&quot;bob&quot;&#125;,&#123;name:&quot;content&quot;,value=&quot;123&quot;&#125;]</div><div class="line"></div><div class="line">var c=$(&quot;#form&quot;).serializeObject();  //&#123;username:[&quot;alice&quot;,&quot;bob&quot;],content:&quot;123&quot;&#125;</div></pre></td></tr></table></figure></p>
+<p>2、表单元素要序列化必须要使用name属性，form里的name不能用js、jquery的关键字，否则获取不到值。<br>3、不光表单能用到serialize()方法，其他选择器元素也可以。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;:checkbox,:radio&quot;).serialize()</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/15/EasyUI更改弹出框位置/" title="EasyUI更改弹出框位置" itemprop="url">EasyUI更改弹出框位置</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> Published 2017-06-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>EasyUI的dialog弹出一般用的是$(‘#dlg’).dialog(‘open’)，要想调整其位置，可以采用$(‘#dlg’).window(‘open’)，再用window的resize方法重新布局就可以了。<br>如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).dialog(&apos;open&apos;).dialog(&apos;center&apos;).dialog(&apos;setTitle&apos;, &apos;添加题目&apos;);</div></pre></td></tr></table></figure></p>
+<p>可以改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#dlg&apos;).window(&apos;open&apos;).window(&apos;setTitle&apos;,&apos;添加题目&apos;).window(&apos;resize&apos;,&#123;width:&apos;500px&apos;,height:&apos;800px&apos;,top:&apos;30px&apos;&#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法" itemprop="url">a标签中href=&#39;&#39;的几种用法</a>
   </h1>
   <p class="article-author">By
@@ -381,116 +487,6 @@
 <h4 id="8-服务器响应请求"><a href="#8-服务器响应请求" class="headerlink" title="8.服务器响应请求"></a>8.服务器响应请求</h4><p>服务接收到客户端发送的HTTP请求后，查找客户端请求的资源，并返回响应报文，响应报文中包括一个重要的信息————状态码。状态码由三位数字组成，其中比较常见的是200 OK表示请求成功。301表示永久重定向，即请求的资源已经永久转移到新的位置。在返回301状态码的同时，响应报文也会附带重定向的URL，客户端接收后将HTTP请求的URL做相应的改变再重新发送。404 not found表示客户端请求的资源找不到。</p>
 <h4 id="9-服务器返回相应文件"><a href="#9-服务器返回相应文件" class="headerlink" title="9.服务器返回相应文件"></a>9.服务器返回相应文件</h4><p>请求成功后，服务器会返回相应的HTML文件。接下来就到了页面渲染阶段了。</p>
 <h3 id="二、页面渲染"><a href="#二、页面渲染" class="headerlink" title="二、页面渲染"></a>二、页面渲染</h3><p>现代浏览器渲染页面的过程是这样的：解析HTML以构建DOM树——&gt;构建渲染树——&gt;布局渲染树——&gt;绘制渲染树。<br>DOM树是由HTML文件中的标签排列组成，渲染树是在DOM树种加入CSS或HTML中的style样式而形成。渲染树只包含显示在页面中的DOM元素，像<head>元素或display属性值为none的元素都不在渲染树中。<br>在浏览器还没接收到完整的HTML文件时，它就开始渲染页面了，在遇到外部链入的脚本标签或样式标签或图片时，会再次发送HTTP请求重复上述的步骤。在收到CSS文件后会对已经渲染的页面重新渲染，加入它们应有的样式，图片文件加载完立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</head></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/05/26/DOM性能提升/" title="DOM性能提升" itemprop="url">DOM性能提升</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>DOM(文档对象模型)是针对HTNL和XML文档的一个API（应用程序编程接口），DOM可以将任何一个HTML或XML文档描绘成一个由多层节点构成的节点树，允许开发人员添加、移除和修改页面的某一部分。</p>
-<h3 id="DOM的核心问题"><a href="#DOM的核心问题" class="headerlink" title="DOM的核心问题"></a>DOM的核心问题</h3><p>DOM会导致一系列的重绘(repaint)、重新排版(reflow)操作。为了确保执行结果的准确性，所有的修改是按顺序同步进行的，大部分浏览器都不会在执行过程中更新DOM。相应的，这些浏览器将对DOM的操作放在一个队列，并在JavaScript脚本执行完毕以后按顺序一次执行完毕。也就是说，在JavaScript执行的过程，直到发生重新排版，用户一直被阻塞。<br>一般的浏览器中（不含IE），repaint的速度远快于reflow，所以避免reflow更重要。<br><strong>reflow:</strong>例如某个子元素样式发生改变，直接影响到了其父元素以及往上追溯很多祖先元素（包括兄弟元素），这时候浏览器要重新渲染这个子元素相关联的所有元素的过程。reflow几乎无法避免。<br><strong>repaint:</strong>如果只是改变某个元素的背景色、文字颜色、边框颜色等等不影响它周围或内部布局的属性，将只会引起浏览器的repaint。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>关键：</strong>减少DOM操作引起的reflow。</p>
-<h4 id="1、使用DoucumentFragment一次性更新DOM"><a href="#1、使用DoucumentFragment一次性更新DOM" class="headerlink" title="1、使用DoucumentFragment一次性更新DOM"></a>1、使用DoucumentFragment一次性更新DOM</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//使用容器保存临时变更，最后一次性更新DOM</div><div class="line">var fragment=document.createDocumentFragment();</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   fragment.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure>
-<h4 id="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"><a href="#2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排" class="headerlink" title="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"></a>2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list.style.display=&quot;none&quot;;</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   list.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.style.display=&quot;&quot;;</div></pre></td></tr></table></figure>
-<h4 id="3、一次性修改样式属性"><a href="#3、一次性修改样式属性" class="headerlink" title="3、一次性修改样式属性"></a>3、一次性修改样式属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这样做很引起多次重排</div><div class="line">element.style.backgroundColor=&quot;blue&quot;;</div><div class="line">element.style.color=&quot;red&quot;;</div><div class="line">element.style.fontSize=&quot;12em&quot;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//更好的做法是，把样式放在一个class下</div><div class="line">.newStyle&#123;</div><div class="line">  background-color:blue;</div><div class="line">  color:red;</div><div class="line">  font-size:12em;</div><div class="line">&#125;</div><div class="line">element.className=&quot;newStyle&quot;;</div></pre></td></tr></table></figure>
-<h4 id="4、使用缓存，缓存临时节点"><a href="#4、使用缓存，缓存临时节点" class="headerlink" title="4、使用缓存，缓存临时节点"></a>4、使用缓存，缓存临时节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//不好的做法</div><div class="line">document.getElementById(&quot;myDiv&quot;).style.left=document.getElementById(&quot;myDiv&quot;).offsetLeft+document.getElementById(&quot;myDiv&quot;).offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//更好的做法</div><div class="line">var myDiv=document.getElementById(&quot;myDiv&quot;);</div><div class="line">myDiv.style.left=myDiv.offsetLeft+myDiv.offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/05/24/跨浏览器事件对象———EventUtil/" title="跨浏览器事件对象———EventUtil" itemprop="url">跨浏览器事件对象———EventUtil</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>EventUtil:在JavaScript中，DOM0级、DOM2级与旧版本IE（8-）为对象添加事件的方法不同，为了以跨浏览器的方式处理时间，需要编写一段“通用代码”，即跨浏览器的事件处理程序，这个方法属于一个名为EventUtil的对象，编写并使用该对象后，可保证处理事件的代码能在大多数浏览器下一致地运行。</p>
-<h2 id="EventUtil对象"><a href="#EventUtil对象" class="headerlink" title="EventUtil对象"></a>EventUtil对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">var EventUtil=&#123;</div><div class="line">   addHandler:function(element,type,handler)&#123;//添加事件</div><div class="line">      if(element.addEventListener)&#123;</div><div class="line">         element.addEventListener(type,handler,false); //使用DOM2级方法添加事件，三个参数分别是：要处理的事件名、作为事件处理的函数和一个布尔值（布尔值表示在捕获阶段(true)还是冒泡阶段(false)调用事件处理程序）</div><div class="line">     &#125;</div><div class="line">     else if(element.attachEvent)&#123;</div><div class="line">         element.attachEvent(&quot;on&quot;+type,handler); //使用IE方法添加事件，两个参数分别为：事件处理程序名称和事件处理程序的函数</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=handler; //使用DOM0级方法添加事件</div><div class="line">     &#125;</div><div class="line">   &#125;，</div><div class="line">   removeHandler:function(element,type,handler)&#123; //取消事件</div><div class="line">      if(element.removeEventListener)&#123;</div><div class="line">         element.removeEventListener(type,handler,false);</div><div class="line">     &#125;</div><div class="line">     else if(element.detachEvent)&#123;     </div><div class="line">         element.detachEvent(&quot;on&quot;+type,handler);     </div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getEvent:function(event)&#123; //使用这个方法跨浏览器取得event对象</div><div class="line">      return event?event:window.event; //在IE中，使用DOM0级添加事件处理程序时，event对象作为window对象的一个属性存在，而且在IE中，event对象的一些属性/方法跟其他支持DOM的浏览器不同，正是由于这些差异，EventUtil中的getEvent方法应运而生</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">   getTarget:function(event)&#123; //返回事件的实际目标</div><div class="line">      return event.target||event.srcEelment;  //在IE中，获取事件的目标对象的方法为event.srcElement，而其他兼容DOM的浏览器中，获取事件目标对象的方法却为event.target</div><div class="line">   &#125;,</div><div class="line"></div><div class="line"></div><div class="line">   preventDefault:function(event)&#123; //阻止事件的默认行为</div><div class="line">      if(event.preventDefault)&#123; //在其他兼容DOM的浏览器中，阻止特定事件的默认行为只需要使用event对象自带的preventDefault()方法</div><div class="line">        event.preventDefault();</div><div class="line">     &#125;else&#123; //而IE中，则需要赋予event.returnValue的值为false才能阻止特定事件的默认行为</div><div class="line">        event.returnValue=false;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   stopPropagation:function(event)&#123; </div><div class="line">     if(event.stopPropagation)&#123;</div><div class="line">      event.stopPropagation(); //DOMO级或DOM2级取消事件进一步冒泡或者捕获</div><div class="line">    &#125;else&#123;</div><div class="line">      event.cancelBubble=true; //IE中取消时间冒泡</div><div class="line">    &#125;</div><div class="line">      </div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getRelatedTarget:function(event)&#123; //获取mouseover和mouseout相关元素</div><div class="line">//mouseover与mouseout有“主目标”和“相关元素”的概念，因为在发生mouseover或mouseout事件时，还会涉及到其他元素，这两个事件都会涉及把鼠标指针从一个元素移到另一个元素。具体来说，对mouseover事件，事件的主目标是获得光标的元素，而相关元素是那个失去光标的元素，对mouseout事件而言，事件的主目标是失去光标的元素，而相关元素是那个获得光标的元素。</div><div class="line">      if(event.relatedTarget)&#123;</div><div class="line">        return event.relatedTarget;</div><div class="line">     &#125;</div><div class="line">      else if(event.toElement)&#123; //mouseout触发时，IE的toElement保存的相关元素属性</div><div class="line">        return event.toElement;</div><div class="line">     &#125;</div><div class="line">     else if(event.formElement)&#123; //mouseover触发时，IE的formElement保存相关元素属性</div><div class="line">         return event.formElement;</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         return null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getButton:function(event)&#123;  //获取mousedown或mouseup按下或释放的按钮是鼠标的哪一个</div><div class="line">     if(document.implementation.hasFeature(&quot;MouseEvents&quot;,&quot;2.0&quot;))&#123;</div><div class="line">        return event.button;</div><div class="line">     &#125;else&#123;</div><div class="line">       switch(event.button)&#123;//将IE模型下的button属性映射为DOM模型下的button属性</div><div class="line">         case 0:</div><div class="line">         case 1;</div><div class="line">         case 3;</div><div class="line">         case 5;</div><div class="line">         case 7;</div><div class="line">           return 0; //按下的是鼠标主按钮（一般是左键）</div><div class="line">         case 2:</div><div class="line">         case 6:</div><div class="line">           return 2; //按下的是中间的鼠标按钮</div><div class="line">         case 4:</div><div class="line">           return 1; //鼠标次按钮（一般是右键）</div><div class="line">        &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">  getWheelDelta:function(event)&#123; //获取表示鼠标滚轮滚动方向的数值</div><div class="line">//解决的是与Firefox的差异</div><div class="line">    if(event.wheelDelta)&#123;</div><div class="line">      return event.wheelDelta;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">      return -event.detail*40;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  getCharCode:function(event)&#123; //跨浏览器取得相同的字符编码，需在keypress事件中使用</div><div class="line"></div><div class="line">//在所有浏览器中，按下能够插入或删除的字符的按键都会触发keypress事件，但IE8-及Opera取得字符编码的方式与其他浏览器有差异</div><div class="line">    if(typeof event.charCode==&quot;number&quot;)&#123;</div><div class="line">       return event.charCode;</div><div class="line">    &#125;else&#123;</div><div class="line">       return event.keyCode;</div><div class="line">   &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="举例用法"><a href="#举例用法" class="headerlink" title="举例用法"></a>举例用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//添加了EventUtil之后，获取了event对象、取消了事件进一步捕获或者冒泡、指定了事件的处理程序而无须担心浏览器兼容问题</div><div class="line">var btn=document.getElementById(&quot;#btn&quot;);</div><div class="line">var handler=function(event)&#123;</div><div class="line">   event=EventUtil.getEvent(event); </div><div class="line">   EventUtil.stopPropagation(event); </div><div class="line"> &#125;</div><div class="line">Event.addHandler(btn,&quot;click&quot;,handler);</div></pre></td></tr></table></figure>
-<h3 id="补充addEventListener的第三个参数useCapture"><a href="#补充addEventListener的第三个参数useCapture" class="headerlink" title="补充addEventListener的第三个参数useCapture"></a>补充addEventListener的第三个参数useCapture</h3><p>事件有三个阶段：<br>捕获阶段：外–&gt;里<br>目标阶段：<br>冒泡阶段：里–&gt;外<br>useCapture是一个布尔值，默认是false。如果是true的话表示在事件捕获阶段调用事件处理程序；如果是false表示在事件冒泡阶段处理程序。</p>
 
         
         

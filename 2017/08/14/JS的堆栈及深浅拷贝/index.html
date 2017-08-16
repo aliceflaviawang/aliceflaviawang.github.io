@@ -1,0 +1,438 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JS的堆栈及深浅拷贝 | 笑呵呵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Alice">
+    
+    
+    
+    <meta name="description" content="堆栈堆栈是两种数据结构，只能在一端对数据项进行插入和删除。  栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。 堆：动态分配的空间一般由程序员分配释放，若程序员不释放，则程序释放时可能由OS回收。  JS中的堆栈与基本类型、引用类型js中的数据类型分为两种 ：  基本类型：undefined,bool,number,string,null，这5中基本数据类型可以直接访问，它们是按照值">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS的堆栈及深浅拷贝">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/08/14/JS的堆栈及深浅拷贝/index.html">
+<meta property="og:site_name" content="笑呵呵">
+<meta property="og:description" content="堆栈堆栈是两种数据结构，只能在一端对数据项进行插入和删除。  栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。 堆：动态分配的空间一般由程序员分配释放，若程序员不释放，则程序释放时可能由OS回收。  JS中的堆栈与基本类型、引用类型js中的数据类型分为两种 ：  基本类型：undefined,bool,number,string,null，这5中基本数据类型可以直接访问，它们是按照值">
+<meta property="og:updated_time" content="2017-08-14T08:25:58.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS的堆栈及深浅拷贝">
+<meta name="twitter:description" content="堆栈堆栈是两种数据结构，只能在一端对数据项进行插入和删除。  栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。 堆：动态分配的空间一般由程序员分配释放，若程序员不释放，则程序释放时可能由OS回收。  JS中的堆栈与基本类型、引用类型js中的数据类型分为两种 ：  基本类型：undefined,bool,number,string,null，这5中基本数据类型可以直接访问，它们是按照值">
+
+    
+    <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/favicon.png" alt="笑呵呵" title="笑呵呵"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
+				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
+			</div>
+			
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/14/JS的堆栈及深浅拷贝/" title="JS的堆栈及深浅拷贝" itemprop="url">JS的堆栈及深浅拷贝</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-14T02:39:57.000Z" itemprop="datePublished"> Published 2017-08-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#堆栈"><span class="toc-number">1.</span> <span class="toc-text">堆栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS中的堆栈与基本类型、引用类型"><span class="toc-number">2.</span> <span class="toc-text">JS中的堆栈与基本类型、引用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝"><span class="toc-number">3.</span> <span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深拷贝"><span class="toc-number">4.</span> <span class="toc-text">深拷贝</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>堆栈是两种数据结构，只能在一端对数据项进行插入和删除。</p>
+<ul>
+<li>栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。</li>
+<li>堆：动态分配的空间一般由程序员分配释放，若程序员不释放，则程序释放时可能由OS回收。</li>
+</ul>
+<h3 id="JS中的堆栈与基本类型、引用类型"><a href="#JS中的堆栈与基本类型、引用类型" class="headerlink" title="JS中的堆栈与基本类型、引用类型"></a>JS中的堆栈与基本类型、引用类型</h3><p>js中的数据类型分为两种 ：</p>
+<ol>
+<li>基本类型：undefined,bool,number,string,null，这5中基本数据类型可以直接访问，它们是按照值进行分配的，存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配。</li>
+<li>引用类型：存放在堆中的对象，变量实际保存的是一个指针，这个指针指向另一个位置。</li>
+</ol>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>基本类型的拷贝只是在内存中又开辟了新的空间，和它的父元素（称被拷贝的对象为父元素）互不相干，因此深浅拷贝是相对于引用类型的，以便于对引用类型父对象的保存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var father1=&#123;name:&apos;shanghai&apos;,age:1000,job:[&apos;teacher&apos;,cook]&#125;;</div><div class="line">//浅拷贝函数</div><div class="line">function copy(obj)&#123;</div><div class="line">  var childs=&#123;&#125;;</div><div class="line">  for(var key in obj)&#123;</div><div class="line">     childs[key]=obj[key];</div><div class="line">  &#125;</div><div class="line">  return childs;</div><div class="line">&#125;</div><div class="line">var child1=copy(father1);</div><div class="line">console.log(child1); //&#123;name:&apos;shanghai&apos;,age:1000,job:Array(2)&#125;</div><div class="line">console.log(typeof child1); //object</div><div class="line"></div><div class="line">//改变子对象的name属性，发现对父对象的name没有影响</div><div class="line">child1.name=&apos;chengdu&apos;;</div><div class="line">console.log(father1); //&#123;name:&apos;shanghai&apos;,age:1000,job:Array(2)&#125;</div><div class="line">console.log(child1); //&#123;name:&apos;chengdu&apos;,age:1000,job:Array(2)&#125;</div><div class="line"></div><div class="line">//注意：这次改变子对象的job属性也就是改变数组，发现对都对象的job受到了影响</div><div class="line">child1.job.push(&apos;programmer&apos;);</div><div class="line">console.log(father1) ;//&#123;name:&apos;shanghai&apos;,age:1000,job:[&apos;teacher&apos;,&apos;cook&apos;,&apos;programmer&apos;]&#125;</div><div class="line">console.log(child1) ;//&#123;name:&apos;chengdu&apos;,age:1000,job:[&apos;teacher&apos;,&apos;cook&apos;,&apos;programmer&apos;]&#125;</div></pre></td></tr></table></figure></p>
+<p>由上，浅拷贝的时候，子对象数组改变时父对象也跟着改变，说明子对象和父对象在浅拷贝的时候指向同一个内存的数组。</p>
+<p>如果想让子对象拷贝和父对象没有关联，就必须使用深度拷贝。</p>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>深拷贝就是父对象拷贝到子对象上，而且两者的内存和以后的操作都互不影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">function deepCopy(obj)&#123;</div><div class="line">  var o;</div><div class="line">  switch(typeof obj)&#123;</div><div class="line">    case &apos;undefined&apos;:break;</div><div class="line">    case &apos;string&apos;:o=obj+&apos;&apos;;break;</div><div class="line">    case &apos;number&apos;:o=obj-0;break;</div><div class="line">    case &apos;boolean&apos;:o=obj;break;</div><div class="line">    case &apos;object&apos;:</div><div class="line">      if(obj===null)&#123;</div><div class="line">         o=null;</div><div class="line">      &#125;else&#123;</div><div class="line">         if(obj instanceof Array)&#123;</div><div class="line">            o =[];</div><div class="line">            for(var i=0,len=obj.length;i&lt;len;i++)&#123;</div><div class="line">               o.push(deepCopy(obj[i]));</div><div class="line">            &#125;</div><div class="line">         &#125;else&#123; </div><div class="line">               o=&#123;&#125;;</div><div class="line">               for(var k in obj)&#123;</div><div class="line">                 o[k]=deepCopy(obj[k]);</div><div class="line">            &#125;</div><div class="line">         &#125;</div><div class="line">       &#125;</div><div class="line">       break;</div><div class="line">     default:</div><div class="line">        o=obj; break;</div><div class="line">    &#125;</div><div class="line">    return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://aliceflaviawang.github.io/2017/08/14/JS的堆栈及深浅拷贝/" data-title="JS的堆栈及深浅拷贝 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/14/JS异步编程/" title="JS异步编程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  JS异步编程</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#堆栈"><span class="toc-number">1.</span> <span class="toc-text">堆栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS中的堆栈与基本类型、引用类型"><span class="toc-number">2.</span> <span class="toc-text">JS中的堆栈与基本类型、引用类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝"><span class="toc-number">3.</span> <span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深拷贝"><span class="toc-number">4.</span> <span class="toc-text">深拷贝</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/jsfront/" target="_blank" title="JS高级前端开发">JS高级前端开发</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://segmentfault.com/" target="_blank" title="segmentfault">segmentfault</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://stackoverflow.com/" target="_blank" title="stackoverflow">stackoverflow</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/jikeytang/front-end-collect" target="_blank" title="前端收集">前端收集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Alice Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

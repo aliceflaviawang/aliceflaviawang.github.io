@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-08-09T14:56:07.914Z</updated>
+  <updated>2017-08-14T08:25:58.800Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JS的堆栈及深浅拷贝</title>
+    <link href="https://aliceflaviawang.github.io/2017/08/14/JS%E7%9A%84%E5%A0%86%E6%A0%88%E5%8F%8A%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D/"/>
+    <id>https://aliceflaviawang.github.io/2017/08/14/JS的堆栈及深浅拷贝/</id>
+    <published>2017-08-14T02:39:57.000Z</published>
+    <updated>2017-08-14T08:25:58.800Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>堆栈是两种数据结构，只能在一端对数据项进行插入和删除。</p>
+<ul>
+<li>栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。</li>
+<li>堆：动态分配的空间一般由程序员分配释放，若程序员不释放，则程序释放时可能由OS回收。</li>
+</ul>
+<h3 id="JS中的堆栈与基本类型、引用类型"><a href="#JS中的堆栈与基本类型、引用类型" class="headerlink" title="JS中的堆栈与基本类型、引用类型"></a>JS中的堆栈与基本类型、引用类型</h3><p>js中的数据类型分为两种 ：</p>
+<ol>
+<li>基本类型：undefined,bool,number,string,null，这5中基本数据类型可以直接访问，它们是按照值进行分配的，存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配。</li>
+<li>引用类型：存放在堆中的对象，变量实际保存的是一个指针，这个指针指向另一个位置。</li>
+</ol>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>基本类型的拷贝只是在内存中又开辟了新的空间，和它的父元素（称被拷贝的对象为父元素）互不相干，因此深浅拷贝是相对于引用类型的，以便于对引用类型父对象的保存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var father1=&#123;name:&apos;shanghai&apos;,age:1000,job:[&apos;teacher&apos;,cook]&#125;;</div><div class="line">//浅拷贝函数</div><div class="line">function copy(obj)&#123;</div><div class="line">  var childs=&#123;&#125;;</div><div class="line">  for(var key in obj)&#123;</div><div class="line">     childs[key]=obj[key];</div><div class="line">  &#125;</div><div class="line">  return childs;</div><div class="line">&#125;</div><div class="line">var child1=copy(father1);</div><div class="line">console.log(child1); //&#123;name:&apos;shanghai&apos;,age:1000,job:Array(2)&#125;</div><div class="line">console.log(typeof child1); //object</div><div class="line"></div><div class="line">//改变子对象的name属性，发现对父对象的name没有影响</div><div class="line">child1.name=&apos;chengdu&apos;;</div><div class="line">console.log(father1); //&#123;name:&apos;shanghai&apos;,age:1000,job:Array(2)&#125;</div><div class="line">console.log(child1); //&#123;name:&apos;chengdu&apos;,age:1000,job:Array(2)&#125;</div><div class="line"></div><div class="line">//注意：这次改变子对象的job属性也就是改变数组，发现对都对象的job受到了影响</div><div class="line">child1.job.push(&apos;programmer&apos;);</div><div class="line">console.log(father1) ;//&#123;name:&apos;shanghai&apos;,age:1000,job:[&apos;teacher&apos;,&apos;cook&apos;,&apos;programmer&apos;]&#125;</div><div class="line">console.log(child1) ;//&#123;name:&apos;chengdu&apos;,age:1000,job:[&apos;teacher&apos;,&apos;cook&apos;,&apos;programmer&apos;]&#125;</div></pre></td></tr></table></figure></p>
+<p>由上，浅拷贝的时候，子对象数组改变时父对象也跟着改变，说明子对象和父对象在浅拷贝的时候指向同一个内存的数组。</p>
+<p>如果想让子对象拷贝和父对象没有关联，就必须使用深度拷贝。</p>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>深拷贝就是父对象拷贝到子对象上，而且两者的内存和以后的操作都互不影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">function deepCopy(obj)&#123;</div><div class="line">  var o;</div><div class="line">  switch(typeof obj)&#123;</div><div class="line">    case &apos;undefined&apos;:break;</div><div class="line">    case &apos;string&apos;:o=obj+&apos;&apos;;break;</div><div class="line">    case &apos;number&apos;:o=obj-0;break;</div><div class="line">    case &apos;boolean&apos;:o=obj;break;</div><div class="line">    case &apos;object&apos;:</div><div class="line">      if(obj===null)&#123;</div><div class="line">         o=null;</div><div class="line">      &#125;else&#123;</div><div class="line">         if(obj instanceof Array)&#123;</div><div class="line">            o =[];</div><div class="line">            for(var i=0,len=obj.length;i&lt;len;i++)&#123;</div><div class="line">               o.push(deepCopy(obj[i]));</div><div class="line">            &#125;</div><div class="line">         &#125;else&#123; </div><div class="line">               o=&#123;&#125;;</div><div class="line">               for(var k in obj)&#123;</div><div class="line">                 o[k]=deepCopy(obj[k]);</div><div class="line">            &#125;</div><div class="line">         &#125;</div><div class="line">       &#125;</div><div class="line">       break;</div><div class="line">     default:</div><div class="line">        o=obj; break;</div><div class="line">    &#125;</div><div class="line">    return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;堆栈&quot;&gt;&lt;a href=&quot;#堆栈&quot; class=&quot;headerlink&quot; title=&quot;堆栈&quot;&gt;&lt;/a&gt;堆栈&lt;/h3&gt;&lt;p&gt;堆栈是两种数据结构，只能在一端对数据项进行插入和删除。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JS异步编程</title>
+    <link href="https://aliceflaviawang.github.io/2017/08/14/JS%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/"/>
+    <id>https://aliceflaviawang.github.io/2017/08/14/JS异步编程/</id>
+    <published>2017-08-14T01:51:34.000Z</published>
+    <updated>2017-08-15T06:24:55.443Z</updated>
+    
+    <content type="html"><![CDATA[<p>ES6增加了Promise和Generator等解决办法。大致整理一下到ES6为止的JS异步解决方法及其优缺点。</p>
+<h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h3><p>常用于：定时器，动画效果<br>用法：setTimeout(func|code,delay)</p>
+<p>缺点：不精准。比如，通过setTimeout设定了一个任务在10毫秒之后执行，但是在9毫秒之后，有一个任务占用了5毫秒的CPU时间片，再轮到定时器执行时，时间就已经过期了4毫秒。</p>
+<h3 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h3><p>任务执行不取决于代码的顺序，而取决于某个事件是否发生。<br>用法：f1.on(‘done’,f2)<br>优点：比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以去耦合，有利于实现模块化。<br>缺点：整个程序都要变成事件驱动型，运行流程会变得不是很清晰。</p>
+<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>js对异步编程的实现就是回调函数。所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，直接调用这个函数。</p>
+<p>回调函数是实现JS异步的一种方法，并不是说回调函数就是异步的。只是我们用的大部分回调函数都是用于异步。</p>
+<h3 id="Promise对象"><a href="#Promise对象" class="headerlink" title="Promise对象"></a>Promise对象</h3><h4 id="Promise原理"><a href="#Promise原理" class="headerlink" title="Promise原理"></a>Promise原理</h4><p><strong>状态机</strong><br>一个Promise可以理解为一个状态机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const PENDING = 0</div><div class="line">const FULFILLED = 1</div><div class="line">const REJECTED = 2</div><div class="line"></div><div class="line">function Promise ()&#123;</div><div class="line"> // 存储该 Promise 的状态信息</div><div class="line"> let state = PENDING</div><div class="line"></div><div class="line"> // 存储 FULFILLED 或 REJECTED 时带来的数据</div><div class="line"> let value = null</div><div class="line"></div><div class="line"> // 存储 then 或 done 时调用的成功或失败回调</div><div class="line"> var handlers = []</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>状态迁移</strong><br>指定状态机的状态后，可以实现基本的状态迁移功能，即fullfill和reject这两个用于改变状态的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">const PEDNDING=0</div><div class="line">const FULFILLED=1</div><div class="line">const REJECTED=2</div><div class="line"></div><div class="line">function Promise()&#123;</div><div class="line">  //存储Promise的状态信息</div><div class="line">  let state=PENDING</div><div class="line"></div><div class="line">  //存储FULFILLED和REJECTED时带来的数据</div><div class="line">  let value=null</div><div class="line"></div><div class="line">  //存储then或done时调用的成功或失败回调</div><div class="line">  let handlers=[]</div><div class="line"></div><div class="line">  funtion fulfill(result)&#123;</div><div class="line">      state=FULFILLED</div><div class="line">      value=result</div><div class="line">  &#125;</div><div class="line">   </div><div class="line">  function reject(error)&#123;</div><div class="line">     state=REJECTED</div><div class="line">      value=error</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在此基础上需要实现一种更高级的状态迁移方式，这就是resolve<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">const PENDING = 0</div><div class="line">const FULFILLED = 1</div><div class="line">const REJECTED = 2</div><div class="line"></div><div class="line">function Promise ()&#123;</div><div class="line"> // 存储该 Promise 的状态信息</div><div class="line"> let state = PENDING</div><div class="line"></div><div class="line"> // 存储 FULFILLED 或 REJECTED 时带来的数据</div><div class="line"> let value = null</div><div class="line"></div><div class="line"> // 存储 then 或 done 时调用的成功或失败回调</div><div class="line"> let handlers = []</div><div class="line"> </div><div class="line"> function fulfill (result)&#123;</div><div class="line"> state = FULFILLED</div><div class="line"> value = result</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> function reject (error)&#123;</div><div class="line"> state = REJECTED</div><div class="line"> value = error</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> function resolve(result)&#123;</div><div class="line">   try&#123;</div><div class="line">     let then=getThen(result)</div><div class="line">     if(then) &#123;</div><div class="line">        //递归resolve，待解析的Promise ,doResolve(then.bind(result),resolve,reject)</div><div class="line">         return </div><div class="line">     &#125;</div><div class="line">     fulfill(result)</div><div class="line">   &#125;catch(e)&#123;</div><div class="line">     reject(e)</div><div class="line">   &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>resolve既可以接收一个Promise，也可以接收一个基本类型。当resolve一个Promise时，就是用doResolve辅助函数来执行这个Promise并等待其完成。通过resolve隐藏了底层的fulfill接口。在这个过程中用到的辅助函数有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">*检查一个值是否为Promise，若为Promise则返回该Promise的then方法</div><div class="line">*/</div><div class="line">function getThen(value)&#123;</div><div class="line">   let t=typeof value</div><div class="line">   if(value&amp;&amp;(t===&apos;object&apos;||t===&apos;function&apos;))&#123;</div><div class="line">      const then=value.then</div><div class="line">      //可能需要更负责的thenable判断</div><div class="line">      if(typeof then===&apos;function&apos;) return then</div><div class="line">   &#125;</div><div class="line">   return null</div><div class="line"> &#125;</div><div class="line"></div><div class="line">/*</div><div class="line">*传入一个需被resolve的函数，该函数可能存在不确定的行为</div><div class="line">*确保onFulfilled和onRejected只会被调用一次</div><div class="line">*在此不保证该函数一定会被异步执行</div><div class="line">*/</div><div class="line">function doResolve(fn,onFulfilled,onRejected)&#123;</div><div class="line">  let done=false</div><div class="line">  try&#123;</div><div class="line">    fn(function(value)&#123;</div><div class="line">      done=true</div><div class="line">       //执行由resolve传入的resolve回调 onFulfilled(value)</div><div class="line">      function(reason)&#123;</div><div class="line">         if(done) return</div><div class="line">         done=true</div><div class="line">         onRejected(reason)</div><div class="line">       &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>done接口</strong><br>到此形成了一个完整的状态机，但仍没有暴露一个合适的方法来观察其状态变更。最终目标是实现then，但是由于事先done接口容易一下，因此先实现done。<br>下面的例子是要实现promise.done(onFulfilled,onRejected)，使得：</p>
+<ul>
+<li>onFulfilled与onRejected二者只有一个被调用</li>
+<li>该接口只会被调用一次</li>
+<li>该接口总是被异步执行</li>
+<li>调用done的执行时机与调用时Promise是否已reoslevd无关<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">const PENDING = 0</div><div class="line">const FULFILLED = 1</div><div class="line">const REJECTED = 2</div><div class="line"></div><div class="line">function Promise (fn)&#123;</div><div class="line"> // 存储该 Promise 的状态信息</div><div class="line"> let state = PENDING</div><div class="line"></div><div class="line"> // 存储 FULFILLED 或 REJECTED 时带来的数据</div><div class="line"> let value = null</div><div class="line"></div><div class="line"> // 存储 then 或 done 时调用的成功或失败回调</div><div class="line"> let handlers = []</div><div class="line"> </div><div class="line"> function fulfill (result)&#123;</div><div class="line"> state = FULFILLED</div><div class="line"> handlers.forEach(handle)</div><div class="line"> handlers = null</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> function reject (error)&#123;</div><div class="line"> state = REJECTED</div><div class="line"> value = error</div><div class="line"> handlers.forEach(handle)</div><div class="line"> handlers = null</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> function resolve (result)&#123;</div><div class="line"> try &#123;</div><div class="line"> let then = getThen(result)</div><div class="line"> if (then) &#123;</div><div class="line"> // 递归 resolve 待解析的 Promise</div><div class="line"> doResolve(then.bind(result), resolve, reject)</div><div class="line"> return</div><div class="line"> &#125;</div><div class="line"> fulfill(result)</div><div class="line"> &#125; catch (e) &#123;</div><div class="line"> reject(e)</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> // 保证 done 中回调的执行</div><div class="line"> function handle (handler)&#123;</div><div class="line"> if (state === PENDING) &#123;</div><div class="line"> handlers.push(handler)</div><div class="line"> &#125; else &#123;</div><div class="line"> if (state === FULFILLED &amp;&amp;</div><div class="line"> typeof handler.onFulfilled === &apos;function&apos;) &#123;</div><div class="line"> handler.onFulfilled(value)</div><div class="line"> &#125;</div><div class="line"> if (state === REJECTED &amp;&amp;</div><div class="line"> typeof handler.onRejected === &apos;function&apos;) &#123;</div><div class="line"> handler.onRejected(value)</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> this.done = function (onFulfilled, onRejected)&#123;</div><div class="line"> // 保证 done 总是异步执行</div><div class="line"> setTimeout(function ()&#123;</div><div class="line"> handle(&#123;</div><div class="line"> onFulfilled: onFulfilled,</div><div class="line"> onRejected: onRejected</div><div class="line"> &#125;)</div><div class="line"> &#125;, 0)</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> doResolve(fn, resolve, reject)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>then方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">this.then = function (onFulfilled, onRejected)&#123;</div><div class="line"> const _this = this</div><div class="line"> return new Promise(function (resolve, reject)&#123;</div><div class="line"> return _this.done(function (result)&#123;</div><div class="line"> if (typeof onFulfilled === &apos;function&apos;) &#123;</div><div class="line"> try &#123;</div><div class="line"> return resolve(onFulfilled(result))</div><div class="line"> &#125; catch (ex) &#123;</div><div class="line"> return reject(ex)</div><div class="line"> &#125;</div><div class="line"> &#125; else return resolve(result)</div><div class="line"> &#125;, function (error)&#123;</div><div class="line"> if (typeof onRejected === &apos;function&apos;) &#123;</div><div class="line"> try &#123;</div><div class="line"> return resolve(onRejected(error))</div><div class="line"> &#125; catch (ex) &#123;</div><div class="line"> return reject(ex)</div><div class="line"> &#125;</div><div class="line"> &#125; else return reject(error)</div><div class="line"> &#125;)</div><div class="line"> &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ES6增加了Promise和Generator等解决办法。大致整理一下到ES6为止的JS异步解决方法及其优缺点。&lt;/p&gt;
+&lt;h3 id=&quot;setTimeout&quot;&gt;&lt;a href=&quot;#setTimeout&quot; class=&quot;headerlink&quot; title=&quot;setTimeo
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>JS严格模式</title>
@@ -688,75 +760,6 @@
       &lt;p&gt;延伸 摘自阮一峰es6入门：&lt;/p&gt;
 &lt;p&gt;于是，这个问题又回到了最开始的起点：JavaScript是单线程的。&lt;/p&gt;
 &lt;p&gt;JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>src和href的区别</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/15/src%E5%92%8Chref%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/15/src和href的区别/</id>
-    <published>2017-07-15T12:00:43.000Z</published>
-    <updated>2017-07-16T14:45:25.556Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
-<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
-<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
-<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
-<h4 id="顺便提一下css-js的放置位置"><a href="#顺便提一下css-js的放置位置" class="headerlink" title="顺便提一下css,js的放置位置"></a>顺便提一下css,js的放置位置</h4><p>css放在页面头部，页面渲染时是根据DOM结构生成了一个DOM树然后加上css样式生成渲染树，如果css放在后面可能页面会出现闪跳的感觉，白屏或者布局混乱直到css加载完成。</p>
-<p>js一般放在之前：因为</p>
-<ol>
-<li>执行到<script>这句的时候，会中断其他资源的下载和处理(因为js有可能会修改DOM，所以会阻塞其他的下载和呈现)，知道其下载、解析、执行完毕，因此不能放在头部会组阻塞页面</li>
-<li>不能将需要访问dom元素的<script>放在body之前，因为此时还没生成dom，在body之前访问dom元素会出错<br>（ 但也不能将所有的放在body之后，一些页面的效果的实现，是需要预先动态的加载一些js脚本的）</li>
-</ol>
-</script></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;href&quot;&gt;&lt;a href=&quot;#href&quot; class=&quot;headerlink&quot; title=&quot;href&quot;&gt;&lt;/a&gt;href&lt;/h3&gt;&lt;p&gt;href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。&lt;/p&gt;
-&lt;p
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>li元素逆序</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/14/li%E5%85%83%E7%B4%A0%E9%80%86%E5%BA%8F/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/14/li元素逆序/</id>
-    <published>2017-07-14T13:41:08.000Z</published>
-    <updated>2017-07-24T13:53:47.268Z</updated>
-    
-    <content type="html"><![CDATA[<p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var ul=document.getElementById(&quot;ul&quot;);</div><div class="line">var children=Array.prototype.slice.call(ul.getElementsByTagName(&quot;li&quot;),0);</div><div class="line">var str=&quot;&quot;;</div><div class="line">children.reverse();</div><div class="line">for(var i=0;i&lt;children.length;i++)&#123;</div><div class="line">  str+=children[i].outerHTML;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>getElementsByTagName(“li”)实际上返回的就是类数组，为什么要用Array.prototype.slice.call(ul.getElementsByTagName(“li”),0)呢？<br><strong><br>在此之前先说说js的类数组对象：HTMLCollection，NodeList,arguements.</strong><br><strong>类数组：拥有length的属性，但不是数组（使用instanceof检查返回false），没有forEach,map,slice等数组方法。
-</strong></p>
-<h3 id="类数组常见的三个对象"><a href="#类数组常见的三个对象" class="headerlink" title="类数组常见的三个对象"></a>类数组常见的三个对象</h3><h4 id="1-函数的arguments"><a href="#1-函数的arguments" class="headerlink" title="1. 函数的arguments"></a>1. 函数的arguments</h4><p>arguments:函数通过arguments访问传入函数的参数。它是个对象（不是数组），有length属性。</p>
-<h4 id="2-HTMLCollection对象"><a href="#2-HTMLCollection对象" class="headerlink" title="2. HTMLCollection对象"></a>2. HTMLCollection对象</h4><p>HTMLCollection是一个借口，表示HTML元素的集合，提供可以遍历的列表的方法和属性。拥有length,item,nameItem属性（可以访问元素的name和id属性）。返回HTMLCollection集合的有：document.getElementsByTagName,document.getElementsByClassName。</p>
-<h4 id="3-NodeList对象"><a href="#3-NodeList对象" class="headerlink" title="3. NodeList对象"></a>3. NodeList对象</h4><p>NodeList代表乐意个有顺序的节点列表（不光有元素，还有其他节点如文本节点、注释节点）。有length,item属性。返回NodeList集合的有：document.getElementsByName，document.querySelectorAll，document.getElementById(“table”).childNodes，document.styleSheets。</p>
-<h3 id="类数组转化成数组"><a href="#类数组转化成数组" class="headerlink" title="类数组转化成数组"></a>类数组转化成数组</h3><h4 id="1-arguments"><a href="#1-arguments" class="headerlink" title="1.arguments"></a>1.arguments</h4><p>arguments的数组话，只需要运用[].slice.call()方法便可以将传递给函数的参数数组化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function person()&#123;</div><div class="line">  var args=[].slice.call(arguments); </div><div class="line">  console.log(args);</div><div class="line">&#125;</div><div class="line">person(10,20);</div></pre></td></tr></table></figure></p>
-<h4 id="2-HTMLCollection和NodeList"><a href="#2-HTMLCollection和NodeList" class="headerlink" title="2.HTMLCollection和NodeList"></a>2.HTMLCollection和NodeList</h4><p>对于这两类数组对象的元素集合，如果我们使用[].slice.call()方法，IE8及以下的浏览器竟然会报错，报错的内容是：”Array.prototype.slice:’this’不是javascript对象”，很明显HTMLCollection和NodeList并不是Object的子类。所以为了让类数组转化成纯数组，需要进行处理：</p>
-<ol>
-<li><p>jQuery早期的makeArray做法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">function makeArray(array)&#123;</div><div class="line">    var ret=[];</div><div class="line">   if(array!=null)&#123;</div><div class="line">      var i=array.length;</div><div class="line">      //The window,strings (and functions) also have length</div><div class="line">      if(i==null||typeof array===&quot;string&quot;||array.setInterval)&#123;</div><div class="line">        ret[0]=array;</div><div class="line">     &#125;else&#123;</div><div class="line">        while(i)&#123;</div><div class="line">           ret[--i]=array[i]; //此处将类数组转化成数组，因为类数组可以遍历，因此适用于所有的类数组对象，将其取出放入数组中</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">  return ret;</div><div class="line">&#125;</div><div class="line">var arr=makeArray(div);</div><div class="line">console.log(arr);</div></pre></td></tr></table></figure>
-</li>
-<li><p>prototype的做法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.prototype.slice.call(div,0);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>其中，第一种做法兼容性比较好，很通用，第二种做法比较高级，但是只适合高版本主流浏览器。</p>
-<ol>
-<li>ES6增加的Array.from方法<br>Array.from可将两类对象转为整正的数组：类似数组的对象（array-like object,类数组对象的本质特征是必须有length属性，即任何有length属性的对象，都可以通过Array.from方法转为数组）和可遍历（iterator）的对象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.from(div);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>HTMLCollection的集合访问dom元素必须要加上[0]，比如document.getElementsByTagName(“li”)[0]</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;直接上代码&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=
     
     </summary>
     

@@ -81,6 +81,61 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/10/Web语义化/" title="Web语义化" itemprop="url">Web语义化</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-10T08:53:48.000Z" itemprop="datePublished"> Published 2017-07-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="web语义化的含义"><a href="#web语义化的含义" class="headerlink" title="web语义化的含义"></a>web语义化的含义</h3><p>web语义化是指在进行html结构、表现、行为设计时，尽量使用语义化标签，使程序简洁明了，易于进行web操作和网站SEO，方便团队协作的一种标准，以期实现一种“无障碍”的web开发。<br>SEO:搜索引擎优化，指对网站进行站内优化和站外优化，从而提高网站关键词排名以及公司产品的曝光度。</p>
+<h3 id="web语义化的作用"><a href="#web语义化的作用" class="headerlink" title="web语义化的作用"></a>web语义化的作用</h3><ol>
+<li>有利于机器识别，方便SEO</li>
+<li>代码简洁明了，利于阅读和维护，方便以后扩展</li>
+<li>有利于团队协作，减少出错率，使工作有个统一标准<h3 id="web语义化分类"><a href="#web语义化分类" class="headerlink" title="web语义化分类"></a>web语义化分类</h3><h4 id="1、HTML标签语义化"><a href="#1、HTML标签语义化" class="headerlink" title="1、HTML标签语义化"></a>1、HTML标签语义化</h4>HTML为网页文档提供上下文结构和含义。对于HTML体系而言，<strong>Web语义化是指使用恰当的标签，是页面有良好的结构，让页面元素有含义，便于被浏览器、搜索引擎解析</strong>。<br>一个经典的页面结构：<br><img src="http://i.imgur.com/PCFZNzK.png" alt=""><h4 id="2、ARIA无障碍web规范"><a href="#2、ARIA无障碍web规范" class="headerlink" title="2、ARIA无障碍web规范"></a>2、ARIA无障碍web规范</h4>应用于HTML的ARIA有两部分组成：role和aria-*<br>其中role标识了一个元素的作用，aria-描述了与之有关的事物特征及状态<br>比如：<div class="navigation">作用是导航<h4 id="3、CSS命名语义化"><a href="#3、CSS命名语义化" class="headerlink" title="3、CSS命名语义化"></a>3、CSS命名语义化</h4>css语义就是class和id命名的语义，用易于理解的名称对html标签附加class和id命名。<strong>如果说html语义化是给机器看的，那么css命名的语义化就是给人看的</strong>。良好的css命名减少沟通调试成本。<h4 id="4、URL语义化"><a href="#4、URL语义化" class="headerlink" title="4、URL语义化"></a>4、URL语义化</h4>url语义化，可以使得<strong>搜索引擎或者爬虫更好的理解当前url所在目录所需要表达的内容</strong>；而对于用户来说，<strong>通过url也可以判断上一级目录或者下一级目录想要表达的内容</strong>，可以提高用户体验。</div></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/10/Bootsstrap实现原理/" title="Bootsstrap实现原理" itemprop="url">Bootsstrap实现原理</a>
   </h1>
   <p class="article-author">By
@@ -225,7 +280,19 @@
 <li>block 此元素会显示为块级元素，前后会带有换行符</li>
 <li>inline 此元素会被现实为内联元素，前后没有换行符</li>
 <li>inline-block 行内块元素</li>
-<li>list-item 此元素作为列表显示<br>2.</li>
+<li>list-item 此元素作为列表显示</li>
+</ul>
+<p>问的比较多的就是inline,block,inline-block，详细比较一下它们：<br> <strong>display：block</strong></p>
+<ul>
+<li>block元素会独占一行，多个block元素会各自新起一行。默认情况下，block元素宽度自动填满其父元素宽度</li>
+<li>block元素可以设置width、height属性。块级元素即使设置了宽度，仍然独占一行</li>
+<li>block元素可以设置margin和padding属性<br><strong>display:inline</strong></li>
+<li>inline元素不会独占一行，多个相邻的行内元素会排列在同一行里，直到一行排列不下，才会新换一行，其宽度随元素的内容而变化</li>
+<li>inline元素设置width、height无效</li>
+<li>inline元素的margin和padding属性，水平方向的padding-left,padding-right,margin-left,margin-right都产生边距效果，但竖直方向的padding-top,padding-bottom,margin-top,margin-bottom都不起作用。<br><strong>display：inline-block</strong><br>简单来说，就是将对象呈现为inline对象，但对象的内容作为block对象呈现。之后的内联对象会被排列在同一行内。比如给一个link（a元素）inline-block属性值，使其既具有block高度宽度特性又具有inline同行特性。</li>
+</ul>
+<p>2.</p>
+<ul>
 <li>static 默认值，元素处于正常的文档流之中，top,right,bottom,left,z-index（设置元素的堆叠顺序）属性无效</li>
 <li>relative 元素相对原本正常位置的定位，不改变布局，这样会在此元素原本所在的位置留下空白，对display为表格型的元素无效</li>
 <li>absolute 不为元素预留空间，元素相对于与它最近的非static定位的祖先元素来定位。元素可以设置外边距（margin），并且不会与其他边距合并（即形成一个BFC）</li>
@@ -307,7 +374,9 @@
 </ol>
 <p>注：document.domain只适用于不同子域的框架中。</p>
 <h5 id="4、window-name"><a href="#4、window-name" class="headerlink" title="4、window.name"></a>4、window.name</h5><p>在一个窗口的生命周期内，不同url共享同一个window.name，每个页面对window.name都有读写权限，且window.name持久存在一个窗口在载入过的所有页面中。</p>
-<h5 id="5、HTML5的window-postMessage方法"><a href="#5、HTML5的window-postMessage方法" class="headerlink" title="5、HTML5的window.postMessage方法"></a>5、HTML5的window.postMessage方法</h5><p>HTML5的新特性，不能实现与服务器交换数据，只能在不同的iframe中使用。<br>window.postMessage(message,targetOrigin).</p>
+<h5 id="5、HTML5的window-postMessage方法"><a href="#5、HTML5的window-postMessage方法" class="headerlink" title="5、HTML5的window.postMessage方法"></a>5、HTML5的window.postMessage方法</h5><p>HTML5的新特性，不能实现与服务器交换数据，只能在不同的iframe中使用。html5提供了两个重要的接口：postMessage(send)和onmessage。一个页面通过postMessage发送消息，另一个页面监听消息。<br>例如：父页面向子页面发送消息，父页面代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;崔涣 iframe postmessage 父页面&lt;/title&gt;</div><div class="line">    &lt;script type=&quot;text/JavaScript&quot;&gt;</div><div class="line">        function sendIt() &#123;</div><div class="line">            // 通过 postMessage 向子窗口发送数据</div><div class="line">            document.getElementById(&quot;otherPage&quot;).contentWindow</div><div class="line">                    .postMessage(</div><div class="line">                    document.getElementById(&quot;message&quot;).value,</div><div class="line">                    &quot;http://cuihuan.net:8003&quot;</div><div class="line">            );</div><div class="line">        &#125;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;!-- 通过 iframe 嵌入子页面 --&gt;</div><div class="line">&lt;iframe src=&quot;http://cuihuan.net:8003/test.html&quot; id=&quot;otherPage&quot;&gt;&lt;/iframe&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;text&quot; id=&quot;message&quot;/&gt;</div><div class="line">&lt;input type=&quot;button&quot; value=&quot;Send to child.com&quot; onclick=&quot;sendIt()&quot;/&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>window.postMessage(message,targetOrigin).postMessage必须包含两个参数，第一个参数是发送的信息，第二个参数是目标域名。<br>子页面代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt; </div><div class="line"> &lt;head&gt; </div><div class="line"> &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt; </div><div class="line"> &lt;title&gt;崔涣测试子页面信息&lt;/title&gt; </div><div class="line"> &lt;script type=&quot;text/JavaScript&quot;&gt; </div><div class="line">     //event 参数中有 data 属性，就是父窗口发送过来的数据</div><div class="line">     window.addEventListener(&quot;message&quot;, function( event ) &#123; </div><div class="line">         // 把父窗口发送过来的数据显示在子窗口中</div><div class="line">       document.getElementById(&quot;content&quot;).innerHTML+=event.data+&quot;&lt;br/&gt;&quot;; </div><div class="line">     &#125;, false ); </div><div class="line"></div><div class="line"> &lt;/script&gt; </div><div class="line"> &lt;/head&gt; </div><div class="line"> &lt;body&gt; </div><div class="line">     this is the 8003 port for cuixiaozhuai </div><div class="line">     &lt;div id=&quot;content&quot;&gt;&lt;/div&gt; </div><div class="line"> &lt;/body&gt; </div><div class="line"> &lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>处于安全方面的考虑，可以对域或数据规则进行安全校验：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">window.addEventListener(&apos;message&apos;, function (event) &#123;</div><div class="line">        </div><div class="line">        //校验函数是否合法</div><div class="line">        var checkMessage = function () &#123;</div><div class="line">            // 只获取需要的域，并非所有都可以跨域</div><div class="line">            if (event.origin != &quot;need domain&quot;) &#123;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            </div><div class="line">            var message = event.data;</div><div class="line">            // 传输数据类型校验</div><div class="line">            if (typeof(message) !== &apos;object&apos;) &#123;</div><div class="line">                return false;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            // message 的rule中包含xxx则为xxx需要字段。</div><div class="line">            return message.rule === &quot;xxx&quot;;</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        if (checkMessage()) &#123;</div><div class="line">            // 通过校验进行相关操作</div><div class="line">            addDetailFunc(event);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div></pre></td></tr></table></figure></p>
 <h3 id="9、document-write和innerHTML的区别"><a href="#9、document-write和innerHTML的区别" class="headerlink" title="9、document.write和innerHTML的区别"></a>9、document.write和innerHTML的区别</h3><p>document.write是直接写入页面的文档流，如果写之前没有调用document.open，浏览器会自动调用open，每次写完之后重新调用该函数，会导致整个页面的重绘。<br>innerHTML能精确到某个具体的元素来更改，只对页面的部分重绘。</p>
 <h3 id="10、内存泄露"><a href="#10、内存泄露" class="headerlink" title="10、内存泄露"></a>10、内存泄露</h3><p>内存泄漏：是指任何对象不再拥有或需要它之后仍然存在。<br>javascript有自动垃圾回收机制，一旦数据不再使用，可以将其设为null来释放引用。<br>造成内存泄漏的集中操作：</p>
 <ol>
@@ -475,7 +544,9 @@
 <li>实现刷新</li>
 </ul>
 <h4 id="同步与异步的区别"><a href="#同步与异步的区别" class="headerlink" title="同步与异步的区别"></a>同步与异步的区别</h4><p>同步：脚本会停留等待服务器发送回复然后再继续<br>异步：脚本允许页面继续其进程并处理可能的回复</p>
-
+<h4 id="Ajax的同步和异步"><a href="#Ajax的同步和异步" class="headerlink" title="Ajax的同步和异步"></a>Ajax的同步和异步</h4><p>ajax的open方法中，第三个参数(async)设同步或者异步，默认是true(异步)。异步的话，客户机不等待服务器的响应，需要onreadystatechange事件处理，且值为4处理下面的内容；同步的话客户机需要等待服务器返回消息后才去执行其他操作，js等待请求返回，获取status，不需要onreadystatechange事件处理函数。</p>
+<p>同步和异步的请求代码示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div><div class="line">XHR.open(&apos;GET&apos;,URL,false);</div><div class="line">XHR.send(null);</div><div class="line">var result=XHR.status;</div><div class="line"></div><div class="line">//OK</div><div class="line">if(result==200)&#123;</div><div class="line">  document.getElementById(&quot;left&quot;).innerHTML=XHR.responseText;</div><div class="line">&#125;</div><div class="line">  XHR=null;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div><div class="line">XHR.open(&apos;GET&apos;,URL,false);</div><div class="line">XHR.onreadystatechange=handleResponse;</div><div class="line">XHR.send(null);</div><div class="line"></div><div class="line">function handleResponse()&#123;</div><div class="line">  if(XHR.readyState==4&amp;&amp;XHR.status==2000)&#123;</div><div class="line">     document.getElementById(&quot;left&quot;).innerHTML=XHR.responseText;</div><div class="line">      XHR=null;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
         
         
         <p class="article-more-link">
@@ -720,59 +791,6 @@
 <p>优点：url地址不会改变，同时点击锚点会自动响应scroll事件，不需要重新绑定。<br>缺点：如果页面复杂的话，偏移值可能会发生变化需要算法辅助。</p>
 <h3 id="方法四：用js的scrollIntoView方法，直接用："><a href="#方法四：用js的scrollIntoView方法，直接用：" class="headerlink" title="方法四：用js的scrollIntoView方法，直接用："></a>方法四：用js的scrollIntoView方法，直接用：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;locate()&quot;&gt;&lt;/a&gt;</div><div class="line">&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">function lacate()&#123;</div><div class="line">   docuemnt.getElementById(&quot;div1&quot;).scrollIntoView();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>优点：url不会变，同时能够响应scroll事件，不需要算法什么的。<br>注意：scrollIntoView是js方法，不能使用$(“#div1”).scrollIntoView().</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/22/JSON-parse-和Json-stringify/" title="JSON.parse()和Json.stringify()" itemprop="url">JSON.parse()和Json.stringify()</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> Published 2017-06-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a>JSON.parse()</h3><p>parse是用一个字符串中解析出json对象，如：<br>var str=’{“name”:”alice”,”age”:”23”}’<br>结果：<br>JSON.parse(str)<br>Object<br>age:”23”<br>name:”alice”<br><em>proto</em>:Object</p>
-<p>注意：单引号写在{}外面，每个属性名必须用双引号，否则会报错</p>
-<h3 id="JSON-stringify"><a href="#JSON-stringify" class="headerlink" title="JSON.stringify()"></a>JSON.stringify()</h3><p>stringify是从对象解析出字符串，如：<br>var a={a:1,b:2}<br>JSON.stringify(a)<br>‘{“a”:1,”b”:2}’</p>
-<p><strong>JSON.stringify和JSON.parse在IE8及以上支持</strong></p>
 
         
         

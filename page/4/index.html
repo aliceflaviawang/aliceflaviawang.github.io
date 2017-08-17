@@ -81,6 +81,68 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/13/常见的数据结构算法/" title="常见的数据结构算法" itemprop="url">常见的数据结构算法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-13T07:12:24.000Z" itemprop="datePublished"> Published 2017-07-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>二分查找是基于有序表，是一种在有序数组中查找特定元素的搜索算法。查找过程可以分为：</p>
+<ol>
+<li>首先从有序数组的中间的元素开始搜索，如果改元素正好的目标元素即要查找的元素，则搜索过程结束，否则进行下一步</li>
+<li>如果目标元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半区域查找，然后重复第一步的操作</li>
+<li>如果某一步数组为空，则表示找不到目标元素<br>下面用js分别以递归和不递归的方法写了二分查找（还有对于有重复数组）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">var arr=[1,2,3,4,5,6,7,10,10,10,11,23,44,86];</div><div class="line">     // function search(arr,key,low,high)&#123;</div><div class="line">     // 	if(low&gt;high)&#123;</div><div class="line">     // 		return -1;</div><div class="line">     // 	&#125;</div><div class="line">     //     var mid=parseInt((low+high)/2);</div><div class="line">     //     if(key==arr[mid])&#123;</div><div class="line">     //        while(mid&gt;=0)&#123;</div><div class="line">         		//  	mid--;</div><div class="line">         		// 	if(arr[mid]&lt;key)&#123;</div><div class="line">         		// 		return mid+1;</div><div class="line">         		// 	&#125;</div><div class="line">         		// &#125;</div><div class="line">         	</div><div class="line">     //     &#125;else if(key&lt;arr[mid])&#123;</div><div class="line">     //     	high=mid-1;</div><div class="line">     //     	return search(arr,key,low,high);</div><div class="line">     //     &#125;</div><div class="line">     //     else if(key&gt;arr[mid])&#123;</div><div class="line">     //     	low=mid+1;</div><div class="line">     //     	return search(arr,key,low,high)</div><div class="line">     //     &#125;else &#123;</div><div class="line">     //     	return -1;</div><div class="line">     //     &#125;</div><div class="line">     // &#125;</div><div class="line">     // var result=search(arr,10,0,13);</div><div class="line">     // alert(result)</div><div class="line">     function search(arr,key)&#123;</div><div class="line">     	 var low=0;</div><div class="line">     	 var high=arr.length-1;</div><div class="line">         while(low&lt;=high)&#123;</div><div class="line">         	var mid=parseInt((low+high)/2);</div><div class="line">         	if(arr[mid]==key)&#123;</div><div class="line">         		while(mid&gt;=0)&#123;</div><div class="line">         			mid--;</div><div class="line">         			if(arr[mid]&lt;key)&#123;</div><div class="line">         				return mid+1;</div><div class="line">         			&#125;</div><div class="line">         		&#125;</div><div class="line">         	&#125;else if(key&lt;arr[mid])&#123;</div><div class="line">                high=mid-1;</div><div class="line">         	&#125;else if(key&gt;arr[mid])&#123;</div><div class="line">         		low=mid+1;</div><div class="line">         	&#125;else&#123;</div><div class="line">         		return -1;</div><div class="line">         	&#125;</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line">     var result=search(arr,10);</div><div class="line">     alert(result);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序基于两两比较和交换，每次冒出一个关键字最大的记录（升序）或关键字最小的记录（降序）。第一趟：第一个和第二个比较，反序则交换，第二个和第三个比较…直到最后冒出最大的一个数放在最后；第i趟的时候，只需要第一个和第二个比较…直到第n-i个和第n-i+1个比较了。最后得出排序结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function bubble(arr)&#123;</div><div class="line">   var n=arr.length-1;</div><div class="line">   for(var i=0;i&lt;n;i++)&#123;</div><div class="line">     for(var j=0;j&lt;n-i;j++)&#123;</div><div class="line">       if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">          var temp=arr[j];</div><div class="line">          arr[j]=arr[j+1];</div><div class="line">          arr[j+1]=temp;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var result=bubble(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
+<p>冒泡算法的改进：如果最后面的若干记录未发生交换，那么这最后的记录已经具有了正序，不需要再进行冒泡了。因此可以通过记录最后一次交换顺序的位置，来改进冒泡算法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function proBubble(arr)&#123;</div><div class="line">   var i=arr.length-1;</div><div class="line">   while(i&gt;0)&#123; </div><div class="line">      var lastChangeIndex=0;</div><div class="line">      for(var j=0;j&lt;i;j++)&#123;</div><div class="line">        if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">           var temp=arr[j]; </div><div class="line">           arr[j]=arr[j+1];</div><div class="line">           arr[j+1]=temp;</div><div class="line">           lastIndexChange=j;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    i=lastIndexChange;</div><div class="line">  &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var result=proBubble(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>从数组的中间拿一个值，然后通过这个值挨个和数组里面的值进行比较，如果大于的放在一边，小于的放在一边，然后把这些合并，再进行比较，如此反复即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">var arr=[1,22,13,4,5,15,21,10,10,10,11,23,44,86];</div><div class="line">function fast(arr)&#123;</div><div class="line">   //如果只有一位，就没有必要比较</div><div class="line">   if(arr.length&lt;=1)&#123;</div><div class="line">     return arr;</div><div class="line">  &#125;</div><div class="line">  //获取中间值的索引</div><div class="line">  var len=Math.floor(arr.length/2);</div><div class="line">  //截取中间值</div><div class="line">  var cur=arr.splice(len,1);</div><div class="line">  //小于中间值放这里面</div><div class="line">  var left=[];</div><div class="line">  //大于中间值放这里面</div><div class="line">  var right=[];</div><div class="line">  if(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">     //判断是否大于</div><div class="line">     if(cur&gt;arr[i])&#123;</div><div class="line">       left.push(arr[i]);</div><div class="line">    &#125;else&#123;</div><div class="line">        right.push(arr[i]);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">return fast(left).concat(cur,fast(right));//arrObject.concat(arrayX,arrayX,...,arrayX)用于连接两个或多个数组，返回一个新的数组。arrayX可以为具体的值也可以是数组对象 </div><div class="line">&#125;</div><div class="line">var result=fast(arr);</div><div class="line">alert(result);</div></pre></td></tr></table></figure></p>
+<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><ol>
+<li>关于parseInt和Math.floor<br><strong>parseInt</strong>：解析一个字符串，并返回一个整数，这里可以简单理解成返回舍去参数的小数部分后的整数。如parseInt(5.57) //5,parseInt(-1.5)  //-1.<br><strong>Math.floor</strong>:返回小于等于参数的最大整数。如：Math.floor(5.57)  //5,Math.floor(-1.5)  //-2.<br><strong>Math.round</strong>:四舍五入。如：Math.round(5.57)  //6,Math.round(-1.5)  //-1.<br><strong>Math.ceil</strong>:返回大于等于参数的最小整数。如：Math.ceil(5.57)  //6，Math.ceil(-1.5)  //-1</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/13/HTML网页布局/" title="HTML网页布局" itemprop="url">HTML网页布局</a>
   </h1>
   <p class="article-author">By
@@ -484,61 +546,6 @@
 <li><p>动态加载js（比如：使用setTimeout方法）</p>
 <h3 id="后记：setTimeout和setInterval"><a href="#后记：setTimeout和setInterval" class="headerlink" title="后记：setTimeout和setInterval"></a>后记：setTimeout和setInterval</h3><p>setTimeout和setInterval都是指过一段时间，再进行某项操作。<br>setTimeout是让一段代码在指定时间运行（次数是一次），而setInterval是让一段代码每过指定时间就运行一次<br>setInterval的坑：如果间隔时间可能小于定时调用的代码的执行时间，而js是单线程，将定时调用的代码插入到队列中，但是代码中如果已经有了一份没有执行的同意的代码，<strong>时间间隔或许会被跳过</strong>。</p>
 </li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/10/Web语义化/" title="Web语义化" itemprop="url">Web语义化</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-10T08:53:48.000Z" itemprop="datePublished"> Published 2017-07-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="web语义化的含义"><a href="#web语义化的含义" class="headerlink" title="web语义化的含义"></a>web语义化的含义</h3><p>web语义化是指在进行html结构、表现、行为设计时，尽量使用语义化标签，使程序简洁明了，易于进行web操作和网站SEO，方便团队协作的一种标准，以期实现一种“无障碍”的web开发。<br>SEO:搜索引擎优化，指对网站进行站内优化和站外优化，从而提高网站关键词排名以及公司产品的曝光度。</p>
-<h3 id="web语义化的作用"><a href="#web语义化的作用" class="headerlink" title="web语义化的作用"></a>web语义化的作用</h3><ol>
-<li>有利于机器识别，方便SEO</li>
-<li>代码简洁明了，利于阅读和维护，方便以后扩展</li>
-<li>有利于团队协作，减少出错率，使工作有个统一标准<h3 id="web语义化分类"><a href="#web语义化分类" class="headerlink" title="web语义化分类"></a>web语义化分类</h3><h4 id="1、HTML标签语义化"><a href="#1、HTML标签语义化" class="headerlink" title="1、HTML标签语义化"></a>1、HTML标签语义化</h4>HTML为网页文档提供上下文结构和含义。对于HTML体系而言，<strong>Web语义化是指使用恰当的标签，是页面有良好的结构，让页面元素有含义，便于被浏览器、搜索引擎解析</strong>。<br>一个经典的页面结构：<br><img src="http://i.imgur.com/PCFZNzK.png" alt=""><h4 id="2、ARIA无障碍web规范"><a href="#2、ARIA无障碍web规范" class="headerlink" title="2、ARIA无障碍web规范"></a>2、ARIA无障碍web规范</h4>应用于HTML的ARIA有两部分组成：role和aria-*<br>其中role标识了一个元素的作用，aria-描述了与之有关的事物特征及状态<br>比如：<div class="navigation">作用是导航<h4 id="3、CSS命名语义化"><a href="#3、CSS命名语义化" class="headerlink" title="3、CSS命名语义化"></a>3、CSS命名语义化</h4>css语义就是class和id命名的语义，用易于理解的名称对html标签附加class和id命名。<strong>如果说html语义化是给机器看的，那么css命名的语义化就是给人看的</strong>。良好的css命名减少沟通调试成本。<h4 id="4、URL语义化"><a href="#4、URL语义化" class="headerlink" title="4、URL语义化"></a>4、URL语义化</h4>url语义化，可以使得<strong>搜索引擎或者爬虫更好的理解当前url所在目录所需要表达的内容</strong>；而对于用户来说，<strong>通过url也可以判断上一级目录或者下一级目录想要表达的内容</strong>，可以提高用户体验。</div></li>
 </ol>
 
         

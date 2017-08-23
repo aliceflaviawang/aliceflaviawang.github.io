@@ -11,17 +11,26 @@
     
     
     
-    <meta name="description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。 1. Expires（过期时间）Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。 缺点：  客户端与服务器时间">
+    <meta name="description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 HTTP报文HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。浏览器向服务器请求数据，发送请求（request）报文；服务器向浏览器返回数据，返回响应（response）报文。报文信息主要分为两部分：  包含属性的首部（header）：附加信息（cooki">
 <meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http头：Expires,Cache-Control,Last-Modified,ETag">
 <meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。 1. Expires（过期时间）Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。 缺点：  客户端与服务器时间">
-<meta property="og:updated_time" content="2017-08-08T02:48:26.140Z">
+<meta property="og:description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 HTTP报文HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。浏览器向服务器请求数据，发送请求（request）报文；服务器向浏览器返回数据，返回响应（response）报文。报文信息主要分为两部分：  包含属性的首部（header）：附加信息（cooki">
+<meta property="og:image" content="http://i.imgur.com/ozwgCEr.png">
+<meta property="og:image" content="http://i.imgur.com/2d5pLBi.png">
+<meta property="og:image" content="http://i.imgur.com/tQjWOIz.png">
+<meta property="og:image" content="http://i.imgur.com/OSFNmpy.png">
+<meta property="og:image" content="http://i.imgur.com/ajkFyt3.png">
+<meta property="og:image" content="http://i.imgur.com/J6A0pbK.png">
+<meta property="og:image" content="http://i.imgur.com/ZRqTNb7.png">
+<meta property="og:image" content="http://i.imgur.com/Rgktgn9.png">
+<meta property="og:updated_time" content="2017-08-21T09:12:02.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="http头：Expires,Cache-Control,Last-Modified,ETag">
-<meta name="twitter:description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。 1. Expires（过期时间）Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。 缺点：  客户端与服务器时间">
+<meta name="twitter:description" content="缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。 HTTP报文HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。浏览器向服务器请求数据，发送请求（request）报文；服务器向浏览器返回数据，返回响应（response）报文。报文信息主要分为两部分：  包含属性的首部（header）：附加信息（cooki">
+<meta name="twitter:image" content="http://i.imgur.com/ozwgCEr.png">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -97,12 +106,26 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number">1.</span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充：刷新"><span class="toc-number">2.</span> <span class="toc-text">补充：刷新</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP报文"><span class="toc-number">1.</span> <span class="toc-text">HTTP报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存规则解析"><span class="toc-number">2.</span> <span class="toc-text">缓存规则解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强制缓存"><span class="toc-number">3.</span> <span class="toc-text">强制缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Expires"><span class="toc-number">3.1.</span> <span class="toc-text">Expires</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache-Control"><span class="toc-number">3.2.</span> <span class="toc-text">Cache-Control</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对比缓存"><span class="toc-number">4.</span> <span class="toc-text">对比缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Last-Modified"><span class="toc-number">4.1.</span> <span class="toc-text">Last-Modified</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since"><span class="toc-number">4.2.</span> <span class="toc-text">Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number"></span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充：刷新"><span class="toc-number"></span> <span class="toc-text">补充：刷新</span></a>
 		
 		</div>
 		
 		<p>缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。</p>
-<p>让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。</p>
+<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。浏览器向服务器请求数据，发送请求（request）报文；服务器向浏览器返回数据，返回响应（response）报文。<br>报文信息主要分为两部分：</p>
+<ol>
+<li>包含属性的首部（header）：附加信息（cookie，缓存信息等）与缓存相关的规则信息，均包含在header中</li>
+<li>包含数据的主体部分（body）：HTTP请求真正想要传输的部分。</li>
+</ol>
+<h3 id="缓存规则解析"><a href="#缓存规则解析" class="headerlink" title="缓存规则解析"></a>缓存规则解析</h3><p>在客户端第一次请求数据时，此时缓存数据库中没有对应的缓存数据，需要请求服务器，服务器返回后，将数据缓存到缓存数据库中。<br><img src="http://i.imgur.com/ozwgCEr.png" alt=""><br>HTTP缓存有多种规则，根据是否需要重新向服务器发起请求来分类，这里将其分为两大类(强制缓存，对比缓存)：<br><img src="http://i.imgur.com/2d5pLBi.png" alt=""><br><img src="http://i.imgur.com/tQjWOIz.png" alt=""><br>可以看出，强制缓存如果生效，不需要再和服务器发生交互，而对比缓存不管是否生效，都需要与服务端发生交互，两类缓存规则可以同时存在，强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。</p>
+<h3 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h3><p>强制缓存，响应的header中有两个字段来标明失效规则（Expires/Cache-Control）。</p>
+<h4 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h4><p>Expires的值为服务端返回到期的时间，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。<br>但是由于到期时间是服务器端生成的，客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP1.1中用Cache-Control代替。</p>
+<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><p>Cache-Control是最重要的规则。常见的取值有private、public、no-cache、no-store，默认是private。<br>private： 客户端可以缓存<br>public： 客户端和服务器端都可缓存<br>max-age=xxx: 缓存的内容在xxx秒后失效<br>no-cache: 需要对比缓存来验证缓存数据<br>no-store: 所有内容都不会缓存，强制缓存、对比缓存都不会触发</p>
+<h3 id="对比缓存"><a href="#对比缓存" class="headerlink" title="对比缓存"></a>对比缓存</h3><p>需要判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。<br>再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。<br><img src="http://i.imgur.com/OSFNmpy.png" alt=""><br>可以看到，在对比缓存生效时，状态码为304，并且报文大小和请求时间大大减少，原因是，服务端进行标识之后，只返回header部分，通过状态码通知客户端使用缓存，不再需要将报文主体部分返回给客户端。</p>
+<h4 id="Last-Modified"><a href="#Last-Modified" class="headerlink" title="Last-Modified"></a>Last-Modified</h4><p>服务器在响应第一次请求时，告诉浏览器资源的最后修改时间<br><img src="http://i.imgur.com/ajkFyt3.png" alt=""><br>If-Modified-Since:<br>再次请求时，通过此字段通知服务器上次请求时，服务器返回资源的最后修改时间。服务器收到请求后发现有头If-Modified-Since，则与被请求资源的最后修改时间进行对比。若资源的最后修改时间大于If-Modified-Since,说明资源又被改动过，则响应整片资源内容，返回状态码200;若资源的最后修改时间小于或者等于If-Modified-Since，说明资源无新修改，则响应HTTP 304，告知游览器继续使用所保存的cache。<br><img src="http://i.imgur.com/J6A0pbK.png" alt=""></p>
+<h4 id="Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since"><a href="#Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since" class="headerlink" title="Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)"></a>Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)</h4><p>Etag:<br>服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。</p>
+<p>If-None-Match:<br>再次请求服务器时，通过此字段通知服务器客户端缓存数据的唯一标识。服务器收到请求发现头部有If-None-Match，则与被请求资源的唯一标识进行对比不同，说明资源又被改动过，则响应整片资源内容，返回状态码200；相同，说明资源无新修改，则响应HTTP 304，告知浏览器继续使用所保存的cache。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于强制缓存，服务器通知浏览器一个缓存时间，在缓存时间内，下次请求，不在时间内，执行比较缓存策略。<br>对于比较缓存，将缓存信息中的Etag和Last-Modified通过请求发送给服务器，由于服务器校验，返回304状态码时，浏览器直接缓存。<br><img src="http://i.imgur.com/ZRqTNb7.png" alt=""><br><img src="http://i.imgur.com/Rgktgn9.png" alt=""></p>
+<p>这篇文章写的非常好，来自<a href="http://www.cnblogs.com/chenqf/p/6386163.html，下面是之前写的（调理没有上面的清晰）。" target="_blank" rel="external">http://www.cnblogs.com/chenqf/p/6386163.html，下面是之前写的（调理没有上面的清晰）。</a></p>
 <p><strong>1. Expires（过期时间）</strong><br>Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。</p>
 <p>缺点：</p>
 <ol>
@@ -186,7 +209,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number">1.</span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充：刷新"><span class="toc-number">2.</span> <span class="toc-text">补充：刷新</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP报文"><span class="toc-number">1.</span> <span class="toc-text">HTTP报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存规则解析"><span class="toc-number">2.</span> <span class="toc-text">缓存规则解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强制缓存"><span class="toc-number">3.</span> <span class="toc-text">强制缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Expires"><span class="toc-number">3.1.</span> <span class="toc-text">Expires</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache-Control"><span class="toc-number">3.2.</span> <span class="toc-text">Cache-Control</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对比缓存"><span class="toc-number">4.</span> <span class="toc-text">对比缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Last-Modified"><span class="toc-number">4.1.</span> <span class="toc-text">Last-Modified</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since"><span class="toc-number">4.2.</span> <span class="toc-text">Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结："><span class="toc-number"></span> <span class="toc-text">总结：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#补充：刷新"><span class="toc-number"></span> <span class="toc-text">补充：刷新</span></a>
  
   </div>
 

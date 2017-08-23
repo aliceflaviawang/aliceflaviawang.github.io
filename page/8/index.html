@@ -81,6 +81,62 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
+<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
+<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
+<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
+<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
+<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/24/理解arguments/" title="理解arguments" itemprop="url">理解arguments</a>
   </h1>
   <p class="article-author">By
@@ -409,56 +465,6 @@
         
         <p>easyui是一个集成了各种用户界面的插件的框架，特别使用各种表格的开发，能大大节省时间。在项目中遇到的问题时，下dialog中无法使用combobox生成下拉框，于是只能通过打开dialog时插入一个下拉框。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$(&apos;#fm_deptId&apos;).append(&apos;&lt;option&gt;bitem6&lt;/option&gt;&apos;);</div><div class="line">        var depts = [];</div><div class="line">        var query = &#123;</div><div class="line">            rows: 200,</div><div class="line">            page: 1</div><div class="line">        &#125;</div><div class="line">        var newHtml = &apos;&apos;;</div><div class="line">        $.ajax(&#123;</div><div class="line">            type: &apos;POST&apos;,</div><div class="line">            async: false,</div><div class="line">            url: url_queryDept,//向接口请求下拉框数据</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            data: JSON.stringify(query),</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function(data) &#123;</div><div class="line">                $.each(data.result, function(i, val) &#123;</div><div class="line">                    var temp = val.deptId + val.deptName;数据由一个id和name组成</div><div class="line">                    var option = &apos;&lt;option value=&apos; + val.deptId + &apos;&gt;&apos; + temp + &apos;&lt;/option&gt;&apos;;</div><div class="line">                    newHtml = newHtml + option;</div><div class="line">                &#125;)</div><div class="line">                $(&apos;#fm_deptId&apos;)[0].innerHTML = newHtml;                          </div><div class="line">            &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <p>注：如果想要选中下拉框的某一个选项作为下拉框的默认值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#fm_deptId  option[value=&apos;+ current_deptId+&apos;] &apos;).attr(&quot;selected&quot;,true);</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/10/win10永久激活方方法/" title="win10永久激活方方法" itemprop="url">win10永久激活方方法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-10T12:44:58.000Z" itemprop="datePublished"> Published 2017-04-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>今天提示win10许可证要过期了，于是尝试了各种工具，Microsoft Toolkit、HEU_KMS_Activator、KMS10_Crack2都不行，最后在网上找到了这个方法，一分钟不到就搞定了，分享一下网址<a href="https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。" target="_blank" rel="external">https://jingyan.baidu.com/article/73c3ce282431dbe50343d9a9.html。</a></p>
 
         
         

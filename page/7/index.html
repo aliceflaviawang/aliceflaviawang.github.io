@@ -81,6 +81,58 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/05/JS定义变量的三种方式/" title="JS定义变量的三种方式" itemprop="url">JS定义变量的三种方式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、最常见的var定义变量，可以修改，如果不初始化会输出undefined,但不会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=1;</div><div class="line">console.log(&apos;函数外定义a:&apos;+a); //输出a=1</div><div class="line">function change()&#123;</div><div class="line">  a=4;</div><div class="line">  console.log(&apos;函数内定义a:&apos;+a); //可以输出a=4;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后var定义a为函数内部修改值:&apos;+a); //输出a=4</div></pre></td></tr></table></figure></p>
+<p>2、const定义的变量不可以修改，而且必须初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const b=2;</div><div class="line">// const b; //错误，必须初始化</div><div class="line">console.log(b); //有输出值</div><div class="line">// b=5;</div><div class="line">console.log(b); //报错，不能给常量赋值</div></pre></td></tr></table></figure></p>
+<p>3、let是块级作用域，函数内部使用let定义后，对函数外部无影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let c=3;</div><div class="line">console.log(&apos;函数外定义c:&apos;+c); //输出c=3;</div><div class="line">function change()&#123;</div><div class="line">  let c=6;</div><div class="line">  console.log(&apos;函数内定义c:&apos;+c); //输出c=6;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后let定义c不受函数内部定义的影响：&apos;+c); //输出c=3;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/05/27/从输入URL到浏览器显示页面发生了什么/" title="从输入URL到浏览器显示页面发生了什么" itemprop="url">从输入URL到浏览器显示页面发生了什么</a>
   </h1>
   <p class="article-author">By
@@ -160,10 +212,14 @@
 <h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>关键：</strong>减少DOM操作引起的reflow。</p>
 <h4 id="1、使用DoucumentFragment一次性更新DOM"><a href="#1、使用DoucumentFragment一次性更新DOM" class="headerlink" title="1、使用DoucumentFragment一次性更新DOM"></a>1、使用DoucumentFragment一次性更新DOM</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//使用容器保存临时变更，最后一次性更新DOM</div><div class="line">var fragment=document.createDocumentFragment();</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   fragment.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure>
 <h4 id="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"><a href="#2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排" class="headerlink" title="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"></a>2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list.style.display=&quot;none&quot;;</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   list.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.style.display=&quot;&quot;;</div></pre></td></tr></table></figure>
-<h4 id="3、一次性修改样式属性"><a href="#3、一次性修改样式属性" class="headerlink" title="3、一次性修改样式属性"></a>3、一次性修改样式属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这样做很引起多次重排</div><div class="line">element.style.backgroundColor=&quot;blue&quot;;</div><div class="line">element.style.color=&quot;red&quot;;</div><div class="line">element.style.fontSize=&quot;12em&quot;;</div></pre></td></tr></table></figure>
+<h4 id="3、只改变class"><a href="#3、只改变class" class="headerlink" title="3、只改变class"></a>3、只改变class</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这样做很引起多次重排</div><div class="line">element.style.backgroundColor=&quot;blue&quot;;</div><div class="line">element.style.color=&quot;red&quot;;</div><div class="line">element.style.fontSize=&quot;12em&quot;;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//更好的做法是，把样式放在一个class下</div><div class="line">.newStyle&#123;</div><div class="line">  background-color:blue;</div><div class="line">  color:red;</div><div class="line">  font-size:12em;</div><div class="line">&#125;</div><div class="line">element.className=&quot;newStyle&quot;;</div></pre></td></tr></table></figure>
 <h4 id="4、使用缓存，缓存临时节点"><a href="#4、使用缓存，缓存临时节点" class="headerlink" title="4、使用缓存，缓存临时节点"></a>4、使用缓存，缓存临时节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//不好的做法</div><div class="line">document.getElementById(&quot;myDiv&quot;).style.left=document.getElementById(&quot;myDiv&quot;).offsetLeft+document.getElementById(&quot;myDiv&quot;).offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//更好的做法</div><div class="line">var myDiv=document.getElementById(&quot;myDiv&quot;);</div><div class="line">myDiv.style.left=myDiv.offsetLeft+myDiv.offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
+<h4 id="5-使用requestAnimationFrame、requestIdleCallback"><a href="#5-使用requestAnimationFrame、requestIdleCallback" class="headerlink" title="5.使用requestAnimationFrame、requestIdleCallback"></a>5.使用requestAnimationFrame、requestIdleCallback</h4><p>其中requestAnimationFrame允许我们正确的安排动画（告诉浏览器希望执行动画，并请求浏览器调用指定的函数在下一次重绘之前更新动画），而requestIdlecallback会在某一帧结束后的空闲时间或者用户处于不活跃状态是，处理我们的工作。就是说，通过使用requestIdleCallback这个API可以尽可能高效的利用任何空闲时间。</p>
+<p>reqeustIdleCallback需要回调函数作为参数，回调函数被调用，会返回deadline对象，这个对象包含timeRemaining方法，返回数字表示你的工作还能执行多长时间。当timeRemaining返回0，如果还有其他的requestIdleCallback就会执行，这样的话有些回调函数可能永远不会执行，此时与requestAnimationFrame不同的requestIdelCallback可以指定第二个参数，还有timeout属性的对象，强制在这个timeout值后执行回调函数。</p>
+<p>最佳的实践就是，只在requestAnimationFrame的回调中进行dom改动，就是，在requestIdleCallback时使用文档片段，在下一个requestAnimationFrame回调中把所有改动的dom追加上去。</p>
+
         
         
         <p class="article-more-link">
@@ -430,62 +486,6 @@
 <p>也可以通过transform-origin+rotate的js实现，transform-origin对应旋转中心的位置，rotate可以设置旋转的角度。<br>设置一个图片进行旋转，对于的css代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">img&#123;</div><div class="line">    position: absolute;</div><div class="line"> 	top:50px;</div><div class="line"> 	left:50px;</div><div class="line"> 	width:50px;</div><div class="line"> 	height:50px;</div><div class="line"> 	transform-origin: 150px 150px;  //设置旋转的中心位置</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
 <p>对应的js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var deg=0;</div><div class="line">var timer=setInterval(function()&#123;</div><div class="line">	deg+=10;</div><div class="line">	rotate(deg);</div><div class="line">&#125;,20)</div><div class="line">function rotate(deg)&#123;</div><div class="line">	var my=&quot;rotate(&quot;+deg+&quot;deg)&quot;</div><div class="line">	$(&quot;img&quot;).css(&quot;transform&quot;,my)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>对于transform-orgin其默认的位置是元素的中心位置，可以通过设置重新确定中心。<br>注：想了解更多transform实现环形路径平移动画，可以参看 <a href="http://www.open-open.com/lib/view/open1478661385568.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1478661385568.html</a>.</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> Published 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
-<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
-<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
-<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
 
         
         

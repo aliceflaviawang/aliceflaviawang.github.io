@@ -81,6 +81,85 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/08/17/页面提速/" title="页面提速" itemprop="url">页面提速</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-17T07:48:25.000Z" itemprop="datePublished"> Published 2017-08-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="一、减少对服务器的文件请求"><a href="#一、减少对服务器的文件请求" class="headerlink" title="一、减少对服务器的文件请求"></a>一、减少对服务器的文件请求</h3><p>常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。</p>
+<p>有以下方案可以实现：</p>
+<ol>
+<li>使用css sprite合并多个图片为单个图片文件，实际使用时通过backgroud-position来定位背景图片；</li>
+<li>合并多个css样式文件为单个样式文件，合并多个脚本为单个脚本，再在页面中引用合并后的样式；</li>
+<li>使用base64来展示图片，base64可以随着HTML的下载同时下载到本地，减少http请求，缺点是使用base64比原图的尺寸大；</li>
+<li>将小块的css,js代码段直接写在页面上，而非在页面引入独立的样式/脚本文件，直接把小段的、复用率低的样式/脚本直接写在页面上带来的利还是大于弊的（弊端就是可能增大了页面代码量，不太好维护）；</li>
+<li>利用http-equiv=”expires”元标签，设定一个未来的某时间点作为页面文件的过期时间，用户在过期时间之前所获取到的页面文件都仅从缓存中去取。</li>
+</ol>
+<h3 id="二、减少文件大小"><a href="#二、减少文件大小" class="headerlink" title="二、减少文件大小"></a>二、减少文件大小</h3><p>文件太大导致加载时间较长，因此可以：</p>
+<ol>
+<li>压缩样式/脚本文件，可以使用gulp或者grunt来实现这点，它们均能很好地减少css/js文件的大小；</li>
+<li>针对性选择图片格式，在无透明背景需求下，对于颜色较单一、无色彩渐变的图片仅使用gif格式，对于jpg图片也可以按照其清晰度要求，在导出jpg的时候选择对应的品质进行优化；</li>
+</ol>
+<h3 id="三、适度使用CDN"><a href="#三、适度使用CDN" class="headerlink" title="三、适度使用CDN"></a>三、适度使用CDN</h3><p>使用CDN有几个好处：如果用户在其它站点下载过这个CDN资源，那么来我们站点仅仅从缓存中获取即可；减少了对自己站点服务器的文件请求，减少服务器负担；<br>但是使用CDN有个很大的问题–增加了DNS解析，如果一个页面同时引入了多个CDN资源，可能会因为dns解析而陷入较多的等待时间，导致得不偿失。</p>
+<h3 id="四、延迟请求、异步加载脚本"><a href="#四、延迟请求、异步加载脚本" class="headerlink" title="四、延迟请求、异步加载脚本"></a>四、延迟请求、异步加载脚本</h3><p>将脚本请求标签放到结束标签之前，使得页面上的脚本成为最后被请求的资源，自然也不会组赛其它页面资源的请求事件了。<br>但是异步下载不代表异步执行，为了严格保证脚本逻辑顺序和依赖关系的正确性，会按照脚本被请求的顺寻来执行脚本。但是如果脚本依赖关系不大，这样就增加了页面请求的阻塞时间。<br>解决的办法，可以给标签加上defer和async属性，但是这都不是良好的解决方案，要么有兼容问题，要么处理麻烦。<br>网上推荐使用requireJS(AMD规范)或seaJS(CMD规范)来异步加载脚本并处理模块依赖的，前者将“依赖前置”（预加载所有被依赖脚本模块，执行速度最快），后者走的“依赖就近”（懒加载被依赖脚本模块，请求脚本更科学）。</p>
+<h3 id="五、延迟请求首屏外的文件"><a href="#五、延迟请求首屏外的文件" class="headerlink" title="五、延迟请求首屏外的文件"></a>五、延迟请求首屏外的文件</h3><p>首屏就是页面初始化时页面内容显示区域，也就是一加载，用户首先看到的区域。<br>比如京东淘宝，对于需要滚动页面才能看到的图片内容，都进行了lazyload的处理，看起来的效果是这个页面更快加载完了，实际上后面的文件还没加载。</p>
+<p>注：懒加载的原理：先将img标签中的src链接设为同一张图片（空白图片），将其整正的图片地址存储在img标签的自定义属性中（比如data-src）。当js监听到该图片元素进入可视窗口时，即将自定义属性中的地址存储到src属性中，以达到懒加载的效果。<br>这样能防止页面一次性向服务器响应大量请求导致服务器响应慢，页面卡顿或崩溃的问题。</p>
+<p>可以使用<strong>getBoundingClientRect</strong>，可以用来获取某个元素相对于视窗的位置集合。集合中由top,right,bottom,left等属性。<br>-语法：这个方法没有参数<br>rectObject=object.getBoundingClientRect();<br>-返回值类型 ：TextRectangle对象，每个矩形具有四个整数性质（上，右，下，左）表示坐标的矩形，以像素为单位。<br>rectObject.top:元素上边到视窗上边的距离；<br>rectObject.right:元素上边到视窗右边的距离；<br>rectObject.bottom:元素上边到视窗下边的距离；<br>rectObject.left:元素上边到视窗左边的距离；</p>
+<p>getBoundingClientRect由于可以获取元素相对于当前屏幕的距离，所以可以判断当前元素是否在屏幕内，因此可以实现懒加载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&quot; alt=&quot;&quot; data-src=&quot;http://hdn.xnimg.cn/photos/hdn421/20170121/0000/h_main_D0cG_b0dc00061386195a.jpg&quot;&gt;</div><div class="line">&lt;script&gt;</div><div class="line">//绑定事件</div><div class="line">function bindEvent()&#123;</div><div class="line">  document.addEventListener(&apos;scroll&apos;,lazyLoad,false);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断当前元素是否在视窗内</div><div class="line">function ifIntoView(dom)&#123;</div><div class="line">  var info=dom.getBoundingClientRect();</div><div class="line">  clientHeight=window.innerHeight;</div><div class="line">  if(0&lt;info.top&amp;&amp;info.top&lt;clientHeight)&#123;</div><div class="line">     showImage(dom);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//显示图片</div><div class="line">function showImage(dom)&#123;</div><div class="line">  //延时是为了展示懒加载效果</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    dom.setAttribute(&apos;src&apos;,dom.dataset.src)</div><div class="line">  &#125;,500)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function lazyLoad()&#123;</div><div class="line">  var selectArray=Array.prototype.slice.call(document.querySlectorAll(&quot;img&quot;)); 将类数组对象变为数组</div><div class="line">  selectorArray.forEach(function(element,index)&#123;</div><div class="line">    if(!element.getAttribute(&quot;src&quot;))&#123;</div><div class="line">        ifIntoView();</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">bindEvent();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果直接将函数绑定到scroll事件上，当页面滚动时，函数会被高频触发，这非常影响浏览器的性能。可以通过限制触发频率，来优化性能。<br>节流函数：只允许一个函数在N秒内执行一次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function throttle(fun,delay,time)&#123;//fun是要执行的函数，delay表示延迟，time指在time时间内必须执行一次</div><div class="line">  var timeout,</div><div class="line">      startTime=new Date();</div><div class="line">  return funtion()&#123;</div><div class="line">    var context=this,</div><div class="line">        args=arhuments,</div><div class="line">        curTime=new Date();</div><div class="line">     clearTimeout(timeout);</div><div class="line">     //如果达到了时间间隔，触发handle</div><div class="line">     if(curTime-startTime&gt;=time)&#123;</div><div class="line">        fun.apply(context,args);</div><div class="line">         startTime=curTime;</div><div class="line">     &#125;//如果没达到触发时间间隔，重新设定定时器</div><div class="line">      else&#123;</div><div class="line">       timeout=setTimeout(fun,delay);</div><div class="line">   &#125;    </div><div class="line"> &#125;  </div><div class="line">&#125;</div><div class="line">//所以，上面懒加载document.addEventListener(&apos;scroll&apos;,lazyLoad,false)里面的lazyLoad换成throttle(lazyLoad,500,1000);</div></pre></td></tr></table></figure></p>
+<p>另外还有两种懒加载的方式：</p>
+<ol>
+<li><p>jquery lazyload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function() &#123;     </div><div class="line">            $(&quot;img.lazy-load&quot;).lazyload(&#123; </div><div class="line">　　　　　　　　　　effect : &quot;fadeIn&quot;, //渐现，show(直接显示),fadeIn(淡入),slideDown(下拉)</div><div class="line">　　　　　　　　　　threshold : 180, //预加载，在图片距离屏幕180px时提前载入</div><div class="line">　　　　　　　　　　event: &apos;click&apos;,  // 事件触发时才加载，click(点击),mouseover(鼠标划过),sporty(运动的),默认为scroll（滑动）</div><div class="line">　　　　　　　　　　container: $(&quot;#container&quot;), // 指定对某容器中的图片实现效果</div><div class="line">　　　　　　　　　　failure_limit：2 //加载2张可见区域外的图片,lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载,但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况</div><div class="line">　　　　　　　　&#125;); </div><div class="line">　　　　　　&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>轻量级图片延时加载插件echo.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Echo.init(&#123;</div><div class="line">    offset: 0,//离可视区域多少像素的图片可以被加载</div><div class="line">　　 throttle: 0 //图片延时多少毫秒加载</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/17/一些类似于null-0之类的判断/" title="一些类似于null==0之类的判断" itemprop="url">一些类似于null==0之类的判断</a>
   </h1>
   <p class="article-author">By
@@ -524,74 +603,6 @@
 <li>主机向本地域名服务器的查询一般都是采用递归查询。所谓递归查询是:如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其他根域名服务器继续发出查询请求报文（即替主机继续查询），而不是让主机自己进行下一步查询。因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</li>
 <li>本地域名服务器向根域名服务器的查询是迭代查询。迭代查询：当根域名服务器收到本地域名服务器发出的迭代查询请求报文时，要么给出所要查询的IP地址，要么告诉本地服务器下一步向哪个域名服务器进行查询。然后本地服务器进行后续查询。根域名服务器通常是把自己知道的顶级域名服务器的IP地址告诉本地域名服务器，让本地域名服务器再向顶级域名服务器查询。</li>
 </ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/01/for-of的优势/" title="for...of的优势" itemprop="url">for...of的优势</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-01T06:51:45.000Z" itemprop="datePublished"> Published 2017-08-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>以数组为例，js提供了多种遍历语法。</p>
-<p>最原始的是<strong>for循环</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var index=0;index&lt;arr.length;index++)&#123;</div><div class="line">  console.log(arr[index]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这种写法比较麻烦，于是数组提供内置的<strong>forEach方法</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">arr.forEach(function(value)&#123;</div><div class="line">  console.log(value);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>forEach的缺点在于中途无法退回出forEach循环，break命令或return命令无法生效。</p>
-<p><strong>for…in</strong>循环可以遍历数组的键名。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var index in arr)&#123;</div><div class="line">  console.log(arr[index]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>for…in循环的缺点：</p>
-<ul>
-<li>数组的键名是数字，但是for…in循环是以字符串作为键名，如”0”,”1”等；</li>
-<li>for…in循环不仅遍历数字键名，还会遍历手动添加其他的键，甚至包括原型链上的键；</li>
-<li>某些情况下，for…in循环会以任意顺序遍历键名。<br>for…in循环主要是为了遍历对象而设计的，不适用于遍历数组。</li>
-</ul>
-<p>for…of循环相比上面几种做法的有点，有一些显著的优点。</p>
-<ul>
-<li>有着同for…in一样简洁语法，但是没有for…in那些缺点；</li>
-<li>不同于forEach方法，它可以与break、continue、return配合使用</li>
-<li>提供了遍历所有数据结构的统一操作接口。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(var n of fibonacci)&#123;</div><div class="line">  if(n&gt;1000)</div><div class="line">    break;</div><div class="line">  console.log(n);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>注：ES6引入for…of作为遍历所有数据结构的统一的方法。一个数据结构只要部署了Symbol.iterator属性，就被视为具有iterable接口，就可以用for…of循环遍历它的成员。<br><strong>for…of可以使用的范围包括数组、Set和Map、类数组的对象、Generator对象以及字符串。</strong></p>
 
         
         

@@ -1,0 +1,454 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>页面提速 | 笑呵呵</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Alice">
+    
+    
+    
+    <meta name="description" content="一、减少对服务器的文件请求常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。 有以下方案可以实现：  使用css sprite合并多个图片为单个图片文件，实际使用时通">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面提速">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/08/17/页面提速/index.html">
+<meta property="og:site_name" content="笑呵呵">
+<meta property="og:description" content="一、减少对服务器的文件请求常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。 有以下方案可以实现：  使用css sprite合并多个图片为单个图片文件，实际使用时通">
+<meta property="og:updated_time" content="2017-08-18T02:17:47.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页面提速">
+<meta name="twitter:description" content="一、减少对服务器的文件请求常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。 有以下方案可以实现：  使用css sprite合并多个图片为单个图片文件，实际使用时通">
+
+    
+    <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/favicon.png" alt="笑呵呵" title="笑呵呵"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="笑呵呵">笑呵呵</a></h1>
+				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
+			</div>
+			
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
+							<label>Search</label>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/17/页面提速/" title="页面提速" itemprop="url">页面提速</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-17T07:48:25.000Z" itemprop="datePublished"> Published 2017-08-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、减少对服务器的文件请求"><span class="toc-number">1.</span> <span class="toc-text">一、减少对服务器的文件请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、减少文件大小"><span class="toc-number">2.</span> <span class="toc-text">二、减少文件大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、适度使用CDN"><span class="toc-number">3.</span> <span class="toc-text">三、适度使用CDN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、延迟请求、异步加载脚本"><span class="toc-number">4.</span> <span class="toc-text">四、延迟请求、异步加载脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、延迟请求首屏外的文件"><span class="toc-number">5.</span> <span class="toc-text">五、延迟请求首屏外的文件</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="一、减少对服务器的文件请求"><a href="#一、减少对服务器的文件请求" class="headerlink" title="一、减少对服务器的文件请求"></a>一、减少对服务器的文件请求</h3><p>常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。</p>
+<p>有以下方案可以实现：</p>
+<ol>
+<li>使用css sprite合并多个图片为单个图片文件，实际使用时通过backgroud-position来定位背景图片；</li>
+<li>合并多个css样式文件为单个样式文件，合并多个脚本为单个脚本，再在页面中引用合并后的样式；</li>
+<li>使用base64来展示图片，base64可以随着HTML的下载同时下载到本地，减少http请求，缺点是使用base64比原图的尺寸大；</li>
+<li>将小块的css,js代码段直接写在页面上，而非在页面引入独立的样式/脚本文件，直接把小段的、复用率低的样式/脚本直接写在页面上带来的利还是大于弊的（弊端就是可能增大了页面代码量，不太好维护）；</li>
+<li>利用http-equiv=”expires”元标签，设定一个未来的某时间点作为页面文件的过期时间，用户在过期时间之前所获取到的页面文件都仅从缓存中去取。</li>
+</ol>
+<h3 id="二、减少文件大小"><a href="#二、减少文件大小" class="headerlink" title="二、减少文件大小"></a>二、减少文件大小</h3><p>文件太大导致加载时间较长，因此可以：</p>
+<ol>
+<li>压缩样式/脚本文件，可以使用gulp或者grunt来实现这点，它们均能很好地减少css/js文件的大小；</li>
+<li>针对性选择图片格式，在无透明背景需求下，对于颜色较单一、无色彩渐变的图片仅使用gif格式，对于jpg图片也可以按照其清晰度要求，在导出jpg的时候选择对应的品质进行优化；</li>
+</ol>
+<h3 id="三、适度使用CDN"><a href="#三、适度使用CDN" class="headerlink" title="三、适度使用CDN"></a>三、适度使用CDN</h3><p>使用CDN有几个好处：如果用户在其它站点下载过这个CDN资源，那么来我们站点仅仅从缓存中获取即可；减少了对自己站点服务器的文件请求，减少服务器负担；<br>但是使用CDN有个很大的问题–增加了DNS解析，如果一个页面同时引入了多个CDN资源，可能会因为dns解析而陷入较多的等待时间，导致得不偿失。</p>
+<h3 id="四、延迟请求、异步加载脚本"><a href="#四、延迟请求、异步加载脚本" class="headerlink" title="四、延迟请求、异步加载脚本"></a>四、延迟请求、异步加载脚本</h3><p>将脚本请求标签放到结束标签之前，使得页面上的脚本成为最后被请求的资源，自然也不会组赛其它页面资源的请求事件了。<br>但是异步下载不代表异步执行，为了严格保证脚本逻辑顺序和依赖关系的正确性，会按照脚本被请求的顺寻来执行脚本。但是如果脚本依赖关系不大，这样就增加了页面请求的阻塞时间。<br>解决的办法，可以给标签加上defer和async属性，但是这都不是良好的解决方案，要么有兼容问题，要么处理麻烦。<br>网上推荐使用requireJS(AMD规范)或seaJS(CMD规范)来异步加载脚本并处理模块依赖的，前者将“依赖前置”（预加载所有被依赖脚本模块，执行速度最快），后者走的“依赖就近”（懒加载被依赖脚本模块，请求脚本更科学）。</p>
+<h3 id="五、延迟请求首屏外的文件"><a href="#五、延迟请求首屏外的文件" class="headerlink" title="五、延迟请求首屏外的文件"></a>五、延迟请求首屏外的文件</h3><p>首屏就是页面初始化时页面内容显示区域，也就是一加载，用户首先看到的区域。<br>比如京东淘宝，对于需要滚动页面才能看到的图片内容，都进行了lazyload的处理，看起来的效果是这个页面更快加载完了，实际上后面的文件还没加载。</p>
+<p>注：懒加载的原理：先将img标签中的src链接设为同一张图片（空白图片），将其整正的图片地址存储在img标签的自定义属性中（比如data-src）。当js监听到该图片元素进入可视窗口时，即将自定义属性中的地址存储到src属性中，以达到懒加载的效果。<br>这样能防止页面一次性向服务器响应大量请求导致服务器响应慢，页面卡顿或崩溃的问题。</p>
+<p>可以使用<strong>getBoundingClientRect</strong>，可以用来获取某个元素相对于视窗的位置集合。集合中由top,right,bottom,left等属性。<br>-语法：这个方法没有参数<br>rectObject=object.getBoundingClientRect();<br>-返回值类型 ：TextRectangle对象，每个矩形具有四个整数性质（上，右，下，左）表示坐标的矩形，以像素为单位。<br>rectObject.top:元素上边到视窗上边的距离；<br>rectObject.right:元素上边到视窗右边的距离；<br>rectObject.bottom:元素上边到视窗下边的距离；<br>rectObject.left:元素上边到视窗左边的距离；</p>
+<p>getBoundingClientRect由于可以获取元素相对于当前屏幕的距离，所以可以判断当前元素是否在屏幕内，因此可以实现懒加载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&quot; alt=&quot;&quot; data-src=&quot;http://hdn.xnimg.cn/photos/hdn421/20170121/0000/h_main_D0cG_b0dc00061386195a.jpg&quot;&gt;</div><div class="line">&lt;script&gt;</div><div class="line">//绑定事件</div><div class="line">function bindEvent()&#123;</div><div class="line">  document.addEventListener(&apos;scroll&apos;,lazyLoad,false);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断当前元素是否在视窗内</div><div class="line">function ifIntoView(dom)&#123;</div><div class="line">  var info=dom.getBoundingClientRect();</div><div class="line">  clientHeight=window.innerHeight;</div><div class="line">  if(0&lt;info.top&amp;&amp;info.top&lt;clientHeight)&#123;</div><div class="line">     showImage(dom);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//显示图片</div><div class="line">function showImage(dom)&#123;</div><div class="line">  //延时是为了展示懒加载效果</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    dom.setAttribute(&apos;src&apos;,dom.dataset.src)</div><div class="line">  &#125;,500)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function lazyLoad()&#123;</div><div class="line">  var selectArray=Array.prototype.slice.call(document.querySlectorAll(&quot;img&quot;)); 将类数组对象变为数组</div><div class="line">  selectorArray.forEach(function(element,index)&#123;</div><div class="line">    if(!element.getAttribute(&quot;src&quot;))&#123;</div><div class="line">        ifIntoView();</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">bindEvent();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果直接将函数绑定到scroll事件上，当页面滚动时，函数会被高频触发，这非常影响浏览器的性能。可以通过限制触发频率，来优化性能。<br>节流函数：只允许一个函数在N秒内执行一次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function throttle(fun,delay,time)&#123;//fun是要执行的函数，delay表示延迟，time指在time时间内必须执行一次</div><div class="line">  var timeout,</div><div class="line">      startTime=new Date();</div><div class="line">  return funtion()&#123;</div><div class="line">    var context=this,</div><div class="line">        args=arhuments,</div><div class="line">        curTime=new Date();</div><div class="line">     clearTimeout(timeout);</div><div class="line">     //如果达到了时间间隔，触发handle</div><div class="line">     if(curTime-startTime&gt;=time)&#123;</div><div class="line">        fun.apply(context,args);</div><div class="line">         startTime=curTime;</div><div class="line">     &#125;//如果没达到触发时间间隔，重新设定定时器</div><div class="line">      else&#123;</div><div class="line">       timeout=setTimeout(fun,delay);</div><div class="line">   &#125;    </div><div class="line"> &#125;  </div><div class="line">&#125;</div><div class="line">//所以，上面懒加载document.addEventListener(&apos;scroll&apos;,lazyLoad,false)里面的lazyLoad换成throttle(lazyLoad,500,1000);</div></pre></td></tr></table></figure></p>
+<p>另外还有两种懒加载的方式：</p>
+<ol>
+<li><p>jquery lazyload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function() &#123;     </div><div class="line">            $(&quot;img.lazy-load&quot;).lazyload(&#123; </div><div class="line">　　　　　　　　　　effect : &quot;fadeIn&quot;, //渐现，show(直接显示),fadeIn(淡入),slideDown(下拉)</div><div class="line">　　　　　　　　　　threshold : 180, //预加载，在图片距离屏幕180px时提前载入</div><div class="line">　　　　　　　　　　event: &apos;click&apos;,  // 事件触发时才加载，click(点击),mouseover(鼠标划过),sporty(运动的),默认为scroll（滑动）</div><div class="line">　　　　　　　　　　container: $(&quot;#container&quot;), // 指定对某容器中的图片实现效果</div><div class="line">　　　　　　　　　　failure_limit：2 //加载2张可见区域外的图片,lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载,但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况</div><div class="line">　　　　　　　　&#125;); </div><div class="line">　　　　　　&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>轻量级图片延时加载插件echo.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Echo.init(&#123;</div><div class="line">    offset: 0,//离可视区域多少像素的图片可以被加载</div><div class="line">　　 throttle: 0 //图片延时多少毫秒加载</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://aliceflaviawang.github.io/2017/08/17/页面提速/" data-title="页面提速 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/17/一些类似于null-0之类的判断/" title="一些类似于null==0之类的判断">
+  <strong>上一篇：</strong><br/>
+  <span>
+  一些类似于null==0之类的判断</span>
+</a>
+</div>
+
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、减少对服务器的文件请求"><span class="toc-number">1.</span> <span class="toc-text">一、减少对服务器的文件请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、减少文件大小"><span class="toc-number">2.</span> <span class="toc-text">二、减少文件大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、适度使用CDN"><span class="toc-number">3.</span> <span class="toc-text">三、适度使用CDN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、延迟请求、异步加载脚本"><span class="toc-number">4.</span> <span class="toc-text">四、延迟请求、异步加载脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、延迟请求首屏外的文件"><span class="toc-number">5.</span> <span class="toc-text">五、延迟请求首屏外的文件</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/jsfront/" target="_blank" title="JS高级前端开发">JS高级前端开发</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://segmentfault.com/" target="_blank" title="segmentfault">segmentfault</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://stackoverflow.com/" target="_blank" title="stackoverflow">stackoverflow</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://github.com/jikeytang/front-end-collect" target="_blank" title="前端收集">前端收集</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Alice Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

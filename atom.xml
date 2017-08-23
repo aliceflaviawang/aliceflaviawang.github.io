@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-08-17T03:10:19.725Z</updated>
+  <updated>2017-08-18T02:17:47.611Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>页面提速</title>
+    <link href="https://aliceflaviawang.github.io/2017/08/17/%E9%A1%B5%E9%9D%A2%E6%8F%90%E9%80%9F/"/>
+    <id>https://aliceflaviawang.github.io/2017/08/17/页面提速/</id>
+    <published>2017-08-17T07:48:25.000Z</published>
+    <updated>2017-08-18T02:17:47.611Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="一、减少对服务器的文件请求"><a href="#一、减少对服务器的文件请求" class="headerlink" title="一、减少对服务器的文件请求"></a>一、减少对服务器的文件请求</h3><p>常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。</p>
+<p>有以下方案可以实现：</p>
+<ol>
+<li>使用css sprite合并多个图片为单个图片文件，实际使用时通过backgroud-position来定位背景图片；</li>
+<li>合并多个css样式文件为单个样式文件，合并多个脚本为单个脚本，再在页面中引用合并后的样式；</li>
+<li>使用base64来展示图片，base64可以随着HTML的下载同时下载到本地，减少http请求，缺点是使用base64比原图的尺寸大；</li>
+<li>将小块的css,js代码段直接写在页面上，而非在页面引入独立的样式/脚本文件，直接把小段的、复用率低的样式/脚本直接写在页面上带来的利还是大于弊的（弊端就是可能增大了页面代码量，不太好维护）；</li>
+<li>利用http-equiv=”expires”元标签，设定一个未来的某时间点作为页面文件的过期时间，用户在过期时间之前所获取到的页面文件都仅从缓存中去取。</li>
+</ol>
+<h3 id="二、减少文件大小"><a href="#二、减少文件大小" class="headerlink" title="二、减少文件大小"></a>二、减少文件大小</h3><p>文件太大导致加载时间较长，因此可以：</p>
+<ol>
+<li>压缩样式/脚本文件，可以使用gulp或者grunt来实现这点，它们均能很好地减少css/js文件的大小；</li>
+<li>针对性选择图片格式，在无透明背景需求下，对于颜色较单一、无色彩渐变的图片仅使用gif格式，对于jpg图片也可以按照其清晰度要求，在导出jpg的时候选择对应的品质进行优化；</li>
+</ol>
+<h3 id="三、适度使用CDN"><a href="#三、适度使用CDN" class="headerlink" title="三、适度使用CDN"></a>三、适度使用CDN</h3><p>使用CDN有几个好处：如果用户在其它站点下载过这个CDN资源，那么来我们站点仅仅从缓存中获取即可；减少了对自己站点服务器的文件请求，减少服务器负担；<br>但是使用CDN有个很大的问题–增加了DNS解析，如果一个页面同时引入了多个CDN资源，可能会因为dns解析而陷入较多的等待时间，导致得不偿失。</p>
+<h3 id="四、延迟请求、异步加载脚本"><a href="#四、延迟请求、异步加载脚本" class="headerlink" title="四、延迟请求、异步加载脚本"></a>四、延迟请求、异步加载脚本</h3><p>将脚本请求标签放到结束标签之前，使得页面上的脚本成为最后被请求的资源，自然也不会组赛其它页面资源的请求事件了。<br>但是异步下载不代表异步执行，为了严格保证脚本逻辑顺序和依赖关系的正确性，会按照脚本被请求的顺寻来执行脚本。但是如果脚本依赖关系不大，这样就增加了页面请求的阻塞时间。<br>解决的办法，可以给标签加上defer和async属性，但是这都不是良好的解决方案，要么有兼容问题，要么处理麻烦。<br>网上推荐使用requireJS(AMD规范)或seaJS(CMD规范)来异步加载脚本并处理模块依赖的，前者将“依赖前置”（预加载所有被依赖脚本模块，执行速度最快），后者走的“依赖就近”（懒加载被依赖脚本模块，请求脚本更科学）。</p>
+<h3 id="五、延迟请求首屏外的文件"><a href="#五、延迟请求首屏外的文件" class="headerlink" title="五、延迟请求首屏外的文件"></a>五、延迟请求首屏外的文件</h3><p>首屏就是页面初始化时页面内容显示区域，也就是一加载，用户首先看到的区域。<br>比如京东淘宝，对于需要滚动页面才能看到的图片内容，都进行了lazyload的处理，看起来的效果是这个页面更快加载完了，实际上后面的文件还没加载。</p>
+<p>注：懒加载的原理：先将img标签中的src链接设为同一张图片（空白图片），将其整正的图片地址存储在img标签的自定义属性中（比如data-src）。当js监听到该图片元素进入可视窗口时，即将自定义属性中的地址存储到src属性中，以达到懒加载的效果。<br>这样能防止页面一次性向服务器响应大量请求导致服务器响应慢，页面卡顿或崩溃的问题。</p>
+<p>可以使用<strong>getBoundingClientRect</strong>，可以用来获取某个元素相对于视窗的位置集合。集合中由top,right,bottom,left等属性。<br>-语法：这个方法没有参数<br>rectObject=object.getBoundingClientRect();<br>-返回值类型 ：TextRectangle对象，每个矩形具有四个整数性质（上，右，下，左）表示坐标的矩形，以像素为单位。<br>rectObject.top:元素上边到视窗上边的距离；<br>rectObject.right:元素上边到视窗右边的距离；<br>rectObject.bottom:元素上边到视窗下边的距离；<br>rectObject.left:元素上边到视窗左边的距离；</p>
+<p>getBoundingClientRect由于可以获取元素相对于当前屏幕的距离，所以可以判断当前元素是否在屏幕内，因此可以实现懒加载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&quot; alt=&quot;&quot; data-src=&quot;http://hdn.xnimg.cn/photos/hdn421/20170121/0000/h_main_D0cG_b0dc00061386195a.jpg&quot;&gt;</div><div class="line">&lt;script&gt;</div><div class="line">//绑定事件</div><div class="line">function bindEvent()&#123;</div><div class="line">  document.addEventListener(&apos;scroll&apos;,lazyLoad,false);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断当前元素是否在视窗内</div><div class="line">function ifIntoView(dom)&#123;</div><div class="line">  var info=dom.getBoundingClientRect();</div><div class="line">  clientHeight=window.innerHeight;</div><div class="line">  if(0&lt;info.top&amp;&amp;info.top&lt;clientHeight)&#123;</div><div class="line">     showImage(dom);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//显示图片</div><div class="line">function showImage(dom)&#123;</div><div class="line">  //延时是为了展示懒加载效果</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    dom.setAttribute(&apos;src&apos;,dom.dataset.src)</div><div class="line">  &#125;,500)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function lazyLoad()&#123;</div><div class="line">  var selectArray=Array.prototype.slice.call(document.querySlectorAll(&quot;img&quot;)); 将类数组对象变为数组</div><div class="line">  selectorArray.forEach(function(element,index)&#123;</div><div class="line">    if(!element.getAttribute(&quot;src&quot;))&#123;</div><div class="line">        ifIntoView();</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">bindEvent();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果直接将函数绑定到scroll事件上，当页面滚动时，函数会被高频触发，这非常影响浏览器的性能。可以通过限制触发频率，来优化性能。<br>节流函数：只允许一个函数在N秒内执行一次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function throttle(fun,delay,time)&#123;//fun是要执行的函数，delay表示延迟，time指在time时间内必须执行一次</div><div class="line">  var timeout,</div><div class="line">      startTime=new Date();</div><div class="line">  return funtion()&#123;</div><div class="line">    var context=this,</div><div class="line">        args=arhuments,</div><div class="line">        curTime=new Date();</div><div class="line">     clearTimeout(timeout);</div><div class="line">     //如果达到了时间间隔，触发handle</div><div class="line">     if(curTime-startTime&gt;=time)&#123;</div><div class="line">        fun.apply(context,args);</div><div class="line">         startTime=curTime;</div><div class="line">     &#125;//如果没达到触发时间间隔，重新设定定时器</div><div class="line">      else&#123;</div><div class="line">       timeout=setTimeout(fun,delay);</div><div class="line">   &#125;    </div><div class="line"> &#125;  </div><div class="line">&#125;</div><div class="line">//所以，上面懒加载document.addEventListener(&apos;scroll&apos;,lazyLoad,false)里面的lazyLoad换成throttle(lazyLoad,500,1000);</div></pre></td></tr></table></figure></p>
+<p>另外还有两种懒加载的方式：</p>
+<ol>
+<li><p>jquery lazyload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function() &#123;     </div><div class="line">            $(&quot;img.lazy-load&quot;).lazyload(&#123; </div><div class="line">　　　　　　　　　　effect : &quot;fadeIn&quot;, //渐现，show(直接显示),fadeIn(淡入),slideDown(下拉)</div><div class="line">　　　　　　　　　　threshold : 180, //预加载，在图片距离屏幕180px时提前载入</div><div class="line">　　　　　　　　　　event: &apos;click&apos;,  // 事件触发时才加载，click(点击),mouseover(鼠标划过),sporty(运动的),默认为scroll（滑动）</div><div class="line">　　　　　　　　　　container: $(&quot;#container&quot;), // 指定对某容器中的图片实现效果</div><div class="line">　　　　　　　　　　failure_limit：2 //加载2张可见区域外的图片,lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载,但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况</div><div class="line">　　　　　　　　&#125;); </div><div class="line">　　　　　　&#125;);</div></pre></td></tr></table></figure>
+</li>
+<li><p>轻量级图片延时加载插件echo.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Echo.init(&#123;</div><div class="line">    offset: 0,//离可视区域多少像素的图片可以被加载</div><div class="line">　　 throttle: 0 //图片延时多少毫秒加载</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、减少对服务器的文件请求&quot;&gt;&lt;a href=&quot;#一、减少对服务器的文件请求&quot; class=&quot;headerlink&quot; title=&quot;一、减少对服务器的文件请求&quot;&gt;&lt;/a&gt;一、减少对服务器的文件请求&lt;/h3&gt;&lt;p&gt;常规的HTTP请求属于“请求”-“应答”-“断开”形
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>一些类似于null==0之类的判断</title>
@@ -46,7 +94,7 @@
     <link href="https://aliceflaviawang.github.io/2017/08/14/JS%E7%9A%84%E5%A0%86%E6%A0%88%E5%8F%8A%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D/"/>
     <id>https://aliceflaviawang.github.io/2017/08/14/JS的堆栈及深浅拷贝/</id>
     <published>2017-08-14T02:39:57.000Z</published>
-    <updated>2017-08-14T08:25:58.800Z</updated>
+    <updated>2017-08-14T08:25:58.801Z</updated>
     
     <content type="html"><![CDATA[<h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>堆栈是两种数据结构，只能在一端对数据项进行插入和删除。</p>
 <ul>
@@ -80,7 +128,7 @@
     <link href="https://aliceflaviawang.github.io/2017/08/14/JS%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/"/>
     <id>https://aliceflaviawang.github.io/2017/08/14/JS异步编程/</id>
     <published>2017-08-14T01:51:34.000Z</published>
-    <updated>2017-08-15T06:24:55.443Z</updated>
+    <updated>2017-08-15T06:24:55.444Z</updated>
     
     <content type="html"><![CDATA[<p>ES6增加了Promise和Generator等解决办法。大致整理一下到ES6为止的JS异步解决方法及其优缺点。</p>
 <h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h3><p>常用于：定时器，动画效果<br>用法：setTimeout(func|code,delay)</p>
@@ -187,7 +235,7 @@
     <link href="https://aliceflaviawang.github.io/2017/08/09/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/"/>
     <id>https://aliceflaviawang.github.io/2017/08/09/箭头函数/</id>
     <published>2017-08-09T12:10:13.000Z</published>
-    <updated>2017-08-09T13:47:57.637Z</updated>
+    <updated>2017-08-09T13:47:57.638Z</updated>
     
     <content type="html"><![CDATA[<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6允许使用“箭头”定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f= v =&gt; v;</div></pre></td></tr></table></figure></p>
 <p>上面的箭头函数等同于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v)&#123;</div><div class="line">  return v;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -265,7 +313,7 @@
     <link href="https://aliceflaviawang.github.io/2017/08/01/DNS%E8%A7%A3%E6%9E%90/"/>
     <id>https://aliceflaviawang.github.io/2017/08/01/DNS解析/</id>
     <published>2017-08-01T14:03:18.000Z</published>
-    <updated>2017-08-01T14:27:51.147Z</updated>
+    <updated>2017-08-01T14:27:51.148Z</updated>
     
     <content type="html"><![CDATA[<p><strong>由来</strong>：IP地址由21位二进制数字组成，用户与因特网上某台主机通信，32位的IP地址显然很难记忆，因此使用比较容易记忆的主机名字（域名）。但是域名长度不固定，机器处理比较困难，而IP地址长度固定，因此处理数据报时用的IP地址。</p>
 <p><strong>解析过程</strong>：当某一个应用需要把主机名解析为IP地址时，该应用进程就调用解析程序，并成为DNS的一个客户，把待解析的域名放在DNS请求报文中，以UDP用户数据报方式发送给本地域名服务器。本地域名服务器在查找域名后，把对应的IP地址放在回答报文中返回。应用程序获得目的主机的IP地址后即可进行通信。</p>
@@ -291,7 +339,7 @@
     <link href="https://aliceflaviawang.github.io/2017/08/01/for-of%E7%9A%84%E4%BC%98%E5%8A%BF/"/>
     <id>https://aliceflaviawang.github.io/2017/08/01/for-of的优势/</id>
     <published>2017-08-01T06:51:45.000Z</published>
-    <updated>2017-08-01T07:18:12.511Z</updated>
+    <updated>2017-08-01T07:18:12.512Z</updated>
     
     <content type="html"><![CDATA[<p>以数组为例，js提供了多种遍历语法。</p>
 <p>最原始的是<strong>for循环</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for(var index=0;index&lt;arr.length;index++)&#123;</div><div class="line">  console.log(arr[index]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
@@ -329,7 +377,7 @@
     <link href="https://aliceflaviawang.github.io/2017/07/31/Promise/"/>
     <id>https://aliceflaviawang.github.io/2017/07/31/Promise/</id>
     <published>2017-07-31T01:33:29.000Z</published>
-    <updated>2017-08-01T07:46:02.025Z</updated>
+    <updated>2017-08-01T07:46:02.026Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Promise含义"><a href="#Promise含义" class="headerlink" title="Promise含义"></a>Promise含义</h3><p>Promise是一种异步编程的解决方案，比传统的回调函数和事件更合理和更强大。<br>Promise简单来说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上来说，Promise是一个对象，从它可以获取异步操作的消息。</p>
 <p><strong>Promise对象有一下两个特点：</strong></p>
@@ -432,7 +480,7 @@
     <link href="https://aliceflaviawang.github.io/2017/07/27/ORACLE%E5%AF%BC%E5%85%A5dmp%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"/>
     <id>https://aliceflaviawang.github.io/2017/07/27/ORACLE导入dmp文件详解/</id>
     <published>2017-07-27T02:19:16.000Z</published>
-    <updated>2017-07-27T03:28:15.657Z</updated>
+    <updated>2017-07-27T03:28:15.658Z</updated>
     
     <content type="html"><![CDATA[<p>折腾了一天终于导入成功并查看到了，决定写个教程。<br>准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。</p>
 <ol>
@@ -474,7 +522,7 @@
     <link href="https://aliceflaviawang.github.io/2017/07/24/%E5%B0%BE%E9%80%92%E5%BD%92/"/>
     <id>https://aliceflaviawang.github.io/2017/07/24/尾递归/</id>
     <published>2017-07-24T07:59:48.000Z</published>
-    <updated>2017-07-24T13:49:17.786Z</updated>
+    <updated>2017-07-24T13:49:17.787Z</updated>
     
     <content type="html"><![CDATA[<p>函数调用自身，成为递归。如果尾调用自身，就称为尾递归。</p>
 <p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。</p>
@@ -531,10 +579,24 @@
     <link href="https://aliceflaviawang.github.io/2017/07/17/http%E5%A4%B4%EF%BC%9AExpires-Cache-Control-Last-Modified-ETag/"/>
     <id>https://aliceflaviawang.github.io/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/</id>
     <published>2017-07-17T02:01:46.000Z</published>
-    <updated>2017-08-08T02:48:26.140Z</updated>
+    <updated>2017-08-21T09:12:02.342Z</updated>
     
     <content type="html"><![CDATA[<p>缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。</p>
-<p>让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。</p>
+<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。浏览器向服务器请求数据，发送请求（request）报文；服务器向浏览器返回数据，返回响应（response）报文。<br>报文信息主要分为两部分：</p>
+<ol>
+<li>包含属性的首部（header）：附加信息（cookie，缓存信息等）与缓存相关的规则信息，均包含在header中</li>
+<li>包含数据的主体部分（body）：HTTP请求真正想要传输的部分。</li>
+</ol>
+<h3 id="缓存规则解析"><a href="#缓存规则解析" class="headerlink" title="缓存规则解析"></a>缓存规则解析</h3><p>在客户端第一次请求数据时，此时缓存数据库中没有对应的缓存数据，需要请求服务器，服务器返回后，将数据缓存到缓存数据库中。<br><img src="http://i.imgur.com/ozwgCEr.png" alt=""><br>HTTP缓存有多种规则，根据是否需要重新向服务器发起请求来分类，这里将其分为两大类(强制缓存，对比缓存)：<br><img src="http://i.imgur.com/2d5pLBi.png" alt=""><br><img src="http://i.imgur.com/tQjWOIz.png" alt=""><br>可以看出，强制缓存如果生效，不需要再和服务器发生交互，而对比缓存不管是否生效，都需要与服务端发生交互，两类缓存规则可以同时存在，强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。</p>
+<h3 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h3><p>强制缓存，响应的header中有两个字段来标明失效规则（Expires/Cache-Control）。</p>
+<h4 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h4><p>Expires的值为服务端返回到期的时间，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。<br>但是由于到期时间是服务器端生成的，客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP1.1中用Cache-Control代替。</p>
+<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><p>Cache-Control是最重要的规则。常见的取值有private、public、no-cache、no-store，默认是private。<br>private： 客户端可以缓存<br>public： 客户端和服务器端都可缓存<br>max-age=xxx: 缓存的内容在xxx秒后失效<br>no-cache: 需要对比缓存来验证缓存数据<br>no-store: 所有内容都不会缓存，强制缓存、对比缓存都不会触发</p>
+<h3 id="对比缓存"><a href="#对比缓存" class="headerlink" title="对比缓存"></a>对比缓存</h3><p>需要判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。<br>再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。<br><img src="http://i.imgur.com/OSFNmpy.png" alt=""><br>可以看到，在对比缓存生效时，状态码为304，并且报文大小和请求时间大大减少，原因是，服务端进行标识之后，只返回header部分，通过状态码通知客户端使用缓存，不再需要将报文主体部分返回给客户端。</p>
+<h4 id="Last-Modified"><a href="#Last-Modified" class="headerlink" title="Last-Modified"></a>Last-Modified</h4><p>服务器在响应第一次请求时，告诉浏览器资源的最后修改时间<br><img src="http://i.imgur.com/ajkFyt3.png" alt=""><br>If-Modified-Since:<br>再次请求时，通过此字段通知服务器上次请求时，服务器返回资源的最后修改时间。服务器收到请求后发现有头If-Modified-Since，则与被请求资源的最后修改时间进行对比。若资源的最后修改时间大于If-Modified-Since,说明资源又被改动过，则响应整片资源内容，返回状态码200;若资源的最后修改时间小于或者等于If-Modified-Since，说明资源无新修改，则响应HTTP 304，告知游览器继续使用所保存的cache。<br><img src="http://i.imgur.com/J6A0pbK.png" alt=""></p>
+<h4 id="Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since"><a href="#Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since" class="headerlink" title="Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)"></a>Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)</h4><p>Etag:<br>服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。</p>
+<p>If-None-Match:<br>再次请求服务器时，通过此字段通知服务器客户端缓存数据的唯一标识。服务器收到请求发现头部有If-None-Match，则与被请求资源的唯一标识进行对比不同，说明资源又被改动过，则响应整片资源内容，返回状态码200；相同，说明资源无新修改，则响应HTTP 304，告知浏览器继续使用所保存的cache。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于强制缓存，服务器通知浏览器一个缓存时间，在缓存时间内，下次请求，不在时间内，执行比较缓存策略。<br>对于比较缓存，将缓存信息中的Etag和Last-Modified通过请求发送给服务器，由于服务器校验，返回304状态码时，浏览器直接缓存。<br><img src="http://i.imgur.com/ZRqTNb7.png" alt=""><br><img src="http://i.imgur.com/Rgktgn9.png" alt=""></p>
+<p>这篇文章写的非常好，来自<a href="http://www.cnblogs.com/chenqf/p/6386163.html，下面是之前写的（调理没有上面的清晰）。" target="_blank" rel="external">http://www.cnblogs.com/chenqf/p/6386163.html，下面是之前写的（调理没有上面的清晰）。</a></p>
 <p><strong>1. Expires（过期时间）</strong><br>Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。</p>
 <p>缺点：</p>
 <ol>
@@ -571,8 +633,7 @@
     <summary type="html">
     
       &lt;p&gt;缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。&lt;/p&gt;
-&lt;p&gt;让浏览器做缓存需要给浏览器发送指定的Http头，告诉浏览器缓存多长时间，或者坚决不要缓存。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1
+&lt;h3 id=&quot;HTTP报文&quot;&gt;&lt;a href=&quot;#HTTP报文&quot; class=&quot;headerlink&quot; title=&quot;HTTP报
     
     </summary>
     
@@ -672,7 +733,7 @@
     <link href="https://aliceflaviawang.github.io/2017/07/16/childNodes%E5%92%8Cchildren%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
     <id>https://aliceflaviawang.github.io/2017/07/16/childNodes和children的区别/</id>
     <published>2017-07-16T04:07:05.000Z</published>
-    <updated>2017-07-16T08:37:23.722Z</updated>
+    <updated>2017-07-16T08:37:23.723Z</updated>
     
     <content type="html"><![CDATA[<h3 id="childNodes"><a href="#childNodes" class="headerlink" title="childNodes"></a>childNodes</h3><p>标准的，它返回指定元素的子元素集合，包括HTML节点，属性节点和文本节点。可以通过nideType来判断是哪个类型的节点，只有当nodeType==1时才是元素节点，2是属性节点，3是文本节点。</p>
 <h3 id="children"><a href="#children" class="headerlink" title="children"></a>children</h3><p>非标准的，它只返回HTML节点（IE中包含注释节点）。</p>
@@ -707,41 +768,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;渐进增强&quot;&gt;&lt;a href=&quot;#渐进增强&quot; class=&quot;headerlink&quot; title=&quot;渐进增强&quot;&gt;&lt;/a&gt;渐进增强&lt;/h3&gt;&lt;p&gt;针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。&lt;/p
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>立即执行函数的作用</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/15/%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/15/立即执行函数的作用/</id>
-    <published>2017-07-15T14:39:58.000Z</published>
-    <updated>2017-07-15T14:58:37.352Z</updated>
-    
-    <content type="html"><![CDATA[<p>(function(){})()是立即执行函数（IIFE），它会默认将函数作为表达式去解析，而不是函数声明（注意圆括号内不能包含声明）。<br>它的作用：</p>
-<ol>
-<li>最主要的作用是隔离作用域，直到ES5JS没有块作用域，用来隔离作用域避免污染。</li>
-<li>惰性，利用立即执行特性，返回需要的业务函数或对象，避免每次通过条件判断来处理。</li>
-</ol>
-<h3 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h3><p>惰性载入表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用的过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。<br>举个经典的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    element.addEventListener(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     element.attachEvent(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     element[&apos;on&apos;+type]=fun;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面注册监听函数主要是为了兼容浏览器。由于浏览器差异，不得不再用的时候做能力检测。但是这样做，每次绑定监听，都会对能力做一次检测，然而真正的应用中，同一个应用环境，其实只需要做一次检测即可。<br>下面重写addEvent:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    addEvent=function(type,element,fun)&#123;</div><div class="line">       element.addEventListener(type,fun,false);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">        element.attachEvent(&quot;on&quot;+type,fun);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">       element[&apos;on&apos;+type]=fun;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>由于第一调用addEvent会对浏览器做能力检测，然后重写addEvent。下次再调用的时候，由于函数被重写，不会再做能力检测。</p>
-<p>惰性函数的应用场景：</p>
-<ol>
-<li>应用频繁。用的次数也多越能体现出优势来；</li>
-<li>固定不变。一次判断，在固定的应用环境中不会发生改变；</li>
-<li>复杂的分支判断。没有差异性的，不需要用这种模式。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;(function(){})()是立即执行函数（IIFE），它会默认将函数作为表达式去解析，而不是函数声明（注意圆括号内不能包含声明）。&lt;br&gt;它的作用：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;最主要的作用是隔离作用域，直到ES5JS没有块作用域，用来隔离作用域避免污染。&lt;/li&gt;
-&lt;
     
     </summary>
     

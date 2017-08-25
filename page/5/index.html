@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,125 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/11/CSRF攻击与防御/" title="CSRF攻击与防御" itemprop="url">CSRF攻击与防御</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-11T06:39:07.000Z" itemprop="datePublished"> 发表于 2017-07-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF:跨站点请求伪造(cross-site request forgery)。攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说是完全合法的，但是却完成了攻击者所期望的一个操作。</p>
+<h3 id="CSRF攻击的原理及过程"><a href="#CSRF攻击的原理及过程" class="headerlink" title="CSRF攻击的原理及过程"></a>CSRF攻击的原理及过程</h3><p><img src="http://i.imgur.com/DO9WNOY.png" alt=""></p>
+<ol>
+<li>用户打开浏览器，访问网站A，输入用户名和密码请求登陆网站A</li>
+<li>在用户信息验证通过之后，网站A产生cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
+<li>用户未退出网站A之前，在同一个浏览器中，打开一个Tab页访问网站B</li>
+<li>网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A</li>
+<li>浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带cookie信息，向网站A发出请求。网站A并不知道请求其实是由B发起的，所以会根据用户的cookie信息以用户的权限处理该请求，导致来自B的恶意被代码执行。<h3 id="CSRF漏洞检测"><a href="#CSRF漏洞检测" class="headerlink" title="CSRF漏洞检测"></a>CSRF漏洞检测</h3>检测CSRF是一项比较繁琐的工作，最简单的方法是抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交有效，那么基本可以确定CSRF漏洞存在。<h3 id="CSRF攻击防御"><a href="#CSRF攻击防御" class="headerlink" title="CSRF攻击防御"></a>CSRF攻击防御</h3><h4 id="1-验证码"><a href="#1-验证码" class="headerlink" title="1.验证码"></a>1.验证码</h4>验证码不单单用来防止注册机的暴力破解，还可以有效防止CSRF的攻击。<br>不过随着html5的发展，利用canvas标签，前端也能识别验证码的字符，让CSRF生效。<h4 id="2-referer-check"><a href="#2-referer-check" class="headerlink" title="2.referer check"></a>2.referer check</h4>referer记录了该http请求的来源地址，http referer是request header的一部分，当浏览器向web服务器发出请求的时候，一般会带上referer，告诉服务器从哪个站点链接过来。<br>服务器通过判断请求头中的referer，也能避免CSRF攻击。<h4 id="3-token"><a href="#3-token" class="headerlink" title="3. token"></a>3. token</h4>CSRF攻击之所以成功是因为黑客可以在不知道验证信息的情况下直接利用用户的cookie来通过安全验证。可以在http请求中以参数的形式加入一个随机产生的token。（比如get方式放拼接到url，post方式以参数方式）<h4 id="4-在http头中自定义属性并验证"><a href="#4-在http头中自定义属性并验证" class="headerlink" title="4.在http头中自定义属性并验证"></a>4.在http头中自定义属性并验证</h4>也是使用token并进行验证，但是不是以参数的形式置于http请求中，而是把它放在http头中自定义的属性里。</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/10/ready-与window-onload的区别/" title="$.ready()与window.onload的区别" itemprop="url">$.ready()与window.onload的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-10T14:33:43.000Z" itemprop="datePublished"> 发表于 2017-07-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>区别有三点：</p>
+<h3 id="1、执行时机"><a href="#1、执行时机" class="headerlink" title="1、执行时机"></a>1、执行时机</h3><p>$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东西还没加载完<br>window.onload必须等网页里所有的内容都加载完毕后（包括图片）才执行</p>
+<h3 id="2、编写个数"><a href="#2、编写个数" class="headerlink" title="2、编写个数"></a>2、编写个数</h3><p>$.ready()可以编写多个，每个都执行<br>window.onload不能编写多个（编写多个时，只执行最后一个）</p>
+<h3 id="3、简化写法"><a href="#3、简化写法" class="headerlink" title="3、简化写法"></a>3、简化写法</h3><p>$.ready实际上是$(document).ready的简写，而window.onload没有简写</p>
+<h3 id="后记：DOM文档的加载过程"><a href="#后记：DOM文档的加载过程" class="headerlink" title="后记：DOM文档的加载过程"></a>后记：DOM文档的加载过程</h3><ol>
+<li>解析HTML结构</li>
+<li>加载外部脚本和样式文件</li>
+<li>解析并执行脚本代码</li>
+<li>DOM树构建完成 //DOMContentLoaded</li>
+<li>加载图片等外部文件</li>
+<li>页面加载完 //load<br>所以$.ready()是在第4步后执行，window.onload是在第6步后执行</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/10/javascript是单线程/" title="javascript是单线程" itemprop="url">javascript是单线程</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +207,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-10T11:51:27.000Z" itemprop="datePublished"> Published 2017-07-10</time>
+    <time datetime="2017-07-10T11:51:27.000Z" itemprop="datePublished"> 发表于 2017-07-10</time>
     
   </p>
 </header>
@@ -156,7 +275,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-10T08:53:48.000Z" itemprop="datePublished"> Published 2017-07-10</time>
+    <time datetime="2017-07-10T08:53:48.000Z" itemprop="datePublished"> 发表于 2017-07-10</time>
     
   </p>
 </header>
@@ -211,7 +330,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-10T06:30:43.000Z" itemprop="datePublished"> Published 2017-07-10</time>
+    <time datetime="2017-07-10T06:30:43.000Z" itemprop="datePublished"> 发表于 2017-07-10</time>
     
   </p>
 </header>
@@ -279,7 +398,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-03T09:03:08.000Z" itemprop="datePublished"> Published 2017-07-03</time>
+    <time datetime="2017-07-03T09:03:08.000Z" itemprop="datePublished"> 发表于 2017-07-03</time>
     
   </p>
 </header>
@@ -571,7 +690,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-25T12:21:18.000Z" itemprop="datePublished"> Published 2017-06-25</time>
+    <time datetime="2017-06-25T12:21:18.000Z" itemprop="datePublished"> 发表于 2017-06-25</time>
     
   </p>
 </header>
@@ -658,7 +777,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-24T14:01:36.000Z" itemprop="datePublished"> Published 2017-06-24</time>
+    <time datetime="2017-06-24T14:01:36.000Z" itemprop="datePublished"> 发表于 2017-06-24</time>
     
   </p>
 </header>
@@ -703,147 +822,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/23/bind-delegate-on-方法区别/" title="bind(), delegate(), on()方法区别" itemprop="url">bind(), delegate(), on()方法区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-23T08:51:44.000Z" itemprop="datePublished"> Published 2017-06-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="bind-：-selector-bind-event-data-function"><a href="#bind-：-selector-bind-event-data-function" class="headerlink" title="bind()：$(selector).bind(event,data,function)"></a>bind()：$(selector).bind(event,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div p&quot;).bind(&quot;click&quot;,function()&#123;</div><div class="line">  </div><div class="line">  &#125;)</div></pre></td></tr></table></figure>
-<p>使用bind()方法为所有div里的p元素都绑定了click事件，存在的问题：<br>1）这里使用了隐式迭代，如果匹配到的元素特别多，影响了性能；<br>2）对于尚未存在的元素，无法绑定。动态添加的p元素，点击会没有响应。<br>顺便提一下，bind()的简写方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div p&quot;).click(function()&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h3 id="delegate-selector-delegate-childSelector-event-data-function"><a href="#delegate-selector-delegate-childSelector-event-data-function" class="headerlink" title="delegate():$(selector).delegate(childSelector,event,data,function)"></a>delegate():$(selector).delegate(childSelector,event,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;div&quot;）.delegate(&quot;p&quot;,&quot;click&quot;,function()&#123;</div><div class="line"> </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>事件委托方式，不直接为p元素绑定事件，而是为其父元素（或祖先元素）绑定事件，当在div内任意元素点击时，事件会一层层从event.target向上冒泡，直到达到为其绑定事件的元素，如此例中的div元素。冒泡的过程中，如果事件的currentTarget与选择器匹配时就会执行代码。<br>delegate()方法解决了bind具有的两个问题，但是如果事件目标在DOM树很深的位置，这样一层层来查找与选择器匹配的元素，又影响了性能。</p>
-<h3 id="on-selector-on-event-childselector-data-function"><a href="#on-selector-on-event-childselector-data-function" class="headerlink" title="on():$(selector).on(event,childselector,data,function)"></a>on():$(selector).on(event,childselector,data,function)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;div&quot;).on(&quot;click&quot;,&quot;p&quot;,function()&#123;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>看jQuery源代码发现，无论是bind()还是delegate()，都是通过on()方法实现的，只是参数不同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">bind: function( types, data, fn ) &#123;</div><div class="line">     return this.on( types, null, data, fn );</div><div class="line">    &#125;,</div><div class="line">    unbind: function( types, fn ) &#123;</div><div class="line">     return this.off( types, null, fn );</div><div class="line">    &#125;,</div><div class="line">    delegate: function( selector, types, data, fn ) &#123;</div><div class="line">     return this.on( types, selector, data, fn );</div><div class="line">    &#125;</div><div class="line">    undelegate: function( selector, types, fn ) &#123;</div><div class="line"> // ( namespace ) or ( selector, types [, fn] )</div><div class="line">     return arguments.length === 1 ? this.off( selector, &quot;**&quot; ) : this.off( types, selector || &quot;**&quot;, fn );</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1、选择器匹配元素较多时，不要使用bind()迭代绑定<br>2、id选择器时，可以用bind()<br>3、需要动态绑定时，用delegate()或on()<br>4、用delegate()或on()，DOM树不要太深<br>5、尽量使用on()</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/23/jQuery性能优化/" title="jQuery性能优化" itemprop="url">jQuery性能优化</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> Published 2017-06-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="1、使用最新版本的jQuery类库"><a href="#1、使用最新版本的jQuery类库" class="headerlink" title="1、使用最新版本的jQuery类库"></a>1、使用最新版本的jQuery类库</h3><p>jQuery每个新版本都会较上个版本进行bug修复和优化，同时进行一些创新。</p>
-<h3 id="2、使用合适的选择器"><a href="#2、使用合适的选择器" class="headerlink" title="2、使用合适的选择器"></a>2、使用合适的选择器</h3><p>jQuery提供了丰富的选择器来定位DOM元素，下面介绍几种常用的选择器及它们之间的性能差异：</p>
-<h4 id="“-id”"><a href="#“-id”" class="headerlink" title="$(“#id”)"></a>$(“#id”)</h4><p>使用id来定位DOM元素是最佳提高性能的方式，因为jQuery底层将直接调用本地方法document.getElementById()。如果不能直接找到，还可以考虑调用find()方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;div&quot;);</div></pre></td></tr></table></figure></p>
-<p>使用以上方法可以有效缩小定位DOM元素的范围，为了提高性能，可以从最近的ID元素开始往下搜索。</p>
-<h4 id="“p”-“div”-“input”"><a href="#“p”-“div”-“input”" class="headerlink" title="$(“p”),$(“div”),$(“input”)"></a>$(“p”),$(“div”),$(“input”)</h4><p>标签选择器是性能优化的第二选择，因为jQuery将直接调用本地方法document.getElementByTagName()来定位DOM元素。</p>
-<h4 id="“-class”"><a href="#“-class”" class="headerlink" title="$(“.class”)"></a>$(“.class”)</h4><p>对于较新的浏览器，支持本地方法document.getElementByClassName(),老的浏览器如IE8及更早版本只能靠使用DOM搜索方式来实现，这无疑对性能产生较大的影响。所以有选择性的使用它。</p>
-<h4 id="“-attribute-value-”"><a href="#“-attribute-value-”" class="headerlink" title="$(“[attribute=value]”)"></a>$(“[attribute=value]”)</h4><p>利用属性定位DOM元素，本地JavaScript方法并没有直接实现，大多是使用DOM搜索方式来达到效果，很多现代浏览器支持querySelectAll()方法，但是浏览器之间还是有区别。</p>
-<h4 id="“-hidden”"><a href="#“-hidden”" class="headerlink" title="$(“:hidden”)"></a>$(“:hidden”)</h4><p>和上面利用属性定位DOM方式类似，这种伪选择器也没有直接在本地JavaScript实现，并且jQuery需要搜索每一个元素来定位这个选择器，这对性能影响较大。如果一定要用这种方式，建议先用id定位父元素再使用该选择器，这样有助于优化性能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&quot;#content&quot;).find(&quot;:hidden&quot;);</div></pre></td></tr></table></figure></p>
-<p>以上是使用选择器的基本规则，性能自上而下依次下降。</p>
-<h3 id="3、缓存对象"><a href="#3、缓存对象" class="headerlink" title="3、缓存对象"></a>3、缓存对象</h3><p>开发人员经常喜欢这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;#traffic input.on&quot;).bind(&quot;click&quot;,function&#123;&#125;);</div><div class="line">$(&quot;#traffic&quot;).css(&quot;border&quot;,&quot;1px solid red&quot;))</div></pre></td></tr></table></figure></p>
-<p>这样写导致的结果是jQuery会在每个选择器创建的过程中，查找DOM，创建多个jQuery对象。比较好的方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var $traffic=$(&quot;#traffic&quot;);</div><div class="line">$traffic.bind(&quot;click&quot;,function()&#123;&#125;)</div><div class="line">.css(&quot;border&quot;,&quot;1px solid red&quot;) //使用链式结构让代码更简洁</div></pre></td></tr></table></figure></p>
-<p>如果希望在其他函数中使用jQuery对象，可以把它缓存放全局环境中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//在全局范围内定义一个对象（例如window对象）</div><div class="line">window.$my=&#123;</div><div class="line">   head:$(&quot;head&quot;),</div><div class="line">   traffic:$(&quot;#traffic&quot;),</div><div class="line">  &#125;</div><div class="line">function do()&#123;</div><div class="line">   var script=document.createElement(&quot;script&quot;);</div><div class="line">   $my.head.append(script);  //现在可以引用存储的结果并操作它们</div><div class="line">   $my.coll=$(&quot;#ul li&quot;);//在函数内部操作时，可以继续将查询存入全局对象中</div><div class="line">   $my.coll.css(&quot;border-color&quot;,&quot;red&quot;); //将全局函数作为一个普通的jquery对象使用</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<h3 id="4、循环时的DOM操作"><a href="#4、循环时的DOM操作" class="headerlink" title="4、循环时的DOM操作"></a>4、循环时的DOM操作</h3><p>使用for,while,$.each处理节点时，要注意：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  list.append(&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
-<p>以上每添加一个新的标签元素都作为一个节点添加容器ID中，循环了100次，消耗较大。应该将整个元素字符串在插入DOM中全部创建好：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var top=[];//假设是100个字符串</div><div class="line">var list=$(&quot;#list&quot;);</div><div class="line">var mylist=&quot;&quot;;//暂存列表元素</div><div class="line">for(var i=0;i&lt;top.length;i++)&#123;</div><div class="line">  mylist+=&quot;&lt;li&gt;&quot;+top[i]+&quot;&lt;/li&gt;&quot;;</div><div class="line">  &#125;</div><div class="line">list.append(mylist);</div></pre></td></tr></table></figure></p>
-<p>非常类似与DOM操作中用createElementFragment一次性添加全部DOM节点，再一次性更新DOM：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var fragment=document.createElementFragment();</div><div class="line">for(var i=0;i&lt;items.length;i++)&#123;</div><div class="line">  var item=document.createElement(&quot;li&quot;);</div><div class="line">  item.append(document.createTextNode(&quot;option&quot;+i);</div><div class="line">  fragment.appendChild(item);</div><div class="line">  &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure></p>
-<h3 id="5、数组方式使用jQuery对象"><a href="#5、数组方式使用jQuery对象" class="headerlink" title="5、数组方式使用jQuery对象"></a>5、数组方式使用jQuery对象</h3><p>使用for或者while循环而不是$.each()能使代码更快。</p>
-<h3 id="6、事件代理"><a href="#6、事件代理" class="headerlink" title="6、事件代理"></a>6、事件代理</h3><p>每个javascript事件都会冒泡到父级节点。当需要给多个元素同个函数时，事件代理会很有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table td&quot;).click(function()&#123;</div><div class="line">   $(this).css(&apos;background&apos;,&apos;red&apos;)</div><div class="line">   &#125;)</div></pre></td></tr></table></figure></p>
-<p>假设有100个td元素，使用上述方法，将会绑定100个事件，对性能影响很大。代替这种多元素事件监听的方法是，只需要向他们的父节点绑定一次事件，然后通过event.target获取到点击的当前元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).click(function(event)&#123;</div><div class="line">   $(event.target).css(&apos;background&apos;,&apos;red&apos;); //event.target捕捉触发的目标元素</div><div class="line"> &#125;)</div></pre></td></tr></table></figure></p>
-<p>改进的方式中，只为一个元素绑定了1个事件。jQuery 1.7中提供了on方式，on(type,[selector],[data],fn)中增加了selector，如果能够匹配到该selector则执行此方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;#table&quot;).on(&quot;click&quot;,&quot;td&quot;,function()&#123;</div><div class="line">  $(this).css(&apos;background&apos;,&apos;red&apos;);</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h3 id="7、将代码转化成jQuery插件"><a href="#7、将代码转化成jQuery插件" class="headerlink" title="7、将代码转化成jQuery插件"></a>7、将代码转化成jQuery插件</h3><p>将代码转化成插件能让代码具有更好的重用性。</p>
-<h3 id="8、使用join-来拼接字符串"><a href="#8、使用join-来拼接字符串" class="headerlink" title="8、使用join()来拼接字符串"></a>8、使用join()来拼接字符串</h3><p>使用join来拼接字符串比使用”+“来拼接长字符串性能更优。首先创建一个数组，然后循环，最后通过join()将数组转化成字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var array=[];</div><div class="line">for(int i=0;i&lt;100;i++)&#123;</div><div class="line">   array[i]=&apos;&lt;li&gt;&apos;+i+&apos;&lt;/li&gt;&apos;;</div><div class="line"> &#125;</div><div class="line">$(&apos;#list&apos;).html(array.join(&apos;&apos;));</div></pre></td></tr></table></figure></p>
-<h3 id="9、合理利用HTML5的Data属性"><a href="#9、合理利用HTML5的Data属性" class="headerlink" title="9、合理利用HTML5的Data属性"></a>9、合理利用HTML5的Data属性</h3><p>HTML5的data属性可以帮助我们插入数据，特别是前后端的数据交换。jQuery的data（）方法，有效的利用HTML5的属性，来自动得到数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;dl&quot; data-role=&quot;page&quot; data-last=&quot;43&quot; data-options=&apos;&#123;&quot;name&quot;:&quot;John&quot;&#125;&apos;&gt;&lt;/div&gt;</div><div class="line">//读取数据</div><div class="line">$(&quot;#dl&quot;).data(&quot;role&quot;); //&quot;page&quot;</div><div class="line">$(&quot;#dl&quot;).data(&quot;last&quot;); //43</div><div class="line">$(&quot;#dl&quot;).data(&quot;options&quot;).name; //&quot;John&apos;</div></pre></td></tr></table></figure></p>
-<h3 id="10、尽量使用原生的JavaScript方法"><a href="#10、尽量使用原生的JavaScript方法" class="headerlink" title="10、尽量使用原生的JavaScript方法"></a>10、尽量使用原生的JavaScript方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if($cr.is(&quot;:checked&quot;))&#123; //jQuery方式判断</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>它使用了jQuery提供的is方法来判断多选框是否被选中，但是这里可以直接使用原生的JavaScript方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $cr=$(&quot;#cr&quot;);  //jQuery对象</div><div class="line">var cr=$cr.get(0); //DOM对象</div><div class="line">$cr.click(function()&#123;</div><div class="line">  if(cr.checked)&#123; //原生的js方式判断</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>第二种方式比第一种方式效率高，因为它不需要拐弯抹角去调用许多函数。</p>
-<h3 id="11、压缩JavaScript"><a href="#11、压缩JavaScript" class="headerlink" title="11、压缩JavaScript"></a>11、压缩JavaScript</h3><p>一方面使用Gzip，另一方面去除JS文件里的注释、空白。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -854,7 +842,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -1020,7 +1008,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

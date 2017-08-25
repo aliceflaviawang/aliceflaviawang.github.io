@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,112 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>append()和prepend()方法都是jQuery文档操作方法，append()在被选元素的结尾插入指定内容，而prepend()则是在被选元素的前面插入制定内容。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;console&quot;&gt;</div><div class="line">   &lt;h2&gt;Console Log&lt;/h2&gt;</div><div class="line">   &lt;ul&gt;&lt;/ul&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>添加元素到ul中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var $consoleLog = $(&quot;#console ul&quot;);</div><div class="line">        var show = function(msg) &#123;</div><div class="line">            var $msg = $(&quot;&lt;li&gt;&lt;/li&gt;&quot;);</div><div class="line">            $msg.text(msg);</div><div class="line">            $consoleLog.prepend($msg);</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></p>
+<p>此处采用prepend是从下往上的添加元素，最新添加的元素显示在最上面.<br>注：<code>$(&quot;&lt;li&gt;&lt;/li&gt;&quot;)</code>是创建一个li元素并返回jQuery对象，不是选中它，因为这样创建的元素还不在html结构中，只是在内存中存在。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/24/transform-origin-rotate实现绕中心旋转/" title="transform-origin,rotate实现绕中心旋转" itemprop="url">transform-origin,rotate实现绕中心旋转</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>一般实现环形旋转可以通过animation动画的方式<br>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;images/min-iconfont-rocket-active.png&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>通过animation，对应的css代码为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@keyframes spin&#123;</div><div class="line">	to&#123;</div><div class="line">		transform: rotate(1turn);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">img&#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50px;</div><div class="line">	left:50px;</div><div class="line">	width:50px;</div><div class="line">	height:50px;</div><div class="line">	animation:spin 10s infinite linear;</div><div class="line">	transform-origin:150px 150px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也可以通过transform-origin+rotate的js实现，transform-origin对应旋转中心的位置，rotate可以设置旋转的角度。<br>设置一个图片进行旋转，对于的css代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">img&#123;</div><div class="line">    position: absolute;</div><div class="line"> 	top:50px;</div><div class="line"> 	left:50px;</div><div class="line"> 	width:50px;</div><div class="line"> 	height:50px;</div><div class="line"> 	transform-origin: 150px 150px;  //设置旋转的中心位置</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>对应的js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var deg=0;</div><div class="line">var timer=setInterval(function()&#123;</div><div class="line">	deg+=10;</div><div class="line">	rotate(deg);</div><div class="line">&#125;,20)</div><div class="line">function rotate(deg)&#123;</div><div class="line">	var my=&quot;rotate(&quot;+deg+&quot;deg)&quot;</div><div class="line">	$(&quot;img&quot;).css(&quot;transform&quot;,my)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对于transform-orgin其默认的位置是元素的中心位置，可以通过设置重新确定中心。<br>注：想了解更多transform实现环形路径平移动画，可以参看 <a href="http://www.open-open.com/lib/view/open1478661385568.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1478661385568.html</a>.</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +194,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
     
   </p>
 </header>
@@ -144,7 +250,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T02:02:40.000Z" itemprop="datePublished"> Published 2017-04-24</time>
+    <time datetime="2017-04-24T02:02:40.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
     
   </p>
 </header>
@@ -203,7 +309,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-22T14:01:12.000Z" itemprop="datePublished"> Published 2017-04-22</time>
+    <time datetime="2017-04-22T14:01:12.000Z" itemprop="datePublished"> 发表于 2017-04-22</time>
     
   </p>
 </header>
@@ -255,7 +361,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> Published 2017-04-19</time>
+    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
     
   </p>
 </header>
@@ -304,7 +410,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-19T07:36:12.000Z" itemprop="datePublished"> Published 2017-04-19</time>
+    <time datetime="2017-04-19T07:36:12.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
     
   </p>
 </header>
@@ -354,7 +460,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-11T11:11:39.000Z" itemprop="datePublished"> Published 2017-04-11</time>
+    <time datetime="2017-04-11T11:11:39.000Z" itemprop="datePublished"> 发表于 2017-04-11</time>
     
   </p>
 </header>
@@ -392,119 +498,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/10/easyui表格查询/" title="easyui表格查询" itemprop="url">easyui表格查询</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-10T13:09:22.000Z" itemprop="datePublished"> Published 2017-04-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>easyui表格查询非常简单，比如说对于一个datagrid如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;toolbar1&quot;&gt;</div><div class="line">        &lt;div style=&quot;padding:3px&quot;&gt;</div><div class="line">            &lt;span&gt;部门 ID:&lt;/span&gt;</div><div class="line">            &lt;input id=&quot;deptId&quot; style=&quot;line-height:26px;border:1px solid #ccc&quot;&gt; --&gt;</div><div class="line">            &lt;span&gt;部门名称:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd&apos; &gt;</div><div class="line">            &lt;span&gt;岗位类型:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd3&apos; &gt;</div><div class="line">             &lt;span&gt;设岗科室名称:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd2&apos; style=&quot;line-height:22px;border:1px solid #ccc;border-radius:5px;&quot;&gt;</div><div class="line">             &lt;span&gt;指导老师:&lt;/span&gt;</div><div class="line">            &lt;input id=&apos;dd1&apos; style=&quot;line-height:22px;border:1px solid #ccc;border-radius:5px;&quot;&gt;</div><div class="line">            &lt;a href=&quot;#&quot; class=&quot;easyui-linkbutton&quot; plain=&quot;true&quot; iconCls=&quot;icon-search&quot; onclick=&quot;doFind()&quot;&gt;查询&lt;/a&gt;        </div><div class="line">        &lt;/div&gt;</div><div class="line">        &lt;div&gt;</div><div class="line">&lt;table id=&quot;tt1&quot; title=&quot;岗位申请&quot; class=&quot;easyui-datagrid&quot; style=&quot;width:100%;height:auto;&quot;  singleSelect=&quot;true&quot; data-options=&quot;fit:true&quot; rownumbers=&quot;true&quot; idField=&apos;deptId&apos; method=&apos;post&apos; toolbar=&apos;#toolbar1&apos;&gt;</div><div class="line">     &lt;thead&gt;</div><div class="line">        &lt;tr&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;deptId&quot; width=&quot;5%&quot; align=&quot;center&quot;&gt;学院/部门ID&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;deptName&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;学院/部门名称&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;jobTime&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;岗位时间&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;teacherName&quot; width=&quot;6%&quot; align=&quot;center&quot;&gt;指导老师&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;telephone&quot; width=&quot;7%&quot; align=&quot;center&quot;&gt;指导老师电话&lt;/th&gt;</div><div class="line">           &lt;th rowspan=&quot;2&quot; field=&quot;guideTrain&quot; width=&quot;10%&quot; align=&quot;center&quot;&gt;指导与培训体系&lt;/th&gt;</div><div class="line">           &lt;th colspan=&quot;6&quot; align=&quot;center&quot; &gt;岗位要求&lt;/th&gt;</div><div class="line">            &lt;th rowspan=&quot;2&quot; field=&quot;statusCodeName&quot; align=&quot;center&quot; width=&quot;5%&quot;&gt;审核状态&lt;/th&gt;</div><div class="line">        &lt;/tr&gt;</div><div class="line">        &lt;tr&gt; </div><div class="line">            &lt;th field=&quot;officeName&quot; align=&quot;center&quot; width=&quot;9%&quot;&gt;设岗科室名称&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;typeName&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;岗位类型&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;jobNum&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;设岗科室岗位数&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;jobWork&quot; align=&quot;center&quot; width=&quot;8%&quot;&gt;科室工作量&lt;/th&gt;</div><div class="line">            &lt;th field=&quot;responsibility&quot; align=&quot;center&quot; width=&quot;10%&quot;&gt;科室工作职责&lt;/th&gt;</div><div class="line">             &lt;th field=&quot;ability&quot; align=&quot;center&quot; width=&quot;12%&quot;&gt;科室岗位培养的综合素质&lt;/th&gt;</div><div class="line">           </div><div class="line">        &lt;/tr&gt;</div><div class="line">     &lt;/thead&gt;</div><div class="line">  &lt;/table&gt;</div></pre></td></tr></table></figure></p>
-<p>查询部分的js代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function doFind()&#123;</div><div class="line">//获取查询条件</div><div class="line">        var val = $(&apos;#dd&apos;).combobox(&apos;getValue&apos;);</div><div class="line">        var teacherName = $(&apos;#dd1&apos;).val();</div><div class="line">        var officeName = $(&apos;#dd2&apos;).val();</div><div class="line">        var type = $(&apos;#dd3&apos;).combobox(&apos;getValue&apos;);</div><div class="line">//根据查询条件在表格tt中load出来</div><div class="line">$(&quot;#tt1&quot;).datagrid(&apos;load&apos;,&#123;</div><div class="line">deptId:val,</div><div class="line">teacherName:teacherName,</div><div class="line">officeName:officeName,</div><div class="line">type:type</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>但是发现这样有问题，如果某项没填，比如teacherName为空，那么将会在表格中查询teacherName为空的项，从而查不到结果。<br>因此采取先判断查询项是否为空，才能得出正确结果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">function doFind()&#123;</div><div class="line">        var val = $(&apos;#dd&apos;).combobox(&apos;getValues&apos;);//允许多选的情况，首先要在id为dd的combobox设置multipl为true</div><div class="line">       if (val[0] == &apos;&apos;) &#123;</div><div class="line">           val = val.slice(1)</div><div class="line">       &#125;</div><div class="line">       var teacherName = $(&apos;#dd1&apos;).val();</div><div class="line">       var officeName = $(&apos;#dd2&apos;).val();</div><div class="line">       var type = $(&apos;#dd3&apos;).combobox(&apos;getValue&apos;)</div><div class="line">       var deptIds = val.join(&apos;,&apos;);//将每项用,分开</div><div class="line">       var query = &#123;&#125;</div><div class="line">      //判断查询条件是否为空，将查询条件保存到对象中</div><div class="line">       if(teacherName)&#123;</div><div class="line">           query.teacherName=teacherName;</div><div class="line">       &#125;</div><div class="line">       if(officeName)&#123;</div><div class="line">           query.officeName=officeName;</div><div class="line">       &#125;</div><div class="line">       if(type)&#123;</div><div class="line">           query.type=type;</div><div class="line">       &#125;</div><div class="line">        if(deptIds)&#123;</div><div class="line">           query.deptId=deptIds;</div><div class="line">       &#125;</div><div class="line">             </div><div class="line">           $(&apos;#tt1&apos;).datagrid(&apos;load&apos;, query);</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/10/easyui的dialog中插入下拉框/" title="easyui的dialog中插入下拉框" itemprop="url">easyui的dialog中插入下拉框</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-10T12:53:55.000Z" itemprop="datePublished"> Published 2017-04-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>easyui是一个集成了各种用户界面的插件的框架，特别使用各种表格的开发，能大大节省时间。在项目中遇到的问题时，下dialog中无法使用combobox生成下拉框，于是只能通过打开dialog时插入一个下拉框。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">$(&apos;#fm_deptId&apos;).append(&apos;&lt;option&gt;bitem6&lt;/option&gt;&apos;);</div><div class="line">        var depts = [];</div><div class="line">        var query = &#123;</div><div class="line">            rows: 200,</div><div class="line">            page: 1</div><div class="line">        &#125;</div><div class="line">        var newHtml = &apos;&apos;;</div><div class="line">        $.ajax(&#123;</div><div class="line">            type: &apos;POST&apos;,</div><div class="line">            async: false,</div><div class="line">            url: url_queryDept,//向接口请求下拉框数据</div><div class="line">            contentType: &quot;application/json; charset=utf-8&quot;,</div><div class="line">            data: JSON.stringify(query),</div><div class="line">            dataType: &apos;json&apos;,</div><div class="line">            success: function(data) &#123;</div><div class="line">                $.each(data.result, function(i, val) &#123;</div><div class="line">                    var temp = val.deptId + val.deptName;数据由一个id和name组成</div><div class="line">                    var option = &apos;&lt;option value=&apos; + val.deptId + &apos;&gt;&apos; + temp + &apos;&lt;/option&gt;&apos;;</div><div class="line">                    newHtml = newHtml + option;</div><div class="line">                &#125;)</div><div class="line">                $(&apos;#fm_deptId&apos;)[0].innerHTML = newHtml;                          </div><div class="line">            &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>注：如果想要选中下拉框的某一个选项作为下拉框的默认值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(&apos;#fm_deptId  option[value=&apos;+ current_deptId+&apos;] &apos;).attr(&quot;selected&quot;,true);</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -515,7 +518,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -681,7 +684,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

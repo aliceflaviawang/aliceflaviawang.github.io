@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,132 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/08/09/ES6箭头函数的this与普通函数的this对比/" title="ES6箭头函数的this与普通函数的this对比" itemprop="url">ES6箭头函数的this与普通函数的this对比</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-09T03:16:19.000Z" itemprop="datePublished"> 发表于 2017-08-09</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="普通函数中的this"><a href="#普通函数中的this" class="headerlink" title="普通函数中的this"></a>普通函数中的this</h2><p>有以下几种情况</p>
+<ol>
+<li><p>this总是代表它的直接调用者，例如obj.func，那么func中的this就是obj</p>
+</li>
+<li><p>在默认情况（非严格模式下，未使用’use strict’），没找到直接调用者，则this指向window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">   func:function()&#123;&#125;,</div><div class="line">   say:function()&#123;</div><div class="line">     var that=this;</div><div class="line">     setTimeout(function()&#123;</div><div class="line">       console.log(this)  //window</div><div class="line">       that.func()</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.say();</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>匿名函数、定时器中的函数，由于没有默认的宿主对象，所以默认指向window。<br>如果想使用这个对象的引用，通常是使用一个变量提前把正确的this引用保存起来，我们通常使用that=this或者_this=this来保存我们需要的this指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">window.val=1;</div><div class="line">var obj=&#123;</div><div class="line">  val:2,</div><div class="line">  dbl:function()&#123;</div><div class="line">     this.val*=2;</div><div class="line">     val*=2;</div><div class="line">     console.log(val);</div><div class="line">     console.log(this.val);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">obj.dbl();</div><div class="line">var func=obj.dbl;</div><div class="line">func();</div></pre></td></tr></table></figure></p>
+<p>结果：2 4 8 8<br>val变量在没有指定对象前缀，默认从函数中找，找不到则从window中找全局变量，即val<em>=2就是window.val</em>=2,this.val默认指的是obj.val(因为dbl()第一次被obj直接调用)。<br>func()没有任何前缀，类似于全局函数，即window.func调用，所以第二次调用的时候，this指的是window，val指的是window.val，obj.dbl()使得window.val的结果变成了2，this.val和val都是指向全局的val，因此this.val<em>2使得全局的val变成了4，再val</em>2使其变为8，最后val和this.val就都等于8。</p>
+<ol>
+<li><p>在严格模式下，没有直接调用者的函数中的this是undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">   &apos;use strict&apos;;</div><div class="line">   console.log(this);</div><div class="line">&#125;</div><div class="line">test(); //undefined</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用call、apply、bind绑定的，this指向绑定的对象</p>
+</li>
+</ol>
+<h2 id="箭头函数中的this"><a href="#箭头函数中的this" class="headerlink" title="箭头函数中的this"></a>箭头函数中的this</h2><p>默认指向在定义它时它所处的对象，而不是执行时的对象，定义它的时候，可能环境是window。<br>箭头函数根本就没有绑定自己的this，实际上箭头函数中调用this是沿着作用域链向上寻找，找到最近的一个this拿来使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">  say:function()&#123;</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">      console.log(this);</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.say(); //obj</div></pre></td></tr></table></figure></p>
+<p>此时this是定义它的对象，最近的this就是obj而不是window。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">   say:function()&#123;</div><div class="line">     var f1=() =&gt; &#123;</div><div class="line">       console.log(this); //obj</div><div class="line">       setTimeout(() =&gt; &#123;</div><div class="line">         console.log(this); //obj</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">    f1();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>f1最近的作用域的this就是obj，不管f1有几层嵌套，都是obj。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">   say:function()&#123;</div><div class="line">     var f1=function()&#123;</div><div class="line">       console.log(this); //window</div><div class="line">       setTimeout(() =&gt; &#123;</div><div class="line">         console.log(this);  //window</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">   f1();</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.say();</div></pre></td></tr></table></figure></p>
+<p>第一个this:f1调用时，this指向window对象<br>第二个this：找到最近的作用域的this即f1的this，f1的this指向window</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/01/DNS解析/" title="DNS解析" itemprop="url">DNS解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-01T14:03:18.000Z" itemprop="datePublished"> 发表于 2017-08-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>由来</strong>：IP地址由21位二进制数字组成，用户与因特网上某台主机通信，32位的IP地址显然很难记忆，因此使用比较容易记忆的主机名字（域名）。但是域名长度不固定，机器处理比较困难，而IP地址长度固定，因此处理数据报时用的IP地址。</p>
+<p><strong>解析过程</strong>：当某一个应用需要把主机名解析为IP地址时，该应用进程就调用解析程序，并成为DNS的一个客户，把待解析的域名放在DNS请求报文中，以UDP用户数据报方式发送给本地域名服务器。本地域名服务器在查找域名后，把对应的IP地址放在回答报文中返回。应用程序获得目的主机的IP地址后即可进行通信。</p>
+<p>具体的解析过程：</p>
+<ol>
+<li>主机向本地域名服务器的查询一般都是采用递归查询。所谓递归查询是:如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其他根域名服务器继续发出查询请求报文（即替主机继续查询），而不是让主机自己进行下一步查询。因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</li>
+<li>本地域名服务器向根域名服务器的查询是迭代查询。迭代查询：当根域名服务器收到本地域名服务器发出的迭代查询请求报文时，要么给出所要查询的IP地址，要么告诉本地服务器下一步向哪个域名服务器进行查询。然后本地服务器进行后续查询。根域名服务器通常是把自己知道的顶级域名服务器的IP地址告诉本地域名服务器，让本地域名服务器再向顶级域名服务器查询。</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/01/for-of的优势/" title="for...of的优势" itemprop="url">for...of的优势</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +214,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-01T06:51:45.000Z" itemprop="datePublished"> Published 2017-08-01</time>
+    <time datetime="2017-08-01T06:51:45.000Z" itemprop="datePublished"> 发表于 2017-08-01</time>
     
   </p>
 </header>
@@ -156,7 +282,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-31T01:33:29.000Z" itemprop="datePublished"> Published 2017-07-31</time>
+    <time datetime="2017-07-31T01:33:29.000Z" itemprop="datePublished"> 发表于 2017-07-31</time>
     
   </p>
 </header>
@@ -264,7 +390,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-29T08:44:01.000Z" itemprop="datePublished"> Published 2017-07-29</time>
+    <time datetime="2017-07-29T08:44:01.000Z" itemprop="datePublished"> 发表于 2017-07-29</time>
     
   </p>
 </header>
@@ -321,7 +447,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-27T02:19:16.000Z" itemprop="datePublished"> Published 2017-07-27</time>
+    <time datetime="2017-07-27T02:19:16.000Z" itemprop="datePublished"> 发表于 2017-07-27</time>
     
   </p>
 </header>
@@ -392,7 +518,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-24T07:59:48.000Z" itemprop="datePublished"> Published 2017-07-24</time>
+    <time datetime="2017-07-24T07:59:48.000Z" itemprop="datePublished"> 发表于 2017-07-24</time>
     
   </p>
 </header>
@@ -457,7 +583,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-17T05:38:48.000Z" itemprop="datePublished"> Published 2017-07-17</time>
+    <time datetime="2017-07-17T05:38:48.000Z" itemprop="datePublished"> 发表于 2017-07-17</time>
     
   </p>
 </header>
@@ -497,166 +623,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" title="http头：Expires,Cache-Control,Last-Modified,ETag" itemprop="url">http头：Expires,Cache-Control,Last-Modified,ETag</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-17T02:01:46.000Z" itemprop="datePublished"> Published 2017-07-17</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>缓存分为很多种：服务器缓存，第三方缓存，浏览器缓存。其中浏览器缓存是代价最小的，因为浏览器缓存依赖客户端，而且几乎不耗费服务器端资源。</p>
-<h3 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h3><p>HTTP报文就是浏览器和服务器间通信时发送及响应的数据块。浏览器向服务器请求数据，发送请求（request）报文；服务器向浏览器返回数据，返回响应（response）报文。<br>报文信息主要分为两部分：</p>
-<ol>
-<li>包含属性的首部（header）：附加信息（cookie，缓存信息等）与缓存相关的规则信息，均包含在header中</li>
-<li>包含数据的主体部分（body）：HTTP请求真正想要传输的部分。</li>
-</ol>
-<h3 id="缓存规则解析"><a href="#缓存规则解析" class="headerlink" title="缓存规则解析"></a>缓存规则解析</h3><p>在客户端第一次请求数据时，此时缓存数据库中没有对应的缓存数据，需要请求服务器，服务器返回后，将数据缓存到缓存数据库中。<br><img src="http://i.imgur.com/ozwgCEr.png" alt=""><br>HTTP缓存有多种规则，根据是否需要重新向服务器发起请求来分类，这里将其分为两大类(强制缓存，对比缓存)：<br><img src="http://i.imgur.com/2d5pLBi.png" alt=""><br><img src="http://i.imgur.com/tQjWOIz.png" alt=""><br>可以看出，强制缓存如果生效，不需要再和服务器发生交互，而对比缓存不管是否生效，都需要与服务端发生交互，两类缓存规则可以同时存在，强制缓存优先级高于对比缓存，也就是说，当执行强制缓存的规则时，如果缓存生效，直接使用缓存，不再执行对比缓存规则。</p>
-<h3 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h3><p>强制缓存，响应的header中有两个字段来标明失效规则（Expires/Cache-Control）。</p>
-<h4 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h4><p>Expires的值为服务端返回到期的时间，即下一次请求时，请求时间小于服务端返回的到期时间，直接使用缓存数据。<br>但是由于到期时间是服务器端生成的，客户端时间可能跟服务端时间有误差，这就会导致缓存命中的误差。所以HTTP1.1中用Cache-Control代替。</p>
-<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><p>Cache-Control是最重要的规则。常见的取值有private、public、no-cache、no-store，默认是private。<br>private： 客户端可以缓存<br>public： 客户端和服务器端都可缓存<br>max-age=xxx: 缓存的内容在xxx秒后失效<br>no-cache: 需要对比缓存来验证缓存数据<br>no-store: 所有内容都不会缓存，强制缓存、对比缓存都不会触发</p>
-<h3 id="对比缓存"><a href="#对比缓存" class="headerlink" title="对比缓存"></a>对比缓存</h3><p>需要判断是否可以使用缓存。浏览器第一次请求数据时，服务器会将缓存标识与数据一起返回给客户端，客户端将二者备份至缓存数据库中。<br>再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。<br><img src="http://i.imgur.com/OSFNmpy.png" alt=""><br>可以看到，在对比缓存生效时，状态码为304，并且报文大小和请求时间大大减少，原因是，服务端进行标识之后，只返回header部分，通过状态码通知客户端使用缓存，不再需要将报文主体部分返回给客户端。</p>
-<h4 id="Last-Modified"><a href="#Last-Modified" class="headerlink" title="Last-Modified"></a>Last-Modified</h4><p>服务器在响应第一次请求时，告诉浏览器资源的最后修改时间<br><img src="http://i.imgur.com/ajkFyt3.png" alt=""><br>If-Modified-Since:<br>再次请求时，通过此字段通知服务器上次请求时，服务器返回资源的最后修改时间。服务器收到请求后发现有头If-Modified-Since，则与被请求资源的最后修改时间进行对比。若资源的最后修改时间大于If-Modified-Since,说明资源又被改动过，则响应整片资源内容，返回状态码200;若资源的最后修改时间小于或者等于If-Modified-Since，说明资源无新修改，则响应HTTP 304，告知游览器继续使用所保存的cache。<br><img src="http://i.imgur.com/J6A0pbK.png" alt=""></p>
-<h4 id="Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since"><a href="#Etag-If-None-Match-优先级高于Last-Modified-If-Modified-Since" class="headerlink" title="Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)"></a>Etag/If-None-Match(优先级高于Last-Modified/If-Modified-Since)</h4><p>Etag:<br>服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。</p>
-<p>If-None-Match:<br>再次请求服务器时，通过此字段通知服务器客户端缓存数据的唯一标识。服务器收到请求发现头部有If-None-Match，则与被请求资源的唯一标识进行对比不同，说明资源又被改动过，则响应整片资源内容，返回状态码200；相同，说明资源无新修改，则响应HTTP 304，告知浏览器继续使用所保存的cache。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>对于强制缓存，服务器通知浏览器一个缓存时间，在缓存时间内，下次请求，不在时间内，执行比较缓存策略。<br>对于比较缓存，将缓存信息中的Etag和Last-Modified通过请求发送给服务器，由于服务器校验，返回304状态码时，浏览器直接缓存。<br><img src="http://i.imgur.com/ZRqTNb7.png" alt=""><br><img src="http://i.imgur.com/Rgktgn9.png" alt=""></p>
-<p>这篇文章写的非常好，来自<a href="http://www.cnblogs.com/chenqf/p/6386163.html，下面是之前写的（调理没有上面的清晰）。" target="_blank" rel="external">http://www.cnblogs.com/chenqf/p/6386163.html，下面是之前写的（调理没有上面的清晰）。</a></p>
-<p><strong>1. Expires（过期时间）</strong><br>Http头信息Expire属性是Http控制缓存的基本手段，这个属性告诉缓存器：相关副本在多长时间内是新鲜的。</p>
-<p>缺点：</p>
-<ol>
-<li>客户端与服务器时间不同步导致Expire的配置出现问题</li>
-<li>很容易在配置后忘记具体的过期时间，导致过期来临出现浪涌现象</li>
-</ol>
-<p><strong>2. Cache-Control（缓存控制） Http头信息</strong><br>Cache-Control让网站发布者可以更全面的控制他们的内容，并定位过期时间的限制。</p>
-<ul>
-<li>public响应头，通知浏览器无条件缓存该响应</li>
-<li>private响应头，通知浏览器只针对单个用户缓存响应。且可以具体指定某个字段。如：private-“username”</li>
-<li>no-cache请求头，浏览器去服务器取数据并验证缓存。响应头告诉浏览器必须要回复服务器校验，不管有没有缓存。如果确定没有被改，可以使用缓存中的数据</li>
-<li>no-store要求浏览器任何情况下都不要缓存</li>
-<li>max-age 强制浏览器根据该值校验缓存。即自身age值，与请求时间做比较，如果超过max-age值，则强制去服务器端验证。以确保返回一个新鲜的响应。其功能与传统的Expire类似，但区别在于Expire是根据某个特定日期值做比较，一旦客户端自身的时间不准确，则结果可能就是错误的，而max-age则是客户端时间比较。max-age的优先级高于Expire。</li>
-</ul>
-<p>Expire指定的时间可以是相对文件的最后访问时间（Atime）或者修改时间（Mtime），而max-age相对的是文档的请求时间（Atime）</p>
-<p><strong>3. Last-Modified/If-Modified-Since</strong><br>客户端第一次访问资源的时候，服务器返回资源内容的同时返回Last-Modified:Wed, 07 Aug 2013 15:32:18 GMT，服务器告诉客户端你获取的文件最后修改时间是这个时间。浏览器在获取这个文件到缓存中的时候，给缓存中的文件同时记录上这个最后修改时间。</p>
-<p>第二次访问的时候，服务器访问资源的时候会带上If-Modified-Since:Wed, 07 Aug 2013 15:32:18 GMT.</p>
-<p>客户端询问服务器：这个资源我这边已经缓存了，我的缓存文件的最后修改时间是这个，如果你那边资源没有修改的话，你就告诉我一下就好了，不需要返回实际的资源的内容；反之要是你有修改的话，你就把内容返回给我吧。</p>
-<p><strong>4. ETag/If-None-Match</strong><br>是实现与最近修改数据检查同样的功能的另一种方法，没有变化时不重新下载数据。<br>第一次客户端访问资源的时候，服务端返回资源内容的同时返回ETag:1234，告诉客户端这个文件的标签是1234，如果修改了的话，这个标签就会不一样。</p>
-<p>第二次客户端访问资源的时候，由于缓存中已经有了ETag为1234的资源，客户端要去服务端查询的是这个资源有没有过期呢？所以带上If-None-Match:1234。告诉服务端：如果你那边的资源还是1234标签的资源，你就返回304告诉我，不需要返回资源内容了；如果不是的话你就返回内容给我。</p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>Exipire/Cache-Control header是控制浏览器是否直接从浏览器缓存中获取数据还是重新发送请求到服务器取数据。只是Cache-Control比Expires控制的多些，而且Cache-control会重写Expires规则。</p>
-<p>Last-Modified/ETag是浏览器发送请求到服务器后判断文件是否修改过，如果没有修改过就只发送一个304给浏览器，告诉浏览器从本地缓存取数据；如果修改过那就返回200连同整个数据重新发送给浏览器。</p>
-<h2 id="补充：刷新"><a href="#补充：刷新" class="headerlink" title="补充：刷新"></a>补充：刷新</h2><p>理解了上面的缓存标签之后就很好理解各种刷新了，刷新有三种：浏览器中写地址、回车,F5,Ctrl+F5三种。</p>
-<p>假设对一个资源:浏览器第一次访问，获取资源内容和cache-control:max-age:600,last-modified:Wed, 07 Aug 2013 15:32:18 GMT，于是浏览器把资源文件放到缓存中，并且决定下次使用的时候直接去缓存中取了。</p>
-<ol>
-<li><p>浏览器url回车<br>浏览器发现缓存中有这个文件，就不发送人任何请求，直接去缓存中获取展现。（最快）</p>
-</li>
-<li><p>F5<br>F5告诉浏览器别偷懒，去服务器看下这个文件是否有过期。于是浏览器就发送一个请求带上If-Modified-Since:Wed, 07 Aug 2013 15:32:18 GMT，然后浏览器发现，这个文件我在找个时间后还没修改过，不需要给你任何信息了，返回304就行了。于是浏览器获取到304后就去缓存中获取资源了。</p>
-</li>
-</ol>
-<p>3.Crtl+F5<br>这个告诉浏览器先要把缓存中的这个文件给删了，然后再去服务器请求整个完整的资源文件下来，于是客户端就完成了强行更新的操作。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/16/border-radius-50-和100/" title="border-radius:50%和100%" itemprop="url">border-radius:50%和100%</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-16T13:27:16.000Z" itemprop="datePublished"> Published 2017-07-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>用来画圆border-radius必不可少，我们把这个值设成50%，发现设成100%也有效。</p>
-<p>下面是一个150px x 150px大小的方形，将它的四个角的半径都设置成50%。根据W3C的规范定义，如果border-radius的值是百分比，就是相对于border box的宽度和高度的百分比。在本例中，50%就是75px。<br><img src="http://i.imgur.com/Z7MgAcK.png" alt=""></p>
-<h3 id="border-radius工作原理"><a href="#border-radius工作原理" class="headerlink" title="border-radius工作原理"></a>border-radius工作原理</h3><p><strong>如果两个相邻的角的半径和超过了对应的盒子的边的长度，那么浏览器要重新计算保证它们不会重合。</strong></p>
-<p>如果左上角的圆角被设置成100%，那么圆角就会从这个方形左下角跨到右上角，相当于把圆角半径设置成150px。如果右上角的圆角半径也设置成100%，则两个相邻的圆角合起来就有200%。这种情况自然是不允许的，所以浏览器会重新计算，匀出空间给右边的圆角，同时缩放两个圆角的半径直到它们刚好符合这个方形，所以半径就变成了50%。</p>
-<p>实际上方形所能拥有的最大半径是其宽高的50%，超过了就会重新计算。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -667,7 +643,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -833,7 +809,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

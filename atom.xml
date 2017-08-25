@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-08-18T02:17:47.611Z</updated>
+  <updated>2017-08-24T12:29:03.693Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -14,6 +14,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JS继承实现方式</title>
+    <link href="https://aliceflaviawang.github.io/2017/08/24/JS%E7%BB%A7%E6%89%BF%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/"/>
+    <id>https://aliceflaviawang.github.io/2017/08/24/JS继承实现方式/</id>
+    <published>2017-08-24T08:45:01.000Z</published>
+    <updated>2017-08-24T12:29:03.693Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天来总结下继承实现的方式<br>既然要实现继承，那么首先要有个父类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//定义一个动物类</div><div class="line">function Animal(name)&#123;</div><div class="line">  //属性</div><div class="line">  this.name=name||&quot;Animal&quot;;</div><div class="line">  //实例方法</div><div class="line">  this.sleep=function()&#123;</div><div class="line">    console.log(this.name);</div><div class="line"> &#125;  </div><div class="line">&#125;</div><div class="line">//原型方法</div><div class="line">Animal.prototype.eat=function(food)&#123;</div><div class="line">  console.log(this.name+&quot;正在吃：&quot;+food);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h3><p>核心：<strong>将父类的实例作为子类的原型</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Cat()&#123;</div><div class="line">&#125;</div><div class="line">Cat.prototype=new Animal();</div><div class="line">Cat.prototype.name=&apos;cat&apos;;</div><div class="line"></div><div class="line">var cat=new Cat(); </div><div class="line">console.log(cat.name); //cat</div><div class="line">console.log(cat.eat(&apos;fish&apos;)); //cat正在吃fish</div><div class="line">console.log(cat.sleep()); //cat</div><div class="line">console.log(cat instanceof Animal); //true</div><div class="line">console.log(cat instanceof Cat); //true</div></pre></td></tr></table></figure></p>
+<p>特点：</p>
+<ol>
+<li>非常纯粹的继承关系，实例是子类的实例，也是父类的实例</li>
+<li>父类新增原型方法/原型属性，子类都能访问到</li>
+<li>简单，易于实现<br>缺点：</li>
+<li>要想为子类新增属性和方法，必须要在new Animal()这样的语句之后，不能放在构造器中</li>
+<li>无法实现多继承</li>
+<li>来自原型对象的引用属性是所有实例共享的，即一个实例改变了另外的也会改变</li>
+<li>创建子类实例时，无法向父类构造器传参</li>
+</ol>
+<h3 id="2-构造继承"><a href="#2-构造继承" class="headerlink" title="2.构造继承"></a>2.构造继承</h3><p>核心：<strong>使用父类的构造函数来增强子类实例</strong>，等于复制父类的实例属性给子类（没用到原型）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Cat(name)&#123;</div><div class="line">  Animal.call(this);</div><div class="line">  this.name=name||&apos;Tom&apos;;</div><div class="line">&#125;</div><div class="line">var cat=new Cat(); </div><div class="line">console.log(cat.name); //Tom</div><div class="line">console.log(cat.eat(&apos;fish&apos;)); //error:cat.eat is not a function</div><div class="line">console.log(cat.sleep()); //Tom</div><div class="line">console.log(cat instanceof Animal); //false</div><div class="line">console.log(cat instanceof Cat); //true</div></pre></td></tr></table></figure></p>
+<p>特点：</p>
+<ol>
+<li>解决了1中，子类实例共享父类引用属性的问题</li>
+<li>创建子类实例时，可以向父类传递参数</li>
+<li>可以实现多继承（call多个父类对象）<br>缺点：</li>
+<li>实例并不是父类的实例，只是子类的实例</li>
+<li>只能继承父类的实例属性和方法，不能继承原型属性/方法</li>
+<li>无法实现函数复用，每个子类都有父类实例函数的副本，影响性能</li>
+</ol>
+<h3 id="3-实例继承"><a href="#3-实例继承" class="headerlink" title="3.实例继承"></a>3.实例继承</h3><p>核心：为父类实例添加新特性，作为子类实例返回<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function Cat(name)&#123;</div><div class="line">  var instance=new Animal();</div><div class="line">  instance.name=name||&apos;Tom&apos;;</div><div class="line">  return instance;</div><div class="line">&#125;</div><div class="line">var cat=new Cat();</div><div class="line">console.log(cat.name); //Tom</div><div class="line">console.log(cat.sleep()); //Tom</div><div class="line">console.log(cat instanceof Animal); //true</div><div class="line">console.log(cat instanceof Cat);  //false</div><div class="line">``` </div><div class="line">特点：</div><div class="line"> 1. 不限制调用方式，不管是new 子类子类（），返回的对象具有相同的效果</div><div class="line">缺点：</div><div class="line"> 1. 实例是父类的实例，不是子类的实例</div><div class="line"> 2. 不支持多继承</div><div class="line"></div><div class="line">### 4.拷贝继承</div></pre></td></tr></table></figure></p>
+<p>function Cat(name){<br>  var animal=new Animal();<br>  for(var p in animal){<br>     Cat.prototype[p]=animal[p];<br>  }<br>  Cat.prototype.name=name||’Tom’;<br>}<br>var cat=new Cat();<br>console.log(cat.name); //Tom<br>console.log(cat.sleep()); //Tom<br>console.log(cat instanceof Animal); //false<br>console.log(cat instanceof Cat); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">特点：</div><div class="line"> 1. 支持多继承</div><div class="line">缺点：</div><div class="line"> 1. 效率较低，内存占用高（因为要拷贝父类的属性）</div><div class="line"> 2. 无法获取父类不可枚举的方法（不可枚举的方法，不能使用for in访问到）</div><div class="line"></div><div class="line">### 5.组合继承</div><div class="line"></div><div class="line">核心：通过调用父类方法，继承父类的属性并保留传参的优点，然后通过父类实例作为子类原型，实现函数复用。</div></pre></td></tr></table></figure></p>
+<p>function Cat(name){<br>  Animal.call(this);<br>  this.name=name||’Tom’;</p>
+<p>}<br>Cat.prototype=new Animal();<br>var cat=new Cat();<br>console.log(cat.name); //Tom<br>console.log(cat.sleep()); //Tom<br>console.log(cat instanceof Animal); //true<br>console.log(cat instanceof Cat); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">特点：</div><div class="line"> 1. 既弥补了方式2的缺陷，可以实现实例属性/方法，也可以继承原型属性/方法</div><div class="line"> 2. 既是子类的实例，也是父类的实例</div><div class="line"> 3. 不存在引用属性共享问题</div><div class="line"> 4. 可传参</div><div class="line"> 5. 函数可复用</div><div class="line">缺点：</div><div class="line"> 1. 调用了两次父类构造函数，生成了两份实例（子类实例将子类原型上的那份屏蔽了）</div><div class="line"></div><div class="line">### 6.寄生组合继承</div><div class="line"></div><div class="line">核心：通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性，避免组合继承的缺点。</div></pre></td></tr></table></figure></p>
+<p>function Cat(name){<br>  Animal.call(this);<br>  this.name=name||’Tom’;<br>}<br>(function(){<br>   //创建一个没有实例方法的类<br>   var Super=function(){<br>   }<br>   Super.prototye=Animal.prototype;<br>   Cat.prototype=new Super();<br>})();</p>
+<p>var cat=new Cat();<br>console.log(cat.name); //Tom<br>console.log(cat.sleep()); //Tom<br>console.log(cat instanceof Animal); //false<br>console.log(cat instanceof Cat); //true<br>```</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天来总结下继承实现的方式&lt;br&gt;既然要实现继承，那么首先要有个父类：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div c
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>const, let, var的区别 </title>
+    <link href="https://aliceflaviawang.github.io/2017/08/23/const-let-var%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://aliceflaviawang.github.io/2017/08/23/const-let-var的区别/</id>
+    <published>2017-08-23T02:07:46.000Z</published>
+    <updated>2017-08-23T02:36:53.372Z</updated>
+    
+    <content type="html"><![CDATA[<ol>
+<li>const<br>const比较简单，通俗的来说就是用来定义常量，必须初始化，且初始化后不能修改。</li>
+<li>var与let<br>var和let作用比较相似，let可以说是更完美的var，var声明的变量是全局的或者是函数级的，let声明的变量作用域是在块级作用域。</li>
+</ol>
+<ul>
+<li><p><strong>声明后未赋值，var和let表现相同</strong>：都是undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&apos;use strict&apos;</div><div class="line">(function()&#123;</div><div class="line">   var varTest;</div><div class="line">   let letTest;</div><div class="line">   console.log(varTest); //undefined</div><div class="line">   console.log(letTest); //undefined</div><div class="line">&#125;())</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用未声明的变量，表现不同</strong>：var是undefined，let则报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">   console.log(varTest); //undefined</div><div class="line">   console.log(letTest); //报错：ReferenceError:letTest is not defined</div><div class="line">   var varTest;</div><div class="line">   let letTest;</div><div class="line">&#125;())</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>重复声明同一个变量时，表现不同</strong>:var后声明的会覆盖前者，而let则直接报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">   var varTest=&quot;hi&quot;;</div><div class="line">   let letTest=&quot;hello&quot;;</div><div class="line">   var varTest=&quot;changed&quot;;</div><div class="line">   let letTest=&quot;error&quot;; </div><div class="line">   console.log(varTest); //changed</div><div class="line">   console.log(letTest); //报错：SyntaxError:Indentifier &apos;letTest&apos; has already been declared</div><div class="line">&#125;())</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>变量作用范围不同</strong>：var作用在全局作用域或函数作用域，let作用在块级作用域，在函数内部使用let后，对外部无影响</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">(function() &#123;</div><div class="line">  var varTest = &apos;test var OK.&apos;;</div><div class="line">  let letTest = &apos;test let OK.&apos;;</div><div class="line"></div><div class="line">  &#123;</div><div class="line">    var varTest = &apos;varTest changed.&apos;;</div><div class="line">    let letTest = &apos;letTest changed.&apos;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  console.log(varTest); //输出&quot;varTest changed.&quot;，内部&quot;&#123;&#125;&quot;中声明的varTest变量覆盖外部的letTest声明</div><div class="line">  console.log(letTest); //输出&quot;test let OK.&quot;，内部&quot;&#123;&#125;&quot;中声明的letTest和外部的letTest不是同一个变量</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>举个经典例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;3;i++)&#123;</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    console.log(i)</div><div class="line">&#125;,1000)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>控制台输出了3个3，是因为循环本身及三次timeout回调均<strong>共享唯一变量i</strong>。而使用let就不一样可以获得预期的效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(let i=0;i&lt;3;i++)&#123;</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    console.log(i)</div><div class="line">&#125;,1000)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出的是0，1，2，因为循环每次迭代时都为i创建新的绑定，就是捕捉每一个循环变量的不同值作为副本。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;const&lt;br&gt;const比较简单，通俗的来说就是用来定义常量，必须初始化，且初始化后不能修改。&lt;/li&gt;
+&lt;li&gt;var与let&lt;br&gt;var和let作用比较相似，let可以说是更完美的var，var声明的变量是全局的或者是函数级的，let声明的变量作用域是
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>页面提速</title>
@@ -722,52 +809,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;JPEG（简写jpg）&quot;&gt;&lt;a href=&quot;#JPEG（简写jpg）&quot; class=&quot;headerlink&quot; title=&quot;JPEG（简写jpg）&quot;&gt;&lt;/a&gt;JPEG（简写jpg）&lt;/h3&gt;&lt;p&gt;JPEG是一种大小与质量相平衡的压缩图片格式。通俗的说：高的压缩比=
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>childNodes和children的区别</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/16/childNodes%E5%92%8Cchildren%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/16/childNodes和children的区别/</id>
-    <published>2017-07-16T04:07:05.000Z</published>
-    <updated>2017-07-16T08:37:23.723Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="childNodes"><a href="#childNodes" class="headerlink" title="childNodes"></a>childNodes</h3><p>标准的，它返回指定元素的子元素集合，包括HTML节点，属性节点和文本节点。可以通过nideType来判断是哪个类型的节点，只有当nodeType==1时才是元素节点，2是属性节点，3是文本节点。</p>
-<h3 id="children"><a href="#children" class="headerlink" title="children"></a>children</h3><p>非标准的，它只返回HTML节点（IE中包含注释节点）。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;childNodes&quot;&gt;&lt;a href=&quot;#childNodes&quot; class=&quot;headerlink&quot; title=&quot;childNodes&quot;&gt;&lt;/a&gt;childNodes&lt;/h3&gt;&lt;p&gt;标准的，它返回指定元素的子元素集合，包括HTML节点，属性节点和文本节点。可
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>渐进增强和优雅降级</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/16/%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA%E5%92%8C%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/16/渐进增强和优雅降级/</id>
-    <published>2017-07-16T03:56:59.000Z</published>
-    <updated>2017-07-16T04:02:31.988Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="渐进增强"><a href="#渐进增强" class="headerlink" title="渐进增强"></a>渐进增强</h3><p>针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</p>
-<h3 id="优雅降级"><a href="#优雅降级" class="headerlink" title="优雅降级"></a>优雅降级</h3><p>一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。</p>
-<p><strong>区别</strong>：</p>
-<ol>
-<li>优雅降级是从复杂的现状开始，并试图减少用户体验的供给；</li>
-<li>渐进增强是从一个非常基础的，能够起作用的版本开始，并不断扩充，以适应未来环境的需要；</li>
-<li>降级（功能衰退）意味着往回看；而渐进增强则意味着朝前看，同时保证其根基处于安全地带。</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;渐进增强&quot;&gt;&lt;a href=&quot;#渐进增强&quot; class=&quot;headerlink&quot; title=&quot;渐进增强&quot;&gt;&lt;/a&gt;渐进增强&lt;/h3&gt;&lt;p&gt;针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。&lt;/p
     
     </summary>
     

@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,419 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/09/01/div水平垂直居中的方式总结/" title="div水平垂直居中的方式总结" itemprop="url">div水平垂直居中的方式总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-01T14:19:43.000Z" itemprop="datePublished"> Published 2017-09-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="1-绝对定位"><a href="#1-绝对定位" class="headerlink" title="1.绝对定位"></a>1.绝对定位</h3><p>margin:0 auto可以实现水平居中，实际上margin:auto也可以实现垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.center&#123;</div><div class="line">  margin:auto;</div><div class="line">  position:absolute;</div><div class="line">  top:0;left:0;bottom:0;right:0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>优点：</p>
+<ol>
+<li>支持跨浏览器，包括IE8-IE10</li>
+<li>无需其他标记，CSS代码量少</li>
+<li>支持百分比属性</li>
+<li>只用这一个类可以实现任何内容块居中</li>
+<li>完美支持图片居中<br>缺点：</li>
+<li>必须声明高度或者宽度中的一种</li>
+</ol>
+<h4 id="居中方式"><a href="#居中方式" class="headerlink" title="居中方式"></a>居中方式</h4><p>一、容器内<br>内容块的父容器设置为position：relative，使用上述绝对居中方式，可以使内容居中显示于父容器内。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">  position:relative;</div><div class="line">  width:300px;</div><div class="line">  height:200px;</div><div class="line">&#125;</div><div class="line">.Absolute-Center &#123;  </div><div class="line">  margin: auto;  </div><div class="line">  position: absolute;  </div><div class="line">  top: 0; left: 0; bottom: 0; right: 0;  </div><div class="line">  width:30%;</div><div class="line">  height:20%;</div><div class="line">  overflow:auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>二、视区内<br>如果想让内容块一直停留在可视区内，将内容快设置为position:fixed；并设置一个较大的z-index层叠属性值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.Absolute-Center &#123; </div><div class="line">  position:fixed;</div><div class="line">  z-index:999;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>三、边栏：</p>
+<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/30/CSS相关知识/" title="CSS相关知识" itemprop="url">CSS相关知识</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-30T04:46:46.000Z" itemprop="datePublished"> Published 2017-08-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="1-盒模型"><a href="#1-盒模型" class="headerlink" title="1. 盒模型"></a>1. 盒模型</h3><p>IE（怪异模式）：宽度=border+padding+contentWidth<br>W3C(标准):宽度=contentWidth</p>
+<h3 id="2-box-sizing"><a href="#2-box-sizing" class="headerlink" title="2. box-sizing"></a>2. box-sizing</h3><p><strong>content-box</strong>:宽、高对应到的元素的内容框，在宽、高之外绘制元素的padding和border<br><strong>boder-box</strong>:宽高决定了元素的padding和border，从已定的宽、高中减去padding和border才是内容的宽高</p>
+<h3 id="3-margin塌陷"><a href="#3-margin塌陷" class="headerlink" title="3. margin塌陷"></a>3. margin塌陷</h3><p>挨着的、且没有任何东西分割的两个普通元素会在垂直方向上合并margin</p>
+<ol>
+<li>父子毗邻元素<br>毗邻元素的外边距会合并</li>
+<li>上下毗邻元素</li>
+<li>空块元素<br>不会发生叠加的：</li>
+</ol>
+<ul>
+<li>浮动元素与其他元素之间不发生外边距叠加</li>
+<li>创建BFC的元素不会与它的子元素发生外边距叠加</li>
+<li>绝对定位元素和其他任何元素之间不发生外边距叠加<br>解决办法：<br>为父元素设置BFC（包括overflow：auto）或padding或border（解决父子重叠），兄弟元素之间设置float或inline-block或absolute</li>
+</ul>
+<h3 id="4-BFC"><a href="#4-BFC" class="headerlink" title="4. BFC"></a>4. BFC</h3><p>BFC就是一种布局方式，在这种布局方式下，盒子们自躲在的containing block顶部一个接一个垂直排列，水平方向上撑满整个宽度（除非内部盒子自己建立了新的BFC）。两个相邻的BFC之间的距离由margin决定，在同一个BFC内部，两个垂直方向相邻的块级元素的margin会发生塌陷。</p>
+<p>如何创建BFC:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">float属性不为none</div><div class="line">overflow不为visible（可以是hidden、scroll、auto）</div><div class="line">position属性为absolute或fixed</div><div class="line">display为inline-block、table-cell、table-caption</div></pre></td></tr></table></figure></p>
+<p>BFC的作用：</p>
+<ol>
+<li>清除浮动：对子元素设置浮动后，父元素发生高度塌陷，就是子元素脱离文档流，父元素没有东西能撑满，就塌陷了；解决的办法就是把父元素变成一个BFC。</li>
+<li>垂直margin合并：CSS中，相邻的两个盒子的外边距可以结合成一个单独的外边距。这种方式合并外边距的方式被称为折叠，并且因而结合成外边距成为折叠外边距。折叠的结果：<br>两个相邻的外边距都是正数时，折叠结果是它们两者之间较大的值<br>两个相邻的外边距都是负数时，折叠结果是它们两者绝对值较大值<br>两个外边距一正一负时，折叠结果是两者的相加的和</li>
+<li>创建自适应两栏布局：很多网站是左图片+右文字的两栏布局，文字受到图片浮动的影响，我们可以为P元素的内容建立一个BFC，让其内容消除对外界浮动的影响。</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/30/浏览器标准模式和怪异模式/" title="浏览器标准模式和怪异模式" itemprop="url">浏览器标准模式和怪异模式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-30T03:10:18.000Z" itemprop="datePublished"> Published 2017-08-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>目前浏览器排版引擎有三种模式：怪异模式、接近标准模式和标准模式。接近标准模式下，只有少数怪异行为被实现。<br>由于历史原因，各个浏览器在对页面的渲染上存在差异，甚至同一浏览器的不用版本中，对页面的渲染也不同。W3C标准之前，浏览器对页面的渲染上没有统一规范，产生了怪异模式。由于W3C标准的推出，浏览器有了统一的标准，这是二者最简单的却别。为了兼容旧的页面，两种渲染方法共存于一个浏览器上。两种模式最主要的差别体现在对盒子模型的解释上。<br>浏览器究竟用哪种模式渲染，这就引出了DTD，既是网页的头部声明，浏览器会通过识别DTD而采用相对应的渲染模式：</p>
+<ol>
+<li>浏览器要使老旧的网页正常工作，但这部分网页是没有doctype声明的，所以浏览器对没有doctype声明的网页采用怪异模式解析</li>
+<li>对于拥有doctype声明的网页，浏览器不能识别的doctype声明，采用怪异模式</li>
+<li>使用HTML4以下的DTD声明时，基本所有的浏览器都是使用怪异模式</li>
+<li>如何判定是标准模式还是怪异模式：<br>方法一：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(window.top.document.compatMode);</div><div class="line">//BackCompat 怪异模式</div><div class="line">//CSS1Compat 标准模式</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>方法二：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert($.boxModel)</div><div class="line">alert($.support.boxModel)</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/27/OS基础点/" title="OS基础点" itemprop="url">OS基础点</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-27T13:41:02.000Z" itemprop="datePublished"> Published 2017-08-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>总结写OS的基本内容。</p>
+<h3 id="1-TCP和UDP的区别"><a href="#1-TCP和UDP的区别" class="headerlink" title="1. TCP和UDP的区别"></a>1. TCP和UDP的区别</h3><ul>
+<li>TCP面向连接，UDP是无连接的，即发送数据之前不需要建立连接；</li>
+<li>TCP提供可靠的服务，通过TCP传送的数据，无差错，不丢失，不重复，且按序到达（TCP通过检验和、序列号、确认应答、重发控制、连接管理以及窗口控制等机制实现可靠性传输）；UDP不保证可靠交付。</li>
+<li>TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流；UDP是面向报文的，UDP没有拥塞控制，因此网络出现拥塞时不会是源主机发送速率降低（对实时应用很有用）</li>
+<li>每一条TCP连接只能是点对点的；UDP支持一对一、一对多、多对一、多对都</li>
+<li>TCP首部开销20字节；UDP首部开销小，只有8字节</li>
+<li>TCP的逻辑通信通道是全双工的可靠信道；UDP是不可靠信道</li>
+</ul>
+<h3 id="2-TCP三次握手四次挥手"><a href="#2-TCP三次握手四次挥手" class="headerlink" title="2. TCP三次握手四次挥手"></a>2. TCP三次握手四次挥手</h3><p><img src="http://i.imgur.com/FljpOkA.png" alt=""><br><strong>三次握手</strong><br>TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接：<br>位码即TCP标志位，有6中标示：<br>SYN(synchronous建立连接)<br>ACK（acknowledgement确认）<br>PSH（push传送）<br>fin(finish结束)<br>URG(urgent紧急)<br>Sequence number(顺序号码)<br>Acknowledge number(确认号码)</p>
+<p>各个状态的意义如下：<br>LISTEN 侦听来自远方TCP端口的连接请求<br>SYN-SENT 在发送连接请求后等待匹配的连接请求<br>SYN-RECVEIVED 在收到和发送一个连接请求后等待连接请求的确认<br>ESTABLISHED 代表一个打开的连接，数据可以传送给用户<br>FIN-WAIT-1 等待远程TCP的连接中断请求，或先前的连接中断请求的确认<br>FIN-WAIT-2 从远程TCP等待连接中断请求<br>CLOSE-WAIT 等待从本地用户发来的连接中断请求<br>CLOSING 等待远程TCP对连接中断请求的确认<br>LAST-ACK 等待原来发向远程TCP的连接中断请求确认<br>TIME-WAIT 等待足够的时间以确保远程TCP接收到连接中断请求的确认<br>CLOSED 没有任何连接状态</p>
+<p>三次握手过程：<br>（1） 第一次握手：建立连接时，客户端A发送SYN包（SYN=j）到服务器B，并进入SYN_SEND状态，等待服务器B确认<br>（2） 第二次握手：服务器B收到SYN包，必须确认客户A的SYN（ACK=j+1），同时也发送一个自己的SYN包（SYN=k），此时服务器B进入SYN_RECV状态<br>（3） 第三次握手：客户端A接收服务器B的SYN+ACK包，向服务器B发送确认吧哦ACK(ACK=K+1)，此包发送完毕，客户端A和服务器B都进入ESTABLISED状态，完成三次握手。<br>确认号：其数值等于发送方的发送序号+1</p>
+<p>四次挥手：<br>因为TCP连接是全双工的，因此每个方向都必须单独进行关闭。<br>（1）客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送<br>（2）服务器B收到这个FIN，它发回一个ACK（确认序号为收到的序号+1）；和SYN一样，一个FIN将占用一个序号<br>（3）服务器关闭与客户端A的连接，发送一个FIN给客户端A<br>（4）客户端A发回ACK报文确认，并将确认序号设置为收到序号+1</p>
+<h3 id="3-TCP拥塞控制"><a href="#3-TCP拥塞控制" class="headerlink" title="3. TCP拥塞控制"></a>3. TCP拥塞控制</h3><p>拥塞控制：防止过多的数据注入到网络中，这样可能是网络的路由器或链路不至过载。<br>拥塞控制方法：慢开始、拥塞避免、快重传、快恢复<br><strong>慢开始和拥塞避免：</strong><br>发送方维持一个拥塞窗口的状态变量，拥塞窗口的大小取决于网络的拥塞程度，并且动态变化。规则就是只要网络中没有出现拥塞，窗口就增大一些，以便把更多的分组发送出去，出现了拥塞，就减小窗口，减少注入网络的分组数。<br><strong>慢开始：</strong>如果开始发送大量数据可能引起网络拥塞，因此先探测一下，再从小到大逐渐增大发送窗口（每次增加窗口状态值cwnd加倍，最开始cwnd设置为1个报文段）<br>为了防止拥塞窗口cwnd增长过大，设置慢开始门限ssthresh，用法如下：<br> 当cwnd<ssthresh时，使用慢开始算法 当cwnd="">ssthresh时，停止使用慢开始算法使用拥塞避免<br> 当cwnd=ssthresh时，两者都可以<br><strong>拥塞避免：</strong>让拥塞窗口缓慢增大（每次加1），这样增长速率比满开始慢得多<br>但是无论是慢开始还是拥塞控制，只要判断网络出现拥塞，就要把门限设为出现拥塞时发送窗口值的一半，然后cwnd重新设为1，执行慢开始算法。</ssthresh时，使用慢开始算法></p>
+<p><strong>快重传和快恢复：</strong><br><strong>快重传：</strong>快重传要求接收方没收到一个失序的报文后立即发出确认，比如发送M1,M2,M3,M4，发送方只要收到了M1,M2,M4的确认，就立即重传对方尚未收到的报文段M3而不必等待M3设置的重传计时器到期（使用快重传使整个网络吞吐量提升20%）。<br><strong>快恢复：</strong>当发送方收到三个重复确认，就执行乘法减小算法，把门限减半（这是为了避免发生拥塞），由于发送方现在认为网络很可能没有发生拥塞，因此与慢开始不同的是，不执行慢开始算法（即拥塞窗口现在不设置为1），而是将cwnd设为慢开始门限减半后的数值，然后执行拥塞避免算法。</p>
+<h3 id="4-死锁产生的原因及四个必要条件"><a href="#4-死锁产生的原因及四个必要条件" class="headerlink" title="4. 死锁产生的原因及四个必要条件"></a>4. 死锁产生的原因及四个必要条件</h3><p>产生死锁的原因主要是：<br>（1）因为系统资源不足<br>（2）进程运行推进的顺序不合适<br>（3）资源分配不当<br>产生死锁的四个必要条件：<br>（1）互斥条件：一个资源每次只能被一个进程使用<br>（2）请求与保持条件：一个进程因为请求资源而阻塞时，对已获得的资源保持不放<br>（3）不剥夺条件：进行已经获得的资源，在未使用之前，不能强行剥夺<br>（4）循环等待条件：若干进程之间形成一种首尾相连的循环等待资源关系</p>
+<h3 id="5-HTTP协议"><a href="#5-HTTP协议" class="headerlink" title="5. HTTP协议"></a>5. HTTP协议</h3><p><strong>HTTP协议的主要特点：</strong></p>
+<ol>
+<li>支持客户/服务器模式</li>
+<li>简单快速：客户向服务器请求服务时，只需要传送请求方法和路径。请求的方法常用的有GET,HEAD,POST等。由于HTTP协议简单，使得HTTP服务器的程序规模小，因为通信速度很快</li>
+<li>灵活：HTTP允许传输任意类型的数据对象，传输的类型由Content-Type加以标记</li>
+<li>无连接：每次只处理一个请求，服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间</li>
+<li>无状态：无状态是指协议对事物没有记忆能力，缺少状态意味着如果要处理后续需要前面的信息，则它必须重传</li>
+</ol>
+<p><strong>HTTP1.0和HTTP1.1</strong><br><img src="http://i.imgur.com/CkAD3g4.png" alt=""><br>连接无法复用，导致每次请求都会经历三次握手和慢启动，三次握手在高延迟场景下影响较明显，慢启动则对文件类大请求响应较大另外队头阻塞，导致带宽无法被充分利用，后续请求被阻塞。</p>
+<p>HTTP1.1引入持久连接和pipelining（管道机制）：持久连接即TCP连接默认不关闭，可以被多个请求复用，不用声明；pipelining允许在同一个TCP连接里面，客户端可以同时发送多个请求。<br>HTTP1.1采用了pipelining，但是也存在缺陷：</p>
+<ul>
+<li>只有幂等请求能使用pipelining，非幂等请求比如post不能使用，因为请求之间可能会存在先后依赖关系</li>
+<li>队头阻塞不能完全解决，server的response还是要求一次返回，遵循FIFO原则，如果请求1的response没有回来，2、3、4、5的response也不会被送回来。</li>
+</ul>
+<p><strong>HTTP1.X于HTTP2.X的区别</strong></p>
+<ol>
+<li>HTTP1头信息肯定是文本，数据体可以使文本也可以是二进制；HTTP2则是一个彻底的二进制协议，头信息和数据体都是二进制，并且统称为帧。<br>二进制的优势是解析数据非常方便</li>
+<li>HTTP2支持多路复用，通过多个请求steam共享一个tcp连接的方式，降低了延迟同时提高了带宽的利用率<br>因为steam有id，所以可以通过steam id来判断究竟是哪个流从而定位到哪个http请求<br>而且客户端和服务器都可以同时发送多个请求，这样就避免了队头阻塞</li>
+<li>http2将每个请求或回应的所有数据包成为一个数据流，每个数据流都有一个独一无二的编号，从而可以区分<br>数据流发送到一半的时候，可以通过发送信号(RST_STREAM)取消这个数据流；1.1版本取消数据流的唯一办法是关闭TCP连接；而HTTP2可以在TCP连接还打开的时候取消某一次请求</li>
+<li>头信息压缩，HTTP2引入头信息压缩机制，一方面使用gzip或compress压缩后再发送，另一方面客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生成一个索引号，以后就不发送同样的字段，只发送索引号，这样就提高了速度</li>
+<li>HTTP2服务器推送，服务器在未请求时主动向客户端发送资源</li>
+</ol>
+<p>补充：HTTP幂等性<br>幂等性的意思是同一个请求，发送一次和发送N次效果是一样的（这里是指具有相同的副作用而不是每次结果都一样）。<br><strong>HTTP GET方法用于获取资源，不应有副作用，所以是幂等的。</strong><br><strong>HTTP DELETE方法用于删除资源，有副作用，但它应该满足幂等性</strong><br><strong>HTTP POST方法用于创建资源，所对应的URI并非创建的资源本身，而是去执行创建动作的操作者，有副作用，不满足幂等性</strong>（两次相同的post请求会在服务器创建两份资源）<br><strong>HTTP PUT方法用于创建或更新操作，所对应的URI是要创建或更新的资源本身，有副作用，它应该满足幂等性</strong></p>
+<p><strong>HTTPS</strong><br>HTTPS是基于SSL的HTTP协议，但HTTPS使用不同HTTP协议的默认端口及一个加密、身份验证层（HTTP与TCP之间）。<br>客户端使用HTTPS的URL与Web服务器通信时步骤如下：<br>（1）客户端使用HTTPS的URL访问Web服务器，要求与服务器建立SSL连接<br>（2）Web服务器收到请求后，会将网站的证书信息（包含公钥）传送一份给客户端<br>（3）客户端浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级<br>（4）客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站<br>（5）web服务器利用自己的私钥解密出会话密钥<br>（6）web服务器利用会话密钥进行与客户端之间的通信</p>
+<p>HTTPS的优点：</p>
+<ul>
+<li>确保数据发送到正确的客户机和服务器</li>
+<li>防止数据在传输过程中不被窃取、改变、保证数据的完整性</li>
+<li>不是绝对安全，但是大幅增加了中间人攻击的成本<br>缺点：</li>
+<li>效率低，加载时间比http延长了近50%</li>
+<li>安全范围有限，对拒绝服务器攻击、服务器劫持等几乎起不到作用</li>
+<li>SSL证书的信用链体系并不安全</li>
+<li>证书需要购买，成本增加</li>
+<li>SEO抓取HTTPS有一些困难，目前谷歌做的好一点，百度还不太完善</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/27/Generator/" title="Generator" itemprop="url">Generator</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-27T12:33:07.000Z" itemprop="datePublished"> Published 2017-08-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Generator函数是ES6提供的一种异步编程解决方案，Generator函数是一个状态机，封装了多个内部状态。除了状态机，还是一个遍历器对象生成函数，返回的遍历器对象，可以依次遍历Generator函数内部的每一个状态。</p>
+<p>形式上，Generator是一个普通函数，但有两个特征：一是，function关键字与函数名之间有个星号；二是，函数体内部使用yield表达式，定义不同的内部状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function* helloWorldGenerator() &#123;</div><div class="line">  yield &apos;hello&apos;;</div><div class="line">  yield &apos;world&apos;;</div><div class="line">  return &apos;ending&apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var hw = helloWorldGenerator();</div></pre></td></tr></table></figure></p>
+<p>上述定义了一个Generator函数helloWorldGenerator，它的内部有两个yield表达式，即函数有三个状态：hello,world和return语句（结束执行）。</p>
+<p>Generator函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用Generator函数后，该函数并不执行，返回的也不是一个函数运行结果，而是一个指向内部状态的指针对象（遍历器对象）。</p>
+<p>下一步，必须调用遍历器对象的next方法，使得指针移向下一个状态。每次调用next方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个yield表达式（或return语句）为止。换言之，Generator函数是分段执行的，yield表达死是暂停执行的标记，而next方法可以恢复执行。</p>
+<p>每一次调用遍历器对象的next方法，都会返回一个有着value和done两个属性的对象。value表示当前内部状态的值，是yield表达式后面那个表达式的值，done属性是一个布尔值，表示是否遍历结束。</p>
+<h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>协程是一种程序运行的方式，可以理解成“写作的线程”或“协作的函数”。协程既可以用单线程实现，也可以用多线程实现。前者是一种特殊的子例程，后者是一种特殊的线程。</p>
+<ol>
+<li>协程与子例程的差异<br>传统的子例程采用堆栈后进先出的执行方式，只有当调用的子函数完全执行完毕，才会结束执行父函数。协程与其不同，多个线程可以并行执行，但是只有一个线程处于正在运行状态，其他都处于暂停，线程之间可以交换执行权。这种可以并行执行、交换执行权的线程，成为协程。</li>
+<li>协程与普通线程的区别<br>相同点，都有自己的执行上下文、可以分享全局变量；不同之处，同一时间可以有多个线程处于运行状态，但是运行的协程只有一个，其他协程都处于暂停状态。另外普通线程是抢先式的，哪个线程优先得到资源，由运行环境决定，但是协程是合作式的，执行权由协程自己分配。</li>
+</ol>
+<p>Generator是ES6对协程的不完全实现，因为只有Generator的调用者才能将执行权还给Generator函数，如果完全执行的协程，任何函数都可以将暂停的协程继续执行。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/27/leetcode-contest/" title="leetcode contest" itemprop="url">leetcode contest</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-27T08:10:58.000Z" itemprop="datePublished"> Published 2017-08-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="8-27-contest"><a href="#8-27-contest" class="headerlink" title="8-27 contest"></a>8-27 contest</h3><h4 id="第1题"><a href="#第1题" class="headerlink" title="第1题"></a>第1题</h4><p>Non-decreasing Array My SubmissionsBack to Contest<br>User Accepted: 1054<br>User Tried: 1755<br>Total Accepted: 1080<br>Total Submissions: 7519<br>Difficulty: Easy<br>Given an array with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element.</p>
+<p>We define an array is non-decreasing if array[i] &lt;= array[i + 1] holds for every i (1 &lt;= i &lt; n).</p>
+<p>Example 1:<br>Input: [4,2,3]<br>Output: True<br>Explanation: You could modify the first 4 to 1 to get a non-decreasing array.<br>Example 2:<br>Input: [4,2,1]<br>Output: False<br>Explanation: You can’t get a non-decreasing array by modify at most one element.<br>Note: The n belongs to [1, 10,000].<br>解题思路：<br>通过不断尝试出错发现：对于nums[i-1],nums[i],nums[i+1]来说，如果nums[i]<nums[i]-1&&nums[i]<nums[i+1]或者nums[i]>nums[i]-1&amp;&amp;nums[i]&gt;nums[i+1]，表明nums[i]是那个乱序的数字，把该数字从数组中删除，如果删除后的数组顺序是对的，那么返回true，否则返回false。<br>但是有nums[i]<nums[i]-1&&nums[i]<nums[i+1]和nums[j]>nums[j]-1&amp;&amp;nums[j]&gt;nums[j+1]同时存在的情况，比如[1,2,5,3,4]，5满足第二种情况，3满足第一种情况，此时如果将3移除数组很显然是错误的，因此还需要加一个条件：nums[i-1]&lt;=nums[i+1]。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">public class NonDecreasingArray &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner in = new Scanner(System.in);</div><div class="line">        while (in.hasNext()) &#123;</div><div class="line">           int n=in.nextInt();</div><div class="line">            int[] nums=new int[n];</div><div class="line">            for(int p=0;p&lt;n;p++)&#123;</div><div class="line">                nums[p]=in.nextInt();</div><div class="line">            &#125;</div><div class="line">            Boolean res=true;</div><div class="line"></div><div class="line">            int flag=0;</div><div class="line">            if(nums.length&gt;1)&#123;</div><div class="line">                if(nums[0]&gt;nums[1])&#123;</div><div class="line">                    flag=0;</div><div class="line">                &#125;else if(nums[nums.length-1]&lt;nums[nums.length-2])&#123;</div><div class="line">                    flag=nums.length-1;</div><div class="line">                &#125;else&#123;</div><div class="line"></div><div class="line">                    for(int i=nums.length-2;i&gt;0;i--)&#123;</div><div class="line">                        if((nums[i-1]&lt;nums[i+1])&amp;&amp;((nums[i]&gt;nums[i+1]&amp;&amp;nums[i]&gt;nums[i-1])||(nums[i]&lt;nums[i-1]&amp;&amp;nums[i]&lt;nums[i+1])))&#123;</div><div class="line">                            flag=i;</div><div class="line"></div><div class="line">                            break;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                for(int j=flag;j&lt;nums.length-1;j++)&#123;</div><div class="line">                    nums[j]=nums[j+1];</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                for(int k=0;k&lt;nums.length-2;k++)&#123;</div><div class="line"></div><div class="line">                    if(nums[k]&gt;nums[k+1])&#123;</div><div class="line">                        res=false;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">           System.out.println(res);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></nums[i]-1&&nums[i]<nums[i+1]和nums[j]></nums[i]-1&&nums[i]<nums[i+1]或者nums[i]></p>
+<h4 id="第2题"><a href="#第2题" class="headerlink" title="第2题"></a>第2题</h4><p>If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers.</p>
+<p>For each integer in this list:<br>The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4.<br>The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree.<br>The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.<br>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
+<p>Example 1:<br>Input: [113, 215, 221]<br>Output: 12<br>Explanation:<br>The tree that the list represents is:<br>    3<br>   / \<br>  5   1</p>
+<p>The path sum is (3 + 5) + (3 + 1) = 12.<br>Example 2:<br>Input: [113, 221]<br>Output: 4<br>Explanation:<br>The tree that the list represents is:<br>    3<br>     \<br>      1</p>
+<p>The path sum is (3 + 1) = 4.<br>Discuss<br>解题思路：<br>从后往前判断节点是不是叶子节点，如果是叶子节点，求出它所有的祖先节点的和再与自身值相加。<br>判断本节点是否是叶子，就是判断是否有本节点的深度+1的节点，并且该节点的位置是本节点位置<em>2或者</em>2-1.<br>判断父节点，就是判断该节点的深度-1等于本节点，并且该节点的位置等于本节点位置+1除以2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">public class PathSumIV &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner in = new Scanner(System.in);</div><div class="line">        while (in.hasNext()) &#123;</div><div class="line">            int n=in.nextInt();</div><div class="line">            int[] nums=new int[n];</div><div class="line">            int sum=0;</div><div class="line">            for(int i=0;i&lt;n;i++)&#123;</div><div class="line">                nums[i]=in.nextInt();</div><div class="line">            &#125;</div><div class="line">            for(int j=n-1;j&gt;=0;j--)&#123;</div><div class="line">                //检测节点是不是叶子节点，isLeaf(nums[j]/100,nums[j]%100/10分别为深度和位置</div><div class="line">                if(isLeaf(nums[j]/100,nums[j]%100/10,nums))&#123;</div><div class="line">                    sum+=nums[j]%10+parent(nums[j]/100,nums[j]%100/10,nums);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            System.out.println(sum);</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    //首先判断是不是叶子节点</div><div class="line">    public static Boolean isLeaf(int dep,int pos,int[] nums)&#123;</div><div class="line">        Boolean res=true;</div><div class="line">        for(int i=0;i&lt;nums.length;i++)&#123;</div><div class="line">            if(nums[i]/100==dep+1&amp;&amp;(nums[i]%100/10==pos+pos-1||nums[i]%100/10==pos*2))&#123; </div><div class="line">                res=false;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return res;</div><div class="line">    &#125;</div><div class="line">    //对叶子的节点，将其祖先节点的值加起来</div><div class="line">    public static int parent(int dep,int pos,int[] nums)&#123;</div><div class="line">            int result=0;</div><div class="line">            for(int i=nums.length-1;i&gt;=0;i--)&#123;</div><div class="line">                if(nums[i]/100==dep-1&amp;&amp;nums[i]%100/10==(pos+1)/2)&#123;//判断父节点</div><div class="line">                    result+=nums[i]%10;</div><div class="line">                    dep=nums[i]/100;</div><div class="line">                    pos=nums[i]%100/10;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="第3题"><a href="#第3题" class="headerlink" title="第3题"></a>第3题</h4><p>Given two integers n and k, you need to construct a list which contains n different positive integers ranging from 1 to n and obeys the following requirement:<br>Suppose this list is [a1, a2, a3, … , an], then the list [|a1 - a2|, |a2 - a3|, |a3 - a4|, … , |an-1 - an|] has exactly k distinct integers.</p>
+<p>If there are multiple answers, print any of them.</p>
+<p>Example 1:<br>Input: n = 3, k = 1<br>Output: [1, 2, 3]<br>Explanation: The [1, 2, 3] has three different positive integers ranging from 1 to 3, and the [1, 1] has exactly 1 distinct integer: 1.</p>
+<p>Example 2:<br>Input: n = 3, k = 2<br>Output: [1, 3, 2]<br>Explanation: The [1, 3, 2] has three different positive integers ranging from 1 to 3, and the [2, 1] has exactly 2 distinct integers: 1 and 2.</p>
+<p>Note:<br>The n and k are in the range 1 &lt;= k &lt; n &lt;= 104.<br>解题思路：<br>找规律，k=1：不交换；k=2：将最后两位交换；k=3:将最后一位与第1位交换，后面依次往后挪一位；k=4:将最后一位与第1位交换,后面依次往后挪一位，然后最后两位交换；k=5:将将最后一位与第1位交换，后面依次往后挪一位，再将最后一位与第3位交换，后面依次往后挪一位….当k是基数的时候，交换了k/2次；当k是偶数的时候，液交换了k/2次，只是前k/2-1次是与前面的基数位交换，最后一次是最后两位交换。<br>由于java在数组的操作不如js方便，因此使用js来做此题，每次交换之后往后挪一位，只需要使用splice添加最后一位到指定位置然后pop弹出最后一位即可实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">var constructArray = function(n, k) &#123;</div><div class="line">    var arr=[];</div><div class="line">    //初始创建数组</div><div class="line">    for(var i=0;i&lt;n;i++)&#123;</div><div class="line">        arr[i]=i+1;</div><div class="line">    &#125;</div><div class="line">    if(k==1)&#123; //不交换，返回原数组</div><div class="line">        return arr;</div><div class="line">    &#125;else&#123;</div><div class="line">        if(k%2!=0)&#123; //k=基数</div><div class="line">           arr=change(k,arr);</div><div class="line">        &#125;</div><div class="line">        else&#123; //k=偶数</div><div class="line">          //对前k/2-1步进行交换操作</div><div class="line">          arr=change(k-1,arr);</div><div class="line">          //最后一步，交换最后两位</div><div class="line">          var temp1=arr[n-1];</div><div class="line">          arr[n-1]=arr[n-2];</div><div class="line">          arr[n-2]=temp1;        </div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return arr;</div><div class="line">&#125;</div><div class="line">//实现数组的交换操作</div><div class="line">function change(k,arr)&#123;</div><div class="line">    for(var j=1;j&lt;k;j=j+2)&#123;      </div><div class="line">            arr.splice(j,0,arr[arr.length-1]);</div><div class="line">            arr.pop();          </div><div class="line">        &#125;</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/24/JS继承实现方式/" title="JS继承实现方式" itemprop="url">JS继承实现方式</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +501,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-24T08:45:01.000Z" itemprop="datePublished"> 发表于 2017-08-24</time>
+    <time datetime="2017-08-24T08:45:01.000Z" itemprop="datePublished"> Published 2017-08-24</time>
     
   </p>
 </header>
@@ -169,7 +582,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-23T02:07:46.000Z" itemprop="datePublished"> 发表于 2017-08-23</time>
+    <time datetime="2017-08-23T02:07:46.000Z" itemprop="datePublished"> Published 2017-08-23</time>
     
   </p>
 </header>
@@ -226,448 +639,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/17/页面提速/" title="页面提速" itemprop="url">页面提速</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-17T07:48:25.000Z" itemprop="datePublished"> 发表于 2017-08-17</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="一、减少对服务器的文件请求"><a href="#一、减少对服务器的文件请求" class="headerlink" title="一、减少对服务器的文件请求"></a>一、减少对服务器的文件请求</h3><p>常规的HTTP请求属于“请求”-“应答”-“断开”形式的短连接，每一个独立的资源我们都会向服务器发去一份get请求，再等服务端将我们需要的文件传回来。每一个资源的请求都会耗费“连接”-“等待”-“接收”的时间。因此减少服务器文件的请求次数，可以节省页面等待时间，也可以减少服务器负担。</p>
-<p>有以下方案可以实现：</p>
-<ol>
-<li>使用css sprite合并多个图片为单个图片文件，实际使用时通过backgroud-position来定位背景图片；</li>
-<li>合并多个css样式文件为单个样式文件，合并多个脚本为单个脚本，再在页面中引用合并后的样式；</li>
-<li>使用base64来展示图片，base64可以随着HTML的下载同时下载到本地，减少http请求，缺点是使用base64比原图的尺寸大；</li>
-<li>将小块的css,js代码段直接写在页面上，而非在页面引入独立的样式/脚本文件，直接把小段的、复用率低的样式/脚本直接写在页面上带来的利还是大于弊的（弊端就是可能增大了页面代码量，不太好维护）；</li>
-<li>利用http-equiv=”expires”元标签，设定一个未来的某时间点作为页面文件的过期时间，用户在过期时间之前所获取到的页面文件都仅从缓存中去取。</li>
-</ol>
-<h3 id="二、减少文件大小"><a href="#二、减少文件大小" class="headerlink" title="二、减少文件大小"></a>二、减少文件大小</h3><p>文件太大导致加载时间较长，因此可以：</p>
-<ol>
-<li>压缩样式/脚本文件，可以使用gulp或者grunt来实现这点，它们均能很好地减少css/js文件的大小；</li>
-<li>针对性选择图片格式，在无透明背景需求下，对于颜色较单一、无色彩渐变的图片仅使用gif格式，对于jpg图片也可以按照其清晰度要求，在导出jpg的时候选择对应的品质进行优化；</li>
-</ol>
-<h3 id="三、适度使用CDN"><a href="#三、适度使用CDN" class="headerlink" title="三、适度使用CDN"></a>三、适度使用CDN</h3><p>使用CDN有几个好处：如果用户在其它站点下载过这个CDN资源，那么来我们站点仅仅从缓存中获取即可；减少了对自己站点服务器的文件请求，减少服务器负担；<br>但是使用CDN有个很大的问题–增加了DNS解析，如果一个页面同时引入了多个CDN资源，可能会因为dns解析而陷入较多的等待时间，导致得不偿失。</p>
-<h3 id="四、延迟请求、异步加载脚本"><a href="#四、延迟请求、异步加载脚本" class="headerlink" title="四、延迟请求、异步加载脚本"></a>四、延迟请求、异步加载脚本</h3><p>将脚本请求标签放到结束标签之前，使得页面上的脚本成为最后被请求的资源，自然也不会组赛其它页面资源的请求事件了。<br>但是异步下载不代表异步执行，为了严格保证脚本逻辑顺序和依赖关系的正确性，会按照脚本被请求的顺寻来执行脚本。但是如果脚本依赖关系不大，这样就增加了页面请求的阻塞时间。<br>解决的办法，可以给标签加上defer和async属性，但是这都不是良好的解决方案，要么有兼容问题，要么处理麻烦。<br>网上推荐使用requireJS(AMD规范)或seaJS(CMD规范)来异步加载脚本并处理模块依赖的，前者将“依赖前置”（预加载所有被依赖脚本模块，执行速度最快），后者走的“依赖就近”（懒加载被依赖脚本模块，请求脚本更科学）。</p>
-<h3 id="五、延迟请求首屏外的文件"><a href="#五、延迟请求首屏外的文件" class="headerlink" title="五、延迟请求首屏外的文件"></a>五、延迟请求首屏外的文件</h3><p>首屏就是页面初始化时页面内容显示区域，也就是一加载，用户首先看到的区域。<br>比如京东淘宝，对于需要滚动页面才能看到的图片内容，都进行了lazyload的处理，看起来的效果是这个页面更快加载完了，实际上后面的文件还没加载。</p>
-<p>注：懒加载的原理：先将img标签中的src链接设为同一张图片（空白图片），将其整正的图片地址存储在img标签的自定义属性中（比如data-src）。当js监听到该图片元素进入可视窗口时，即将自定义属性中的地址存储到src属性中，以达到懒加载的效果。<br>这样能防止页面一次性向服务器响应大量请求导致服务器响应慢，页面卡顿或崩溃的问题。</p>
-<p>可以使用<strong>getBoundingClientRect</strong>，可以用来获取某个元素相对于视窗的位置集合。集合中由top,right,bottom,left等属性。<br>-语法：这个方法没有参数<br>rectObject=object.getBoundingClientRect();<br>-返回值类型 ：TextRectangle对象，每个矩形具有四个整数性质（上，右，下，左）表示坐标的矩形，以像素为单位。<br>rectObject.top:元素上边到视窗上边的距离；<br>rectObject.right:元素上边到视窗右边的距离；<br>rectObject.bottom:元素上边到视窗下边的距离；<br>rectObject.left:元素上边到视窗左边的距离；</p>
-<p>getBoundingClientRect由于可以获取元素相对于当前屏幕的距离，所以可以判断当前元素是否在屏幕内，因此可以实现懒加载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;&quot; alt=&quot;&quot; data-src=&quot;http://hdn.xnimg.cn/photos/hdn421/20170121/0000/h_main_D0cG_b0dc00061386195a.jpg&quot;&gt;</div><div class="line">&lt;script&gt;</div><div class="line">//绑定事件</div><div class="line">function bindEvent()&#123;</div><div class="line">  document.addEventListener(&apos;scroll&apos;,lazyLoad,false);</div><div class="line">&#125;</div><div class="line"></div><div class="line">//判断当前元素是否在视窗内</div><div class="line">function ifIntoView(dom)&#123;</div><div class="line">  var info=dom.getBoundingClientRect();</div><div class="line">  clientHeight=window.innerHeight;</div><div class="line">  if(0&lt;info.top&amp;&amp;info.top&lt;clientHeight)&#123;</div><div class="line">     showImage(dom);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//显示图片</div><div class="line">function showImage(dom)&#123;</div><div class="line">  //延时是为了展示懒加载效果</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    dom.setAttribute(&apos;src&apos;,dom.dataset.src)</div><div class="line">  &#125;,500)</div><div class="line">&#125;</div><div class="line"></div><div class="line">function lazyLoad()&#123;</div><div class="line">  var selectArray=Array.prototype.slice.call(document.querySlectorAll(&quot;img&quot;)); 将类数组对象变为数组</div><div class="line">  selectorArray.forEach(function(element,index)&#123;</div><div class="line">    if(!element.getAttribute(&quot;src&quot;))&#123;</div><div class="line">        ifIntoView();</div><div class="line">     &#125;</div><div class="line"> &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">bindEvent();</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>如果直接将函数绑定到scroll事件上，当页面滚动时，函数会被高频触发，这非常影响浏览器的性能。可以通过限制触发频率，来优化性能。<br>节流函数：只允许一个函数在N秒内执行一次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function throttle(fun,delay,time)&#123;//fun是要执行的函数，delay表示延迟，time指在time时间内必须执行一次</div><div class="line">  var timeout,</div><div class="line">      startTime=new Date();</div><div class="line">  return funtion()&#123;</div><div class="line">    var context=this,</div><div class="line">        args=arhuments,</div><div class="line">        curTime=new Date();</div><div class="line">     clearTimeout(timeout);</div><div class="line">     //如果达到了时间间隔，触发handle</div><div class="line">     if(curTime-startTime&gt;=time)&#123;</div><div class="line">        fun.apply(context,args);</div><div class="line">         startTime=curTime;</div><div class="line">     &#125;//如果没达到触发时间间隔，重新设定定时器</div><div class="line">      else&#123;</div><div class="line">       timeout=setTimeout(fun,delay);</div><div class="line">   &#125;    </div><div class="line"> &#125;  </div><div class="line">&#125;</div><div class="line">//所以，上面懒加载document.addEventListener(&apos;scroll&apos;,lazyLoad,false)里面的lazyLoad换成throttle(lazyLoad,500,1000);</div></pre></td></tr></table></figure></p>
-<p>另外还有两种懒加载的方式：</p>
-<ol>
-<li><p>jquery lazyload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$(document).ready(function() &#123;     </div><div class="line">            $(&quot;img.lazy-load&quot;).lazyload(&#123; </div><div class="line">　　　　　　　　　　effect : &quot;fadeIn&quot;, //渐现，show(直接显示),fadeIn(淡入),slideDown(下拉)</div><div class="line">　　　　　　　　　　threshold : 180, //预加载，在图片距离屏幕180px时提前载入</div><div class="line">　　　　　　　　　　event: &apos;click&apos;,  // 事件触发时才加载，click(点击),mouseover(鼠标划过),sporty(运动的),默认为scroll（滑动）</div><div class="line">　　　　　　　　　　container: $(&quot;#container&quot;), // 指定对某容器中的图片实现效果</div><div class="line">　　　　　　　　　　failure_limit：2 //加载2张可见区域外的图片,lazyload默认在找到第一张不在可见区域里的图片时则不再继续加载,但当HTML容器混乱的时候可能出现可见区域内图片并没加载出来的情况</div><div class="line">　　　　　　　　&#125;); </div><div class="line">　　　　　　&#125;);</div></pre></td></tr></table></figure>
-</li>
-<li><p>轻量级图片延时加载插件echo.js</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Echo.init(&#123;</div><div class="line">    offset: 0,//离可视区域多少像素的图片可以被加载</div><div class="line">　　 throttle: 0 //图片延时多少毫秒加载</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/17/一些类似于null-0之类的判断/" title="一些类似于null==0之类的判断" itemprop="url">一些类似于null==0之类的判断</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-17T02:35:10.000Z" itemprop="datePublished"> 发表于 2017-08-17</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <ol>
-<li>null==0  //flase<br>null&gt;=0（null&lt;=0） //true<br>原因：关系运算符和相等运算符并不是一个类别的，关系运算符在设计上总是尝试转为一个number，而相等运算符并没有这方面的考虑。<br>更进一步：关系运算符，是先算出原始值，如果两个都是String类型进行字符串比较，否则转换成Number，之后比较；相等运算符只在两数分别是String和Number类型或者其中之一为Boolean进行数字转换外，其他类型都不进行转换成数字。</li>
-</ol>
-<p>所以：<br>“”==0 //true<br>flase==0  //true<br>undefined==0 //flase ,Number(undefinded)是NaN</p>
-<ol>
-<li>[]==![] //true<br>这个实际上也是涉及==运算的规则，来个详细的<br><img src="http://i.imgur.com/RaafO1B.png" alt=""><br>首先[]==![]匹配的是规则7，会递归调用[]==ToNumber(flase)进行比较（！[]是false），9.3节定义了ToNumber原语，ToNumber(false)等于0，于是比较[]==0；此时采用规则9，比较ToPrimitive([])==0,ToPrimitive默认调用ToString方法，于是ToPrimitive([])等于””；现在就是比较””==0,按照规则5，比较ToNumber(“”)==0,ToNumber(“”)的结果是0，所以结果为true。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/14/JS的堆栈及深浅拷贝/" title="JS的堆栈及深浅拷贝" itemprop="url">JS的堆栈及深浅拷贝</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-14T02:39:57.000Z" itemprop="datePublished"> 发表于 2017-08-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h3><p>堆栈是两种数据结构，只能在一端对数据项进行插入和删除。</p>
-<ul>
-<li>栈：由操作系统自动分配释放，存放函数的参数值，局部变量的值等。</li>
-<li>堆：动态分配的空间一般由程序员分配释放，若程序员不释放，则程序释放时可能由OS回收。</li>
-</ul>
-<h3 id="JS中的堆栈与基本类型、引用类型"><a href="#JS中的堆栈与基本类型、引用类型" class="headerlink" title="JS中的堆栈与基本类型、引用类型"></a>JS中的堆栈与基本类型、引用类型</h3><p>js中的数据类型分为两种 ：</p>
-<ol>
-<li>基本类型：undefined,bool,number,string,null，这5中基本数据类型可以直接访问，它们是按照值进行分配的，存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配。</li>
-<li>引用类型：存放在堆中的对象，变量实际保存的是一个指针，这个指针指向另一个位置。</li>
-</ol>
-<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>基本类型的拷贝只是在内存中又开辟了新的空间，和它的父元素（称被拷贝的对象为父元素）互不相干，因此深浅拷贝是相对于引用类型的，以便于对引用类型父对象的保存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var father1=&#123;name:&apos;shanghai&apos;,age:1000,job:[&apos;teacher&apos;,cook]&#125;;</div><div class="line">//浅拷贝函数</div><div class="line">function copy(obj)&#123;</div><div class="line">  var childs=&#123;&#125;;</div><div class="line">  for(var key in obj)&#123;</div><div class="line">     childs[key]=obj[key];</div><div class="line">  &#125;</div><div class="line">  return childs;</div><div class="line">&#125;</div><div class="line">var child1=copy(father1);</div><div class="line">console.log(child1); //&#123;name:&apos;shanghai&apos;,age:1000,job:Array(2)&#125;</div><div class="line">console.log(typeof child1); //object</div><div class="line"></div><div class="line">//改变子对象的name属性，发现对父对象的name没有影响</div><div class="line">child1.name=&apos;chengdu&apos;;</div><div class="line">console.log(father1); //&#123;name:&apos;shanghai&apos;,age:1000,job:Array(2)&#125;</div><div class="line">console.log(child1); //&#123;name:&apos;chengdu&apos;,age:1000,job:Array(2)&#125;</div><div class="line"></div><div class="line">//注意：这次改变子对象的job属性也就是改变数组，发现对都对象的job受到了影响</div><div class="line">child1.job.push(&apos;programmer&apos;);</div><div class="line">console.log(father1) ;//&#123;name:&apos;shanghai&apos;,age:1000,job:[&apos;teacher&apos;,&apos;cook&apos;,&apos;programmer&apos;]&#125;</div><div class="line">console.log(child1) ;//&#123;name:&apos;chengdu&apos;,age:1000,job:[&apos;teacher&apos;,&apos;cook&apos;,&apos;programmer&apos;]&#125;</div></pre></td></tr></table></figure></p>
-<p>由上，浅拷贝的时候，子对象数组改变时父对象也跟着改变，说明子对象和父对象在浅拷贝的时候指向同一个内存的数组。</p>
-<p>如果想让子对象拷贝和父对象没有关联，就必须使用深度拷贝。</p>
-<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>深拷贝就是父对象拷贝到子对象上，而且两者的内存和以后的操作都互不影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">function deepCopy(obj)&#123;</div><div class="line">  var o;</div><div class="line">  switch(typeof obj)&#123;</div><div class="line">    case &apos;undefined&apos;:break;</div><div class="line">    case &apos;string&apos;:o=obj+&apos;&apos;;break;</div><div class="line">    case &apos;number&apos;:o=obj-0;break;</div><div class="line">    case &apos;boolean&apos;:o=obj;break;</div><div class="line">    case &apos;object&apos;:</div><div class="line">      if(obj===null)&#123;</div><div class="line">         o=null;</div><div class="line">      &#125;else&#123;</div><div class="line">         if(obj instanceof Array)&#123;</div><div class="line">            o =[];</div><div class="line">            for(var i=0,len=obj.length;i&lt;len;i++)&#123;</div><div class="line">               o.push(deepCopy(obj[i]));</div><div class="line">            &#125;</div><div class="line">         &#125;else&#123; </div><div class="line">               o=&#123;&#125;;</div><div class="line">               for(var k in obj)&#123;</div><div class="line">                 o[k]=deepCopy(obj[k]);</div><div class="line">            &#125;</div><div class="line">         &#125;</div><div class="line">       &#125;</div><div class="line">       break;</div><div class="line">     default:</div><div class="line">        o=obj; break;</div><div class="line">    &#125;</div><div class="line">    return o;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/14/JS异步编程/" title="JS异步编程" itemprop="url">JS异步编程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-14T01:51:34.000Z" itemprop="datePublished"> 发表于 2017-08-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>ES6增加了Promise和Generator等解决办法。大致整理一下到ES6为止的JS异步解决方法及其优缺点。</p>
-<h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h3><p>常用于：定时器，动画效果<br>用法：setTimeout(func|code,delay)</p>
-<p>缺点：不精准。比如，通过setTimeout设定了一个任务在10毫秒之后执行，但是在9毫秒之后，有一个任务占用了5毫秒的CPU时间片，再轮到定时器执行时，时间就已经过期了4毫秒。</p>
-<h3 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h3><p>任务执行不取决于代码的顺序，而取决于某个事件是否发生。<br>用法：f1.on(‘done’,f2)<br>优点：比较容易理解，可以绑定多个事件，每个事件可以指定多个回调函数，而且可以去耦合，有利于实现模块化。<br>缺点：整个程序都要变成事件驱动型，运行流程会变得不是很清晰。</p>
-<h3 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h3><p>js对异步编程的实现就是回调函数。所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，直接调用这个函数。</p>
-<p>回调函数是实现JS异步的一种方法，并不是说回调函数就是异步的。只是我们用的大部分回调函数都是用于异步。</p>
-<h3 id="Promise对象"><a href="#Promise对象" class="headerlink" title="Promise对象"></a>Promise对象</h3><h4 id="Promise原理"><a href="#Promise原理" class="headerlink" title="Promise原理"></a>Promise原理</h4><p><strong>状态机</strong><br>一个Promise可以理解为一个状态机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">const PENDING = 0</div><div class="line">const FULFILLED = 1</div><div class="line">const REJECTED = 2</div><div class="line"></div><div class="line">function Promise ()&#123;</div><div class="line"> // 存储该 Promise 的状态信息</div><div class="line"> let state = PENDING</div><div class="line"></div><div class="line"> // 存储 FULFILLED 或 REJECTED 时带来的数据</div><div class="line"> let value = null</div><div class="line"></div><div class="line"> // 存储 then 或 done 时调用的成功或失败回调</div><div class="line"> var handlers = []</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>状态迁移</strong><br>指定状态机的状态后，可以实现基本的状态迁移功能，即fullfill和reject这两个用于改变状态的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">const PEDNDING=0</div><div class="line">const FULFILLED=1</div><div class="line">const REJECTED=2</div><div class="line"></div><div class="line">function Promise()&#123;</div><div class="line">  //存储Promise的状态信息</div><div class="line">  let state=PENDING</div><div class="line"></div><div class="line">  //存储FULFILLED和REJECTED时带来的数据</div><div class="line">  let value=null</div><div class="line"></div><div class="line">  //存储then或done时调用的成功或失败回调</div><div class="line">  let handlers=[]</div><div class="line"></div><div class="line">  funtion fulfill(result)&#123;</div><div class="line">      state=FULFILLED</div><div class="line">      value=result</div><div class="line">  &#125;</div><div class="line">   </div><div class="line">  function reject(error)&#123;</div><div class="line">     state=REJECTED</div><div class="line">      value=error</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在此基础上需要实现一种更高级的状态迁移方式，这就是resolve<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">const PENDING = 0</div><div class="line">const FULFILLED = 1</div><div class="line">const REJECTED = 2</div><div class="line"></div><div class="line">function Promise ()&#123;</div><div class="line"> // 存储该 Promise 的状态信息</div><div class="line"> let state = PENDING</div><div class="line"></div><div class="line"> // 存储 FULFILLED 或 REJECTED 时带来的数据</div><div class="line"> let value = null</div><div class="line"></div><div class="line"> // 存储 then 或 done 时调用的成功或失败回调</div><div class="line"> let handlers = []</div><div class="line"> </div><div class="line"> function fulfill (result)&#123;</div><div class="line"> state = FULFILLED</div><div class="line"> value = result</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> function reject (error)&#123;</div><div class="line"> state = REJECTED</div><div class="line"> value = error</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> function resolve(result)&#123;</div><div class="line">   try&#123;</div><div class="line">     let then=getThen(result)</div><div class="line">     if(then) &#123;</div><div class="line">        //递归resolve，待解析的Promise ,doResolve(then.bind(result),resolve,reject)</div><div class="line">         return </div><div class="line">     &#125;</div><div class="line">     fulfill(result)</div><div class="line">   &#125;catch(e)&#123;</div><div class="line">     reject(e)</div><div class="line">   &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>resolve既可以接收一个Promise，也可以接收一个基本类型。当resolve一个Promise时，就是用doResolve辅助函数来执行这个Promise并等待其完成。通过resolve隐藏了底层的fulfill接口。在这个过程中用到的辅助函数有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">*检查一个值是否为Promise，若为Promise则返回该Promise的then方法</div><div class="line">*/</div><div class="line">function getThen(value)&#123;</div><div class="line">   let t=typeof value</div><div class="line">   if(value&amp;&amp;(t===&apos;object&apos;||t===&apos;function&apos;))&#123;</div><div class="line">      const then=value.then</div><div class="line">      //可能需要更负责的thenable判断</div><div class="line">      if(typeof then===&apos;function&apos;) return then</div><div class="line">   &#125;</div><div class="line">   return null</div><div class="line"> &#125;</div><div class="line"></div><div class="line">/*</div><div class="line">*传入一个需被resolve的函数，该函数可能存在不确定的行为</div><div class="line">*确保onFulfilled和onRejected只会被调用一次</div><div class="line">*在此不保证该函数一定会被异步执行</div><div class="line">*/</div><div class="line">function doResolve(fn,onFulfilled,onRejected)&#123;</div><div class="line">  let done=false</div><div class="line">  try&#123;</div><div class="line">    fn(function(value)&#123;</div><div class="line">      done=true</div><div class="line">       //执行由resolve传入的resolve回调 onFulfilled(value)</div><div class="line">      function(reason)&#123;</div><div class="line">         if(done) return</div><div class="line">         done=true</div><div class="line">         onRejected(reason)</div><div class="line">       &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>done接口</strong><br>到此形成了一个完整的状态机，但仍没有暴露一个合适的方法来观察其状态变更。最终目标是实现then，但是由于事先done接口容易一下，因此先实现done。<br>下面的例子是要实现promise.done(onFulfilled,onRejected)，使得：</p>
-<ul>
-<li>onFulfilled与onRejected二者只有一个被调用</li>
-<li>该接口只会被调用一次</li>
-<li>该接口总是被异步执行</li>
-<li>调用done的执行时机与调用时Promise是否已reoslevd无关<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">const PENDING = 0</div><div class="line">const FULFILLED = 1</div><div class="line">const REJECTED = 2</div><div class="line"></div><div class="line">function Promise (fn)&#123;</div><div class="line"> // 存储该 Promise 的状态信息</div><div class="line"> let state = PENDING</div><div class="line"></div><div class="line"> // 存储 FULFILLED 或 REJECTED 时带来的数据</div><div class="line"> let value = null</div><div class="line"></div><div class="line"> // 存储 then 或 done 时调用的成功或失败回调</div><div class="line"> let handlers = []</div><div class="line"> </div><div class="line"> function fulfill (result)&#123;</div><div class="line"> state = FULFILLED</div><div class="line"> handlers.forEach(handle)</div><div class="line"> handlers = null</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> function reject (error)&#123;</div><div class="line"> state = REJECTED</div><div class="line"> value = error</div><div class="line"> handlers.forEach(handle)</div><div class="line"> handlers = null</div><div class="line"> &#125;</div><div class="line"></div><div class="line"> function resolve (result)&#123;</div><div class="line"> try &#123;</div><div class="line"> let then = getThen(result)</div><div class="line"> if (then) &#123;</div><div class="line"> // 递归 resolve 待解析的 Promise</div><div class="line"> doResolve(then.bind(result), resolve, reject)</div><div class="line"> return</div><div class="line"> &#125;</div><div class="line"> fulfill(result)</div><div class="line"> &#125; catch (e) &#123;</div><div class="line"> reject(e)</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> // 保证 done 中回调的执行</div><div class="line"> function handle (handler)&#123;</div><div class="line"> if (state === PENDING) &#123;</div><div class="line"> handlers.push(handler)</div><div class="line"> &#125; else &#123;</div><div class="line"> if (state === FULFILLED &amp;&amp;</div><div class="line"> typeof handler.onFulfilled === &apos;function&apos;) &#123;</div><div class="line"> handler.onFulfilled(value)</div><div class="line"> &#125;</div><div class="line"> if (state === REJECTED &amp;&amp;</div><div class="line"> typeof handler.onRejected === &apos;function&apos;) &#123;</div><div class="line"> handler.onRejected(value)</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> this.done = function (onFulfilled, onRejected)&#123;</div><div class="line"> // 保证 done 总是异步执行</div><div class="line"> setTimeout(function ()&#123;</div><div class="line"> handle(&#123;</div><div class="line"> onFulfilled: onFulfilled,</div><div class="line"> onRejected: onRejected</div><div class="line"> &#125;)</div><div class="line"> &#125;, 0)</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> doResolve(fn, resolve, reject)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>then方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">this.then = function (onFulfilled, onRejected)&#123;</div><div class="line"> const _this = this</div><div class="line"> return new Promise(function (resolve, reject)&#123;</div><div class="line"> return _this.done(function (result)&#123;</div><div class="line"> if (typeof onFulfilled === &apos;function&apos;) &#123;</div><div class="line"> try &#123;</div><div class="line"> return resolve(onFulfilled(result))</div><div class="line"> &#125; catch (ex) &#123;</div><div class="line"> return reject(ex)</div><div class="line"> &#125;</div><div class="line"> &#125; else return resolve(result)</div><div class="line"> &#125;, function (error)&#123;</div><div class="line"> if (typeof onRejected === &apos;function&apos;) &#123;</div><div class="line"> try &#123;</div><div class="line"> return resolve(onRejected(error))</div><div class="line"> &#125; catch (ex) &#123;</div><div class="line"> return reject(ex)</div><div class="line"> &#125;</div><div class="line"> &#125; else return reject(error)</div><div class="line"> &#125;)</div><div class="line"> &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/09/JS严格模式/" title="JS严格模式" itemprop="url">JS严格模式</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-09T13:53:55.000Z" itemprop="datePublished"> 发表于 2017-08-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>除了正常模式，ES5添加了第二种运行模式：“严格模式”。<br>设立严格模式的目的：</p>
-<ul>
-<li>消除JS语法的一些不合理、不严谨之处，减少一些怪异行为</li>
-<li>消除代码运行的一些不安全之处，保证代码运行的安全</li>
-<li>提供编译器效率，增加运行速度</li>
-<li>为未来新版本的JS做好铺垫<h3 id="进入标志"><a href="#进入标志" class="headerlink" title="进入标志"></a>进入标志</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="如何调用"><a href="#如何调用" class="headerlink" title="如何调用"></a>如何调用</h3><h4 id="针对单个脚本文件"><a href="#针对单个脚本文件" class="headerlink" title="针对单个脚本文件"></a>针对单个脚本文件</h4><p>将”use strict”放在脚本文件的第一行，则整个脚本都将以“严格模式”运行，如果这行语句不在第一行，则无效，整个脚本以“正常模式”运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">   &quot;use strict&quot;</div><div class="line">    console.log(&quot;这是严格模式&quot;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    console.log(&quot;这是正常模式&quot;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="针对单个函数"><a href="#针对单个函数" class="headerlink" title="针对单个函数"></a>针对单个函数</h4><p>将”use strict”放在函数体的第一行，则整个函数以“严格模式”运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function strict()&#123;</div><div class="line">　　　　&quot;use strict&quot;;</div><div class="line">　　　　return &quot;这是严格模式。&quot;;</div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　function notStrict() &#123;</div><div class="line">　　　　return &quot;这是正常模式。&quot;;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="脚本文件的变通写法"><a href="#脚本文件的变通写法" class="headerlink" title="脚本文件的变通写法"></a>脚本文件的变通写法</h4><p>第一种调用方法不利于文件合并，所以更好的做法是，借用第二种方法，将整个脚本文件放在一个立即执行的匿名函数之中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(function ()&#123;</div><div class="line"></div><div class="line">　　　　&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　　　// some code here</div><div class="line"></div><div class="line">　　 &#125;)();</div></pre></td></tr></table></figure></p>
-<h3 id="语法和行为改变"><a href="#语法和行为改变" class="headerlink" title="语法和行为改变"></a>语法和行为改变</h3><p>严格模式对JS的语法和行为，都做了一些改变。</p>
-<h4 id="1-全局变量显示声明"><a href="#1-全局变量显示声明" class="headerlink" title="1.全局变量显示声明"></a>1.全局变量显示声明</h4><p>在正常模式中，如果一个变量没有声明就赋值，默认是全局变量，严格模式禁止这种用法，全局变量必须显式声明，否则报错。</p>
-<h4 id="2-静态绑定"><a href="#2-静态绑定" class="headerlink" title="2.静态绑定"></a>2.静态绑定</h4><p>JS允许“动态绑定”，即某些属性和方法到底属于哪个对象，不是在编译时确定，而是在运行时确定。<br>严格模式对动态绑定做了一些限制，某些情况下，只允许静态绑定。也就是说，属性和方法到底归属于哪个对象，在编译阶段就确定，这样做有利于编译效率的提供，也使得代码更易读。<br>具体涉及以下方面：</p>
-<ol>
-<li>禁止使用with语句</li>
-</ol>
-<p>因为with语句在编译时就无法确定，属性到底归属哪个对象</p>
-<ol>
-<li>创设eval作用域</li>
-</ol>
-<p>正常模式下，JS语言有两种变量作用域：全局作用域和函数作用域。严格模式下创设了第三种作用域：eval作用域。<br>正常模式下，eval作用域，取决于它处于全局作用域，还是处于函数作用域。严格模式下，eval语句本身就是一个作用域，不能再生成全局变量了，它生成的变量只能用于eval内部。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;</div><div class="line">var x=2;</div><div class="line">console.info(eval(&quot;var x=5;x&quot;)); //5</div><div class="line">console.info(x); //2</div></pre></td></tr></table></figure></p>
-<p>如果将var x=2去掉，console.info(x)将报错。</p>
-<h4 id="3-增加安全措施"><a href="#3-增加安全措施" class="headerlink" title="3.增加安全措施"></a>3.增加安全措施</h4><ol>
-<li>禁止this关键字指向全局对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">   &quot;use strict&quot;</div><div class="line">    this.a=1;</div><div class="line">&#125;</div><div class="line">f();//报错，this未定义</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>执行f()时，this指向全局对象，严格模式下报错，使用构造函数var aa=new f()；aa.a则正常，此时this指向aa。</p>
-<ol>
-<li>禁止在函数内部遍历栈<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f1()&#123;</div><div class="line">  &quot;use strict&quot;</div><div class="line">  f1.caller;//报错</div><div class="line">  f1.arguments;//报错</div><div class="line">&#125;</div><div class="line">f1();</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="4-禁止删除变量"><a href="#4-禁止删除变量" class="headerlink" title="4.禁止删除变量"></a>4.禁止删除变量</h4><p>严格模式下无法删除变量。只有configurable为true时才能被删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var x;</div><div class="line"></div><div class="line">　　delete x; // 语法错误</div><div class="line"></div><div class="line">　　var o = Object.create(null, &#123;&apos;x&apos;: &#123;</div><div class="line">　　　　　　value: 1,</div><div class="line">　　　　　　configurable: true</div><div class="line">　　&#125;&#125;);</div><div class="line"></div><div class="line">　　delete o.x; // 删除成功</div></pre></td></tr></table></figure></p>
-<h4 id="5-显式报错"><a href="#5-显式报错" class="headerlink" title="5.显式报错"></a>5.显式报错</h4><p>正常模式下，对一个对象的只读属性进行赋值，不会报错，只会默默失败，严格模式下，将报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var o = &#123;&#125;;</div><div class="line"></div><div class="line">　　Object.defineProperty(o, &quot;v&quot;, &#123; value: 1, writable: false &#125;);</div><div class="line"></div><div class="line">　　o.v = 2; // 报错</div></pre></td></tr></table></figure></p>
-<h4 id="6-重名错误"><a href="#6-重名错误" class="headerlink" title="6.重名错误"></a>6.重名错误</h4><ol>
-<li>对象不能有重名的属性(经测试谷歌浏览不会报错，但是IE浏览器会报错）<br>正常模式下，如果对象有多个重名的属性，最后赋值的那个属性会覆盖前面的值。严格模式下会报错。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var o = &#123;</div><div class="line">　　　　p: 1,</div><div class="line">　　　　p: 2</div><div class="line">　　&#125;; // 语法错误</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>2.函数不能有重名的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　function f(a, a, b) &#123; // 语法错误</div><div class="line"></div><div class="line">　　　　return ; </div><div class="line"></div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="7-禁止八进制表示法"><a href="#7-禁止八进制表示法" class="headerlink" title="7.禁止八进制表示法"></a>7.禁止八进制表示法</h4><p>正常模式下，整数的第一位如果是0，表示是八进制数，比如0100等于十进制的64。严格模式禁止这种表达方式，整数第一位为0会报错。</p>
-<h4 id="8-arguments对象的限制"><a href="#8-arguments对象的限制" class="headerlink" title="8.arguments对象的限制"></a>8.arguments对象的限制</h4><p>1.不允许对arguments赋值<br>2.不再追踪参数的变化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function f(a) &#123;</div><div class="line"></div><div class="line">　　　　a = 2;</div><div class="line"></div><div class="line">　　　　return [a, arguments[0]];</div><div class="line"></div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　f(1); // 正常模式为[2,2]</div><div class="line"></div><div class="line">　　function f(a) &#123;</div><div class="line"></div><div class="line">　　　　&quot;use strict&quot;; </div><div class="line"></div><div class="line">　　　　a = 2;</div><div class="line"></div><div class="line">　　　　return [a, arguments[0]];</div><div class="line"></div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　f(1); // 严格模式为[2,1]</div></pre></td></tr></table></figure></p>
-<ol>
-<li>禁止使用arguments.callee<br>这意味着，无法在匿名函数内部调用自身了<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var f = function() &#123; return arguments.callee; &#125;;</div><div class="line">　　f(); // 报错</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="9-函数声明必须在顶层-经测试IE10以上及谷歌浏览器取消了这个"><a href="#9-函数声明必须在顶层-经测试IE10以上及谷歌浏览器取消了这个" class="headerlink" title="9.函数声明必须在顶层(经测试IE10以上及谷歌浏览器取消了这个)"></a>9.函数声明必须在顶层(经测试IE10以上及谷歌浏览器取消了这个)</h4><p>JS的新版本引入块级作用域，为了与新版本接轨，严格模式只允许在全局作用域或函数作用域的顶层声明函数。也就是说，不允许在非函数的代码块内声明函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　if (true) &#123;</div><div class="line"></div><div class="line">　　　　function f() &#123; &#125; // IE10及以下报错</div><div class="line"></div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="10-保留字"><a href="#10-保留字" class="headerlink" title="10.保留字"></a>10.保留字</h4><p>为了向将来Javascript的新版本过渡，严格模式新增了一些保留字：implements, interface, let, package, private, protected, public, static, yield。</p>
-<p>使用这些词作为变量名将会报错。</p>
-<p>此外，ECMAscript第五版本身还规定了另一些保留字（class, enum, export, extends, import, super），以及各大浏览器自行增加的const保留字，也是不能作为变量名的。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/09/箭头函数/" title="箭头函数" itemprop="url">箭头函数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-09T12:10:13.000Z" itemprop="datePublished"> 发表于 2017-08-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6允许使用“箭头”定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f= v =&gt; v;</div></pre></td></tr></table></figure></p>
-<p>上面的箭头函数等同于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v)&#123;</div><div class="line">  return v;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果箭头函数不需要参数或者需要多个参数，就使用一个圆括号代表参数部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var sum=(num1,num2) =&gt; num1+num2;</div></pre></td></tr></table></figure></p>
-<p>如果箭头函数的代码部门多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var sum=(num1,num2) =&gt; &#123;return num1+num2; &#125;</div></pre></td></tr></table></figure></p>
-<p>由于大括号被解释为代码块，如果箭头函数直接返回一个对象，必须在对象外面加上括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var getTempItem =id =&gt; (&#123;id:id,name:&quot;Temp&quot;&#125;)</div></pre></td></tr></table></figure></p>
-<p>箭头函数可以与变量结构结合使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const full=(&#123;first,last&#125;) =&gt; first+&apos; &apos;+last;</div></pre></td></tr></table></figure></p>
-<h3 id="使用注意点"><a href="#使用注意点" class="headerlink" title="使用注意点"></a>使用注意点</h3><ol>
-<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象</li>
-<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误</li>
-<li>不可以使用arguments对象，该对象在函数体内不存在，如果要用，可以用Rest参数代替</li>
-<li>不可以使用yield命令，因为箭头函数不能用作Generator函数</li>
-</ol>
-<p>this指向固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正因为它没有this，所以也就不能用作构造函数。</p>
-<p>除了this以外，以下三个变量在箭头函数中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">     console.log(&apos;args:&apos;, arguments);</div><div class="line">   &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo(2,4,6,8)</div><div class="line">//[2,4,6,8]</div></pre></td></tr></table></figure></p>
-<p>注意此处箭头函数内部的变量arguments，是函数foo的arguments变量，因为foo是普通函数，具有arguments。如果将function foo(){}换成var foo=()=&gt;{}，将会报arguments is undefined的错。<br>使用rest参数代替arguments：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var foo=(...numbers)=&gt;&#123;</div><div class="line">setTimeout(() =&gt; &#123;</div><div class="line">     console.log(&apos;args:&apos;, numbers);</div><div class="line">   &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo(2,4,6,8)</div></pre></td></tr></table></figure></p>
-<p>另外，由于箭头函数没有自己的this，所以当然也就不能用call,apply,bind这些方法改变this的指向。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">  return [</div><div class="line">     (()=&gt;this.x).bind(&#123;x:&apos;inner&apos;&#125;)()</div><div class="line">  ]</div><div class="line">&#125;).call(&#123;x:&apos;outer&apos;&#125;)</div><div class="line">//outer</div></pre></td></tr></table></figure></p>
-<p>箭头函数没有自己的this，所以bind方法无效，内部的this指向外部的this，相当于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var x=&apos;outer&apos;;</div><div class="line">(function() &#123;</div><div class="line">   return [</div><div class="line">    (() =&gt; this.x).bind(&#123; x: &apos;inner&apos; &#125;)()</div><div class="line">  ];</div><div class="line"> &#125;)();</div></pre></td></tr></table></figure></p>
-<h3 id="函数绑定"><a href="#函数绑定" class="headerlink" title="函数绑定"></a>函数绑定</h3><p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、bind、apply）。但是很多场合不适用，于是ES7提出了”函数绑定”运算符来取代call、bind、apply调用。<br>函数绑定运算符是并排两个双冒号(::)，双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（this对象），绑定到右边的函数上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">foo::bar</div><div class="line">//等同于</div><div class="line">bar.bind(foo)</div><div class="line"></div><div class="line">foo:bar(...arguments)</div><div class="line">//等同于</div><div class="line">bar.apply(foo,arguments)</div></pre></td></tr></table></figure></p>
-<p>如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定到该对象上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let log=::console.log</div><div class="line">//等同于</div><div class="line">var log=console.log.bind(console)</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -678,7 +659,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -844,7 +825,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

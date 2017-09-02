@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,341 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/05/JS定义变量的三种方式/" title="JS定义变量的三种方式" itemprop="url">JS定义变量的三种方式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1、最常见的var定义变量，可以修改，如果不初始化会输出undefined,但不会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a=1;</div><div class="line">console.log(&apos;函数外定义a:&apos;+a); //输出a=1</div><div class="line">function change()&#123;</div><div class="line">  a=4;</div><div class="line">  console.log(&apos;函数内定义a:&apos;+a); //可以输出a=4;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后var定义a为函数内部修改值:&apos;+a); //输出a=4</div></pre></td></tr></table></figure></p>
+<p>2、const定义的变量不可以修改，而且必须初始化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const b=2;</div><div class="line">// const b; //错误，必须初始化</div><div class="line">console.log(b); //有输出值</div><div class="line">// b=5;</div><div class="line">console.log(b); //报错，不能给常量赋值</div></pre></td></tr></table></figure></p>
+<p>3、let是块级作用域，函数内部使用let定义后，对函数外部无影响。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let c=3;</div><div class="line">console.log(&apos;函数外定义c:&apos;+c); //输出c=3;</div><div class="line">function change()&#123;</div><div class="line">  let c=6;</div><div class="line">  console.log(&apos;函数内定义c:&apos;+c); //输出c=6;</div><div class="line">&#125;</div><div class="line">change();</div><div class="line">console.log(&apos;函数调用后let定义c不受函数内部定义的影响：&apos;+c); //输出c=3;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/27/从输入URL到浏览器显示页面发生了什么/" title="从输入URL到浏览器显示页面发生了什么" itemprop="url">从输入URL到浏览器显示页面发生了什么</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>从输入URL到浏览器显示页面，这个过程分为两个部分：网络通信和页面渲染。</p>
+<h3 id="一、网络通信"><a href="#一、网络通信" class="headerlink" title="一、网络通信"></a>一、网络通信</h3><p>互联网内各网络设备间的通信都遵循TCP/IP协议，利用TCP/IP协议族进行网络通信时，会通过分层顺序与对方进行通信。分层由高到低分别为：应用层、传输层、网络层、数据链路层。发送端从应用层往下走，接收端从数据链路层往上走。如下图所示：<br><img src="http://i.imgur.com/7oFnzfS.png" alt=""></p>
+<h4 id="1-在浏览器中输入URL"><a href="#1-在浏览器中输入URL" class="headerlink" title="1.在浏览器中输入URL"></a>1.在浏览器中输入URL</h4><p>用户输入URL，例如<a href="http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。" target="_blank" rel="external">http://www.baidu.com。其中http为协议，www.baidu.com为网络地址，及指出需要的资源在那台计算机上。一般网络地址可以为域名或IP地址，此处为域名。使用域名是为了方便记忆，但是为了让计算机理解这个地址还需要把它解析为IP地址。</a></p>
+<h4 id="2-应用层DNS解析域名"><a href="#2-应用层DNS解析域名" class="headerlink" title="2.应用层DNS解析域名"></a>2.应用层DNS解析域名</h4><p>客户端先检查本地是否有对应的IP地址，若找到则返回响应的IP地址。若没找到则请求上级DNS服务器，直至找到根节点。</p>
+<h4 id="3-应用层客户端发送HTTP请求"><a href="#3-应用层客户端发送HTTP请求" class="headerlink" title="3.应用层客户端发送HTTP请求"></a>3.应用层客户端发送HTTP请求</h4><p>HTTP请求包括请求报头和请求主体两个部分，其中请求报头包含了至关重要的信息，包括请求的方法（GET/POST)、目标URL、遵循的协议（HTTP/HTTPS/FTP…),返回的信息是否需要缓存，以及客户端是否发送cookie等。</p>
+<h4 id="4-传输层TCP传输报文"><a href="#4-传输层TCP传输报文" class="headerlink" title="4.传输层TCP传输报文"></a>4.传输层TCP传输报文</h4><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。它为了方便传输，将大块的数据分割成以报文段位单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN/ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACL标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br><img src="http://i.imgur.com/DgQcVRu.png" alt=""></p>
+<h4 id="5-网络层IP协议查询MAC地址"><a href="#5-网络层IP协议查询MAC地址" class="headerlink" title="5.网络层IP协议查询MAC地址"></a>5.网络层IP协议查询MAC地址</h4><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。</p>
+<h4 id="6-数据到达数据链路层"><a href="#6-数据到达数据链路层" class="headerlink" title="6.数据到达数据链路层"></a>6.数据到达数据链路层</h4><p>在找到对方的MAC地址后，就将数据发送到数据链路层传输。这时客户端发送请求的阶段结束。</p>
+<h4 id="7-服务器接收数据"><a href="#7-服务器接收数据" class="headerlink" title="7.服务器接收数据"></a>7.服务器接收数据</h4><p>接收端的服务器在链路层接收到数据包，再层层向上直到应用层。这过程中包括在运输层通过TCP协议将分段的数据包重新组成原来得HTTP请求报文。</p>
+<h4 id="8-服务器响应请求"><a href="#8-服务器响应请求" class="headerlink" title="8.服务器响应请求"></a>8.服务器响应请求</h4><p>服务接收到客户端发送的HTTP请求后，查找客户端请求的资源，并返回响应报文，响应报文中包括一个重要的信息————状态码。状态码由三位数字组成，其中比较常见的是200 OK表示请求成功。301表示永久重定向，即请求的资源已经永久转移到新的位置。在返回301状态码的同时，响应报文也会附带重定向的URL，客户端接收后将HTTP请求的URL做相应的改变再重新发送。404 not found表示客户端请求的资源找不到。</p>
+<h4 id="9-服务器返回相应文件"><a href="#9-服务器返回相应文件" class="headerlink" title="9.服务器返回相应文件"></a>9.服务器返回相应文件</h4><p>请求成功后，服务器会返回相应的HTML文件。接下来就到了页面渲染阶段了。</p>
+<h3 id="二、页面渲染"><a href="#二、页面渲染" class="headerlink" title="二、页面渲染"></a>二、页面渲染</h3><p>现代浏览器渲染页面的过程是这样的：解析HTML以构建DOM树——&gt;构建渲染树——&gt;布局渲染树——&gt;绘制渲染树。<br>DOM树是由HTML文件中的标签排列组成，渲染树是在DOM树种加入CSS或HTML中的style样式而形成。渲染树只包含显示在页面中的DOM元素，像<head>元素或display属性值为none的元素都不在渲染树中。<br>在浏览器还没接收到完整的HTML文件时，它就开始渲染页面了，在遇到外部链入的脚本标签或样式标签或图片时，会再次发送HTTP请求重复上述的步骤。在收到CSS文件后会对已经渲染的页面重新渲染，加入它们应有的样式，图片文件加载完立刻显示在相应位置。在这一过程中可能会触发页面的重绘或重排。</head></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/26/DOM性能提升/" title="DOM性能提升" itemprop="url">DOM性能提升</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>DOM(文档对象模型)是针对HTNL和XML文档的一个API（应用程序编程接口），DOM可以将任何一个HTML或XML文档描绘成一个由多层节点构成的节点树，允许开发人员添加、移除和修改页面的某一部分。</p>
+<h3 id="DOM的核心问题"><a href="#DOM的核心问题" class="headerlink" title="DOM的核心问题"></a>DOM的核心问题</h3><p>DOM会导致一系列的重绘(repaint)、重新排版(reflow)操作。为了确保执行结果的准确性，所有的修改是按顺序同步进行的，大部分浏览器都不会在执行过程中更新DOM。相应的，这些浏览器将对DOM的操作放在一个队列，并在JavaScript脚本执行完毕以后按顺序一次执行完毕。也就是说，在JavaScript执行的过程，直到发生重新排版，用户一直被阻塞。<br>一般的浏览器中（不含IE），repaint的速度远快于reflow，所以避免reflow更重要。<br><strong>reflow:</strong>例如某个子元素样式发生改变，直接影响到了其父元素以及往上追溯很多祖先元素（包括兄弟元素），这时候浏览器要重新渲染这个子元素相关联的所有元素的过程。reflow几乎无法避免。<br><strong>repaint:</strong>如果只是改变某个元素的背景色、文字颜色、边框颜色等等不影响它周围或内部布局的属性，将只会引起浏览器的repaint。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>关键：</strong>减少DOM操作引起的reflow。</p>
+<h4 id="1、使用DoucumentFragment一次性更新DOM"><a href="#1、使用DoucumentFragment一次性更新DOM" class="headerlink" title="1、使用DoucumentFragment一次性更新DOM"></a>1、使用DoucumentFragment一次性更新DOM</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//使用容器保存临时变更，最后一次性更新DOM</div><div class="line">var fragment=document.createDocumentFragment();</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   fragment.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.appendChild(fragment);</div></pre></td></tr></table></figure>
+<h4 id="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"><a href="#2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排" class="headerlink" title="2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排"></a>2、操作DOM前，先把DOM节点删除或隐藏，因为隐藏的节点不会发生重排</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list.style.display=&quot;none&quot;;</div><div class="line">for(var i=0;i&lt;items,length;i++)&#123;</div><div class="line">   var item=document.createElement(&quot;li&quot;);</div><div class="line">   item.appendChild(document.createTextNode(&quot;Option&quot;+i);</div><div class="line">   list.appendChild(item);</div><div class="line"> &#125;</div><div class="line">list.style.display=&quot;&quot;;</div></pre></td></tr></table></figure>
+<h4 id="3、只改变class"><a href="#3、只改变class" class="headerlink" title="3、只改变class"></a>3、只改变class</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//这样做很引起多次重排</div><div class="line">element.style.backgroundColor=&quot;blue&quot;;</div><div class="line">element.style.color=&quot;red&quot;;</div><div class="line">element.style.fontSize=&quot;12em&quot;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//更好的做法是，把样式放在一个class下</div><div class="line">.newStyle&#123;</div><div class="line">  background-color:blue;</div><div class="line">  color:red;</div><div class="line">  font-size:12em;</div><div class="line">&#125;</div><div class="line">element.className=&quot;newStyle&quot;;</div></pre></td></tr></table></figure>
+<h4 id="4、使用缓存，缓存临时节点"><a href="#4、使用缓存，缓存临时节点" class="headerlink" title="4、使用缓存，缓存临时节点"></a>4、使用缓存，缓存临时节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//不好的做法</div><div class="line">document.getElementById(&quot;myDiv&quot;).style.left=document.getElementById(&quot;myDiv&quot;).offsetLeft+document.getElementById(&quot;myDiv&quot;).offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//更好的做法</div><div class="line">var myDiv=document.getElementById(&quot;myDiv&quot;);</div><div class="line">myDiv.style.left=myDiv.offsetLeft+myDiv.offsetWidth+&quot;px&quot;;</div></pre></td></tr></table></figure>
+<h4 id="5-使用requestAnimationFrame、requestIdleCallback"><a href="#5-使用requestAnimationFrame、requestIdleCallback" class="headerlink" title="5.使用requestAnimationFrame、requestIdleCallback"></a>5.使用requestAnimationFrame、requestIdleCallback</h4><p>其中requestAnimationFrame允许我们正确的安排动画（告诉浏览器希望执行动画，并请求浏览器调用指定的函数在下一次重绘之前更新动画），而requestIdlecallback会在某一帧结束后的空闲时间或者用户处于不活跃状态是，处理我们的工作。就是说，通过使用requestIdleCallback这个API可以尽可能高效的利用任何空闲时间。</p>
+<p>reqeustIdleCallback需要回调函数作为参数，回调函数被调用，会返回deadline对象，这个对象包含timeRemaining方法，返回数字表示你的工作还能执行多长时间。当timeRemaining返回0，如果还有其他的requestIdleCallback就会执行，这样的话有些回调函数可能永远不会执行，此时与requestAnimationFrame不同的requestIdelCallback可以指定第二个参数，还有timeout属性的对象，强制在这个timeout值后执行回调函数。</p>
+<p>最佳的实践就是，只在requestAnimationFrame的回调中进行dom改动，就是，在requestIdleCallback时使用文档片段，在下一个requestAnimationFrame回调中把所有改动的dom追加上去。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/24/跨浏览器事件对象———EventUtil/" title="跨浏览器事件对象———EventUtil" itemprop="url">跨浏览器事件对象———EventUtil</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>EventUtil:在JavaScript中，DOM0级、DOM2级与旧版本IE（8-）为对象添加事件的方法不同，为了以跨浏览器的方式处理时间，需要编写一段“通用代码”，即跨浏览器的事件处理程序，这个方法属于一个名为EventUtil的对象，编写并使用该对象后，可保证处理事件的代码能在大多数浏览器下一致地运行。</p>
+<h2 id="EventUtil对象"><a href="#EventUtil对象" class="headerlink" title="EventUtil对象"></a>EventUtil对象</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div></pre></td><td class="code"><pre><div class="line">var EventUtil=&#123;</div><div class="line">   addHandler:function(element,type,handler)&#123;//添加事件</div><div class="line">      if(element.addEventListener)&#123;</div><div class="line">         element.addEventListener(type,handler,false); //使用DOM2级方法添加事件，三个参数分别是：要处理的事件名、作为事件处理的函数和一个布尔值（布尔值表示在捕获阶段(true)还是冒泡阶段(false)调用事件处理程序）</div><div class="line">     &#125;</div><div class="line">     else if(element.attachEvent)&#123;</div><div class="line">         element.attachEvent(&quot;on&quot;+type,handler); //使用IE方法添加事件，两个参数分别为：事件处理程序名称和事件处理程序的函数</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=handler; //使用DOM0级方法添加事件</div><div class="line">     &#125;</div><div class="line">   &#125;，</div><div class="line">   removeHandler:function(element,type,handler)&#123; //取消事件</div><div class="line">      if(element.removeEventListener)&#123;</div><div class="line">         element.removeEventListener(type,handler,false);</div><div class="line">     &#125;</div><div class="line">     else if(element.detachEvent)&#123;     </div><div class="line">         element.detachEvent(&quot;on&quot;+type,handler);     </div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         element[&quot;on&quot;+type]=null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getEvent:function(event)&#123; //使用这个方法跨浏览器取得event对象</div><div class="line">      return event?event:window.event; //在IE中，使用DOM0级添加事件处理程序时，event对象作为window对象的一个属性存在，而且在IE中，event对象的一些属性/方法跟其他支持DOM的浏览器不同，正是由于这些差异，EventUtil中的getEvent方法应运而生</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">   getTarget:function(event)&#123; //返回事件的实际目标</div><div class="line">      return event.target||event.srcEelment;  //在IE中，获取事件的目标对象的方法为event.srcElement，而其他兼容DOM的浏览器中，获取事件目标对象的方法却为event.target</div><div class="line">   &#125;,</div><div class="line"></div><div class="line"></div><div class="line">   preventDefault:function(event)&#123; //阻止事件的默认行为</div><div class="line">      if(event.preventDefault)&#123; //在其他兼容DOM的浏览器中，阻止特定事件的默认行为只需要使用event对象自带的preventDefault()方法</div><div class="line">        event.preventDefault();</div><div class="line">     &#125;else&#123; //而IE中，则需要赋予event.returnValue的值为false才能阻止特定事件的默认行为</div><div class="line">        event.returnValue=false;</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   stopPropagation:function(event)&#123; </div><div class="line">     if(event.stopPropagation)&#123;</div><div class="line">      event.stopPropagation(); //DOMO级或DOM2级取消事件进一步冒泡或者捕获</div><div class="line">    &#125;else&#123;</div><div class="line">      event.cancelBubble=true; //IE中取消时间冒泡</div><div class="line">    &#125;</div><div class="line">      </div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getRelatedTarget:function(event)&#123; //获取mouseover和mouseout相关元素</div><div class="line">//mouseover与mouseout有“主目标”和“相关元素”的概念，因为在发生mouseover或mouseout事件时，还会涉及到其他元素，这两个事件都会涉及把鼠标指针从一个元素移到另一个元素。具体来说，对mouseover事件，事件的主目标是获得光标的元素，而相关元素是那个失去光标的元素，对mouseout事件而言，事件的主目标是失去光标的元素，而相关元素是那个获得光标的元素。</div><div class="line">      if(event.relatedTarget)&#123;</div><div class="line">        return event.relatedTarget;</div><div class="line">     &#125;</div><div class="line">      else if(event.toElement)&#123; //mouseout触发时，IE的toElement保存的相关元素属性</div><div class="line">        return event.toElement;</div><div class="line">     &#125;</div><div class="line">     else if(event.formElement)&#123; //mouseover触发时，IE的formElement保存相关元素属性</div><div class="line">         return event.formElement;</div><div class="line">     &#125;</div><div class="line">     else&#123;</div><div class="line">         return null;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line">   </div><div class="line">   getButton:function(event)&#123;  //获取mousedown或mouseup按下或释放的按钮是鼠标的哪一个</div><div class="line">     if(document.implementation.hasFeature(&quot;MouseEvents&quot;,&quot;2.0&quot;))&#123;</div><div class="line">        return event.button;</div><div class="line">     &#125;else&#123;</div><div class="line">       switch(event.button)&#123;//将IE模型下的button属性映射为DOM模型下的button属性</div><div class="line">         case 0:</div><div class="line">         case 1;</div><div class="line">         case 3;</div><div class="line">         case 5;</div><div class="line">         case 7;</div><div class="line">           return 0; //按下的是鼠标主按钮（一般是左键）</div><div class="line">         case 2:</div><div class="line">         case 6:</div><div class="line">           return 2; //按下的是中间的鼠标按钮</div><div class="line">         case 4:</div><div class="line">           return 1; //鼠标次按钮（一般是右键）</div><div class="line">        &#125;</div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line"></div><div class="line">  getWheelDelta:function(event)&#123; //获取表示鼠标滚轮滚动方向的数值</div><div class="line">//解决的是与Firefox的差异</div><div class="line">    if(event.wheelDelta)&#123;</div><div class="line">      return event.wheelDelta;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">      return -event.detail*40;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  getCharCode:function(event)&#123; //跨浏览器取得相同的字符编码，需在keypress事件中使用</div><div class="line"></div><div class="line">//在所有浏览器中，按下能够插入或删除的字符的按键都会触发keypress事件，但IE8-及Opera取得字符编码的方式与其他浏览器有差异</div><div class="line">    if(typeof event.charCode==&quot;number&quot;)&#123;</div><div class="line">       return event.charCode;</div><div class="line">    &#125;else&#123;</div><div class="line">       return event.keyCode;</div><div class="line">   &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="举例用法"><a href="#举例用法" class="headerlink" title="举例用法"></a>举例用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//添加了EventUtil之后，获取了event对象、取消了事件进一步捕获或者冒泡、指定了事件的处理程序而无须担心浏览器兼容问题</div><div class="line">var btn=document.getElementById(&quot;#btn&quot;);</div><div class="line">var handler=function(event)&#123;</div><div class="line">   event=EventUtil.getEvent(event); </div><div class="line">   EventUtil.stopPropagation(event); </div><div class="line"> &#125;</div><div class="line">Event.addHandler(btn,&quot;click&quot;,handler);</div></pre></td></tr></table></figure>
+<h3 id="补充addEventListener的第三个参数useCapture"><a href="#补充addEventListener的第三个参数useCapture" class="headerlink" title="补充addEventListener的第三个参数useCapture"></a>补充addEventListener的第三个参数useCapture</h3><p>事件有三个阶段：<br>捕获阶段：外–&gt;里<br>目标阶段：<br>冒泡阶段：里–&gt;外<br>useCapture是一个布尔值，默认是false。如果是true的话表示在事件捕获阶段调用事件处理程序；如果是false表示在事件冒泡阶段处理程序。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/05/01/为什么js没有函数签名/" title="为什么js没有函数签名" itemprop="url">为什么js没有函数签名</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> Published 2017-05-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="什么是函数签名"><a href="#什么是函数签名" class="headerlink" title="什么是函数签名"></a>什么是函数签名</h3><p>MDN上关于函数签名的说明：<br>A function signature(or type signature, or method signature) defines input and putput of functions or methods.<br>A signature can include:</p>
+<ol>
+<li>parameters and their types</li>
+<li>a return value and type</li>
+<li>exceptions that might be thrown or passed back</li>
+<li>information about the availability of the method in an object-oriented program(such as the keywords public, static, or prototype).<br>翻译过来就是函数签名定义了函数或方法的输入输出，签名包括参数个数和类型、返回值和类型、抛出或者往后传的异常、面向对象程序方法可行性的信息。<h3 id="为什么js没有函数签名"><a href="#为什么js没有函数签名" class="headerlink" title="为什么js没有函数签名"></a>为什么js没有函数签名</h3>在其他语言中，命名参数必须要求事先创建函数签名，将来调用也必须与该签名一致；而js的参数是由包含0个或多个值的数组来表示的，命名参数只是提供便利，但不是必须的，解析器也不会验证命名参数，所以js没有签名。<br>举个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  alert(&quot;Hi &quot;+arguments[0]+&quot;, &quot;+arguments[1]);</div><div class="line">&#125;</div><div class="line">sayHi(&quot;Alice&quot;,&quot;how are you?&quot;);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> Published 2017-04-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/04/24/append和prepend/" title="append和prepend" itemprop="url">append和prepend</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +423,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    <time datetime="2017-04-24T14:09:07.000Z" itemprop="datePublished"> Published 2017-04-24</time>
     
   </p>
 </header>
@@ -140,7 +475,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
+    <time datetime="2017-04-24T13:40:49.000Z" itemprop="datePublished"> Published 2017-04-24</time>
     
   </p>
 </header>
@@ -181,333 +516,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/apply-和call-用法/" title="apply()和call()用法" itemprop="url">apply()和call()用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T03:10:47.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>每个函数都有两个非继承的方法：apply（）和call()。这两个方法都是在特定作用域中调用函数，实际上等于设置函数体内this对象的值。</p>
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><h3 id="1、apply-方法——apply-thisObj-argArray"><a href="#1、apply-方法——apply-thisObj-argArray" class="headerlink" title="1、apply()方法——apply([thisObj[,argArray]])"></a>1、apply()方法——apply([thisObj[,argArray]])</h3><p>apply()接收两个参数：一个是运行函数的作用域，另一个是参数数组。其中第二个参数可以是Array的实例，也可以是arguments对象。</p>
-<h3 id="2、call-方法——call-thisObj-arg1-arg2-argN"><a href="#2、call-方法——call-thisObj-arg1-arg2-argN" class="headerlink" title="2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])"></a>2、call()方法——call([thisObj[,arg1[, arg2[, [,.argN]]]]])</h3><p>与apply作用相同，区别在于接收参数方式不同。第一个参数this的值没有变化，其余参数是以列举的方式直接传递给函数。</p>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><h3 id="1、扩充函数赖以运行的作用域"><a href="#1、扩充函数赖以运行的作用域" class="headerlink" title="1、扩充函数赖以运行的作用域"></a>1、扩充函数赖以运行的作用域</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">window.color=&quot;red&quot;;</div><div class="line">var o=&#123;color:&quot;blue&quot;&#125;;</div><div class="line">function sayColor()&#123;</div><div class="line">alert(this.color)</div><div class="line">&#125;</div><div class="line">sayColor();               //red</div><div class="line"></div><div class="line">sayColor.call(this);      //red</div><div class="line">sayColor.call(window);    //red</div><div class="line">sayColor.call(o);         //blue</div></pre></td></tr></table></figure>
-<p>sayColor.call(o)与o.sayColor()效果一样，但是使用call()(或apply())是的对象不需要与方法有任何耦合关系。</p>
-<h3 id="2、实现继承"><a href="#2、实现继承" class="headerlink" title="2、实现继承"></a>2、实现继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Animal(name)&#123;</div><div class="line">this.name=name;</div><div class="line">this.showName=function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">function Cat(name)&#123;</div><div class="line">Animal.call(this,name);</div><div class="line">&#125;</div><div class="line">var cat=new Cat(&apos;Black Cat&apos;);</div><div class="line">cat.showName();         //Black Cat</div></pre></td></tr></table></figure>
-<h3 id="3、实现多重继承"><a href="#3、实现多重继承" class="headerlink" title="3、实现多重继承"></a>3、实现多重继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">var s1=function(name)&#123;</div><div class="line">this.name=name;</div><div class="line">&#125;</div><div class="line">var s2=function(sex)&#123;</div><div class="line">this.sex=sex;</div><div class="line">&#125;</div><div class="line">var s3=function(age)&#123;</div><div class="line">this.age=age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var Student=function(name,sex,age,score)&#123;</div><div class="line">s1.call(this,name);</div><div class="line">s2.call(this,sex);</div><div class="line">s3.call(this,age);</div><div class="line">this.score=score;</div><div class="line">&#125;</div><div class="line">Student.prototype.construction=Student;</div><div class="line">var s=new Student(&apos;jack&apos;,&apos;male&apos;,&apos;32&apos;,&apos;100&apos;);</div><div class="line">console.log(s.name);  //jack</div><div class="line">console.log(s.sex);  //male</div><div class="line">console.log(s.age);  //32</div><div class="line">console.log(s.score);  //100</div></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/24/理解arguments/" title="理解arguments" itemprop="url">理解arguments</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-24T02:02:40.000Z" itemprop="datePublished"> 发表于 2017-04-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>ECMAScript中的参数是用一个数组表示的。无论传递给函数的参数是什么（有或者没有），函数接收到的始终都是这个数组。在函数体内通过arguments对象来访问这个参数数组，从而获取传递给函数的每个参数。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi(name,message)&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+name+&quot;,&quot;+message);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>可以用arguments重写不显示的使用命名参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">return;</div><div class="line">alert(&quot;Hello &quot;+arguments[0]+&quot;,&quot;+arguments[1]);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="arguments特性"><a href="#arguments特性" class="headerlink" title="arguments特性"></a>arguments特性</h3><h4 id="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"><a href="#1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的" class="headerlink" title="1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的"></a>1、arguments对象的长度是由传入的参数的长度决定的，不是由定义函数时的命名参数的个数决定的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function howManyArgs(&#123;</div><div class="line">alert(arguments.length);</div><div class="line">&#125;</div><div class="line">howManyArgs(&quot;string&quot;,45); //2</div><div class="line">howManyArgs();            //0</div><div class="line">howManyArgs(12)           //1</div></pre></td></tr></table></figure>
-<h4 id="2、arguments的值永远与对应命名参数的值保持同步"><a href="#2、arguments的值永远与对应命名参数的值保持同步" class="headerlink" title="2、arguments的值永远与对应命名参数的值保持同步"></a>2、arguments的值永远与对应命名参数的值保持同步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function doAdd(num1,num2)&#123;</div><div class="line">arguments[1]=10;</div><div class="line">alert(arguments[0]+num2);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>每次执行doAdd函数都会重写第二个参数（将其修改为10），因为arguments[1]的对象的值会自动反映到对应的命名参数，所以修改了arguments[1]也就修改了num2，他们的值会同步（但内存空间是独立的）。如果只传入了一个参数，arguments[1]的值不会反映到命名参数中（因为特性1）。</p>
-<h4 id="3、arguments对象有个callee属性"><a href="#3、arguments对象有个callee属性" class="headerlink" title="3、arguments对象有个callee属性"></a>3、arguments对象有个callee属性</h4><p>callee属性是一个指针，指向拥有这个arguments对象的函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fucntion factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数的执行与函数名紧紧耦合在一起，为了消除这种紧密耦合现象，可以用arguments.callee。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样，无论引用函数是时使用的什么名字，都可以保证正常递归调用。看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*arguments.callee(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //120</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
-<p>而使用函数名，则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function factorial(num)&#123;</div><div class="line">if(num&lt;=1)&#123;</div><div class="line">return 1;</div><div class="line">&#125;else&#123;</div><div class="line">return num*factorial(num-1);</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">var trueFactoral=factorial;</div><div class="line">factorial=function()&#123;</div><div class="line">return 0;</div><div class="line">&#125;</div><div class="line">alert(trueFactoral(5));  //0</div><div class="line">alert(factorial(5));     //0</div></pre></td></tr></table></figure></p>
-<h4 id="后记——函数对象的caller属性"><a href="#后记——函数对象的caller属性" class="headerlink" title="后记——函数对象的caller属性"></a>后记——函数对象的caller属性</h4><p>当一个函数调用另一个函数时，被调用的函数会自动生成一个caller属性，指向调用它的函数对象。若该函数未被调用或没有被其他函数调用，caller为null。<br>而arguments.callee是函数被调用时，arguments.callee对象指向自身，是对自己的引用。<br>注：arguments在函数调用时才有效，因为arguments.callee在函数未调用时是不存在的（即null.callee)。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/22/translate-50-50-的作用/" title="translate(-50%,-50%)的作用" itemprop="url">translate(-50%,-50%)的作用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-22T14:01:12.000Z" itemprop="datePublished"> 发表于 2017-04-22</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>当使用top:50%;left:50%的时候，是以左上角为原点，故元素不处于中心位置。translate(-50%,-50%)的作用是往上（x轴），左（y轴）移动自身长宽的50%，使得元素处于中心位置。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;outer&quot;&gt;</div><div class="line">   &lt;div id=&quot;inner&quot;&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
-<p>如果不加transform属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#outer&#123;</div><div class="line">        position: relative;</div><div class="line">        width: 500px;</div><div class="line">        height: 500px;</div><div class="line">        border: 1px solid black;</div><div class="line">&#125;</div><div class="line">#inner&#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>inner框的左上角处于中心位置，如果希望其中心居于中心位置，将应该向上和向左移动一半的边长长度。加上transform属性，就可以实现这个效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#inner &#123;</div><div class="line">        position: absolute;</div><div class="line">        top: 50%;</div><div class="line">        left: 50%;</div><div class="line">        width: 100px;</div><div class="line">        height: 100px;</div><div class="line">        background-color: red;</div><div class="line">        -ms-transform: translate(-50%,-50%);</div><div class="line">        -moz-transform: translate(-50%,-50%);</div><div class="line">        -o-transform: translate(-50%,-50%);</div><div class="line">        transform: translate(-50%,-50%);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/19/阿里暑期前端面试总结/" title="阿里暑期前端面试总结" itemprop="url">阿里暑期前端面试总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-19T10:40:53.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/19/腾讯暑期实习面试前端面试总结/" title="腾讯暑期实习面试前端面试总结" itemprop="url">腾讯暑期实习面试前端面试总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-19T07:36:12.000Z" itemprop="datePublished"> 发表于 2017-04-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>4月13号参加的腾讯面试，不得不说面试机制还是比较完善，通知的10点面试，9点20到达酒店之后，差不多10点就通知了面试地点去候场。因为房间门是开的，所以听到了前一个人的部分面试问题：<br>1、http状态码有哪些，代表的什么意思<br>2、用过缓存没有，local storage和session storage有什么区别<br>3、你说你学过node js，讲一下<br>于是我在门外默默的准备了一下，进去之后面试官看了我的简历上写本科是信息安全，于是问我公钥加密和私钥加密有什么区别。。。我大概记得，但是说反了，然后开始问我一串安全相关的问题，安全掌握的不怎么好，面试官大概没有很多兴趣，就简单问了下css和一个逻辑题就完了：<br>1、Web安全<br>2、url是怎么加密的<br>3、css的优先级<br>4、逻辑题：给一个不规则的5L和6L的桶，装一个3升的水<br>然后很显然就没有然后了，通过此次面试，觉得自己还是要多注意Web安全方面的知识，另外简历上处处都有可能问到，主要看面试官比较擅长哪方面，所以只要写上去都要有所准备。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/11/easyui两个datagrid的问题/" title="easyui两个datagrid的问题" itemprop="url">easyui两个datagrid的问题</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-11T11:11:39.000Z" itemprop="datePublished"> 发表于 2017-04-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>easyui框架下，当一个页面出现两个datagrid，或者说出现两个table的时候，datagrid的某些属性会失效，比如说pagination分页会失效.</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>使用两个div将两个datagrid分开，但是使用两个div后，页面不能填充整个屏幕，所以解决两个datagrid分页失效的问题转化为了如何让div填充整个屏幕的问题。解决方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">html, body&#123;</div><div class="line">margin:0;</div><div class="line">padding:0;</div><div class="line">&#125;</div><div class="line">div&#123;</div><div class="line">width:100%;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -518,7 +536,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
           <li>
@@ -684,7 +702,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

@@ -4,41 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>ORACLE导入dmp文件详解 | 笑呵呵</title>
+    <title>两列等高 | 笑呵呵</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Alice">
     
     
     
-    <meta name="description" content="折腾了一天终于导入成功并查看到了，决定写个教程。准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。  安装oracle 11g这个比较简单，百度上很多教程如：http://www.cnblogs.com/qfb620/p/4577255.html。  需要注意的是这一步不要填电子邮件，否则会报连接错误这一步填写口令的时候主要开头不要是">
+    <meta name="description" content="面试的时候被问到，如何实现响应式的两列等高。下来查到了两种方式：  设置最小高度123min-height:200px;height:auto !important;height:200px;   实现两列等高：123456&amp;lt;div id=&amp;quot;container2&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;container1&amp;quot;&amp;gt;	&amp;lt;div id=&amp;q">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ORACLE导入dmp文件详解">
-<meta property="og:url" content="https://aliceflaviawang.github.io/2017/07/27/ORACLE导入dmp文件详解/index.html">
+<meta property="og:title" content="两列等高">
+<meta property="og:url" content="https://aliceflaviawang.github.io/2017/09/04/两列等高/index.html">
 <meta property="og:site_name" content="笑呵呵">
-<meta property="og:description" content="折腾了一天终于导入成功并查看到了，决定写个教程。准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。  安装oracle 11g这个比较简单，百度上很多教程如：http://www.cnblogs.com/qfb620/p/4577255.html。  需要注意的是这一步不要填电子邮件，否则会报连接错误这一步填写口令的时候主要开头不要是">
-<meta property="og:image" content="http://i.imgur.com/SS9Ee2V.png">
-<meta property="og:image" content="http://i.imgur.com/1Ha6MKi.png">
-<meta property="og:image" content="http://i.imgur.com/LVJ31Nu.png">
-<meta property="og:image" content="http://i.imgur.com/AElweZ7.png">
-<meta property="og:image" content="http://i.imgur.com/fPYQPZq.png">
-<meta property="og:image" content="http://i.imgur.com/8dgBtn4.png">
-<meta property="og:image" content="http://i.imgur.com/U7U0VWr.png">
-<meta property="og:image" content="http://i.imgur.com/X0D3w1B.png">
-<meta property="og:image" content="http://i.imgur.com/wRcpnjz.png">
-<meta property="og:image" content="http://i.imgur.com/CQhHzjJ.png">
-<meta property="og:image" content="http://i.imgur.com/66Znr2F.jpg">
-<meta property="og:image" content="http://i.imgur.com/hINz0hF.png">
-<meta property="og:image" content="http://i.imgur.com/eO3jpvu.png">
-<meta property="og:image" content="http://i.imgur.com/BLoNSsE.png">
-<meta property="og:image" content="http://i.imgur.com/MLNHplV.png">
-<meta property="og:image" content="https://i.imgur.com/7agqFkR.png">
-<meta property="og:updated_time" content="2017-09-07T02:13:09.190Z">
+<meta property="og:description" content="面试的时候被问到，如何实现响应式的两列等高。下来查到了两种方式：  设置最小高度123min-height:200px;height:auto !important;height:200px;   实现两列等高：123456&amp;lt;div id=&amp;quot;container2&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;container1&amp;quot;&amp;gt;	&amp;lt;div id=&amp;q">
+<meta property="og:updated_time" content="2017-09-04T12:55:00.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ORACLE导入dmp文件详解">
-<meta name="twitter:description" content="折腾了一天终于导入成功并查看到了，决定写个教程。准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。  安装oracle 11g这个比较简单，百度上很多教程如：http://www.cnblogs.com/qfb620/p/4577255.html。  需要注意的是这一步不要填电子邮件，否则会报连接错误这一步填写口令的时候主要开头不要是">
-<meta name="twitter:image" content="http://i.imgur.com/SS9Ee2V.png">
+<meta name="twitter:title" content="两列等高">
+<meta name="twitter:description" content="面试的时候被问到，如何实现响应式的两列等高。下来查到了两种方式：  设置最小高度123min-height:200px;height:auto !important;height:200px;   实现两列等高：123456&amp;lt;div id=&amp;quot;container2&amp;quot;&amp;gt;&amp;lt;div id=&amp;quot;container1&amp;quot;&amp;gt;	&amp;lt;div id=&amp;q">
 
     
     <link rel="alternative" href="/atom.xml" title="笑呵呵" type="application/atom+xml">
@@ -98,14 +81,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/07/27/ORACLE导入dmp文件详解/" title="ORACLE导入dmp文件详解" itemprop="url">ORACLE导入dmp文件详解</a>
+      <a href="/2017/09/04/两列等高/" title="两列等高" itemprop="url">两列等高</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-27T02:19:16.000Z" itemprop="datePublished"> Published 2017-07-27</time>
+    <time datetime="2017-09-04T12:21:13.000Z" itemprop="datePublished"> Published 2017-09-04</time>
     
   </p>
 </header>
@@ -114,39 +97,22 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#补充-修改用户名密码"><span class="toc-number">1.</span> <span class="toc-text">补充(修改用户名密码)</span></a></li></ol>
+			
 		
 		</div>
 		
-		<p>折腾了一天终于导入成功并查看到了，决定写个教程。<br>准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。</p>
+		<p>面试的时候被问到，如何实现响应式的两列等高。<br>下来查到了两种方式：</p>
 <ol>
-<li>安装oracle 11g<br>这个比较简单，百度上很多教程如：<a href="http://www.cnblogs.com/qfb620/p/4577255.html。" target="_blank" rel="external">http://www.cnblogs.com/qfb620/p/4577255.html。</a></li>
+<li>设置最小高度<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">min-height:200px;</div><div class="line">height:auto !important;</div><div class="line">height:200px;</div></pre></td></tr></table></figure>
+</li>
 </ol>
-<p>需要注意的是<br><img src="http://i.imgur.com/SS9Ee2V.png" alt=""><br>这一步不要填电子邮件，否则会报连接错误<br><img src="http://i.imgur.com/1Ha6MKi.png" alt=""><br>这一步填写口令的时候主要开头不要是数字，否则安装完会报错（但是不确定有没有影响）</p>
+<p>实现两列等高：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;container2&quot;&gt;</div><div class="line">&lt;div id=&quot;container1&quot;&gt;</div><div class="line">	&lt;div id=&quot;col1&quot;&gt;Left Sidebar&lt;/div&gt;</div><div class="line">	&lt;div id=&quot;col2&quot;&gt;Main Content&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">#container2 &#123;</div><div class="line">	  	float: left;</div><div class="line">	  	width: 100%;</div><div class="line">	  	background: orange;</div><div class="line">	  	position: relative;</div><div class="line">	  	overflow: hidden;</div><div class="line">	  &#125;</div><div class="line">	  #container1 &#123;</div><div class="line">	  	float: left;</div><div class="line">	  	width: 100%;</div><div class="line">	  	background: green;</div><div class="line">	  	position: relative;</div><div class="line">	  	left: 220px;/* 宽度大小等与边栏宽度大小*/</div><div class="line">	  &#125;</div><div class="line">    </div><div class="line">	  #col2 &#123;</div><div class="line">	  	position: relative;</div><div class="line">	  	margin-right: 220px;/* 宽度大小等与边栏宽度大小*/</div><div class="line">	  &#125;</div><div class="line">    </div><div class="line">	  #col1 &#123;</div><div class="line">	  	width: 220px;</div><div class="line">	  	float: left;</div><div class="line">	  	position: relative;</div><div class="line">	  	margin-left: -220px;/* 宽度大小等与边栏宽度大小*/</div><div class="line">	  &#125;</div><div class="line">   </div><div class="line">		#col1,#col2 &#123;</div><div class="line">			min-height: 100px;</div><div class="line">			height: auto !important;</div><div class="line">			height: 500px;</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
 <ol>
-<li>安装完成后修改用户名和密码<br>在控制台用sqlplus / as sysdba登陆oracle系统<br><img src="http://i.imgur.com/LVJ31Nu.png" alt=""><br>使用命令修改用户名密码<br>alter user 用户名 indentified by “密码”</li>
+<li>padding补偿法<br>首先把列的padding-bottom设为一个足够的大的值，再把列的margin-bottom设一个与前面的padding-bottom的正值相抵消的负值。<br>将上面例子中的#col1,#col2换成下面的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#col,#col2&#123;</div><div class="line">   padding-bottom:2000px;</div><div class="line">   margin-bottom:-2000px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ol>
-<ol>
-<li>打开pl/sql developer<br>初始打开时<br><img src="http://i.imgur.com/AElweZ7.png" alt=""><br>用户名和密码为第2步修改的用户名和密码，数据库是“ip/数据库名（默认是orcl）”</li>
-</ol>
-<p>点击登录，报错<br><img src="http://i.imgur.com/fPYQPZq.png" alt=""><br>解决办法：在未登陆的情况下进入pl/sql，在工具-&gt;首选项-&gt;连接里面设置Oracle主目录名和OCI库（其中Oracle主目录在Oracle安装目录下，OCI在安装目录的BIN目录下）<br><img src="http://i.imgur.com/8dgBtn4.png" alt=""></p>
-<p>再次登陆，依然报错，原因是无法load BIN目录下的oci.dll文件<br><img src="http://i.imgur.com/U7U0VWr.png" alt=""><br>解决办法：  在这个地址<a href="http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program" target="_blank" rel="external">http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program</a> Files\”下，然后将上一步OCI目录改成”D:\Program Files\instantclient_10_2\instantclient_10_2\oci.dll”。<br><img src="http://i.imgur.com/X0D3w1B.png" alt=""></p>
-<p>重新登陆，发现出现了“连接为”这一项，并且自动出现了用户名和数据库地址，点击出现了”Oracle client ORA-12541: TNS:no listener [closed]”错误。<br>解决办法：<br>首先找到Oracle安装目录下的listener.ora和tnsnames.ora(我的是在E:\app\Alice\product\11.2.0\dbhome_1\NETWORK\ADMIN下)，将host=localhost改成host=ip<br><img src="http://i.imgur.com/wRcpnjz.png" alt=""><br>然后重启Oracle服务，WinKey+r<br><img src="http://i.imgur.com/CQhHzjJ.png" alt=""></p>
-<p>再次打开pl/sql，点击确定登录成功<br><img src="http://i.imgur.com/66Znr2F.jpg" alt=""></p>
-<ol>
-<li>导入dmp文件<br>打开工具-&gt;导入表-&gt;Oracle导入（dmp文件选择Oacle导入）<br>在“导入可执行文件”栏填入的是可执行的文件，比如Oracle安装目录的BIN目录下的imp.exe文件（我的地址是”E:\app\Alice\product\11.2.0\dbhome_1\BIN\imp.exe”），导入文件就是你要导入的dmp文件的地址。<br><img src="http://i.imgur.com/hINz0hF.png" alt=""></li>
-</ol>
-<p>导入成功，下方会有提示<br><img src="http://i.imgur.com/eO3jpvu.png" alt=""></p>
-<p>点击左侧的Table的项，刷新，可以看到导入的表，然后右键编辑表可以看到新导入的表结构<br><img src="http://i.imgur.com/BLoNSsE.png" alt=""></p>
-<p>此时你可能会发现表里有些乱码，解决办法是：新建环境变量NLS_LANG，值为SIMPLIFIE DCHINESE_CHINA.ZHS16GBK，保存后重启pl/sql，如果还是乱码，则将环境变量值改为AMERICAN_AMERICA.ZHS16GBK（我将值改为AMERICAN_AMERICA.ZHS16GBK才成功）。<br><img src="http://i.imgur.com/MLNHplV.png" alt=""></p>
-<p>至此，Oracle安装、导入及查看dmp文件过程完成。</p>
-<h3 id="补充-修改用户名密码"><a href="#补充-修改用户名密码" class="headerlink" title="补充(修改用户名密码)"></a>补充(修改用户名密码)</h3><p>Ip地址换了之后，需要修改安装环境下的tnsnames.ora和listener.ora两个文件里的ip；<br>另外过一段时间用户名密码可能会失效，因此需要修改。（注意每条命令后要加;）</p>
-<ol>
-<li>打开命令提示符，输入命令sqlplus/nolog，进入oracle控制台，并输入conn/as sysdba;以DBA角色进入。<br><img src="https://i.imgur.com/7agqFkR.png" alt=""></li>
-<li>连接成功后，输入”select username from dba_users;”查看用户列表</li>
-<li>修改用户密码<br>“alter user 用户名 identified by 新密码;”</li>
-<li>看是否能连接上数据库<br>“conn 用户名/新密码;”</li>
-</ol>
+<p>padding-bottom的值取决于实际情况，但是设大一点无所谓。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -159,7 +125,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="https://aliceflaviawang.github.io/2017/07/27/ORACLE导入dmp文件详解/" data-title="ORACLE导入dmp文件详解 | 笑呵呵" data-tsina="null" class="share clearfix">
+	  <div data-url="https://aliceflaviawang.github.io/2017/09/04/两列等高/" data-title="两列等高 | 笑呵呵" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -173,18 +139,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2017/07/24/尾递归/" title="尾递归">
+ <a href="/2017/09/01/div水平垂直居中的方式总结/" title="div水平垂直居中的方式总结">
   <strong>上一篇：</strong><br/>
   <span>
-  尾递归</span>
+  div水平垂直居中的方式总结</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2017/07/29/猜数游戏/"  title="猜数游戏">
+<a href="/2017/09/04/三栏布局/"  title="三栏布局">
  <strong>下一篇：</strong><br/> 
- <span>猜数游戏
+ <span>三栏布局
 </span>
 </a>
 </div>
@@ -199,7 +165,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#补充-修改用户名密码"><span class="toc-number">1.</span> <span class="toc-text">补充(修改用户名密码)</span></a></li></ol>
+ 
  
   </div>
 

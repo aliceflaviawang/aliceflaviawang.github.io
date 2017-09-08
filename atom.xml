@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://aliceflaviawang.github.io/"/>
-  <updated>2017-09-02T11:21:48.980Z</updated>
+  <updated>2017-09-04T13:47:57.901Z</updated>
   <id>https://aliceflaviawang.github.io/</id>
   
   <author>
@@ -16,11 +16,73 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>三栏布局</title>
+    <link href="https://aliceflaviawang.github.io/2017/09/04/%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/"/>
+    <id>https://aliceflaviawang.github.io/2017/09/04/三栏布局/</id>
+    <published>2017-09-04T13:42:47.000Z</published>
+    <updated>2017-09-04T13:47:57.901Z</updated>
+    
+    <content type="html"><![CDATA[<ol>
+<li><p>绝对值法：</p>
+</li>
+<li><p>margin负值法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;main&quot;&gt;</div><div class="line">   &lt;div id=&quot;body&quot;&gt;&lt;/div&gt;</div><div class="line">   &lt;/div&gt;	</div><div class="line">   &lt;div id=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line">   &lt;div id=&quot;right&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">html,body&#123;</div><div class="line">  margin:0; //取消浏览器的设置的边界</div><div class="line">&#125;</div><div class="line">#main&#123;</div><div class="line">  width:100%;</div><div class="line">  height:200px;</div><div class="line">  float:left;</div><div class="line">&#125;</div><div class="line">#main,#body&#123;  </div><div class="line">  background:black;</div><div class="line">  height:200px; </div><div class="line">&#125;</div><div class="line">#left,#right&#123;</div><div class="line">  width:200px;</div><div class="line">  height:200px;</div><div class="line">  float:left;</div><div class="line">  background:red;</div><div class="line">&#125;</div><div class="line">//通过负值使得left和right移动到两边</div><div class="line">#left&#123; </div><div class="line">  margin-left:-100%;</div><div class="line">&#125;</div><div class="line">#right&#123;</div><div class="line">  margin-left:-200px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;绝对值法：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;margin负值法&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>两列等高</title>
+    <link href="https://aliceflaviawang.github.io/2017/09/04/%E4%B8%A4%E5%88%97%E7%AD%89%E9%AB%98/"/>
+    <id>https://aliceflaviawang.github.io/2017/09/04/两列等高/</id>
+    <published>2017-09-04T12:21:13.000Z</published>
+    <updated>2017-09-04T12:55:00.858Z</updated>
+    
+    <content type="html"><![CDATA[<p>面试的时候被问到，如何实现响应式的两列等高。<br>下来查到了两种方式：</p>
+<ol>
+<li>设置最小高度<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">min-height:200px;</div><div class="line">height:auto !important;</div><div class="line">height:200px;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>实现两列等高：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;container2&quot;&gt;</div><div class="line">&lt;div id=&quot;container1&quot;&gt;</div><div class="line">	&lt;div id=&quot;col1&quot;&gt;Left Sidebar&lt;/div&gt;</div><div class="line">	&lt;div id=&quot;col2&quot;&gt;Main Content&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">#container2 &#123;</div><div class="line">	  	float: left;</div><div class="line">	  	width: 100%;</div><div class="line">	  	background: orange;</div><div class="line">	  	position: relative;</div><div class="line">	  	overflow: hidden;</div><div class="line">	  &#125;</div><div class="line">	  #container1 &#123;</div><div class="line">	  	float: left;</div><div class="line">	  	width: 100%;</div><div class="line">	  	background: green;</div><div class="line">	  	position: relative;</div><div class="line">	  	left: 220px;/* 宽度大小等与边栏宽度大小*/</div><div class="line">	  &#125;</div><div class="line">    </div><div class="line">	  #col2 &#123;</div><div class="line">	  	position: relative;</div><div class="line">	  	margin-right: 220px;/* 宽度大小等与边栏宽度大小*/</div><div class="line">	  &#125;</div><div class="line">    </div><div class="line">	  #col1 &#123;</div><div class="line">	  	width: 220px;</div><div class="line">	  	float: left;</div><div class="line">	  	position: relative;</div><div class="line">	  	margin-left: -220px;/* 宽度大小等与边栏宽度大小*/</div><div class="line">	  &#125;</div><div class="line">   </div><div class="line">		#col1,#col2 &#123;</div><div class="line">			min-height: 100px;</div><div class="line">			height: auto !important;</div><div class="line">			height: 500px;</div><div class="line">		&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>padding补偿法<br>首先把列的padding-bottom设为一个足够的大的值，再把列的margin-bottom设一个与前面的padding-bottom的正值相抵消的负值。<br>将上面例子中的#col1,#col2换成下面的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#col,#col2&#123;</div><div class="line">   padding-bottom:2000px;</div><div class="line">   margin-bottom:-2000px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>padding-bottom的值取决于实际情况，但是设大一点无所谓。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;面试的时候被问到，如何实现响应式的两列等高。&lt;br&gt;下来查到了两种方式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;设置最小高度&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;li
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>div水平垂直居中的方式总结</title>
     <link href="https://aliceflaviawang.github.io/2017/09/01/div%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/"/>
     <id>https://aliceflaviawang.github.io/2017/09/01/div水平垂直居中的方式总结/</id>
     <published>2017-09-01T14:19:43.000Z</published>
-    <updated>2017-09-02T11:21:48.980Z</updated>
+    <updated>2017-09-04T14:56:19.023Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-绝对定位"><a href="#1-绝对定位" class="headerlink" title="1.绝对定位"></a>1.绝对定位</h3><p>margin:0 auto可以实现水平居中，实际上margin:auto也可以实现垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.center&#123;</div><div class="line">  margin:auto;</div><div class="line">  position:absolute;</div><div class="line">  top:0;left:0;bottom:0;right:0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>优点：</p>
@@ -33,9 +95,22 @@
 <li>必须声明高度或者宽度中的一种</li>
 </ol>
 <h4 id="居中方式"><a href="#居中方式" class="headerlink" title="居中方式"></a>居中方式</h4><p>一、容器内<br>内容块的父容器设置为position：relative，使用上述绝对居中方式，可以使内容居中显示于父容器内。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">  position:relative;</div><div class="line">  width:300px;</div><div class="line">  height:200px;</div><div class="line">&#125;</div><div class="line">.Absolute-Center &#123;  </div><div class="line">  margin: auto;  </div><div class="line">  position: absolute;  </div><div class="line">  top: 0; left: 0; bottom: 0; right: 0;  </div><div class="line">  width:30%;</div><div class="line">  height:20%;</div><div class="line">  overflow:auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>二、视区内<br>如果想让内容块一直停留在可视区内，将内容快设置为position:fixed；并设置一个较大的z-index层叠属性值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.Absolute-Center &#123; </div><div class="line">  position:fixed;</div><div class="line">  z-index:999;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>三、边栏：</p>
-<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3>]]></content>
+<h3 id="2-flex"><a href="#2-flex" class="headerlink" title="2.flex"></a>2.flex</h3><p>flex的justify-content和align-items分别决定元素水平方向和垂直方向的排列方向。将其设置成center即可实现水平和垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;parent&quot;&gt;</div><div class="line">    &lt;div id=&quot;child&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#parent&#123;</div><div class="line">  display:flex;</div><div class="line">  width:100%;</div><div class="line">  background:black;</div><div class="line">  height:200px;</div><div class="line">  align-items:center;</div><div class="line">  justify-content:center;</div><div class="line">&#125;</div><div class="line">#child&#123; </div><div class="line">  width:100px;</div><div class="line">  height:100px;</div><div class="line">  background:red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>parent是容器，child是垂直居中的元素。</p>
+<h3 id="3-translate-50-，50"><a href="#3-translate-50-，50" class="headerlink" title="3. translate(-50%，50%)"></a>3. translate(-50%，50%)</h3><p>原理是将元素通过绝对定位移动到父元素的宽高的50%，这时候要将移动其自身宽高的-50%，才能让元素水平垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#parent&#123;  </div><div class="line">  position:relative;</div><div class="line">  width:100%;</div><div class="line">  background:black;</div><div class="line">  height:300px;</div><div class="line">  </div><div class="line">&#125;</div><div class="line">#child&#123;</div><div class="line">  width:100px;</div><div class="line">  height:100px;</div><div class="line">  background:red;</div><div class="line">  position:absolute;</div><div class="line">  top:50%;</div><div class="line">  left:50%;</div><div class="line">  transform:translate(-50%,-50%);</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意，parent的position必须设成relative。<br>这种方式有个缺点：必须知道元素的宽高。</p>
+<h3 id="4-水平居中"><a href="#4-水平居中" class="headerlink" title="4. 水平居中"></a>4. 水平居中</h3><ol>
+<li><p>inline-block<br>仅inline-block无法让元素水平居中，关键还是要在元素的父容器中设置text-align属性为center。<br>水平居中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#parent&#123;</div><div class="line">  text-align:center;  </div><div class="line">  width:100%;</div><div class="line">  background:black;</div><div class="line">  height:300px;</div><div class="line"> &#125;</div><div class="line">#child&#123;</div><div class="line">  width:100px;</div><div class="line">  height:100px;</div><div class="line">  background:red;</div><div class="line">  display:inlinblock</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>fit-content（兼容性很差）<br>fit-content是width的一个新属性，配合margin:auto，可以实现水平居中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;关于我们&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;产品展示&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;客户支持&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;联系我们&lt;/a&gt;&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ul&#123;</div><div class="line">  width: -moz-fit-content;</div><div class="line">  width: -webkit-fit-content;</div><div class="line">  width: fit-content;</div><div class="line">  margin: auto;</div><div class="line">&#125;</div><div class="line">li&#123;float:left&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-table-cell垂直剧中"><a href="#5-table-cell垂直剧中" class="headerlink" title="5. table-cell垂直剧中"></a>5. table-cell垂直剧中</h3><p>table-cell实现让内容元素垂直居中<br>垂直居中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#parent&#123;  </div><div class="line">  width:1500px;</div><div class="line">  background:black;</div><div class="line">  height:300px; </div><div class="line">  display:table-cell;</div><div class="line">  text-align:center;</div><div class="line">  vertical-align:middle;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
     
     <summary type="html">
     
@@ -764,74 +839,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;Promise含义&quot;&gt;&lt;a href=&quot;#Promise含义&quot; class=&quot;headerlink&quot; title=&quot;Promise含义&quot;&gt;&lt;/a&gt;Promise含义&lt;/h3&gt;&lt;p&gt;Promise是一种异步编程的解决方案，比传统的回调函数和事件更合理和更强大。&lt;br
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>猜数游戏</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/29/%E7%8C%9C%E6%95%B0%E6%B8%B8%E6%88%8F/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/29/猜数游戏/</id>
-    <published>2017-07-29T08:44:01.000Z</published>
-    <updated>2017-07-29T09:29:45.325Z</updated>
-    
-    <content type="html"><![CDATA[<p>牛客上的猜数题，分析过程非常有意思，记录一下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">牛牛和羊羊在玩一个有趣的猜数游戏。在这个游戏中,牛牛玩家选择一个正整数,羊羊根据已给的提示猜这个数字。第i个提示是&quot;Y&quot;或者&quot;N&quot;,表示牛牛选择的数是否是i的倍数。例如,如果提示是&quot;YYNYY&quot;,它表示这个数使1,2,4,5的倍数,但不是3的倍数。注意到一些提示会出现错误。例如: 提示&quot;NYYY&quot;是错误的,因为所有的整数都是1的倍数,所以起始元素肯定不会是&quot;N&quot;。此外,例如&quot;YNNY&quot;的提示也是错误的,因为结果不可能是4的倍数但不是2的倍数。现在给出一个整数n,表示已给的提示的长度。请计算出长度为n的合法的提示的个数。例如 n = 5:合法的提示有:YNNNN YNNNY YNYNN YNYNY YYNNN YYNNYYYNYN YYNYY YYYNN YYYNY YYYYN YYYYY所以输出12 输入描述:</div><div class="line">输入包括一个整数n(1 ≤ n ≤ 10^6),表示已给提示的长度。</div><div class="line">输出描述:</div><div class="line">输出一个整数,表示合法的提示个数。因为答案可能会很大,所以输出对于1000000007的模</div><div class="line">输入例子1:</div><div class="line">5</div><div class="line">输出例子1:</div><div class="line">12</div></pre></td></tr></table></figure></p>
-<p>分析：<br>首先看有几种可能：</p>
-<ol>
-<li>如果第i个数是素数，前面除了1没有能除尽的，所以i有Y和N两种可能</li>
-<li>如果第i个数是素数的幂次，比如输入的是12，那么其中2、4、8是素数2的幂次，分析下2、4、8，有YYY、NNN、YNN、YYN四种可能，3、9是素数3的幂次，有YY、NN、YN两种可能…总结规律得出如果有n个幂次，就有n+1种可能的情况。</li>
-<li>如果第i个数不是素数的幂次，比如6、10，可以发现，6取决于2、3，如果2、3为YY，6必然为Y，其他情况都为N，也就是6、10这种并非素数的幂次的数并不影响可能的情况</li>
-</ol>
-<p>因此，只需要考虑素数幂次的个数（素数是特殊的幂次即一次幂，如果有n个幂次，就有n+1种可能）。<br>对12来说：有4<em>3</em>2<em>2</em>2种可能，对应的分别是（2、4、8）、（3、9）、（5）、（7）、（9）.<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function count(n)&#123;</div><div class="line">   var mod=Math.pow(10,9)+7; //防止答案过大，输出对于1000000007的模</div><div class="line">   var ans=1;//结果</div><div class="line">   var arr=[];//定义布尔数组</div><div class="line">   for(var i=2;i&lt;=n;i++)&#123;</div><div class="line">     var count=0; //统计幂次</div><div class="line">     //找出素数</div><div class="line">     if(arr[i])</div><div class="line">       continue;</div><div class="line">      for(var j=i+i;j&lt;=n;j+=i)&#123;</div><div class="line">         arr[j]=true;</div><div class="line">     &#125;</div><div class="line">     var mi=i;</div><div class="line">     while(mi&lt;=n)&#123;</div><div class="line">       count++;</div><div class="line">       mi*=i;</div><div class="line">    &#125;</div><div class="line">    ans=ans*(count+1)%mod;</div><div class="line">  &#125;</div><div class="line">  console.log(ans);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;牛客上的猜数题，分析过程非常有意思，记录一下。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ORACLE导入dmp文件详解</title>
-    <link href="https://aliceflaviawang.github.io/2017/07/27/ORACLE%E5%AF%BC%E5%85%A5dmp%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3/"/>
-    <id>https://aliceflaviawang.github.io/2017/07/27/ORACLE导入dmp文件详解/</id>
-    <published>2017-07-27T02:19:16.000Z</published>
-    <updated>2017-07-27T03:28:15.658Z</updated>
-    
-    <content type="html"><![CDATA[<p>折腾了一天终于导入成功并查看到了，决定写个教程。<br>准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。</p>
-<ol>
-<li>安装oracle 11g<br>这个比较简单，百度上很多教程如：<a href="http://www.cnblogs.com/qfb620/p/4577255.html。" target="_blank" rel="external">http://www.cnblogs.com/qfb620/p/4577255.html。</a></li>
-</ol>
-<p>需要注意的是<br><img src="http://i.imgur.com/SS9Ee2V.png" alt=""><br>这一步不要填电子邮件，否则会报连接错误<br><img src="http://i.imgur.com/1Ha6MKi.png" alt=""><br>这一步填写口令的时候主要开头不要是数字，否则安装完会报错（但是不确定有没有影响）</p>
-<ol>
-<li>安装完成后修改用户名和密码<br>在控制台用sqlplus / as sysdba登陆oracle系统<br><img src="http://i.imgur.com/LVJ31Nu.png" alt=""><br>使用命令修改用户名密码<br>alter user 用户名 indentified by “密码”</li>
-</ol>
-<ol>
-<li>打开pl/sql developer<br>初始打开时<br><img src="http://i.imgur.com/AElweZ7.png" alt=""><br>用户名和密码为第2步修改的用户名和密码，数据库是“ip/数据库名（默认是orcl）”</li>
-</ol>
-<p>点击登录，报错<br><img src="http://i.imgur.com/fPYQPZq.png" alt=""><br>解决办法：在未登陆的情况下进入pl/sql，在工具-&gt;首选项-&gt;连接里面设置Oracle主目录名和OCI库（其中Oracle主目录在Oracle安装目录下，OCI在安装目录的BIN目录下）<br><img src="http://i.imgur.com/8dgBtn4.png" alt=""></p>
-<p>再次登陆，依然报错，原因是无法load BIN目录下的oci.dll文件<br><img src="http://i.imgur.com/U7U0VWr.png" alt=""><br>解决办法：  在这个地址<a href="http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program" target="_blank" rel="external">http://download.csdn.NET/detail/shenkxiao/4181424下载包含oci.dll文件包，解压到&quot;D:\Program</a> Files\”下，然后将上一步OCI目录改成”D:\Program Files\instantclient_10_2\instantclient_10_2\oci.dll”。<br><img src="http://i.imgur.com/X0D3w1B.png" alt=""></p>
-<p>重新登陆，发现出现了“连接为”这一项，并且自动出现了用户名和数据库地址，点击出现了”Oracle client ORA-12541: TNS:no listener [closed]”错误。<br>解决办法：<br>首先找到Oracle安装目录下的listener.ora和tnsnames.ora(我的是在E:\app\Alice\product\11.2.0\dbhome_1\NETWORK\ADMIN下)，将host=localhost改成host=ip<br><img src="http://i.imgur.com/wRcpnjz.png" alt=""><br>然后重启Oracle服务，WinKey+r<br><img src="http://i.imgur.com/CQhHzjJ.png" alt=""></p>
-<p>再次打开pl/sql，点击确定登录成功<br><img src="http://i.imgur.com/66Znr2F.jpg" alt=""></p>
-<ol>
-<li>导入dmp文件<br>打开工具-&gt;导入表-&gt;Oracle导入（dmp文件选择Oacle导入）<br>在“导入可执行文件”栏填入的是可执行的文件，比如Oracle安装目录的BIN目录下的imp.exe文件（我的地址是”E:\app\Alice\product\11.2.0\dbhome_1\BIN\imp.exe”），导入文件就是你要导入的dmp文件的地址。<br><img src="http://i.imgur.com/hINz0hF.png" alt=""></li>
-</ol>
-<p>导入成功，下方会有提示<br><img src="http://i.imgur.com/eO3jpvu.png" alt=""></p>
-<p>点击左侧的Table的项，刷新，可以看到导入的表，然后右键编辑表可以看到新导入的表结构<br><img src="http://i.imgur.com/BLoNSsE.png" alt=""></p>
-<p>此时你可能会发现表里有些乱码，解决办法是：新建环境变量NLS_LANG，值为SIMPLIFIE DCHINESE_CHINA.ZHS16GBK，保存后重启pl/sql，如果还是乱码，则将环境变量值改为AMERICAN_AMERICA.ZHS16GBK（我将值改为AMERICAN_AMERICA.ZHS16GBK才成功）。<br><img src="http://i.imgur.com/MLNHplV.png" alt=""></p>
-<p>至此，Oracle安装、导入及查看dmp文件过程完成。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;折腾了一天终于导入成功并查看到了，决定写个教程。&lt;br&gt;准备：下载oracle 11g和pl/sql developer，我使用的是64位，据说用32位可能错误要少一点。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;安装oracle 11g&lt;br&gt;这个比较简单，百度上很多教程如：&lt;a hre
     
     </summary>
     

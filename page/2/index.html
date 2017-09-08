@@ -81,6 +81,157 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/08/24/JS继承实现方式/" title="JS继承实现方式" itemprop="url">JS继承实现方式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-24T08:45:01.000Z" itemprop="datePublished"> Published 2017-08-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天来总结下继承实现的方式<br>既然要实现继承，那么首先要有个父类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//定义一个动物类</div><div class="line">function Animal(name)&#123;</div><div class="line">  //属性</div><div class="line">  this.name=name||&quot;Animal&quot;;</div><div class="line">  //实例方法</div><div class="line">  this.sleep=function()&#123;</div><div class="line">    console.log(this.name);</div><div class="line"> &#125;  </div><div class="line">&#125;</div><div class="line">//原型方法</div><div class="line">Animal.prototype.eat=function(food)&#123;</div><div class="line">  console.log(this.name+&quot;正在吃：&quot;+food);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="1-原型链继承"><a href="#1-原型链继承" class="headerlink" title="1.原型链继承"></a>1.原型链继承</h3><p>核心：<strong>将父类的实例作为子类的原型</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Cat()&#123;</div><div class="line">&#125;</div><div class="line">Cat.prototype=new Animal();</div><div class="line">Cat.prototype.name=&apos;cat&apos;;</div><div class="line"></div><div class="line">var cat=new Cat(); </div><div class="line">console.log(cat.name); //cat</div><div class="line">console.log(cat.eat(&apos;fish&apos;)); //cat正在吃fish</div><div class="line">console.log(cat.sleep()); //cat</div><div class="line">console.log(cat instanceof Animal); //true</div><div class="line">console.log(cat instanceof Cat); //true</div></pre></td></tr></table></figure></p>
+<p>特点：</p>
+<ol>
+<li>非常纯粹的继承关系，实例是子类的实例，也是父类的实例</li>
+<li>父类新增原型方法/原型属性，子类都能访问到</li>
+<li>简单，易于实现<br>缺点：</li>
+<li>要想为子类新增属性和方法，必须要在new Animal()这样的语句之后，不能放在构造器中</li>
+<li>无法实现多继承</li>
+<li>来自原型对象的引用属性是所有实例共享的，即一个实例改变了另外的也会改变</li>
+<li>创建子类实例时，无法向父类构造器传参</li>
+</ol>
+<h3 id="2-构造继承"><a href="#2-构造继承" class="headerlink" title="2.构造继承"></a>2.构造继承</h3><p>核心：<strong>使用父类的构造函数来增强子类实例</strong>，等于复制父类的实例属性给子类（没用到原型）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Cat(name)&#123;</div><div class="line">  Animal.call(this);</div><div class="line">  this.name=name||&apos;Tom&apos;;</div><div class="line">&#125;</div><div class="line">var cat=new Cat(); </div><div class="line">console.log(cat.name); //Tom</div><div class="line">console.log(cat.eat(&apos;fish&apos;)); //error:cat.eat is not a function</div><div class="line">console.log(cat.sleep()); //Tom</div><div class="line">console.log(cat instanceof Animal); //false</div><div class="line">console.log(cat instanceof Cat); //true</div></pre></td></tr></table></figure></p>
+<p>特点：</p>
+<ol>
+<li>解决了1中，子类实例共享父类引用属性的问题</li>
+<li>创建子类实例时，可以向父类传递参数</li>
+<li>可以实现多继承（call多个父类对象）<br>缺点：</li>
+<li>实例并不是父类的实例，只是子类的实例</li>
+<li>只能继承父类的实例属性和方法，不能继承原型属性/方法</li>
+<li>无法实现函数复用，每个子类都有父类实例函数的副本，影响性能</li>
+</ol>
+<h3 id="3-实例继承"><a href="#3-实例继承" class="headerlink" title="3.实例继承"></a>3.实例继承</h3><p>核心：<strong>为父类实例添加新特性，作为子类实例返回</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function Cat(name)&#123;</div><div class="line">  var instance=new Animal();</div><div class="line">  instance.name=name||&apos;Tom&apos;;</div><div class="line">  return instance;</div><div class="line">&#125;</div><div class="line">var cat=new Cat();</div><div class="line">console.log(cat.name); //Tom</div><div class="line">console.log(cat.sleep()); //Tom</div><div class="line">console.log(cat instanceof Animal); //true</div><div class="line">console.log(cat instanceof Cat);  //false</div><div class="line">``` </div><div class="line">特点：</div><div class="line"> 1. 不限制调用方式，不管是new 子类子类（），返回的对象具有相同的效果</div><div class="line">缺点：</div><div class="line"> 1. 实例是父类的实例，不是子类的实例</div><div class="line"> 2. 不支持多继承</div><div class="line"></div><div class="line">### 4.拷贝继承</div></pre></td></tr></table></figure></p>
+<p>function Cat(name){<br>  var animal=new Animal();<br>  for(var p in animal){<br>     Cat.prototype[p]=animal[p];<br>  }<br>  Cat.prototype.name=name||’Tom’;<br>}<br>var cat=new Cat();<br>console.log(cat.name); //Tom<br>console.log(cat.sleep()); //Tom<br>console.log(cat instanceof Animal); //false<br>console.log(cat instanceof Cat); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">特点：</div><div class="line"> 1. 支持多继承</div><div class="line">缺点：</div><div class="line"> 1. 效率较低，内存占用高（因为要拷贝父类的属性）</div><div class="line"> 2. 无法获取父类不可枚举的方法（不可枚举的方法，不能使用for in访问到）</div><div class="line"></div><div class="line">### 5.组合继承</div><div class="line"></div><div class="line">核心：通过调用父类方法，继承父类的属性并保留传参的优点，然后通过父类实例作为子类原型，实现函数复用。</div></pre></td></tr></table></figure></p>
+<p>function Cat(name){<br>  Animal.call(this);<br>  this.name=name||’Tom’;</p>
+<p>}<br>Cat.prototype=new Animal();<br>var cat=new Cat();<br>console.log(cat.name); //Tom<br>console.log(cat.sleep()); //Tom<br>console.log(cat instanceof Animal); //true<br>console.log(cat instanceof Cat); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">特点：</div><div class="line"> 1. 既弥补了方式2的缺陷，可以实现实例属性/方法，也可以继承原型属性/方法</div><div class="line"> 2. 既是子类的实例，也是父类的实例</div><div class="line"> 3. 不存在引用属性共享问题</div><div class="line"> 4. 可传参</div><div class="line"> 5. 函数可复用</div><div class="line">缺点：</div><div class="line"> 1. 调用了两次父类构造函数，生成了两份实例（子类实例将子类原型上的那份屏蔽了）</div><div class="line"></div><div class="line">### 6.寄生组合继承</div><div class="line"></div><div class="line">核心：通过寄生方式，砍掉父类的实例属性，这样，在调用两次父类的构造的时候，就不会初始化两次实例方法/属性，避免组合继承的缺点。</div></pre></td></tr></table></figure></p>
+<p>function Cat(name){<br>  Animal.call(this);<br>  this.name=name||’Tom’;<br>}<br>(function(){<br>   //创建一个没有实例方法的类<br>   var Super=function(){<br>   }<br>   Super.prototye=Animal.prototype;<br>   Cat.prototype=new Super();<br>})();</p>
+<p>var cat=new Cat();<br>console.log(cat.name); //Tom<br>console.log(cat.sleep()); //Tom<br>console.log(cat instanceof Animal); //false<br>console.log(cat instanceof Cat); //true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### ES6继承</div></pre></td></tr></table></figure></p>
+<p>class Animal{<br>  constructor(){<br>    this.type=’animal’<br> }<br>  says(say){<br>    console.log(this.type+” says “+say)<br> }<br>}<br>let animal=new Animal(); //animal says hello<br>animal.says(‘hello’);<br>class Cat extends Animal{<br>    constructor(){<br>      super()<br>      this.type=’cat’<br>  }<br>}<br>let cat=new Cat()<br>cat.says(‘hello’); //cat says hello<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">ES6定义了类class，里面有一个construtor方法，就是构造方法，而this关键字则代表实例对象。constructor内定义的方法和属性是实例对象自己的，而construtor外定义的方法和属性则是所有实例对象可以共享的。</div><div class="line"></div><div class="line">class之间通过extends实现继承，这比ES5通过修改原型链实现继承，要清晰和方面很多。</div><div class="line"></div><div class="line">super关键字，它指代父类的实例（即父类的this对象），子类必须在constructor方法中调用super方法，否则新建实例时会报错，这是因为子类没有自己的this对象，而是继承父类的this对象，然后再用子类的构造函数修改this。如果不调用super方法，子类就得不到this对象。</div><div class="line"></div><div class="line">ES6的继承机制，实质上是先创建父类的实例对象this（所以必须调用先super方法），然后再用子类的构造函数修改this。</div><div class="line"></div><div class="line">ES6中同样有prototype以及在ES5中用来指向构造函数原型的__proto__属性，这个属性在ES6中的指向有一些主动的修改。</div><div class="line">一个继承语句同时存在两条继承链：一条实现属性继承，一条实现方法继承。</div></pre></td></tr></table></figure></p>
+<p>class A extends B{<br>  A.<strong>proto</strong>===B; //属性继承<br>  A.prototype.<strong>proto</strong>===B.prototype; //方法继承<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ES6的子类的__proto__是父类，子类的原型的__proto__是父类的原型</div><div class="line">第二条继承链理解起来没有什么问题，对应到ES5中的A.prototype=new B，A.prototype是B构造的实例，指向构造函数B的原型B.prototype。</div><div class="line">但是在ES5中A.__proto__指向Function.prototype，因为每个构造函数其实都是Function这个对象构造的，ES6中子类的__proto__指向父类可以实现属性的继承，在ES5中在没有用借用集成的时候，由于父类属性被子类原型继承，所有的子类实例实际上都是同一个属性应用。</div><div class="line"></div><div class="line">在ES6中实现了子类继承父类属性，在构造实例时会直接拿到子类的属性，不需要查找到原型属性上面去，ES6新的静态方法和静态属性（只能在构造函数上访问）也是通过这样类的直接继承来实现，至于普通函数复用方法还是放在原型链桑，道理和实现和ES5一样的。</div><div class="line"></div><div class="line">ES6的继承是在父类创建this对象，在子类constructor中来修饰父类的this，ES5是在子类创建this，将父类的属性方法绑定到子类，由于原生的构造函数（Function,Array）没有this，子类无法通过call/apply(this)获得其内部属性，所以在ES5无法继承，ES6实现后可以为原生构造函数封装一下有趣的接口，比如：</div></pre></td></tr></table></figure></p>
+<p>class VersionedArray extends Array{<br>  constructor(){<br>    super();<br>    this.history=[[]];<br>  }<br>  commit(){<br>    this.history.push(this.slice());<br>  }<br>  revert(){<br>    this.splice(0,this.length,…this.history[this.history.length-1]);<br>  }<br>}<br>var x=new VersionedArray();<br>x.push(1);<br>x.push(2);<br>x //[1,2]<br>x.history //[[]]</p>
+<p>x.commit();<br>x.history; //[[],1,2]<br>x.push(3);<br>x //[1,2,3]<br>x.revert();<br>x.history //[1,2]<br>```</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/23/const-let-var的区别/" title="const, let, var的区别 " itemprop="url">const, let, var的区别 </a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-23T02:07:46.000Z" itemprop="datePublished"> Published 2017-08-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ol>
+<li>const<br>const比较简单，通俗的来说就是用来定义常量，必须初始化，且初始化后不能修改。</li>
+<li>var与let<br>var和let作用比较相似，let可以说是更完美的var，var声明的变量是全局的或者是函数级的，let声明的变量作用域是在块级作用域。</li>
+</ol>
+<ul>
+<li><p><strong>声明后未赋值，var和let表现相同</strong>：都是undefined</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&apos;use strict&apos;</div><div class="line">(function()&#123;</div><div class="line">   var varTest;</div><div class="line">   let letTest;</div><div class="line">   console.log(varTest); //undefined</div><div class="line">   console.log(letTest); //undefined</div><div class="line">&#125;())</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用未声明的变量，表现不同</strong>：var是undefined，let则报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">   console.log(varTest); //undefined</div><div class="line">   console.log(letTest); //报错：ReferenceError:letTest is not defined</div><div class="line">   var varTest;</div><div class="line">   let letTest;</div><div class="line">&#125;())</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>重复声明同一个变量时，表现不同</strong>:var后声明的会覆盖前者，而let则直接报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">   var varTest=&quot;hi&quot;;</div><div class="line">   let letTest=&quot;hello&quot;;</div><div class="line">   var varTest=&quot;changed&quot;;</div><div class="line">   let letTest=&quot;error&quot;; </div><div class="line">   console.log(varTest); //changed</div><div class="line">   console.log(letTest); //报错：SyntaxError:Indentifier &apos;letTest&apos; has already been declared</div><div class="line">&#125;())</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>变量作用范围不同</strong>：var作用在全局作用域或函数作用域，let作用在块级作用域，在函数内部使用let后，对外部无影响</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">(function() &#123;</div><div class="line">  var varTest = &apos;test var OK.&apos;;</div><div class="line">  let letTest = &apos;test let OK.&apos;;</div><div class="line"></div><div class="line">  &#123;</div><div class="line">    var varTest = &apos;varTest changed.&apos;;</div><div class="line">    let letTest = &apos;letTest changed.&apos;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  console.log(varTest); //输出&quot;varTest changed.&quot;，内部&quot;&#123;&#125;&quot;中声明的varTest变量覆盖外部的letTest声明</div><div class="line">  console.log(letTest); //输出&quot;test let OK.&quot;，内部&quot;&#123;&#125;&quot;中声明的letTest和外部的letTest不是同一个变量</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>举个经典例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(var i=0;i&lt;3;i++)&#123;</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    console.log(i)</div><div class="line">&#125;,1000)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>控制台输出了3个3，是因为循环本身及三次timeout回调均<strong>共享唯一变量i</strong>。而使用let就不一样可以获得预期的效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for(let i=0;i&lt;3;i++)&#123;</div><div class="line">  setTimeout(function()&#123;</div><div class="line">    console.log(i)</div><div class="line">&#125;,1000)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>输出的是0，1，2，因为循环每次迭代时都为i创建新的绑定，就是捕捉每一个循环变量的不同值作为副本。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/17/页面提速/" title="页面提速" itemprop="url">页面提速</a>
   </h1>
   <p class="article-author">By
@@ -507,135 +658,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/09/ES6箭头函数的this与普通函数的this对比/" title="ES6箭头函数的this与普通函数的this对比" itemprop="url">ES6箭头函数的this与普通函数的this对比</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-09T03:16:19.000Z" itemprop="datePublished"> Published 2017-08-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="普通函数中的this"><a href="#普通函数中的this" class="headerlink" title="普通函数中的this"></a>普通函数中的this</h2><p>有以下几种情况</p>
-<ol>
-<li><p>this总是代表它的直接调用者，例如obj.func，那么func中的this就是obj</p>
-</li>
-<li><p>在默认情况（非严格模式下，未使用’use strict’），没找到直接调用者，则this指向window</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">   func:function()&#123;&#125;,</div><div class="line">   say:function()&#123;</div><div class="line">     var that=this;</div><div class="line">     setTimeout(function()&#123;</div><div class="line">       console.log(this)  //window</div><div class="line">       that.func()</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.say();</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>匿名函数、定时器中的函数，由于没有默认的宿主对象，所以默认指向window。<br>如果想使用这个对象的引用，通常是使用一个变量提前把正确的this引用保存起来，我们通常使用that=this或者_this=this来保存我们需要的this指针。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">window.val=1;</div><div class="line">var obj=&#123;</div><div class="line">  val:2,</div><div class="line">  dbl:function()&#123;</div><div class="line">     this.val*=2;</div><div class="line">     val*=2;</div><div class="line">     console.log(val);</div><div class="line">     console.log(this.val);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">obj.dbl();</div><div class="line">var func=obj.dbl;</div><div class="line">func();</div></pre></td></tr></table></figure></p>
-<p>结果：2 4 8 8<br>val变量在没有指定对象前缀，默认从函数中找，找不到则从window中找全局变量，即val<em>=2就是window.val</em>=2,this.val默认指的是obj.val(因为dbl()第一次被obj直接调用)。<br>func()没有任何前缀，类似于全局函数，即window.func调用，所以第二次调用的时候，this指的是window，val指的是window.val，obj.dbl()使得window.val的结果变成了2，this.val和val都是指向全局的val，因此this.val<em>2使得全局的val变成了4，再val</em>2使其变为8，最后val和this.val就都等于8。</p>
-<ol>
-<li><p>在严格模式下，没有直接调用者的函数中的this是undefined</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">   &apos;use strict&apos;;</div><div class="line">   console.log(this);</div><div class="line">&#125;</div><div class="line">test(); //undefined</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用call、apply、bind绑定的，this指向绑定的对象</p>
-</li>
-</ol>
-<h2 id="箭头函数中的this"><a href="#箭头函数中的this" class="headerlink" title="箭头函数中的this"></a>箭头函数中的this</h2><p>默认指向在定义它时它所处的对象，而不是执行时的对象，定义它的时候，可能环境是window。<br>箭头函数根本就没有绑定自己的this，实际上箭头函数中调用this是沿着作用域链向上寻找，找到最近的一个this拿来使用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">  say:function()&#123;</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">      console.log(this);</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.say(); //obj</div></pre></td></tr></table></figure></p>
-<p>此时this是定义它的对象，最近的this就是obj而不是window。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">   say:function()&#123;</div><div class="line">     var f1=() =&gt; &#123;</div><div class="line">       console.log(this); //obj</div><div class="line">       setTimeout(() =&gt; &#123;</div><div class="line">         console.log(this); //obj</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">    f1();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>f1最近的作用域的this就是obj，不管f1有几层嵌套，都是obj。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var obj=&#123;</div><div class="line">   say:function()&#123;</div><div class="line">     var f1=function()&#123;</div><div class="line">       console.log(this); //window</div><div class="line">       setTimeout(() =&gt; &#123;</div><div class="line">         console.log(this);  //window</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">   f1();</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">obj.say();</div></pre></td></tr></table></figure></p>
-<p>第一个this:f1调用时，this指向window对象<br>第二个this：找到最近的作用域的this即f1的this，f1的this指向window</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/01/DNS解析/" title="DNS解析" itemprop="url">DNS解析</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-01T14:03:18.000Z" itemprop="datePublished"> Published 2017-08-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong>由来</strong>：IP地址由21位二进制数字组成，用户与因特网上某台主机通信，32位的IP地址显然很难记忆，因此使用比较容易记忆的主机名字（域名）。但是域名长度不固定，机器处理比较困难，而IP地址长度固定，因此处理数据报时用的IP地址。</p>
-<p><strong>解析过程</strong>：当某一个应用需要把主机名解析为IP地址时，该应用进程就调用解析程序，并成为DNS的一个客户，把待解析的域名放在DNS请求报文中，以UDP用户数据报方式发送给本地域名服务器。本地域名服务器在查找域名后，把对应的IP地址放在回答报文中返回。应用程序获得目的主机的IP地址后即可进行通信。</p>
-<p>具体的解析过程：</p>
-<ol>
-<li>主机向本地域名服务器的查询一般都是采用递归查询。所谓递归查询是:如果主机所询问的本地域名服务器不知道被查询的域名的IP地址，那么本地域名服务器就以DNS客户的身份，向其他根域名服务器继续发出查询请求报文（即替主机继续查询），而不是让主机自己进行下一步查询。因此，递归查询返回的查询结果或者是所要查询的IP地址，或者是报错，表示无法查询到所需的IP地址。</li>
-<li>本地域名服务器向根域名服务器的查询是迭代查询。迭代查询：当根域名服务器收到本地域名服务器发出的迭代查询请求报文时，要么给出所要查询的IP地址，要么告诉本地服务器下一步向哪个域名服务器进行查询。然后本地服务器进行后续查询。根域名服务器通常是把自己知道的顶级域名服务器的IP地址告诉本地域名服务器，让本地域名服务器再向顶级域名服务器查询。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>

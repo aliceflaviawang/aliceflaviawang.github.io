@@ -18,7 +18,7 @@
 <meta property="og:url" content="https://aliceflaviawang.github.io/2017/09/01/div水平垂直居中的方式总结/index.html">
 <meta property="og:site_name" content="笑呵呵">
 <meta property="og:description" content="1.绝对定位margin:0 auto可以实现水平居中，实际上margin:auto也可以实现垂直居中。12345.center&amp;#123;  margin:auto;  position:absolute;  top:0;left:0;bottom:0;right:0;&amp;#125; 优点：  支持跨浏览器，包括IE8-IE10 无需其他标记，CSS代码量少 支持百分比属性 只用这一个类可以实现任">
-<meta property="og:updated_time" content="2017-09-02T11:21:48.980Z">
+<meta property="og:updated_time" content="2017-09-04T14:56:19.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="div水平垂直居中的方式总结">
 <meta name="twitter:description" content="1.绝对定位margin:0 auto可以实现水平居中，实际上margin:auto也可以实现垂直居中。12345.center&amp;#123;  margin:auto;  position:absolute;  top:0;left:0;bottom:0;right:0;&amp;#125; 优点：  支持跨浏览器，包括IE8-IE10 无需其他标记，CSS代码量少 支持百分比属性 只用这一个类可以实现任">
@@ -97,7 +97,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-绝对定位"><span class="toc-number">1.</span> <span class="toc-text">1.绝对定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#居中方式"><span class="toc-number">1.1.</span> <span class="toc-text">居中方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">2.</span> <span class="toc-text">2.</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-绝对定位"><span class="toc-number">1.</span> <span class="toc-text">1.绝对定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#居中方式"><span class="toc-number">1.1.</span> <span class="toc-text">居中方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-flex"><span class="toc-number">2.</span> <span class="toc-text">2.flex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-translate-50-，50"><span class="toc-number">3.</span> <span class="toc-text">3. translate(-50%，50%)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-水平居中"><span class="toc-number">4.</span> <span class="toc-text">4. 水平居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-table-cell垂直剧中"><span class="toc-number">5.</span> <span class="toc-text">5. table-cell垂直剧中</span></a></li></ol>
 		
 		</div>
 		
@@ -112,9 +112,22 @@
 <li>必须声明高度或者宽度中的一种</li>
 </ol>
 <h4 id="居中方式"><a href="#居中方式" class="headerlink" title="居中方式"></a>居中方式</h4><p>一、容器内<br>内容块的父容器设置为position：relative，使用上述绝对居中方式，可以使内容居中显示于父容器内。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">  position:relative;</div><div class="line">  width:300px;</div><div class="line">  height:200px;</div><div class="line">&#125;</div><div class="line">.Absolute-Center &#123;  </div><div class="line">  margin: auto;  </div><div class="line">  position: absolute;  </div><div class="line">  top: 0; left: 0; bottom: 0; right: 0;  </div><div class="line">  width:30%;</div><div class="line">  height:20%;</div><div class="line">  overflow:auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>二、视区内<br>如果想让内容块一直停留在可视区内，将内容快设置为position:fixed；并设置一个较大的z-index层叠属性值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.Absolute-Center &#123; </div><div class="line">  position:fixed;</div><div class="line">  z-index:999;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<p>三、边栏：</p>
-<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3>  
+<h3 id="2-flex"><a href="#2-flex" class="headerlink" title="2.flex"></a>2.flex</h3><p>flex的justify-content和align-items分别决定元素水平方向和垂直方向的排列方向。将其设置成center即可实现水平和垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;parent&quot;&gt;</div><div class="line">    &lt;div id=&quot;child&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#parent&#123;</div><div class="line">  display:flex;</div><div class="line">  width:100%;</div><div class="line">  background:black;</div><div class="line">  height:200px;</div><div class="line">  align-items:center;</div><div class="line">  justify-content:center;</div><div class="line">&#125;</div><div class="line">#child&#123; </div><div class="line">  width:100px;</div><div class="line">  height:100px;</div><div class="line">  background:red;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>parent是容器，child是垂直居中的元素。</p>
+<h3 id="3-translate-50-，50"><a href="#3-translate-50-，50" class="headerlink" title="3. translate(-50%，50%)"></a>3. translate(-50%，50%)</h3><p>原理是将元素通过绝对定位移动到父元素的宽高的50%，这时候要将移动其自身宽高的-50%，才能让元素水平垂直居中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#parent&#123;  </div><div class="line">  position:relative;</div><div class="line">  width:100%;</div><div class="line">  background:black;</div><div class="line">  height:300px;</div><div class="line">  </div><div class="line">&#125;</div><div class="line">#child&#123;</div><div class="line">  width:100px;</div><div class="line">  height:100px;</div><div class="line">  background:red;</div><div class="line">  position:absolute;</div><div class="line">  top:50%;</div><div class="line">  left:50%;</div><div class="line">  transform:translate(-50%,-50%);</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意，parent的position必须设成relative。<br>这种方式有个缺点：必须知道元素的宽高。</p>
+<h3 id="4-水平居中"><a href="#4-水平居中" class="headerlink" title="4. 水平居中"></a>4. 水平居中</h3><ol>
+<li><p>inline-block<br>仅inline-block无法让元素水平居中，关键还是要在元素的父容器中设置text-align属性为center。<br>水平居中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#parent&#123;</div><div class="line">  text-align:center;  </div><div class="line">  width:100%;</div><div class="line">  background:black;</div><div class="line">  height:300px;</div><div class="line"> &#125;</div><div class="line">#child&#123;</div><div class="line">  width:100px;</div><div class="line">  height:100px;</div><div class="line">  background:red;</div><div class="line">  display:inlinblock</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>fit-content（兼容性很差）<br>fit-content是width的一个新属性，配合margin:auto，可以实现水平居中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;关于我们&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;产品展示&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;客户支持&lt;/a&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;联系我们&lt;/a&gt;&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ul&#123;</div><div class="line">  width: -moz-fit-content;</div><div class="line">  width: -webkit-fit-content;</div><div class="line">  width: fit-content;</div><div class="line">  margin: auto;</div><div class="line">&#125;</div><div class="line">li&#123;float:left&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-table-cell垂直剧中"><a href="#5-table-cell垂直剧中" class="headerlink" title="5. table-cell垂直剧中"></a>5. table-cell垂直剧中</h3><p>table-cell实现让内容元素垂直居中<br>垂直居中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#parent&#123;  </div><div class="line">  width:1500px;</div><div class="line">  background:black;</div><div class="line">  height:300px; </div><div class="line">  display:table-cell;</div><div class="line">  text-align:center;</div><div class="line">  vertical-align:middle;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -148,6 +161,14 @@
 </div>
 
 
+<div class="next">
+<a href="/2017/09/04/两列等高/"  title="两列等高">
+ <strong>下一篇：</strong><br/> 
+ <span>两列等高
+</span>
+</a>
+</div>
+
 </nav>
 
 	
@@ -158,7 +179,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-绝对定位"><span class="toc-number">1.</span> <span class="toc-text">1.绝对定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#居中方式"><span class="toc-number">1.1.</span> <span class="toc-text">居中方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">2.</span> <span class="toc-text">2.</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-绝对定位"><span class="toc-number">1.</span> <span class="toc-text">1.绝对定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#居中方式"><span class="toc-number">1.1.</span> <span class="toc-text">居中方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-flex"><span class="toc-number">2.</span> <span class="toc-text">2.flex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-translate-50-，50"><span class="toc-number">3.</span> <span class="toc-text">3. translate(-50%，50%)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-水平居中"><span class="toc-number">4.</span> <span class="toc-text">4. 水平居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-table-cell垂直剧中"><span class="toc-number">5.</span> <span class="toc-text">5. table-cell垂直剧中</span></a></li></ol>
  
   </div>
 

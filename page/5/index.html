@@ -81,6 +81,136 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/15/src和href的区别/" title="src和href的区别" itemprop="url">src和href的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-15T12:00:43.000Z" itemprop="datePublished"> Published 2017-07-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="href"><a href="#href" class="headerlink" title="href"></a>href</h3><p>href标志超文本引用，用在link和a元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系。</p>
+<p><link href="common.css" rel="stylesheet">当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理，这也是为什么建议使用link来加载css而不是使用@import。 </p>
+<h3 id="src"><a href="#src" class="headerlink" title="src"></a>src</h3><p>一般用在img,script,frame等元素上。指向外部资源的位置，指向的内部会嵌入到当前标签所在的位置；在请求src资源时会将其指向的资源下载并应用到当前文档中。</p>
+<p><script src="js.js"></script>当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载、编译执行完毕（这也是为什么要把js放到底部而不是头部），图片和框架元素也是如此，类似于该元素所指向的资源嵌套到当前标签内。</p>
+<h4 id="顺便提一下css-js的放置位置"><a href="#顺便提一下css-js的放置位置" class="headerlink" title="顺便提一下css,js的放置位置"></a>顺便提一下css,js的放置位置</h4><p>css放在页面头部，页面渲染时是根据DOM结构生成了一个DOM树然后加上css样式生成渲染树，如果css放在后面可能页面会出现闪跳的感觉，白屏或者布局混乱直到css加载完成。</p>
+<p>js一般放在之前：因为</p>
+<ol>
+<li>执行到<script>这句的时候，会中断其他资源的下载和处理(因为js有可能会修改DOM，所以会阻塞其他的下载和呈现)，知道其下载、解析、执行完毕，因此不能放在头部会组阻塞页面</li>
+<li>不能将需要访问dom元素的<script>放在body之前，因为此时还没生成dom，在body之前访问dom元素会出错<br>（ 但也不能将所有的放在body之后，一些页面的效果的实现，是需要预先动态的加载一些js脚本的）</li>
+</ol>
+</script></li></ol>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/14/li元素逆序/" title="li元素逆序" itemprop="url">li元素逆序</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-14T13:41:08.000Z" itemprop="datePublished"> Published 2017-07-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var ul=document.getElementById(&quot;ul&quot;);</div><div class="line">var children=Array.prototype.slice.call(ul.getElementsByTagName(&quot;li&quot;),0);</div><div class="line">var str=&quot;&quot;;</div><div class="line">children.reverse();</div><div class="line">for(var i=0;i&lt;children.length;i++)&#123;</div><div class="line">  str+=children[i].outerHTML;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>getElementsByTagName(“li”)实际上返回的就是类数组，为什么要用Array.prototype.slice.call(ul.getElementsByTagName(“li”),0)呢？<br><strong><br>在此之前先说说js的类数组对象：HTMLCollection，NodeList,arguements.</strong><br><strong>类数组：拥有length的属性，但不是数组（使用instanceof检查返回false），没有forEach,map,slice等数组方法。
+</strong></p>
+<h3 id="类数组常见的三个对象"><a href="#类数组常见的三个对象" class="headerlink" title="类数组常见的三个对象"></a>类数组常见的三个对象</h3><h4 id="1-函数的arguments"><a href="#1-函数的arguments" class="headerlink" title="1. 函数的arguments"></a>1. 函数的arguments</h4><p>arguments:函数通过arguments访问传入函数的参数。它是个对象（不是数组），有length属性。</p>
+<h4 id="2-HTMLCollection对象"><a href="#2-HTMLCollection对象" class="headerlink" title="2. HTMLCollection对象"></a>2. HTMLCollection对象</h4><p>HTMLCollection是一个借口，表示HTML元素的集合，提供可以遍历的列表的方法和属性。拥有length,item,nameItem属性（可以访问元素的name和id属性）。返回HTMLCollection集合的有：document.getElementsByTagName,document.getElementsByClassName。</p>
+<h4 id="3-NodeList对象"><a href="#3-NodeList对象" class="headerlink" title="3. NodeList对象"></a>3. NodeList对象</h4><p>NodeList代表乐意个有顺序的节点列表（不光有元素，还有其他节点如文本节点、注释节点）。有length,item属性。返回NodeList集合的有：document.getElementsByName，document.querySelectorAll，document.getElementById(“table”).childNodes，document.styleSheets。</p>
+<h3 id="类数组转化成数组"><a href="#类数组转化成数组" class="headerlink" title="类数组转化成数组"></a>类数组转化成数组</h3><h4 id="1-arguments"><a href="#1-arguments" class="headerlink" title="1.arguments"></a>1.arguments</h4><p>arguments的数组话，只需要运用[].slice.call()方法便可以将传递给函数的参数数组化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function person()&#123;</div><div class="line">  var args=[].slice.call(arguments); </div><div class="line">  console.log(args);</div><div class="line">&#125;</div><div class="line">person(10,20);</div></pre></td></tr></table></figure></p>
+<h4 id="2-HTMLCollection和NodeList"><a href="#2-HTMLCollection和NodeList" class="headerlink" title="2.HTMLCollection和NodeList"></a>2.HTMLCollection和NodeList</h4><p>对于这两类数组对象的元素集合，如果我们使用[].slice.call()方法，IE8及以下的浏览器竟然会报错，报错的内容是：”Array.prototype.slice:’this’不是javascript对象”，很明显HTMLCollection和NodeList并不是Object的子类。所以为了让类数组转化成纯数组，需要进行处理：</p>
+<ol>
+<li><p>jQuery早期的makeArray做法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">function makeArray(array)&#123;</div><div class="line">    var ret=[];</div><div class="line">   if(array!=null)&#123;</div><div class="line">      var i=array.length;</div><div class="line">      //The window,strings (and functions) also have length</div><div class="line">      if(i==null||typeof array===&quot;string&quot;||array.setInterval)&#123;</div><div class="line">        ret[0]=array;</div><div class="line">     &#125;else&#123;</div><div class="line">        while(i)&#123;</div><div class="line">           ret[--i]=array[i]; //此处将类数组转化成数组，因为类数组可以遍历，因此适用于所有的类数组对象，将其取出放入数组中</div><div class="line">         &#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">  return ret;</div><div class="line">&#125;</div><div class="line">var arr=makeArray(div);</div><div class="line">console.log(arr);</div></pre></td></tr></table></figure>
+</li>
+<li><p>prototype的做法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.prototype.slice.call(div,0);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其中，第一种做法兼容性比较好，很通用，第二种做法比较高级，但是只适合高版本主流浏览器。</p>
+<ol>
+<li>ES6增加的Array.from方法<br>Array.from可将两类对象转为整正的数组：类似数组的对象（array-like object,类数组对象的本质特征是必须有length属性，即任何有length属性的对象，都可以通过Array.from方法转为数组）和可遍历（iterator）的对象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var div=document.getElementsByTagName(&quot;div&quot;);</div><div class="line">var array=Array.from(div);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>HTMLCollection的集合访问dom元素必须要加上[0]，比如document.getElementsByTagName(“li”)[0]</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/13/阿里面试题/" title="阿里面试题" itemprop="url">阿里面试题</a>
   </h1>
   <p class="article-author">By
@@ -508,128 +638,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/11/CSRF攻击与防御/" title="CSRF攻击与防御" itemprop="url">CSRF攻击与防御</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-11T06:39:07.000Z" itemprop="datePublished"> Published 2017-07-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF:跨站点请求伪造(cross-site request forgery)。攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说是完全合法的，但是却完成了攻击者所期望的一个操作。</p>
-<h3 id="CSRF攻击的原理及过程"><a href="#CSRF攻击的原理及过程" class="headerlink" title="CSRF攻击的原理及过程"></a>CSRF攻击的原理及过程</h3><p><img src="http://i.imgur.com/DO9WNOY.png" alt=""></p>
-<ol>
-<li>用户打开浏览器，访问网站A，输入用户名和密码请求登陆网站A</li>
-<li>在用户信息验证通过之后，网站A产生cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
-<li>用户未退出网站A之前，在同一个浏览器中，打开一个Tab页访问网站B</li>
-<li>网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A</li>
-<li>浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带cookie信息，向网站A发出请求。网站A并不知道请求其实是由B发起的，所以会根据用户的cookie信息以用户的权限处理该请求，导致来自B的恶意被代码执行。<h3 id="CSRF漏洞检测"><a href="#CSRF漏洞检测" class="headerlink" title="CSRF漏洞检测"></a>CSRF漏洞检测</h3>检测CSRF是一项比较繁琐的工作，最简单的方法是抓取一个正常请求的数据包，去掉Referer字段后再重新提交，如果该提交有效，那么基本可以确定CSRF漏洞存在。<h3 id="CSRF攻击防御"><a href="#CSRF攻击防御" class="headerlink" title="CSRF攻击防御"></a>CSRF攻击防御</h3><h4 id="1-验证码"><a href="#1-验证码" class="headerlink" title="1.验证码"></a>1.验证码</h4>验证码不单单用来防止注册机的暴力破解，还可以有效防止CSRF的攻击。<br>不过随着html5的发展，利用canvas标签，前端也能识别验证码的字符，让CSRF生效。<h4 id="2-referer-check"><a href="#2-referer-check" class="headerlink" title="2.referer check"></a>2.referer check</h4>referer记录了该http请求的来源地址，http referer是request header的一部分，当浏览器向web服务器发出请求的时候，一般会带上referer，告诉服务器从哪个站点链接过来。<br>服务器通过判断请求头中的referer，也能避免CSRF攻击。<h4 id="3-token"><a href="#3-token" class="headerlink" title="3. token"></a>3. token</h4>CSRF攻击之所以成功是因为黑客可以在不知道验证信息的情况下直接利用用户的cookie来通过安全验证。可以在http请求中以参数的形式加入一个随机产生的token。（比如get方式放拼接到url，post方式以参数方式）<h4 id="4-在http头中自定义属性并验证"><a href="#4-在http头中自定义属性并验证" class="headerlink" title="4.在http头中自定义属性并验证"></a>4.在http头中自定义属性并验证</h4>也是使用token并进行验证，但是不是以参数的形式置于http请求中，而是把它放在http头中自定义的属性里。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/10/ready-与window-onload的区别/" title="$.ready()与window.onload的区别" itemprop="url">$.ready()与window.onload的区别</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-10T14:33:43.000Z" itemprop="datePublished"> Published 2017-07-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>区别有三点：</p>
-<h3 id="1、执行时机"><a href="#1、执行时机" class="headerlink" title="1、执行时机"></a>1、执行时机</h3><p>$.ready()是网页的所有DOM结构绘制完毕后就执行，可能DOM元素关联的东西还没加载完<br>window.onload必须等网页里所有的内容都加载完毕后（包括图片）才执行</p>
-<h3 id="2、编写个数"><a href="#2、编写个数" class="headerlink" title="2、编写个数"></a>2、编写个数</h3><p>$.ready()可以编写多个，每个都执行<br>window.onload不能编写多个（编写多个时，只执行最后一个）</p>
-<h3 id="3、简化写法"><a href="#3、简化写法" class="headerlink" title="3、简化写法"></a>3、简化写法</h3><p>$.ready实际上是$(document).ready的简写，而window.onload没有简写</p>
-<h3 id="后记：DOM文档的加载过程"><a href="#后记：DOM文档的加载过程" class="headerlink" title="后记：DOM文档的加载过程"></a>后记：DOM文档的加载过程</h3><ol>
-<li>解析HTML结构</li>
-<li>加载外部脚本和样式文件</li>
-<li>解析并执行脚本代码</li>
-<li>DOM树构建完成 //DOMContentLoaded</li>
-<li>加载图片等外部文件</li>
-<li>页面加载完 //load<br>所以$.ready()是在第4步后执行，window.onload是在第6步后执行</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
   </nav>
 
 </div>

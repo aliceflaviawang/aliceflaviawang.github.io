@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,120 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法" itemprop="url">a标签中href=&#39;&#39;的几种用法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> 发表于 2017-06-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
+<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
+<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
+<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
+<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。（如果希望不返回页面顶端，可以在#后面加任意无效的位置信息，如###）</p>
+<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/" title="return false实现同时对事件对象停止冒泡和默认行为" itemprop="url">return false实现同时对事件对象停止冒泡和默认行为</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> 发表于 2017-06-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;content&quot;&gt;</div><div class="line">  外层div元素</div><div class="line">   &lt;span&gt;内层div元素&lt;/span&gt;</div><div class="line">   外层div元素</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;msg&apos;&gt;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;span&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">	&#125;)</div><div class="line">	$(&apos;#content&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;外层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line">	$(&apos;body&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;body元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p>效果如图：<br><img src="http://i.imgur.com/Xgm5FoE.png" alt=""><br>点击span元素<br><img src="http://i.imgur.com/VCfPqq8.png" alt=""><br>点击外层div元素<br><img src="http://i.imgur.com/zWRQWSe.png" alt=""><br>点击内层元素，会冒泡到外层的点击事件。</p>
+<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>stopPropagation()方法可以停止事件冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&apos;span&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">        event.stopPropagation();</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<p>点击span元素<br><img src="http://i.imgur.com/TYzNfYd.png" alt=""></p>
+<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><p>网页中的元素有自己的默认行为，例如，单击“提交”按钮后表单会提交，有时需要阻止元素的默认行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;test.html&quot;&gt;</div><div class="line">用户名：&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;sub&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;#sub&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>如果不阻止默认行为，用户名为空的时候，也能提交表单。阻止默认行为使用preventDefault()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(&apos;#sub&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;); </div><div class="line">            event.preventDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
+<h3 id="同时对事件对象停止冒泡和默认行为——return-false"><a href="#同时对事件对象停止冒泡和默认行为——return-false" class="headerlink" title="同时对事件对象停止冒泡和默认行为——return false"></a>同时对事件对象停止冒泡和默认行为——return false</h3><p>将event.stopPropagation()和event.preventDefault()替换为return false就可以实现同样的效果。</p>
+<h4 id="return-false到底做了什么"><a href="#return-false到底做了什么" class="headerlink" title="return false到底做了什么"></a>return false到底做了什么</h4><p>1、event.preventDefault()<br>2、event.stopPropagation()<br>3、停止回调函数执行并立即返回<br>return false看似实现了阻止冒泡或者阻止默认事件，实际上还做了另外的操作，阻止浏览器默认行为的只有preventDefault()，除非你想停止事件冒泡，否则使用return false会为你的代码埋下很大的隐患。</p>
+<p>###扩展-stopImmediatePropagation()<br>stopImmediatePropagagtion()函数用于阻止剩余的事件处理函数的执行(为同一对象绑定了多个事件处理函数)，并防止当前事件在DOM树上冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;段落文本内容</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;点击&quot; /&gt;</div><div class="line">&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">// 为所有p元素绑定click事件</div><div class="line">$(&quot;p&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;p-click&quot;);</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第一个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-1&quot;);</div><div class="line">    </div><div class="line">    // 阻止事件冒泡到DOM树上，并阻止剩余的事件处理函数的执行</div><div class="line">    // 只执行button-click-1，如果注释掉该行，将执行button-click-1、button-click-2和p-click</div><div class="line">    // 如果换成event.stopPropagation() 将执行button-click-1和button-click-2</div><div class="line">    event.stopImmediatePropagation();</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第二个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-2&quot;);</div><div class="line">&#125; );</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>与stopPropagation()相比，stopImmediatePropagation()还能阻止剩余事件处理函数的执行。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/08/ajax-dataType/" title="ajax dataType" itemprop="url">ajax dataType</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +202,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> Published 2017-06-08</time>
+    <time datetime="2017-06-08T02:42:09.000Z" itemprop="datePublished"> 发表于 2017-06-08</time>
     
   </p>
 </header>
@@ -139,7 +253,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> Published 2017-06-06</time>
+    <time datetime="2017-06-06T03:10:43.000Z" itemprop="datePublished"> 发表于 2017-06-06</time>
     
   </p>
 </header>
@@ -197,7 +311,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> Published 2017-06-05</time>
+    <time datetime="2017-06-05T03:05:49.000Z" itemprop="datePublished"> 发表于 2017-06-05</time>
     
   </p>
 </header>
@@ -249,7 +363,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> Published 2017-05-27</time>
+    <time datetime="2017-05-27T02:06:07.000Z" itemprop="datePublished"> 发表于 2017-05-27</time>
     
   </p>
 </header>
@@ -310,7 +424,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> Published 2017-05-26</time>
+    <time datetime="2017-05-26T07:42:01.000Z" itemprop="datePublished"> 发表于 2017-05-26</time>
     
   </p>
 </header>
@@ -371,7 +485,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> Published 2017-05-24</time>
+    <time datetime="2017-05-24T02:12:22.000Z" itemprop="datePublished"> 发表于 2017-05-24</time>
     
   </p>
 </header>
@@ -411,124 +525,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/05/01/为什么js没有函数签名/" title="为什么js没有函数签名" itemprop="url">为什么js没有函数签名</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-05-01T02:30:42.000Z" itemprop="datePublished"> Published 2017-05-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="什么是函数签名"><a href="#什么是函数签名" class="headerlink" title="什么是函数签名"></a>什么是函数签名</h3><p>MDN上关于函数签名的说明：<br>A function signature(or type signature, or method signature) defines input and putput of functions or methods.<br>A signature can include:</p>
-<ol>
-<li>parameters and their types</li>
-<li>a return value and type</li>
-<li>exceptions that might be thrown or passed back</li>
-<li>information about the availability of the method in an object-oriented program(such as the keywords public, static, or prototype).<br>翻译过来就是函数签名定义了函数或方法的输入输出，签名包括参数个数和类型、返回值和类型、抛出或者往后传的异常、面向对象程序方法可行性的信息。<h3 id="为什么js没有函数签名"><a href="#为什么js没有函数签名" class="headerlink" title="为什么js没有函数签名"></a>为什么js没有函数签名</h3>在其他语言中，命名参数必须要求事先创建函数签名，将来调用也必须与该签名一致；而js的参数是由包含0个或多个值的数组来表示的，命名参数只是提供便利，但不是必须的，解析器也不会验证命名参数，所以js没有签名。<br>举个例子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  alert(&quot;Hi &quot;+arguments[0]+&quot;, &quot;+arguments[1]);</div><div class="line">&#125;</div><div class="line">sayHi(&quot;Alice&quot;,&quot;how are you?&quot;);</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>对这个例子，命名参数为空，但是照样可以按照两个参数的格式去调用该方法，是因为对ECMAScript，无论传递给函数的参数是什么，函数接收到的始终都是数组，通过arguments对象访问的参数数组。所谓的参数类型、参数个数、参数位置、出入参数，js都不关心，它所有的值都被放倒arguments中了，需要返回值的话直接return，不用声明。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/25/slice-substring-substr-总结/" title="slice(), substring(), substr()总结" itemprop="url">slice(), substring(), substr()总结</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-25T13:47:05.000Z" itemprop="datePublished"> Published 2017-04-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>slice(), substring(), substr()都是用来获取子字符串，，且不会修改字符串本身的值。<br>区别：<br>1、参数不同<br>slice: slice(start, end) //start表示子字符串开始的位置，end是子字符串最后一个字符后面的位置<br>substring: substring(start, end) //同slice<br>substr: substr(start, num) //num表示返回字符的个数<br>2、参数是负值的情况不同<br>slice: 将负值与字符串长度相加<br>substring： 将所有的负值转换成0，且会将较小的数作为开始位置，较大的数作为结束位置<br>substr: 将负的第一个参数加上字符串长度，负数第二个参数转换为0<br>```<br>var s=”hello world”;<br>s.slice(3,-4);           //“lo w”<br>s.substring(3,-4);       //“hel”<br>s.substr(3,-4);          //“”（空字符串）</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -539,7 +545,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -705,7 +711,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

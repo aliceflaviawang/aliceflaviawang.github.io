@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,138 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/09/18/http请求头/" title="http请求头" itemprop="url">http请求头</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-18T03:24:32.000Z" itemprop="datePublished"> 发表于 2017-09-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>http由两部分组成：请求和响应。当你在web浏览器中输入一个url时，浏览器将根据你的要求创建并发送请求，该请求包含所输入的url以及一些与浏览器本身相关的信息。当服务器收到这个请求时将返回一个响应，该响应包括与请求相关的信息以及位于指定URL的数据。直到浏览器解析出该响应并显示出网页为止。</p>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>HTTP请求的格式如下：</p>
+<p><request-line></request-line></p>
+<p><headers></headers></p>
+<p><blank line=""><br>[<request-bpdy>]<br>请求行：用来说明请求类型、要访问的资源以及使用的HTTP版本；<br>首部：用来说明服务器要使用的附加信息<br>空行（必须要有）<br>消息主体：键值对<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">POST / HTTP/1.1</div><div class="line">Host: www.baidu.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.6)</div><div class="line">Gecko/20050225 Firefox/1.0.1</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line">Content-Length: 40</div><div class="line">Connection: Keep-Alive</div><div class="line"></div><div class="line">name=Professional%20Ajax&amp;publisher=Wiley</div></pre></td></tr></table></figure></request-bpdy></blank></p>
+<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>与HTTP请求的格式十分类似：</p>
+<p><status-line></status-line></p>
+<p><headers></headers></p>
+<p><blank line=""><br>[<response-body>]<br>状态行：状态码表示所请求资源的情况<br>头部：返回一个Date的首部，用来说明响应生成的日期和时间，其他跟请求头差不多<br>空行<br>响应主体：包含的是请求资源的HTML文件</response-body></blank></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/09/17/SQL性能优化/" title="SQL性能优化" itemprop="url">SQL性能优化</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-17T03:24:05.000Z" itemprop="datePublished"> 发表于 2017-09-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <ol>
+<li>查询的模糊匹配<br>避免在一个复杂查询里面使用LIKE ‘%parm1%’</li>
+</ol>
+<p>解决办法：<br>只需要对该脚本略做改进，查询速度便会提高近百倍。方法如下：<br>a、修改前台程序——将查询由文本输入改为下拉列表，即将模糊输入变为具体定位<br>b、直接修改后台——根据输入，先查出符合条件的并把相关记录保存在一个临时表里，然后用临时表做复杂关联</p>
+<ol>
+<li>索引问题<br>缺少索引对性能影响较大。<br>另外，不要在建立索引的数据列上进行下列操作：</li>
+</ol>
+<ul>
+<li>避免对索引字段进行计算操作</li>
+<li>避免在索引字段上使用not,&lt;&gt;,！=</li>
+<li>避免在索引列上使用is null和is not null</li>
+<li>避免在索引列上上出现数据类型转换</li>
+<li>避免在索引字段上使用函数</li>
+<li>避免建立索引的列中使用空值</li>
+</ul>
+<ol>
+<li>复杂操作<br>部分update、select语句写的很复杂（经常嵌套多级子查询）——可以适当拆成几步，先生成一些临时数据表，再进行关联操作</li>
+<li>update<br>同一个表的修改在一个过程中出现很多次，可以考虑将其整合在一个update语句来完成</li>
+<li>在可以使用union all语句里，使用union<br>union和union all都是将两个结果集合并为一个。<br>union：可以去除重复值，并且按照字段的顺序进行排序<br>union all:只是简单的将两个集合合并，既不去重也不排序，效率要高很多。<br>因此从效率的角度，能用union all不要用union</li>
+<li>在where语句中，尽量避免对索引字段进行计算操作<br>因为这样很有可能导致索引不可用，损害了性能。</li>
+<li>where语句的法则<br>（1）避免在where字句中使用in,not in,or或者having<br>可以使用exist和not exist代替in和not in；having可以用where代替，如果无法代替可以分为两步处理<br>（2）不要以字符格式声明数字，要以数字格式声明字符值。（日期同样）否则会使索引无效，产生全表扫描。</li>
+<li>对select语句的法则<br>在应用程序、包和过程中限制使用select * form table这种方式</li>
+<li>排序<br>避免使用耗费资源的操作，带有distinct，union，minus，insert，order by的sql语句会启动sql引擎执行，耗费资源的排序（sort）功能。distinct需要一次排序操作，而其他的至少需要执行两次排序。</li>
+<li>临时表<br>慎重使用临时表可以极大的提高系统性能</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/09/04/三栏布局/" title="三栏布局" itemprop="url">三栏布局</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +220,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-09-04T13:42:47.000Z" itemprop="datePublished"> Published 2017-09-04</time>
+    <time datetime="2017-09-04T13:42:47.000Z" itemprop="datePublished"> 发表于 2017-09-04</time>
     
   </p>
 </header>
@@ -145,7 +277,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-09-04T12:21:13.000Z" itemprop="datePublished"> Published 2017-09-04</time>
+    <time datetime="2017-09-04T12:21:13.000Z" itemprop="datePublished"> 发表于 2017-09-04</time>
     
   </p>
 </header>
@@ -206,7 +338,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-09-01T14:19:43.000Z" itemprop="datePublished"> Published 2017-09-01</time>
+    <time datetime="2017-09-01T14:19:43.000Z" itemprop="datePublished"> 发表于 2017-09-01</time>
     
   </p>
 </header>
@@ -281,7 +413,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-30T04:46:46.000Z" itemprop="datePublished"> Published 2017-08-30</time>
+    <time datetime="2017-08-30T04:46:46.000Z" itemprop="datePublished"> 发表于 2017-08-30</time>
     
   </p>
 </header>
@@ -351,7 +483,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-30T03:10:18.000Z" itemprop="datePublished"> Published 2017-08-30</time>
+    <time datetime="2017-08-30T03:10:18.000Z" itemprop="datePublished"> 发表于 2017-08-30</time>
     
   </p>
 </header>
@@ -409,7 +541,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-27T13:41:02.000Z" itemprop="datePublished"> Published 2017-08-27</time>
+    <time datetime="2017-08-27T13:41:02.000Z" itemprop="datePublished"> 发表于 2017-08-27</time>
     
   </p>
 </header>
@@ -496,139 +628,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/27/Generator/" title="Generator" itemprop="url">Generator</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-27T12:33:07.000Z" itemprop="datePublished"> Published 2017-08-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Generator函数是ES6提供的一种异步编程解决方案，Generator函数是一个状态机，封装了多个内部状态。除了状态机，还是一个遍历器对象生成函数，返回的遍历器对象，可以依次遍历Generator函数内部的每一个状态。</p>
-<p>形式上，Generator是一个普通函数，但有两个特征：一是，function关键字与函数名之间有个星号；二是，函数体内部使用yield表达式，定义不同的内部状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function* helloWorldGenerator() &#123;</div><div class="line">  yield &apos;hello&apos;;</div><div class="line">  yield &apos;world&apos;;</div><div class="line">  return &apos;ending&apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var hw = helloWorldGenerator();</div></pre></td></tr></table></figure></p>
-<p>上述定义了一个Generator函数helloWorldGenerator，它的内部有两个yield表达式，即函数有三个状态：hello,world和return语句（结束执行）。</p>
-<p>Generator函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用Generator函数后，该函数并不执行，返回的也不是一个函数运行结果，而是一个指向内部状态的指针对象（遍历器对象）。</p>
-<p>下一步，必须调用遍历器对象的next方法，使得指针移向下一个状态。每次调用next方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个yield表达式（或return语句）为止。换言之，Generator函数是分段执行的，yield表达死是暂停执行的标记，而next方法可以恢复执行。</p>
-<p>每一次调用遍历器对象的next方法，都会返回一个有着value和done两个属性的对象。value表示当前内部状态的值，是yield表达式后面那个表达式的值，done属性是一个布尔值，表示是否遍历结束。</p>
-<h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>协程是一种程序运行的方式，可以理解成“写作的线程”或“协作的函数”。协程既可以用单线程实现，也可以用多线程实现。前者是一种特殊的子例程，后者是一种特殊的线程。</p>
-<ol>
-<li>协程与子例程的差异<br>传统的子例程采用堆栈后进先出的执行方式，只有当调用的子函数完全执行完毕，才会结束执行父函数。协程与其不同，多个线程可以并行执行，但是只有一个线程处于正在运行状态，其他都处于暂停，线程之间可以交换执行权。这种可以并行执行、交换执行权的线程，成为协程。</li>
-<li>协程与普通线程的区别<br>相同点，都有自己的执行上下文、可以分享全局变量；不同之处，同一时间可以有多个线程处于运行状态，但是运行的协程只有一个，其他协程都处于暂停状态。另外普通线程是抢先式的，哪个线程优先得到资源，由运行环境决定，但是协程是合作式的，执行权由协程自己分配。</li>
-</ol>
-<p>Generator是ES6对协程的不完全实现，因为只有Generator的调用者才能将执行权还给Generator函数，如果完全执行的协程，任何函数都可以将暂停的协程继续执行。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/27/leetcode-contest/" title="leetcode contest" itemprop="url">leetcode contest</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-27T08:10:58.000Z" itemprop="datePublished"> Published 2017-08-27</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="8-27-contest"><a href="#8-27-contest" class="headerlink" title="8-27 contest"></a>8-27 contest</h3><h4 id="第1题"><a href="#第1题" class="headerlink" title="第1题"></a>第1题</h4><p>Non-decreasing Array My SubmissionsBack to Contest<br>User Accepted: 1054<br>User Tried: 1755<br>Total Accepted: 1080<br>Total Submissions: 7519<br>Difficulty: Easy<br>Given an array with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element.</p>
-<p>We define an array is non-decreasing if array[i] &lt;= array[i + 1] holds for every i (1 &lt;= i &lt; n).</p>
-<p>Example 1:<br>Input: [4,2,3]<br>Output: True<br>Explanation: You could modify the first 4 to 1 to get a non-decreasing array.<br>Example 2:<br>Input: [4,2,1]<br>Output: False<br>Explanation: You can’t get a non-decreasing array by modify at most one element.<br>Note: The n belongs to [1, 10,000].<br>解题思路：<br>通过不断尝试出错发现：对于nums[i-1],nums[i],nums[i+1]来说，如果nums[i]<nums[i]-1&&nums[i]<nums[i+1]或者nums[i]>nums[i]-1&amp;&amp;nums[i]&gt;nums[i+1]，表明nums[i]是那个乱序的数字，把该数字从数组中删除，如果删除后的数组顺序是对的，那么返回true，否则返回false。<br>但是有nums[i]<nums[i]-1&&nums[i]<nums[i+1]和nums[j]>nums[j]-1&amp;&amp;nums[j]&gt;nums[j+1]同时存在的情况，比如[1,2,5,3,4]，5满足第二种情况，3满足第一种情况，此时如果将3移除数组很显然是错误的，因此还需要加一个条件：nums[i-1]&lt;=nums[i+1]。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">public class NonDecreasingArray &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner in = new Scanner(System.in);</div><div class="line">        while (in.hasNext()) &#123;</div><div class="line">           int n=in.nextInt();</div><div class="line">            int[] nums=new int[n];</div><div class="line">            for(int p=0;p&lt;n;p++)&#123;</div><div class="line">                nums[p]=in.nextInt();</div><div class="line">            &#125;</div><div class="line">            Boolean res=true;</div><div class="line"></div><div class="line">            int flag=0;</div><div class="line">            if(nums.length&gt;1)&#123;</div><div class="line">                if(nums[0]&gt;nums[1])&#123;</div><div class="line">                    flag=0;</div><div class="line">                &#125;else if(nums[nums.length-1]&lt;nums[nums.length-2])&#123;</div><div class="line">                    flag=nums.length-1;</div><div class="line">                &#125;else&#123;</div><div class="line"></div><div class="line">                    for(int i=nums.length-2;i&gt;0;i--)&#123;</div><div class="line">                        if((nums[i-1]&lt;nums[i+1])&amp;&amp;((nums[i]&gt;nums[i+1]&amp;&amp;nums[i]&gt;nums[i-1])||(nums[i]&lt;nums[i-1]&amp;&amp;nums[i]&lt;nums[i+1])))&#123;</div><div class="line">                            flag=i;</div><div class="line"></div><div class="line">                            break;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                for(int j=flag;j&lt;nums.length-1;j++)&#123;</div><div class="line">                    nums[j]=nums[j+1];</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                for(int k=0;k&lt;nums.length-2;k++)&#123;</div><div class="line"></div><div class="line">                    if(nums[k]&gt;nums[k+1])&#123;</div><div class="line">                        res=false;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">           System.out.println(res);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></nums[i]-1&&nums[i]<nums[i+1]和nums[j]></nums[i]-1&&nums[i]<nums[i+1]或者nums[i]></p>
-<h4 id="第2题"><a href="#第2题" class="headerlink" title="第2题"></a>第2题</h4><p>If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers.</p>
-<p>For each integer in this list:<br>The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4.<br>The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree.<br>The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.<br>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
-<p>Example 1:<br>Input: [113, 215, 221]<br>Output: 12<br>Explanation:<br>The tree that the list represents is:<br>    3<br>   / \<br>  5   1</p>
-<p>The path sum is (3 + 5) + (3 + 1) = 12.<br>Example 2:<br>Input: [113, 221]<br>Output: 4<br>Explanation:<br>The tree that the list represents is:<br>    3<br>     \<br>      1</p>
-<p>The path sum is (3 + 1) = 4.<br>Discuss<br>解题思路：<br>从后往前判断节点是不是叶子节点，如果是叶子节点，求出它所有的祖先节点的和再与自身值相加。<br>判断本节点是否是叶子，就是判断是否有本节点的深度+1的节点，并且该节点的位置是本节点位置<em>2或者</em>2-1.<br>判断父节点，就是判断该节点的深度-1等于本节点，并且该节点的位置等于本节点位置+1除以2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">public class PathSumIV &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner in = new Scanner(System.in);</div><div class="line">        while (in.hasNext()) &#123;</div><div class="line">            int n=in.nextInt();</div><div class="line">            int[] nums=new int[n];</div><div class="line">            int sum=0;</div><div class="line">            for(int i=0;i&lt;n;i++)&#123;</div><div class="line">                nums[i]=in.nextInt();</div><div class="line">            &#125;</div><div class="line">            for(int j=n-1;j&gt;=0;j--)&#123;</div><div class="line">                //检测节点是不是叶子节点，isLeaf(nums[j]/100,nums[j]%100/10分别为深度和位置</div><div class="line">                if(isLeaf(nums[j]/100,nums[j]%100/10,nums))&#123;</div><div class="line">                    sum+=nums[j]%10+parent(nums[j]/100,nums[j]%100/10,nums);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            System.out.println(sum);</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    //首先判断是不是叶子节点</div><div class="line">    public static Boolean isLeaf(int dep,int pos,int[] nums)&#123;</div><div class="line">        Boolean res=true;</div><div class="line">        for(int i=0;i&lt;nums.length;i++)&#123;</div><div class="line">            if(nums[i]/100==dep+1&amp;&amp;(nums[i]%100/10==pos+pos-1||nums[i]%100/10==pos*2))&#123; </div><div class="line">                res=false;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return res;</div><div class="line">    &#125;</div><div class="line">    //对叶子的节点，将其祖先节点的值加起来</div><div class="line">    public static int parent(int dep,int pos,int[] nums)&#123;</div><div class="line">            int result=0;</div><div class="line">            for(int i=nums.length-1;i&gt;=0;i--)&#123;</div><div class="line">                if(nums[i]/100==dep-1&amp;&amp;nums[i]%100/10==(pos+1)/2)&#123;//判断父节点</div><div class="line">                    result+=nums[i]%10;</div><div class="line">                    dep=nums[i]/100;</div><div class="line">                    pos=nums[i]%100/10;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="第3题"><a href="#第3题" class="headerlink" title="第3题"></a>第3题</h4><p>Given two integers n and k, you need to construct a list which contains n different positive integers ranging from 1 to n and obeys the following requirement:<br>Suppose this list is [a1, a2, a3, … , an], then the list [|a1 - a2|, |a2 - a3|, |a3 - a4|, … , |an-1 - an|] has exactly k distinct integers.</p>
-<p>If there are multiple answers, print any of them.</p>
-<p>Example 1:<br>Input: n = 3, k = 1<br>Output: [1, 2, 3]<br>Explanation: The [1, 2, 3] has three different positive integers ranging from 1 to 3, and the [1, 1] has exactly 1 distinct integer: 1.</p>
-<p>Example 2:<br>Input: n = 3, k = 2<br>Output: [1, 3, 2]<br>Explanation: The [1, 3, 2] has three different positive integers ranging from 1 to 3, and the [2, 1] has exactly 2 distinct integers: 1 and 2.</p>
-<p>Note:<br>The n and k are in the range 1 &lt;= k &lt; n &lt;= 104.<br>解题思路：<br>找规律，k=1：不交换；k=2：将最后两位交换；k=3:将最后一位与第1位交换，后面依次往后挪一位；k=4:将最后一位与第1位交换,后面依次往后挪一位，然后最后两位交换；k=5:将将最后一位与第1位交换，后面依次往后挪一位，再将最后一位与第3位交换，后面依次往后挪一位….当k是基数的时候，交换了k/2次；当k是偶数的时候，液交换了k/2次，只是前k/2-1次是与前面的基数位交换，最后一次是最后两位交换。<br>由于java在数组的操作不如js方便，因此使用js来做此题，每次交换之后往后挪一位，只需要使用splice添加最后一位到指定位置然后pop弹出最后一位即可实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">var constructArray = function(n, k) &#123;</div><div class="line">    var arr=[];</div><div class="line">    //初始创建数组</div><div class="line">    for(var i=0;i&lt;n;i++)&#123;</div><div class="line">        arr[i]=i+1;</div><div class="line">    &#125;</div><div class="line">    if(k==1)&#123; //不交换，返回原数组</div><div class="line">        return arr;</div><div class="line">    &#125;else&#123;</div><div class="line">        if(k%2!=0)&#123; //k=基数</div><div class="line">           arr=change(k,arr);</div><div class="line">        &#125;</div><div class="line">        else&#123; //k=偶数</div><div class="line">          //对前k/2-1步进行交换操作</div><div class="line">          arr=change(k-1,arr);</div><div class="line">          //最后一步，交换最后两位</div><div class="line">          var temp1=arr[n-1];</div><div class="line">          arr[n-1]=arr[n-2];</div><div class="line">          arr[n-2]=temp1;        </div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return arr;</div><div class="line">&#125;</div><div class="line">//实现数组的交换操作</div><div class="line">function change(k,arr)&#123;</div><div class="line">    for(var j=1;j&lt;k;j=j+2)&#123;      </div><div class="line">            arr.splice(j,0,arr[arr.length-1]);</div><div class="line">            arr.pop();          </div><div class="line">        &#125;</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -639,7 +648,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -805,7 +814,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

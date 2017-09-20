@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,124 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/07/24/尾递归/" title="尾递归" itemprop="url">尾递归</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-24T07:59:48.000Z" itemprop="datePublished"> 发表于 2017-07-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>函数调用自身，成为递归。如果尾调用自身，就称为尾递归。</p>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误（出自阮一峰ECMAScript6入门，但是亲测尾递归还是会出现栈溢出，只不过情况要比普通的递归情况好很多）。</p>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function factorial(n)&#123;</div><div class="line">   if(n===1) return 1;</div><div class="line">   return n*factorial(n-1);</div><div class="line">&#125;</div><div class="line">factorial(5)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度O(n)。<br>如果改成尾递归，只保留一个调用记录，复杂度O(1)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,total)&#123;</div><div class="line">  if(n&lt;=1) return total;</div><div class="line">   return factorial(n-1,n*toatl);</div><div class="line">&#125;</div><div class="line">factorial(5,1)</div></pre></td></tr></table></figure></p>
+<p>非常经典的例子，Fibonacci数列：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n)&#123;</div><div class="line">  if(n&lt;=1)&#123;return 1&#125;;</div><div class="line">  return Fibonacci(n-1)+Fibonacci(n-2);</div><div class="line">&#125;</div><div class="line">Fibonacci(10);  //89</div><div class="line">Fibonacci(100);  //堆栈溢出</div><div class="line">Fibonacci(1000);  //堆栈溢出</div></pre></td></tr></table></figure></p>
+<p>如果将其改为尾递归实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function Fibonacci(n,ac1=1,ac2=1)&#123;</div><div class="line">  if(n&lt;=1)&#123;return ac2&#125;;</div><div class="line">  return Fibonacci(n-1,ac2,ac1+ac2);</div><div class="line">&#125;</div><div class="line">Fibonacci(100)  //573147844013817200000</div><div class="line">Fibonacci(1000) //7.0330367711422765e+208</div><div class="line">Fibonacci(10000) //栈溢出</div></pre></td></tr></table></figure></p>
+<h3 id="递归函数的改写"><a href="#递归函数的改写" class="headerlink" title="递归函数的改写"></a>递归函数的改写</h3><p>尾递归的实现往往需要改写递归函数，确保最后一步只调用自身。做到这一点的方法，就是把所有用到的内部变量改写成函数的参数。<br>有两种方法可以解决：</p>
+<ol>
+<li><p>在尾递归之外，再提供一个正常行驶的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">funtion tailFactorial(n,total)&#123;</div><div class="line">   if(n===1) return total;</div><div class="line">   return tailFactorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">function factorial(n)&#123;</div><div class="line">   tailFactorial(n,1)</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+<li><p>采用ES6的函数默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function factorial(n,toatl=1)&#123;</div><div class="line">  if(n===1) return toatl;</div><div class="line">  return factorial(n-1,n*total);</div><div class="line">&#125;</div><div class="line">factorial(5);</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>递归本质上是一种循环操作，循环可以用递归代替，而一旦使用递归，最好使用尾递归。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/17/inline-block和float的区别/" title="inline-block和float的区别" itemprop="url">inline-block和float的区别</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-17T05:38:48.000Z" itemprop="datePublished"> 发表于 2017-07-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>inline-block:块状内联元素。inline属性使元素内联展示，内联设置宽度无效，相邻的inline元素会在一行显示不换行，直到本行排满为止。block元素始终会独占一行，呈块状显示，可设置宽高。inline-block让元素容器属性为block，内容为inline。</p>
+<p>float：设置元素浮动时，相邻元素会根据自身大小，排满一行，如果父容器宽度不够则换行。浮动元素脱离了文档流，相邻元素会呈现环绕状排列。</p>
+<p>共同点：<br>都能实现元素在一行显示，并且可以自由设置元素大小</p>
+<p>区别：<br>inline-block：水平排列一行，即使元素高度不一，也会以最大元素高度为行高，即使高度小的元素周围留空，也不会有第二行元素上浮补位<br>（inline-block仍在文档流里，减少了程序对DOM的更改操作，因为DOM的每一次更改，浏览器会重绘DOM树）<br>float：让元素脱离文档流，呈环绕状排列，如遇上行有空白，而当前元素的大小可以挤进去，这个元素会在上行补位排列</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/07/17/http头：Expires-Cache-Control-Last-Modified-ETag/" title="http头：Expires,Cache-Control,Last-Modified,ETag" itemprop="url">http头：Expires,Cache-Control,Last-Modified,ETag</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +206,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-17T02:01:46.000Z" itemprop="datePublished"> Published 2017-07-17</time>
+    <time datetime="2017-07-17T02:01:46.000Z" itemprop="datePublished"> 发表于 2017-07-17</time>
     
   </p>
 </header>
@@ -184,7 +302,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-16T13:27:16.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    <time datetime="2017-07-16T13:27:16.000Z" itemprop="datePublished"> 发表于 2017-07-16</time>
     
   </p>
 </header>
@@ -238,7 +356,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-16T11:58:42.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    <time datetime="2017-07-16T11:58:42.000Z" itemprop="datePublished"> 发表于 2017-07-16</time>
     
   </p>
 </header>
@@ -300,7 +418,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-16T08:37:15.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    <time datetime="2017-07-16T08:37:15.000Z" itemprop="datePublished"> 发表于 2017-07-16</time>
     
   </p>
 </header>
@@ -362,7 +480,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-16T04:07:05.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    <time datetime="2017-07-16T04:07:05.000Z" itemprop="datePublished"> 发表于 2017-07-16</time>
     
   </p>
 </header>
@@ -413,7 +531,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-07-16T03:56:59.000Z" itemprop="datePublished"> Published 2017-07-16</time>
+    <time datetime="2017-07-16T03:56:59.000Z" itemprop="datePublished"> 发表于 2017-07-16</time>
     
   </p>
 </header>
@@ -457,152 +575,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/15/立即执行函数的作用/" title="立即执行函数的作用" itemprop="url">立即执行函数的作用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-15T14:39:58.000Z" itemprop="datePublished"> Published 2017-07-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>(function(){})()是立即执行函数（IIFE），它会默认将函数作为表达式去解析，而不是函数声明（注意圆括号内不能包含声明）。<br>它的作用：</p>
-<ol>
-<li>最主要的作用是隔离作用域，直到ES5JS没有块作用域，用来隔离作用域避免污染。</li>
-<li>惰性，利用立即执行特性，返回需要的业务函数或对象，避免每次通过条件判断来处理。</li>
-</ol>
-<h3 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h3><p>惰性载入表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用的过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。<br>举个经典的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    element.addEventListener(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     element.attachEvent(type,element,fun);</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     element[&apos;on&apos;+type]=fun;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面注册监听函数主要是为了兼容浏览器。由于浏览器差异，不得不再用的时候做能力检测。但是这样做，每次绑定监听，都会对能力做一次检测，然而真正的应用中，同一个应用环境，其实只需要做一次检测即可。<br>下面重写addEvent:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function addEvent(type,element,fun)&#123;</div><div class="line">  if(element.addEventListener)&#123;</div><div class="line">    addEvent=function(type,element,fun)&#123;</div><div class="line">       element.addEventListener(type,fun,false);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else if(element.attachEvent)&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">        element.attachEvent(&quot;on&quot;+type,fun);</div><div class="line">     &#125;</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">     addEvent=function(type,element,fun)&#123;</div><div class="line">       element[&apos;on&apos;+type]=fun;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>由于第一调用addEvent会对浏览器做能力检测，然后重写addEvent。下次再调用的时候，由于函数被重写，不会再做能力检测。</p>
-<p>惰性函数的应用场景：</p>
-<ol>
-<li>应用频繁。用的次数也多越能体现出优势来；</li>
-<li>固定不变。一次判断，在固定的应用环境中不会发生改变；</li>
-<li>复杂的分支判断。没有差异性的，不需要用这种模式。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/07/15/同步和异步/" title="同步和异步" itemprop="url">同步和异步</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-07-15T13:11:06.000Z" itemprop="datePublished"> Published 2017-07-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>延伸 摘自阮一峰es6入门：</p>
-<p>于是，这个问题又回到了最开始的起点：JavaScript是单线程的。</p>
-<p>JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。</p>
-<p>JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
-<p>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成了这门语言的核心特征，将来也不会改变。</p>
-<p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。</p>
-<p>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。于是就有一个概念，任务队列。</p>
-<p>如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），不得不等着结果出来，再往下执行。</p>
-<p>JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。</p>
-<p>于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</p>
-<p>具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）</p>
-<p>（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。<br>（2）主线程之外，还存在一个”任务队列”（task queue）。只要异步任务有了运行结果，就在”任务队列”之中放置一个事件。<br>（3）一旦”执行栈”中的所有同步任务执行完毕，系统就会读取”任务队列”，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。<br>（4）主线程不断重复上面的第三步。<br>下图就是主线程和任务队列的示意图。<br><img src="http://i.imgur.com/X6pz2fm.png" alt=""></p>
-<p>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。  </p>
-<p>“任务队列”是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了。主线程读取”任务队列”，就是读取里面有哪些事件。</p>
-<p>“任务队列”中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
-<p>所谓”回调函数”（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。</p>
-<p>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
-<h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><p>一个程序就是一个进程，而一个程序中的多个任务则被称为线程。进程是表示资源分配的基本单位，又是调度运行的基本单位。线程是进程中执行运算的最小单位，亦即执行处理机调度的基本单位。进程和线程的关系：</p>
-<ol>
-<li>一个线程只属于一个进程，而一个进程可以有多个线程，但至少有一个线程。线程是操作系统可以识别的最小执行和调度单位。</li>
-<li>资源分配给进程，同一个进程的所有线程共享该进程的所有资源。同一进程中的多个线程共享代码段、数据段、扩展段。但是每个线程拥有自己的栈段，栈段又叫运行时段，用来存放所有局部变量和临时变量。</li>
-<li>处理机分给线程。即真正在处理机上运行的是线程。</li>
-<li>线程在执行过程中，需要同步写作，不同的线程间要利用消息通信的办法实现同步。</li>
-</ol>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -613,7 +595,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -779,7 +761,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

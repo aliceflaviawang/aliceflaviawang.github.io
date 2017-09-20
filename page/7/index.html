@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,151 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/06/25/原生JavaScript实现Ajax/" title="原生JavaScript实现Ajax" itemprop="url">原生JavaScript实现Ajax</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-25T12:21:18.000Z" itemprop="datePublished"> 发表于 2017-06-25</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Ajax实现步骤：</p>
+<h3 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h3><p>XMLHttpRequest用于在后台与服务器交换数据，可以在不重新加载整个网页的情况下，对网页的部分进行更新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注：ActiveXObject对象在IE11中已移除。</p>
+<h3 id="想服务器发送请求"><a href="#想服务器发送请求" class="headerlink" title="想服务器发送请求"></a>想服务器发送请求</h3><p>首先调用open方法，有五个参数（常用的前三个）：</p>
+<ol>
+<li>method:必须提供，用来指定发送请求的HTTP方法（GET, POST等）</li>
+<li>uri：请求的url，会被自动解析成绝对地址</li>
+<li>async:请求是否是异步的，默认是true</li>
+<li>username, password:如果需要服务器验证用户，则设置username和password这两个参数。<br>然后调用send方法，按照open方法设定的参数将请求进去发送<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">if(type==&apos;GET&apos;)&#123;</div><div class="line">   //拼接GET方法的URL</div><div class="line">   if(typeof(data)!=&apos;undefined&apos;)&#123;</div><div class="line">      url+=&apos;?&apos;;</div><div class="line">      for(i in data)&#123;</div><div class="line">          url+=i+&apos;=&apos;+data[i]+&apos;&amp;&apos;;</div><div class="line">       &#125;</div><div class="line">      url=url.substring(0,url.length-1); //去掉最后一个&apos;&amp;&apos;</div><div class="line">    &#125;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(null);</div><div class="line">&#125;else if(type==&apos;POST&apos;)&#123;</div><div class="line">    XHR.open(type,url,true);</div><div class="line">    XHR.send(data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：理论上GET方法也有body，但一般约定GET的参数都放在URL上，所以type为GET时，send的参数一般是null.</p>
+<h4 id="get和post的区别"><a href="#get和post的区别" class="headerlink" title="get和post的区别"></a>get和post的区别</h4><p>它们的结构和使用方式相同，区别：</p>
+<ol>
+<li>get请求会将参数跟在url后进行传递，而post则是将参数作为http消息的实体内容发给web服务器 （对用户是不可见的）</li>
+<li>get对传输数据有大小限制（通常不能大于2kb），而post传递的数据量要比get大得多（理论上没有限制。但get效率更高，一般用来查询</li>
+<li>get方式请求的数据会被浏览缓存，post则不会，get具有安全问题、</li>
+<li>get方式和post方式传递的数据在服务器端的获取也不相同<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3>在讲响应之前，先介绍一下readyState属性，readyState标识了当前对象正处于什么状态。<br><img src="http://i.imgur.com/k4q4mxH.png" alt=""><br>另外介绍一下status属性，status属性描述了HTTP状态代码，一下常用的状态码：<br><img src="http://i.imgur.com/uOPv6zj.png" alt=""><br><img src="http://i.imgur.com/L8Znsb2.png" alt=""><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">XHR.onreadystatechange=function()&#123;//readyState的值发生改变时就会触发onreadystatechange</div><div class="line">   if(readystate==4)&#123;</div><div class="line">      if(XHR.status&gt;=200&amp;&amp;XHR.status&lt;300||XHR.status==304)&#123;</div><div class="line">         //请求成功</div><div class="line">      &#125;else&#123;</div><div class="line">         //请求失败</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注：</p>
+<ol>
+<li>status仅当readyState的状态是3或者4的时候才可用</li>
+<li>send()方法必须在readyState的属性值是1，即调用open()方法以后才能调用</li>
+</ol>
+<h4 id="http-302-303-307"><a href="#http-302-303-307" class="headerlink" title="http 302 303 307"></a>http 302 303 307</h4><p>302作为HTTP 1.0的标准，现在使用只是为了兼容性的处理。<br>HTTP 1.1有303 307作为详细的补充，其实是对302的细化<br>302：指示资源在另一个位置，该位置通过;Location指定<br>303：请求的资源可以在另一个URI处找到，客户端必须使用GET方法来获取新位置的资源<br>307：后续请求资源的方法是使用与当前交互相同的方法而不是全部使用GET</p>
+<h4 id="Ajax的交互模型"><a href="#Ajax的交互模型" class="headerlink" title="Ajax的交互模型"></a>Ajax的交互模型</h4><ul>
+<li>用户发出请求</li>
+<li>创建XMLHttpRequest对象</li>
+<li>告诉XMLHttpRequest对象哪个函数会处理XMLHttpRequest对象状态的改变，为此要把对象的onReadyStateChange属性设置为响应该事件的JavaScript函数的引用</li>
+<li>创建请求，用open方法指定get还是post，是否同步，url地址</li>
+<li>发送请求，send方法</li>
+<li>接收结果并分析</li>
+<li>实现刷新</li>
+</ul>
+<h4 id="同步与异步的区别"><a href="#同步与异步的区别" class="headerlink" title="同步与异步的区别"></a>同步与异步的区别</h4><p>同步：脚本会停留等待服务器发送回复然后再继续<br>异步：脚本允许页面继续其进程并处理可能的回复</p>
+<h4 id="Ajax的同步和异步"><a href="#Ajax的同步和异步" class="headerlink" title="Ajax的同步和异步"></a>Ajax的同步和异步</h4><p>ajax的open方法中，第三个参数(async)设同步或者异步，默认是true(异步)。异步的话，客户机不等待服务器的响应，需要onreadystatechange事件处理，且值为4处理下面的内容；同步的话客户机需要等待服务器返回消息后才去执行其他操作，js等待请求返回，获取status，不需要onreadystatechange事件处理函数。</p>
+<p>同步和异步的请求代码示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div><div class="line">XHR.open(&apos;GET&apos;,URL,false);</div><div class="line">XHR.send(null);</div><div class="line">var result=XHR.status;</div><div class="line"></div><div class="line">//OK</div><div class="line">if(result==200)&#123;</div><div class="line">  document.getElementById(&quot;left&quot;).innerHTML=XHR.responseText;</div><div class="line">&#125;</div><div class="line">  XHR=null;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var XHR=if(window.XMLHttpRequest)&#123;</div><div class="line">   XHR=new XMLHttpRequest();</div><div class="line">&#125;else if(window.ActiveXObject)&#123;//IE6</div><div class="line">   XHR=new ActiveXobject(&apos;Microsoft.XMLHTTP&apos;);</div><div class="line">&#125;</div><div class="line">XHR.open(&apos;GET&apos;,URL,false);</div><div class="line">XHR.onreadystatechange=handleResponse;</div><div class="line">XHR.send(null);</div><div class="line"></div><div class="line">function handleResponse()&#123;</div><div class="line">  if(XHR.readyState==4&amp;&amp;XHR.status==2000)&#123;</div><div class="line">     document.getElementById(&quot;left&quot;).innerHTML=XHR.responseText;</div><div class="line">      XHR=null;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/06/24/jQuery-proxy-方法/" title="jQuery $.proxy()方法" itemprop="url">jQuery $.proxy()方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-06-24T14:01:36.000Z" itemprop="datePublished"> 发表于 2017-06-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$.proxy方法接收一个已有的函数，并返回一个带特定上下文的新的函数。该方法通常用于向上下文只想不同对象的元素添加事件。</p>
+<h3 id="语法1"><a href="#语法1" class="headerlink" title="语法1"></a>语法1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(selector).proxy(function,context) //function：要被调用的已有函数，context:函数所在对象的名称</div></pre></td></tr></table></figure>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;div元素&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">   test=function()&#123;</div><div class="line">      this.text=&quot;这是一个对象属性&quot;;</div><div class="line">      $(&quot;div&quot;).click(this.myClick);</div><div class="line">    &#125;</div><div class="line">    test.prototype.myClick=function()&#123;</div><div class="line">       alert(this.text); </div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击“div元素”，弹出undefined。这是因为执行$(“div”).click(this.myClick)后的this与test()中的this不是同一个。<br>而使用$.proxy()可以将$(“div”).click(this.myClick)执行的this绑定到test的上下文环境中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;div元素&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">   test=function()&#123;</div><div class="line">      this.text=&quot;这是一个对象属性&quot;;</div><div class="line">      $(&quot;div&quot;).click($.proxy(this.myClick),this);</div><div class="line">    &#125;</div><div class="line">    test.prototype.myClick=function()&#123;</div><div class="line">       alert(this.text); </div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击“div元素”，弹出的是“这是一个对象属性”。</p>
+<h3 id="语法2"><a href="#语法2" class="headerlink" title="语法2"></a>语法2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(selector).proxy(context,name) //name:已有的函数，其上下文将被改变（应该是context对象的属性）</div></pre></td></tr></table></figure>
+<p>举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;button&gt;执行test函数&lt;/button&gt;</div><div class="line">&lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  var objPerson=&#123;</div><div class="line">    name:&quot;John&quot;,</div><div class="line">    age:32,</div><div class="line">    test:function()&#123;</div><div class="line">       $(&quot;p&quot;).after(&quot;Name:&quot;+this.name+&quot;&lt;br&gt;Age:&quot;+this.age);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">$(&quot;button&quot;).click(objPerson.test.call(this));</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击button按钮，出现Name:undefined Age:undefined，因为test的上下文环境和objPerson的上下文环境不一样，test里面没有定义name和age对象。可以通过$.proxy()绑定test的上下文环境。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;button&gt;执行test函数&lt;/button&gt;</div><div class="line">&lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  var objPerson=&#123;</div><div class="line">    name:&quot;John&quot;,</div><div class="line">    age:32,</div><div class="line">    test:function()&#123;</div><div class="line">       $(&quot;p&quot;).after(&quot;Name:&quot;+this.name+&quot;&lt;br&gt;Age:&quot;+this.age);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">$(&quot;button&quot;).click($.proxy(objPerson,&quot;test&quot;));</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>点击button按钮，出现Name:John Age:32。当然之前分析call函数时，也提到过call()也可以绑定上下文环境，实现与上面同样的效果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;button&gt;执行test函数&lt;/button&gt;</div><div class="line">&lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  var objPerson=&#123;</div><div class="line">    name:&quot;John&quot;,</div><div class="line">    age:32,</div><div class="line">    test:function()&#123;</div><div class="line">       $(&quot;p&quot;).after(&quot;Name:&quot;+this.name+&quot;&lt;br&gt;Age:&quot;+this.age);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">$(&quot;button&quot;).click(objPerson.test.call(objPerson));//将test()环境绑定到objPerson环境中</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/06/23/bind-delegate-on-方法区别/" title="bind(), delegate(), on()方法区别" itemprop="url">bind(), delegate(), on()方法区别</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +233,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-23T08:51:44.000Z" itemprop="datePublished"> Published 2017-06-23</time>
+    <time datetime="2017-06-23T08:51:44.000Z" itemprop="datePublished"> 发表于 2017-06-23</time>
     
   </p>
 </header>
@@ -144,7 +289,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> Published 2017-06-23</time>
+    <time datetime="2017-06-23T02:14:53.000Z" itemprop="datePublished"> 发表于 2017-06-23</time>
     
   </p>
 </header>
@@ -219,7 +364,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> Published 2017-06-22</time>
+    <time datetime="2017-06-22T08:31:43.000Z" itemprop="datePublished"> 发表于 2017-06-22</time>
     
   </p>
 </header>
@@ -275,7 +420,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> Published 2017-06-22</time>
+    <time datetime="2017-06-22T02:01:30.000Z" itemprop="datePublished"> 发表于 2017-06-22</time>
     
   </p>
 </header>
@@ -328,7 +473,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> Published 2017-06-17</time>
+    <time datetime="2017-06-17T11:22:16.000Z" itemprop="datePublished"> 发表于 2017-06-17</time>
     
   </p>
 </header>
@@ -383,7 +528,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> Published 2017-06-15</time>
+    <time datetime="2017-06-15T02:15:18.000Z" itemprop="datePublished"> 发表于 2017-06-15</time>
     
   </p>
 </header>
@@ -421,130 +566,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/13/a标签中href-的几种用法/" title="a标签中href=&#39;&#39;的几种用法" itemprop="url">a标签中href=&#39;&#39;的几种用法</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-13T06:54:22.000Z" itemprop="datePublished"> Published 2017-06-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>a标签的主要作用是实现超链接和锚点，下面总结下a标签href的几种用法。</p>
-<h3 id="一、href的几种调用方法"><a href="#一、href的几种调用方法" class="headerlink" title="一、href的几种调用方法"></a>一、href的几种调用方法</h3><h4 id="1、a-href-”javascript-js-method-”"><a href="#1、a-href-”javascript-js-method-”" class="headerlink" title="1、a href=”javascript:js_method();”"></a>1、a href=”javascript:js_method();”</h4><p>这是常用的方法，但是这种方法在传递this等参数的时候很容易出问题，而且javascript：协议作为a的href属性的时候不仅会导致不必要的触发window.onbeforeunload事件，在IE里面更会使gif动画图片停止播放。W3C标准不推荐在href里面执行javascript语句。</p>
-<h4 id="2、a-href-”javascript-void-0-”-onclick-”js-method-”"><a href="#2、a-href-”javascript-void-0-”-onclick-”js-method-”" class="headerlink" title="2、a href=”javascript:void(0);” onclick=”js_method()”"></a>2、a href=”javascript:void(0);” onclick=”js_method()”</h4><p>这种方法是很多网站最常用的方法，也是最周全的方法，onclick方法负责执行js函数，而void是一个操作符，void(0)返回undefined，地址不发生跳转。而且这种方法不会像第一种方法一样直接js方法暴露在浏览器的状态栏。</p>
-<h4 id="3、a-href-”javascript-”-onclick-”js-method-”"><a href="#3、a-href-”javascript-”-onclick-”js-method-”" class="headerlink" title="3、a href=”javascript:;” onclick=”js_method()”"></a>3、a href=”javascript:;” onclick=”js_method()”</h4><p>这种方法跟2类似，区别只是执行了一条空的js代码</p>
-<h4 id="4、a-href-”-”-onclick-”js-method-”"><a href="#4、a-href-”-”-onclick-”js-method-”" class="headerlink" title="4、a href=”#” onclick=”js_method()”"></a>4、a href=”#” onclick=”js_method()”</h4><p>这种方法也是网上很常见的代码，#是标签内置的一个方法，”#”包含了一个位置信息，默认的锚点是#top,就是点击后返回页面的顶端。（如果希望不返回页面顶端，可以在#后面加任意无效的位置信息，如###）</p>
-<h4 id="5、a-href-”-”-onclick-”js-method-return-false-”"><a href="#5、a-href-”-”-onclick-”js-method-return-false-”" class="headerlink" title="5、a href=”#” onclick=”js_method();return false;”"></a>5、a href=”#” onclick=”js_method();return false;”</h4><p>这种方法点击执行了js函数后return false,页面不发生跳转，执行后还是在页面的当前位置。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/06/12/return-false实现同时对事件对象停止冒泡和默认行为/" title="return false实现同时对事件对象停止冒泡和默认行为" itemprop="url">return false实现同时对事件对象停止冒泡和默认行为</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-06-12T08:06:54.000Z" itemprop="datePublished"> Published 2017-06-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>网页上有两个元素，其中一个元素嵌套在另一个元素里面，并且都被绑定了click事件，那么点击内层元素，会冒泡到外层元素上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;content&quot;&gt;</div><div class="line">  外层div元素</div><div class="line">   &lt;span&gt;内层div元素&lt;/span&gt;</div><div class="line">   外层div元素</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;msg&apos;&gt;&lt;/div&gt;</div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;span&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">	&#125;)</div><div class="line">	$(&apos;#content&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;外层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line">	$(&apos;body&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;body元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt)</div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<p>效果如图：<br><img src="http://i.imgur.com/Xgm5FoE.png" alt=""><br>点击span元素<br><img src="http://i.imgur.com/VCfPqq8.png" alt=""><br>点击外层div元素<br><img src="http://i.imgur.com/zWRQWSe.png" alt=""><br>点击内层元素，会冒泡到外层的点击事件。</p>
-<h3 id="阻止冒泡"><a href="#阻止冒泡" class="headerlink" title="阻止冒泡"></a>阻止冒泡</h3><p>stopPropagation()方法可以停止事件冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&apos;span&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var txt=$(&apos;#msg&apos;).html()+&apos;&lt;p&gt;内层div元素被单击。&lt;/p&gt;&apos;;</div><div class="line">		$(&apos;#msg&apos;).html(txt);</div><div class="line">        event.stopPropagation();</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
-<p>点击span元素<br><img src="http://i.imgur.com/TYzNfYd.png" alt=""></p>
-<h3 id="阻止默认行为"><a href="#阻止默认行为" class="headerlink" title="阻止默认行为"></a>阻止默认行为</h3><p>网页中的元素有自己的默认行为，例如，单击“提交”按钮后表单会提交，有时需要阻止元素的默认行为。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;form action=&quot;test.html&quot;&gt;</div><div class="line">用户名：&lt;input type=&quot;text&quot; id=&quot;username&quot;&gt;</div><div class="line">&lt;br/&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;提交&quot; id=&quot;sub&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;msg&quot;&gt;&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">$(function()&#123;</div><div class="line">	$(&apos;#sub&apos;).bind(&apos;click&apos;,function()&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;);</div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>如果不阻止默认行为，用户名为空的时候，也能提交表单。阻止默认行为使用preventDefault()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(&apos;#sub&apos;).bind(&apos;click&apos;,function(event)&#123;</div><div class="line">		var username=$(&apos;#username&apos;).val();</div><div class="line">		if(username==&apos;&apos;)&#123;</div><div class="line">			$(&apos;#msg&apos;).html(&apos;&lt;p&gt;文本框的值不能为空。&lt;/p&gt;&apos;); </div><div class="line">            event.preventDefault();</div><div class="line">		&#125;</div><div class="line">	&#125;)</div></pre></td></tr></table></figure></p>
-<h3 id="同时对事件对象停止冒泡和默认行为——return-false"><a href="#同时对事件对象停止冒泡和默认行为——return-false" class="headerlink" title="同时对事件对象停止冒泡和默认行为——return false"></a>同时对事件对象停止冒泡和默认行为——return false</h3><p>将event.stopPropagation()和event.preventDefault()替换为return false就可以实现同样的效果。</p>
-<h4 id="return-false到底做了什么"><a href="#return-false到底做了什么" class="headerlink" title="return false到底做了什么"></a>return false到底做了什么</h4><p>1、event.preventDefault()<br>2、event.stopPropagation()<br>3、停止回调函数执行并立即返回<br>return false看似实现了阻止冒泡或者阻止默认事件，实际上还做了另外的操作，阻止浏览器默认行为的只有preventDefault()，除非你想停止事件冒泡，否则使用return false会为你的代码埋下很大的隐患。</p>
-<p>###扩展-stopImmediatePropagation()<br>stopImmediatePropagagtion()函数用于阻止剩余的事件处理函数的执行(为同一对象绑定了多个事件处理函数)，并防止当前事件在DOM树上冒泡。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;段落文本内容</div><div class="line">    &lt;input type=&quot;button&quot; value=&quot;点击&quot; /&gt;</div><div class="line">&lt;/p&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">// 为所有p元素绑定click事件</div><div class="line">$(&quot;p&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;p-click&quot;);</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第一个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-1&quot;);</div><div class="line">    </div><div class="line">    // 阻止事件冒泡到DOM树上，并阻止剩余的事件处理函数的执行</div><div class="line">    // 只执行button-click-1，如果注释掉该行，将执行button-click-1、button-click-2和p-click</div><div class="line">    // 如果换成event.stopPropagation() 将执行button-click-1和button-click-2</div><div class="line">    event.stopImmediatePropagation();</div><div class="line">&#125; );</div><div class="line"></div><div class="line">// 为所有button元素的click事件绑定第二个事件处理函数</div><div class="line">$(&quot;:button&quot;).click( function(event)&#123;</div><div class="line">    alert(&quot;button-click-2&quot;);</div><div class="line">&#125; );</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>与stopPropagation()相比，stopImmediatePropagation()还能阻止剩余事件处理函数的执行。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/6/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -555,7 +586,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -721,7 +752,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

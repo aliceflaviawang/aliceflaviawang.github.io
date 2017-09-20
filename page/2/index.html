@@ -48,7 +48,7 @@
 				<h2 class="blog-motto">We were moving mountains long before we knew we could</h2>
 			</div>
 			
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -64,7 +64,7 @@
  					
 						<form class="search" action="http://zhannei.baidu.com/cse/search" target="_blank">
 							<label>Search</label>
-						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="Search"><br>
+						<input name="s" type="hidden" value= null ><input type="text" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -81,6 +81,129 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2017/08/27/Generator/" title="Generator" itemprop="url">Generator</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-27T12:33:07.000Z" itemprop="datePublished"> 发表于 2017-08-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Generator函数是ES6提供的一种异步编程解决方案，Generator函数是一个状态机，封装了多个内部状态。除了状态机，还是一个遍历器对象生成函数，返回的遍历器对象，可以依次遍历Generator函数内部的每一个状态。</p>
+<p>形式上，Generator是一个普通函数，但有两个特征：一是，function关键字与函数名之间有个星号；二是，函数体内部使用yield表达式，定义不同的内部状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function* helloWorldGenerator() &#123;</div><div class="line">  yield &apos;hello&apos;;</div><div class="line">  yield &apos;world&apos;;</div><div class="line">  return &apos;ending&apos;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var hw = helloWorldGenerator();</div></pre></td></tr></table></figure></p>
+<p>上述定义了一个Generator函数helloWorldGenerator，它的内部有两个yield表达式，即函数有三个状态：hello,world和return语句（结束执行）。</p>
+<p>Generator函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用Generator函数后，该函数并不执行，返回的也不是一个函数运行结果，而是一个指向内部状态的指针对象（遍历器对象）。</p>
+<p>下一步，必须调用遍历器对象的next方法，使得指针移向下一个状态。每次调用next方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个yield表达式（或return语句）为止。换言之，Generator函数是分段执行的，yield表达死是暂停执行的标记，而next方法可以恢复执行。</p>
+<p>每一次调用遍历器对象的next方法，都会返回一个有着value和done两个属性的对象。value表示当前内部状态的值，是yield表达式后面那个表达式的值，done属性是一个布尔值，表示是否遍历结束。</p>
+<h3 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h3><p>协程是一种程序运行的方式，可以理解成“写作的线程”或“协作的函数”。协程既可以用单线程实现，也可以用多线程实现。前者是一种特殊的子例程，后者是一种特殊的线程。</p>
+<ol>
+<li>协程与子例程的差异<br>传统的子例程采用堆栈后进先出的执行方式，只有当调用的子函数完全执行完毕，才会结束执行父函数。协程与其不同，多个线程可以并行执行，但是只有一个线程处于正在运行状态，其他都处于暂停，线程之间可以交换执行权。这种可以并行执行、交换执行权的线程，成为协程。</li>
+<li>协程与普通线程的区别<br>相同点，都有自己的执行上下文、可以分享全局变量；不同之处，同一时间可以有多个线程处于运行状态，但是运行的协程只有一个，其他协程都处于暂停状态。另外普通线程是抢先式的，哪个线程优先得到资源，由运行环境决定，但是协程是合作式的，执行权由协程自己分配。</li>
+</ol>
+<p>Generator是ES6对协程的不完全实现，因为只有Generator的调用者才能将执行权还给Generator函数，如果完全执行的协程，任何函数都可以将暂停的协程继续执行。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/27/leetcode-contest/" title="leetcode contest" itemprop="url">leetcode contest</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-27T08:10:58.000Z" itemprop="datePublished"> 发表于 2017-08-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="8-27-contest"><a href="#8-27-contest" class="headerlink" title="8-27 contest"></a>8-27 contest</h3><h4 id="第1题"><a href="#第1题" class="headerlink" title="第1题"></a>第1题</h4><p>Non-decreasing Array My SubmissionsBack to Contest<br>User Accepted: 1054<br>User Tried: 1755<br>Total Accepted: 1080<br>Total Submissions: 7519<br>Difficulty: Easy<br>Given an array with n integers, your task is to check if it could become non-decreasing by modifying at most 1 element.</p>
+<p>We define an array is non-decreasing if array[i] &lt;= array[i + 1] holds for every i (1 &lt;= i &lt; n).</p>
+<p>Example 1:<br>Input: [4,2,3]<br>Output: True<br>Explanation: You could modify the first 4 to 1 to get a non-decreasing array.<br>Example 2:<br>Input: [4,2,1]<br>Output: False<br>Explanation: You can’t get a non-decreasing array by modify at most one element.<br>Note: The n belongs to [1, 10,000].<br>解题思路：<br>通过不断尝试出错发现：对于nums[i-1],nums[i],nums[i+1]来说，如果nums[i]<nums[i]-1&&nums[i]<nums[i+1]或者nums[i]>nums[i]-1&amp;&amp;nums[i]&gt;nums[i+1]，表明nums[i]是那个乱序的数字，把该数字从数组中删除，如果删除后的数组顺序是对的，那么返回true，否则返回false。<br>但是有nums[i]<nums[i]-1&&nums[i]<nums[i+1]和nums[j]>nums[j]-1&amp;&amp;nums[j]&gt;nums[j+1]同时存在的情况，比如[1,2,5,3,4]，5满足第二种情况，3满足第一种情况，此时如果将3移除数组很显然是错误的，因此还需要加一个条件：nums[i-1]&lt;=nums[i+1]。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">public class NonDecreasingArray &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner in = new Scanner(System.in);</div><div class="line">        while (in.hasNext()) &#123;</div><div class="line">           int n=in.nextInt();</div><div class="line">            int[] nums=new int[n];</div><div class="line">            for(int p=0;p&lt;n;p++)&#123;</div><div class="line">                nums[p]=in.nextInt();</div><div class="line">            &#125;</div><div class="line">            Boolean res=true;</div><div class="line"></div><div class="line">            int flag=0;</div><div class="line">            if(nums.length&gt;1)&#123;</div><div class="line">                if(nums[0]&gt;nums[1])&#123;</div><div class="line">                    flag=0;</div><div class="line">                &#125;else if(nums[nums.length-1]&lt;nums[nums.length-2])&#123;</div><div class="line">                    flag=nums.length-1;</div><div class="line">                &#125;else&#123;</div><div class="line"></div><div class="line">                    for(int i=nums.length-2;i&gt;0;i--)&#123;</div><div class="line">                        if((nums[i-1]&lt;nums[i+1])&amp;&amp;((nums[i]&gt;nums[i+1]&amp;&amp;nums[i]&gt;nums[i-1])||(nums[i]&lt;nums[i-1]&amp;&amp;nums[i]&lt;nums[i+1])))&#123;</div><div class="line">                            flag=i;</div><div class="line"></div><div class="line">                            break;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                for(int j=flag;j&lt;nums.length-1;j++)&#123;</div><div class="line">                    nums[j]=nums[j+1];</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                for(int k=0;k&lt;nums.length-2;k++)&#123;</div><div class="line"></div><div class="line">                    if(nums[k]&gt;nums[k+1])&#123;</div><div class="line">                        res=false;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">           System.out.println(res);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></nums[i]-1&&nums[i]<nums[i+1]和nums[j]></nums[i]-1&&nums[i]<nums[i+1]或者nums[i]></p>
+<h4 id="第2题"><a href="#第2题" class="headerlink" title="第2题"></a>第2题</h4><p>If the depth of a tree is smaller than 5, then this tree can be represented by a list of three-digits integers.</p>
+<p>For each integer in this list:<br>The hundreds digit represents the depth D of this node, 1 &lt;= D &lt;= 4.<br>The tens digit represents the position P of this node in the level it belongs to, 1 &lt;= P &lt;= 8. The position is the same as that in a full binary tree.<br>The units digit represents the value V of this node, 0 &lt;= V &lt;= 9.<br>Given a list of ascending three-digits integers representing a binary with the depth smaller than 5. You need to return the sum of all paths from the root towards the leaves.</p>
+<p>Example 1:<br>Input: [113, 215, 221]<br>Output: 12<br>Explanation:<br>The tree that the list represents is:<br>    3<br>   / \<br>  5   1</p>
+<p>The path sum is (3 + 5) + (3 + 1) = 12.<br>Example 2:<br>Input: [113, 221]<br>Output: 4<br>Explanation:<br>The tree that the list represents is:<br>    3<br>     \<br>      1</p>
+<p>The path sum is (3 + 1) = 4.<br>Discuss<br>解题思路：<br>从后往前判断节点是不是叶子节点，如果是叶子节点，求出它所有的祖先节点的和再与自身值相加。<br>判断本节点是否是叶子，就是判断是否有本节点的深度+1的节点，并且该节点的位置是本节点位置<em>2或者</em>2-1.<br>判断父节点，就是判断该节点的深度-1等于本节点，并且该节点的位置等于本节点位置+1除以2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">import java.util.Scanner;</div><div class="line">public class PathSumIV &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner in = new Scanner(System.in);</div><div class="line">        while (in.hasNext()) &#123;</div><div class="line">            int n=in.nextInt();</div><div class="line">            int[] nums=new int[n];</div><div class="line">            int sum=0;</div><div class="line">            for(int i=0;i&lt;n;i++)&#123;</div><div class="line">                nums[i]=in.nextInt();</div><div class="line">            &#125;</div><div class="line">            for(int j=n-1;j&gt;=0;j--)&#123;</div><div class="line">                //检测节点是不是叶子节点，isLeaf(nums[j]/100,nums[j]%100/10分别为深度和位置</div><div class="line">                if(isLeaf(nums[j]/100,nums[j]%100/10,nums))&#123;</div><div class="line">                    sum+=nums[j]%10+parent(nums[j]/100,nums[j]%100/10,nums);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            System.out.println(sum);</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    //首先判断是不是叶子节点</div><div class="line">    public static Boolean isLeaf(int dep,int pos,int[] nums)&#123;</div><div class="line">        Boolean res=true;</div><div class="line">        for(int i=0;i&lt;nums.length;i++)&#123;</div><div class="line">            if(nums[i]/100==dep+1&amp;&amp;(nums[i]%100/10==pos+pos-1||nums[i]%100/10==pos*2))&#123; </div><div class="line">                res=false;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return res;</div><div class="line">    &#125;</div><div class="line">    //对叶子的节点，将其祖先节点的值加起来</div><div class="line">    public static int parent(int dep,int pos,int[] nums)&#123;</div><div class="line">            int result=0;</div><div class="line">            for(int i=nums.length-1;i&gt;=0;i--)&#123;</div><div class="line">                if(nums[i]/100==dep-1&amp;&amp;nums[i]%100/10==(pos+1)/2)&#123;//判断父节点</div><div class="line">                    result+=nums[i]%10;</div><div class="line">                    dep=nums[i]/100;</div><div class="line">                    pos=nums[i]%100/10;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="第3题"><a href="#第3题" class="headerlink" title="第3题"></a>第3题</h4><p>Given two integers n and k, you need to construct a list which contains n different positive integers ranging from 1 to n and obeys the following requirement:<br>Suppose this list is [a1, a2, a3, … , an], then the list [|a1 - a2|, |a2 - a3|, |a3 - a4|, … , |an-1 - an|] has exactly k distinct integers.</p>
+<p>If there are multiple answers, print any of them.</p>
+<p>Example 1:<br>Input: n = 3, k = 1<br>Output: [1, 2, 3]<br>Explanation: The [1, 2, 3] has three different positive integers ranging from 1 to 3, and the [1, 1] has exactly 1 distinct integer: 1.</p>
+<p>Example 2:<br>Input: n = 3, k = 2<br>Output: [1, 3, 2]<br>Explanation: The [1, 3, 2] has three different positive integers ranging from 1 to 3, and the [2, 1] has exactly 2 distinct integers: 1 and 2.</p>
+<p>Note:<br>The n and k are in the range 1 &lt;= k &lt; n &lt;= 104.<br>解题思路：<br>找规律，k=1：不交换；k=2：将最后两位交换；k=3:将最后一位与第1位交换，后面依次往后挪一位；k=4:将最后一位与第1位交换,后面依次往后挪一位，然后最后两位交换；k=5:将将最后一位与第1位交换，后面依次往后挪一位，再将最后一位与第3位交换，后面依次往后挪一位….当k是基数的时候，交换了k/2次；当k是偶数的时候，液交换了k/2次，只是前k/2-1次是与前面的基数位交换，最后一次是最后两位交换。<br>由于java在数组的操作不如js方便，因此使用js来做此题，每次交换之后往后挪一位，只需要使用splice添加最后一位到指定位置然后pop弹出最后一位即可实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">var constructArray = function(n, k) &#123;</div><div class="line">    var arr=[];</div><div class="line">    //初始创建数组</div><div class="line">    for(var i=0;i&lt;n;i++)&#123;</div><div class="line">        arr[i]=i+1;</div><div class="line">    &#125;</div><div class="line">    if(k==1)&#123; //不交换，返回原数组</div><div class="line">        return arr;</div><div class="line">    &#125;else&#123;</div><div class="line">        if(k%2!=0)&#123; //k=基数</div><div class="line">           arr=change(k,arr);</div><div class="line">        &#125;</div><div class="line">        else&#123; //k=偶数</div><div class="line">          //对前k/2-1步进行交换操作</div><div class="line">          arr=change(k-1,arr);</div><div class="line">          //最后一步，交换最后两位</div><div class="line">          var temp1=arr[n-1];</div><div class="line">          arr[n-1]=arr[n-2];</div><div class="line">          arr[n-2]=temp1;        </div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return arr;</div><div class="line">&#125;</div><div class="line">//实现数组的交换操作</div><div class="line">function change(k,arr)&#123;</div><div class="line">    for(var j=1;j&lt;k;j=j+2)&#123;      </div><div class="line">            arr.splice(j,0,arr[arr.length-1]);</div><div class="line">            arr.pop();          </div><div class="line">        &#125;</div><div class="line">    return arr;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2017/08/24/JS继承实现方式/" title="JS继承实现方式" itemprop="url">JS继承实现方式</a>
   </h1>
   <p class="article-author">By
@@ -88,7 +211,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-24T08:45:01.000Z" itemprop="datePublished"> Published 2017-08-24</time>
+    <time datetime="2017-08-24T08:45:01.000Z" itemprop="datePublished"> 发表于 2017-08-24</time>
     
   </p>
 </header>
@@ -169,7 +292,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-23T02:07:46.000Z" itemprop="datePublished"> Published 2017-08-23</time>
+    <time datetime="2017-08-23T02:07:46.000Z" itemprop="datePublished"> 发表于 2017-08-23</time>
     
   </p>
 </header>
@@ -239,7 +362,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-17T07:48:25.000Z" itemprop="datePublished"> Published 2017-08-17</time>
+    <time datetime="2017-08-17T07:48:25.000Z" itemprop="datePublished"> 发表于 2017-08-17</time>
     
   </p>
 </header>
@@ -318,7 +441,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-17T02:35:10.000Z" itemprop="datePublished"> Published 2017-08-17</time>
+    <time datetime="2017-08-17T02:35:10.000Z" itemprop="datePublished"> 发表于 2017-08-17</time>
     
   </p>
 </header>
@@ -374,7 +497,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-14T02:39:57.000Z" itemprop="datePublished"> Published 2017-08-14</time>
+    <time datetime="2017-08-14T02:39:57.000Z" itemprop="datePublished"> 发表于 2017-08-14</time>
     
   </p>
 </header>
@@ -437,7 +560,7 @@
 		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
 		
   <p class="article-time">
-    <time datetime="2017-08-14T01:51:34.000Z" itemprop="datePublished"> Published 2017-08-14</time>
+    <time datetime="2017-08-14T01:51:34.000Z" itemprop="datePublished"> 发表于 2017-08-14</time>
     
   </p>
 </header>
@@ -492,182 +615,16 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/09/JS严格模式/" title="JS严格模式" itemprop="url">JS严格模式</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-09T13:53:55.000Z" itemprop="datePublished"> Published 2017-08-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>除了正常模式，ES5添加了第二种运行模式：“严格模式”。<br>设立严格模式的目的：</p>
-<ul>
-<li>消除JS语法的一些不合理、不严谨之处，减少一些怪异行为</li>
-<li>消除代码运行的一些不安全之处，保证代码运行的安全</li>
-<li>提供编译器效率，增加运行速度</li>
-<li>为未来新版本的JS做好铺垫<h3 id="进入标志"><a href="#进入标志" class="headerlink" title="进入标志"></a>进入标志</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="如何调用"><a href="#如何调用" class="headerlink" title="如何调用"></a>如何调用</h3><h4 id="针对单个脚本文件"><a href="#针对单个脚本文件" class="headerlink" title="针对单个脚本文件"></a>针对单个脚本文件</h4><p>将”use strict”放在脚本文件的第一行，则整个脚本都将以“严格模式”运行，如果这行语句不在第一行，则无效，整个脚本以“正常模式”运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">   &quot;use strict&quot;</div><div class="line">    console.log(&quot;这是严格模式&quot;)</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    console.log(&quot;这是正常模式&quot;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="针对单个函数"><a href="#针对单个函数" class="headerlink" title="针对单个函数"></a>针对单个函数</h4><p>将”use strict”放在函数体的第一行，则整个函数以“严格模式”运行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function strict()&#123;</div><div class="line">　　　　&quot;use strict&quot;;</div><div class="line">　　　　return &quot;这是严格模式。&quot;;</div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　function notStrict() &#123;</div><div class="line">　　　　return &quot;这是正常模式。&quot;;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="脚本文件的变通写法"><a href="#脚本文件的变通写法" class="headerlink" title="脚本文件的变通写法"></a>脚本文件的变通写法</h4><p>第一种调用方法不利于文件合并，所以更好的做法是，借用第二种方法，将整个脚本文件放在一个立即执行的匿名函数之中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(function ()&#123;</div><div class="line"></div><div class="line">　　　　&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　　　// some code here</div><div class="line"></div><div class="line">　　 &#125;)();</div></pre></td></tr></table></figure></p>
-<h3 id="语法和行为改变"><a href="#语法和行为改变" class="headerlink" title="语法和行为改变"></a>语法和行为改变</h3><p>严格模式对JS的语法和行为，都做了一些改变。</p>
-<h4 id="1-全局变量显示声明"><a href="#1-全局变量显示声明" class="headerlink" title="1.全局变量显示声明"></a>1.全局变量显示声明</h4><p>在正常模式中，如果一个变量没有声明就赋值，默认是全局变量，严格模式禁止这种用法，全局变量必须显式声明，否则报错。</p>
-<h4 id="2-静态绑定"><a href="#2-静态绑定" class="headerlink" title="2.静态绑定"></a>2.静态绑定</h4><p>JS允许“动态绑定”，即某些属性和方法到底属于哪个对象，不是在编译时确定，而是在运行时确定。<br>严格模式对动态绑定做了一些限制，某些情况下，只允许静态绑定。也就是说，属性和方法到底归属于哪个对象，在编译阶段就确定，这样做有利于编译效率的提供，也使得代码更易读。<br>具体涉及以下方面：</p>
-<ol>
-<li>禁止使用with语句</li>
-</ol>
-<p>因为with语句在编译时就无法确定，属性到底归属哪个对象</p>
-<ol>
-<li>创设eval作用域</li>
-</ol>
-<p>正常模式下，JS语言有两种变量作用域：全局作用域和函数作用域。严格模式下创设了第三种作用域：eval作用域。<br>正常模式下，eval作用域，取决于它处于全局作用域，还是处于函数作用域。严格模式下，eval语句本身就是一个作用域，不能再生成全局变量了，它生成的变量只能用于eval内部。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;</div><div class="line">var x=2;</div><div class="line">console.info(eval(&quot;var x=5;x&quot;)); //5</div><div class="line">console.info(x); //2</div></pre></td></tr></table></figure></p>
-<p>如果将var x=2去掉，console.info(x)将报错。</p>
-<h4 id="3-增加安全措施"><a href="#3-增加安全措施" class="headerlink" title="3.增加安全措施"></a>3.增加安全措施</h4><ol>
-<li>禁止this关键字指向全局对象<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function f()&#123;</div><div class="line">   &quot;use strict&quot;</div><div class="line">    this.a=1;</div><div class="line">&#125;</div><div class="line">f();//报错，this未定义</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>执行f()时，this指向全局对象，严格模式下报错，使用构造函数var aa=new f()；aa.a则正常，此时this指向aa。</p>
-<ol>
-<li>禁止在函数内部遍历栈<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function f1()&#123;</div><div class="line">  &quot;use strict&quot;</div><div class="line">  f1.caller;//报错</div><div class="line">  f1.arguments;//报错</div><div class="line">&#125;</div><div class="line">f1();</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="4-禁止删除变量"><a href="#4-禁止删除变量" class="headerlink" title="4.禁止删除变量"></a>4.禁止删除变量</h4><p>严格模式下无法删除变量。只有configurable为true时才能被删除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var x;</div><div class="line"></div><div class="line">　　delete x; // 语法错误</div><div class="line"></div><div class="line">　　var o = Object.create(null, &#123;&apos;x&apos;: &#123;</div><div class="line">　　　　　　value: 1,</div><div class="line">　　　　　　configurable: true</div><div class="line">　　&#125;&#125;);</div><div class="line"></div><div class="line">　　delete o.x; // 删除成功</div></pre></td></tr></table></figure></p>
-<h4 id="5-显式报错"><a href="#5-显式报错" class="headerlink" title="5.显式报错"></a>5.显式报错</h4><p>正常模式下，对一个对象的只读属性进行赋值，不会报错，只会默默失败，严格模式下，将报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var o = &#123;&#125;;</div><div class="line"></div><div class="line">　　Object.defineProperty(o, &quot;v&quot;, &#123; value: 1, writable: false &#125;);</div><div class="line"></div><div class="line">　　o.v = 2; // 报错</div></pre></td></tr></table></figure></p>
-<h4 id="6-重名错误"><a href="#6-重名错误" class="headerlink" title="6.重名错误"></a>6.重名错误</h4><ol>
-<li>对象不能有重名的属性(经测试谷歌浏览不会报错，但是IE浏览器会报错）<br>正常模式下，如果对象有多个重名的属性，最后赋值的那个属性会覆盖前面的值。严格模式下会报错。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var o = &#123;</div><div class="line">　　　　p: 1,</div><div class="line">　　　　p: 2</div><div class="line">　　&#125;; // 语法错误</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>2.函数不能有重名的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　function f(a, a, b) &#123; // 语法错误</div><div class="line"></div><div class="line">　　　　return ; </div><div class="line"></div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="7-禁止八进制表示法"><a href="#7-禁止八进制表示法" class="headerlink" title="7.禁止八进制表示法"></a>7.禁止八进制表示法</h4><p>正常模式下，整数的第一位如果是0，表示是八进制数，比如0100等于十进制的64。严格模式禁止这种表达方式，整数第一位为0会报错。</p>
-<h4 id="8-arguments对象的限制"><a href="#8-arguments对象的限制" class="headerlink" title="8.arguments对象的限制"></a>8.arguments对象的限制</h4><p>1.不允许对arguments赋值<br>2.不再追踪参数的变化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function f(a) &#123;</div><div class="line"></div><div class="line">　　　　a = 2;</div><div class="line"></div><div class="line">　　　　return [a, arguments[0]];</div><div class="line"></div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　f(1); // 正常模式为[2,2]</div><div class="line"></div><div class="line">　　function f(a) &#123;</div><div class="line"></div><div class="line">　　　　&quot;use strict&quot;; </div><div class="line"></div><div class="line">　　　　a = 2;</div><div class="line"></div><div class="line">　　　　return [a, arguments[0]];</div><div class="line"></div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　f(1); // 严格模式为[2,1]</div></pre></td></tr></table></figure></p>
-<ol>
-<li>禁止使用arguments.callee<br>这意味着，无法在匿名函数内部调用自身了<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　var f = function() &#123; return arguments.callee; &#125;;</div><div class="line">　　f(); // 报错</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="9-函数声明必须在顶层-经测试IE10以上及谷歌浏览器取消了这个"><a href="#9-函数声明必须在顶层-经测试IE10以上及谷歌浏览器取消了这个" class="headerlink" title="9.函数声明必须在顶层(经测试IE10以上及谷歌浏览器取消了这个)"></a>9.函数声明必须在顶层(经测试IE10以上及谷歌浏览器取消了这个)</h4><p>JS的新版本引入块级作用域，为了与新版本接轨，严格模式只允许在全局作用域或函数作用域的顶层声明函数。也就是说，不允许在非函数的代码块内声明函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&quot;use strict&quot;;</div><div class="line"></div><div class="line">　　if (true) &#123;</div><div class="line"></div><div class="line">　　　　function f() &#123; &#125; // IE10及以下报错</div><div class="line"></div><div class="line">　　&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="10-保留字"><a href="#10-保留字" class="headerlink" title="10.保留字"></a>10.保留字</h4><p>为了向将来Javascript的新版本过渡，严格模式新增了一些保留字：implements, interface, let, package, private, protected, public, static, yield。</p>
-<p>使用这些词作为变量名将会报错。</p>
-<p>此外，ECMAscript第五版本身还规定了另一些保留字（class, enum, export, extends, import, super），以及各大浏览器自行增加的const保留字，也是不能作为变量名的。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/08/09/箭头函数/" title="箭头函数" itemprop="url">箭头函数</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="Alice" target="_blank" itemprop="author">Alice</a>
-		
-  <p class="article-time">
-    <time datetime="2017-08-09T12:10:13.000Z" itemprop="datePublished"> Published 2017-08-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6允许使用“箭头”定义函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f= v =&gt; v;</div></pre></td></tr></table></figure></p>
-<p>上面的箭头函数等同于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v)&#123;</div><div class="line">  return v;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果箭头函数不需要参数或者需要多个参数，就使用一个圆括号代表参数部分。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var sum=(num1,num2) =&gt; num1+num2;</div></pre></td></tr></table></figure></p>
-<p>如果箭头函数的代码部门多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var sum=(num1,num2) =&gt; &#123;return num1+num2; &#125;</div></pre></td></tr></table></figure></p>
-<p>由于大括号被解释为代码块，如果箭头函数直接返回一个对象，必须在对象外面加上括号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var getTempItem =id =&gt; (&#123;id:id,name:&quot;Temp&quot;&#125;)</div></pre></td></tr></table></figure></p>
-<p>箭头函数可以与变量结构结合使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const full=(&#123;first,last&#125;) =&gt; first+&apos; &apos;+last;</div></pre></td></tr></table></figure></p>
-<h3 id="使用注意点"><a href="#使用注意点" class="headerlink" title="使用注意点"></a>使用注意点</h3><ol>
-<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象</li>
-<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误</li>
-<li>不可以使用arguments对象，该对象在函数体内不存在，如果要用，可以用Rest参数代替</li>
-<li>不可以使用yield命令，因为箭头函数不能用作Generator函数</li>
-</ol>
-<p>this指向固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正因为它没有this，所以也就不能用作构造函数。</p>
-<p>除了this以外，以下三个变量在箭头函数中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function foo()&#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">     console.log(&apos;args:&apos;, arguments);</div><div class="line">   &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo(2,4,6,8)</div><div class="line">//[2,4,6,8]</div></pre></td></tr></table></figure></p>
-<p>注意此处箭头函数内部的变量arguments，是函数foo的arguments变量，因为foo是普通函数，具有arguments。如果将function foo(){}换成var foo=()=&gt;{}，将会报arguments is undefined的错。<br>使用rest参数代替arguments：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var foo=(...numbers)=&gt;&#123;</div><div class="line">setTimeout(() =&gt; &#123;</div><div class="line">     console.log(&apos;args:&apos;, numbers);</div><div class="line">   &#125;, 100);</div><div class="line">&#125;</div><div class="line">foo(2,4,6,8)</div></pre></td></tr></table></figure></p>
-<p>另外，由于箭头函数没有自己的this，所以当然也就不能用call,apply,bind这些方法改变this的指向。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(function()&#123;</div><div class="line">  return [</div><div class="line">     (()=&gt;this.x).bind(&#123;x:&apos;inner&apos;&#125;)()</div><div class="line">  ]</div><div class="line">&#125;).call(&#123;x:&apos;outer&apos;&#125;)</div><div class="line">//outer</div></pre></td></tr></table></figure></p>
-<p>箭头函数没有自己的this，所以bind方法无效，内部的this指向外部的this，相当于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var x=&apos;outer&apos;;</div><div class="line">(function() &#123;</div><div class="line">   return [</div><div class="line">    (() =&gt; this.x).bind(&#123; x: &apos;inner&apos; &#125;)()</div><div class="line">  ];</div><div class="line"> &#125;)();</div></pre></td></tr></table></figure></p>
-<h3 id="函数绑定"><a href="#函数绑定" class="headerlink" title="函数绑定"></a>函数绑定</h3><p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、bind、apply）。但是很多场合不适用，于是ES7提出了”函数绑定”运算符来取代call、bind、apply调用。<br>函数绑定运算符是并排两个双冒号(::)，双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（this对象），绑定到右边的函数上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">foo::bar</div><div class="line">//等同于</div><div class="line">bar.bind(foo)</div><div class="line"></div><div class="line">foo:bar(...arguments)</div><div class="line">//等同于</div><div class="line">bar.apply(foo,arguments)</div></pre></td></tr></table></figure></p>
-<p>如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定到该对象上面。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let log=::console.log</div><div class="line">//等同于</div><div class="line">var log=console.log.bind(console)</div></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -678,7 +635,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
           <li>
@@ -844,7 +801,7 @@ $(document).ready(function(){
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
